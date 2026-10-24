@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Område (radius)",
+                "tracker": "📱 Enhetssporer (radius)",
+                "route_live": "🛣️ Rute (start/destinasjon, live med trafikken)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Mandag",
+                "tue": "Tirsdag",
+                "wed": "Onsdag",
+                "thu": "Torsdag",
+                "fri": "Fredag",
+                "sat": "Lørdag",
+                "sun": "Søndag"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Kø",
+                "lane_closed": "Felt stengt",
+                "road_closed": "Vei stengt",
+                "road_works": "Veiarbeid",
+                "accident": "Ulykke",
+                "broken_down_vehicle": "Havarert kjøretøy",
+                "dangerous_conditions": "Farlige kjøreforhold",
+                "fog": "Tåke",
+                "rain": "Regn",
+                "ice": "Is",
+                "wind": "Vind",
+                "flooding": "Oversvømmelse",
+                "unknown": "Ukjent",
+                "camera_fixed": "Fast fartskamera (blitzer.de, Lufop)",
+                "camera_mobile": "Mobilt fartskamera (blitzer.de, Lufop)",
+                "camera_trailer": "Fartskamera på tilhenger (blitzer.de)",
+                "camera_redlight": "Rødlyskamera (blitzer.de, Lufop)",
+                "camera_section": "Strekningsmåling (blitzer.de, Lufop)",
+                "check_distance": "Avstandskontroll (blitzer.de)",
+                "check_police": "Politikontroll (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andorra",
+                "au": "Australia",
+                "be": "Belgia",
+                "bg": "Bulgaria",
+                "ca": "Canada",
+                "cz": "Tsjekkia",
+                "fi": "Finland",
+                "fr": "Frankrike",
+                "de": "Tyskland",
+                "ie": "Irland",
+                "it": "Italia",
+                "lv": "Latvia",
+                "lu": "Luxembourg",
+                "ma": "Marokko",
+                "nl": "Nederland",
+                "nz": "New Zealand",
+                "no": "Norge",
+                "pl": "Polen",
+                "pt": "Portugal",
+                "es": "Spania",
+                "se": "Sverige",
+                "ch": "Sveits",
+                "ae": "De forente arabiske emirater",
+                "gb": "Storbritannia"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Generelt"
+        },
+        "settings": {
+            "name": "TomTom Innstillinger"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Meldinger"
+            },
+            "travel_time": {
+                "name": "Reisetid"
+            },
+            "traffic_delay": {
+                "name": "Trafikkforsinkelse"
+            },
+            "route_length": {
+                "name": "Rutelengde"
+            },
+            "requests": {
+                "name": "TomTom-forespørsler denne måneden"
+            },
+            "requests_total": {
+                "name": "Alle forespørsler denne måneden"
+            },
+            "requests_incidents": {
+                "name": "Incident Details denne måneden"
+            },
+            "requests_routing": {
+                "name": "Routing denne måneden"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding denne måneden"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding denne måneden"
+            },
+            "requests_search": {
+                "name": "Søk denne måneden"
+            },
+            "requests_tiles": {
+                "name": "Flytfliser denne måneden"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de denne måneden"
+            },
+            "requests_lufop": {
+                "name": "Lufop i dag"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Ny i"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Kvote i fare"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "Sett opp TomTom",
+                "description": "Gi denne oppføringen et navn og velg hvordan det skal søkes. Et område eller en sporer leser TomToms trafikkhendelser i sirkelen sin; en rute fra start til destinasjon regnes ut av TomTom ved hver henting, med trafikken i øyeblikket, og melder det den går gjennom.",
+                "data": {
+                    "name": "Visningsnavn",
+                    "search_mode": "Søkemodus"
+                }
+            },
+            "key": {
+                "title": "TomTom API-nøkkel",
+                "description": "Alt her kommer fra TomTom, som trenger en API-nøkkel - gratis, uten betalingsmetode:\n\n1. Registrer deg på [developer.tomtom.com]({url}).\n2. Rett etterpå står det allerede en nøkkel under **API & SDK Keys** i dashbordet, *My First API key*, med alle API-er aktivert - blant dem Traffic API, Routing API og Search API, de som brukes her. Kopier den med knappen ved siden av.\n3. Lim den inn her.\n\nÉn nøkkel betjener alle oppføringene i denne Home Assistant-installasjonen. Er en allerede lagret, la feltet stå tomt for å beholde den.",
+                "data": {
+                    "api_key": "API-nøkkel"
+                }
+            },
+            "route_defaults": {
+                "title": "Standardverdier for nye ruter",
+                "description": "Det hver ny rute starter med: på kortet lagres en rute som planlegges der, med disse innstillingene med én gang; i oppsettsveiviseren fylles de inn og kan fortsatt endres. Dagene og timene er de ruten holdes oppdatert i, og returen kan opprettes sammen med den - kjørt på et annet tidspunkt på dagen, med egne timer.",
+                "data": {
+                    "default_start": "Start for ruter planlagt på kortet (valgfritt)",
+                    "return_route": "Opprett også returen",
+                    "live_days": "Dager ruten holdes oppdatert",
+                    "live_from": "Fra",
+                    "live_until": "Til",
+                    "live_back_from": "Fra (retur)",
+                    "live_back_until": "Til (retur)",
+                    "categories": "Meldinger"
+                },
+                "data_description": {
+                    "return_route": "En ny oppføring, fra destinasjon til start - på en motorvei er returen den andre kjørebanen, og en kø på den ene er ikke en kø på den andre. Navngitt etter denne oppføringen, med \"retur\" lagt til."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "TomTom er satt opp",
+                "description": "Nøkkelen er lagret, og standardverdiene for nye ruter ligger under oppføringen **TomTom Innstillinger** - dens Konfigurer endrer begge senere. Fullfør nå og legg til det første området, sporeren eller ruten fra TomTom-flisens egen **Legg til oppføring** når du vil, eller lag den med en gang.",
+                "menu_options": {
+                    "finish": "Fullfør oppsettet",
+                    "add_entry": "Legg til det første området, sporeren eller ruten nå"
+                }
+            },
+            "area": {
+                "title": "Område (radius)",
+                "description": "Velg sirkelen TomToms meldinger vises i - opptil 50 km rundt midtpunktet, som er den største boksen TomTom svarer på i én forespørsel. Hver henting er én Incident Details-forespørsel (én til per 10 000 km² søkeflate), og en gratis nøkkel har 2 500 av dem i måneden: med standardtimen bruker et område omtrent 720.",
+                "data": {
+                    "location": "Område",
+                    "categories": "Meldinger"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Enhetssporer (radius)",
+                "description": "Velg enhetssporeren som skal følges, og hvor stor sirkel det skal søkes i rundt den. Bare sporere som melder koordinater akkurat nå, er listet opp - en som bare kjenner hjemme og borte, har ingen posisjon å legge en sirkel rundt. Hver henting er én Incident Details-forespørsel (én til per 10 000 km² søkeflate), og en gratis nøkkel har 2 500 av dem i måneden: med standardtimen bruker et område omtrent 720.",
+                "data": {
+                    "tracker": "Enhetssporer",
+                    "tracker_radius": "Radius (meter)",
+                    "categories": "Meldinger"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Hvor starter ruten?",
+                "menu_options": {
+                    "route_start_zone": "Sone",
+                    "route_start_point": "Punkt på kartet",
+                    "route_start_address": "Adresse"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: sone",
+                "data": {
+                    "zone": "Sone"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: punkt på kartet",
+                "description": "Flytt kartet så markøren står på starten.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adresse",
+                "description": "Gate og sted.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adresse funnet",
+                "description": "Funnet: **{label}**\n\nHvis dette ikke er stedet du mente, rett adressen og fortsett - den slås opp på nytt.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_destination": {
+                "title": "Destinasjon",
+                "description": "Hvor slutter ruten?",
+                "menu_options": {
+                    "route_destination_zone": "Sone",
+                    "route_destination_point": "Punkt på kartet",
+                    "route_destination_address": "Adresse"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Destinasjon: sone",
+                "data": {
+                    "zone": "Sone"
+                }
+            },
+            "route_destination_point": {
+                "title": "Destinasjon: punkt på kartet",
+                "description": "Flytt kartet så markøren står på destinasjonen.",
+                "data": {
+                    "location": "Destinasjon"
+                }
+            },
+            "route_destination_address": {
+                "title": "Destinasjon: adresse",
+                "description": "Gate og sted.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Destinasjon: adresse funnet",
+                "description": "Funnet: **{label}**\n\nHvis dette ikke er stedet du mente, rett adressen og fortsett - den slås opp på nytt.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_vias": {
+                "title": "Viapunkter",
+                "description": "Fra {start} til {destination}, {count} viapunkter så langt. TomTom tar den raskeste veien mellom dem - legg til et viapunkt der din vanlige vei avviker.",
+                "menu_options": {
+                    "route_via": "Legg til et viapunkt",
+                    "route_vias_clear": "Fjern alle viapunkter",
+                    "route_review": "Beregn ruten"
+                }
+            },
+            "route_via": {
+                "title": "Viapunkt {count}",
+                "description": "Flytt kartet så markøren står på en vei ruten skal ta.",
+                "data": {
+                    "location": "Viapunkt"
+                }
+            },
+            "route_failed": {
+                "title": "Ingen rute",
+                "description": "Fortsett for å endre punktene."
+            },
+            "route_review": {
+                "title": "Ruten din, akkurat nå",
+                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omtrent {duration} min akkurat nå, {delay} min av det forsinkelse. Ruten regnes ut på nytt ved hver henting; kartet viser den som trafikken gjør raskest i dette øyeblikket. Innenfor timene sine er hver henting én Routing-forespørsel, av 20 000 gratis i måneden; meldingene på ruten følger med, og Incident Details spørres én gang per ny melding om resten av det som er å vite.",
+                "data": {
+                    "return_route": "Opprett også returen",
+                    "return_name": "Returens navn",
+                    "live_days": "Dager ruten holdes oppdatert",
+                    "live_from": "Fra",
+                    "live_until": "Til",
+                    "live_back_from": "Fra (retur)",
+                    "live_back_until": "Til (retur)",
+                    "categories": "Meldinger"
+                },
+                "data_description": {
+                    "return_route": "En ny oppføring, fra destinasjon til start - på en motorvei er returen den andre kjørebanen, og en kø på den ene er ikke en kø på den andre. Navngitt etter denne oppføringen, med \"retur\" lagt til.",
+                    "return_name": "Brukes bare når returen opprettes. Fylt ut med denne oppføringens navn og \"retur\" lagt til; skriv et annet for å kalle den noe annet - \"Hjem\" og \"Jobb\", for eksempel."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "TomTom er allerede satt opp for dette navnet. Velg et annet.",
+            "location_missing": "Velg en posisjon (flytt kartet).",
+            "no_tracker_with_position": "Ingen enhetssporer melder en posisjon akkurat nå. Denne modusen trenger en som sender koordinater - en sporer som bare kjenner hjemme og borte, kan ikke sentrere en radius."
+        },
+        "error": {
+            "radius_too_large": "Radiusen kan være høyst 50 km - den største boksen TomTom svarer på i én forespørsel.",
+            "invalid_api_key": "TomTom godtok ikke API-nøkkelen.",
+            "quota_exceeded": "Nøkkelens kvote hos TomTom er brukt opp for nå. Prøv igjen senere.",
+            "address_not_found": "Fant ikke noe sted for denne adressen.",
+            "point_not_routable": "Et av punktene ligger for langt fra en vei. Flytt det nærmere en.",
+            "no_route": "TomTom fant ingen vei som forbinder disse punktene.",
+            "route_too_long": "Ruten er for lang for TomTom, eller har for mange punkter.",
+            "return_name_taken": "En oppføring med det navnet finnes allerede - denne inkludert.",
+            "cannot_connect": "TomTom kunne ikke nås.",
+            "zone_without_position": "Denne sonen har ingen posisjon.",
+            "api_key_required": "Skriv inn en API-nøkkel.",
+            "lufop_key_required": "Lufop trenger API-nøkkelen sin for å slås på.",
+            "invalid_lufop_key": "Lufop godtok ikke API-nøkkelen.",
+            "lufop_cannot_connect": "Lufop kunne ikke nås. Nøkkelen ble ikke kontrollert - prøv igjen senere.",
+            "lufop_refused": "Lufop avviste forespørselen uten å avvise nøkkelen. Dagens forespørsler kan være brukt opp - prøv igjen etter midnatt UTC, eller sjekk nøkkelen i Lufop-dashbordet ditt.",
+            "lufop_busy": "Lufops grense på 10 forespørsler i minuttet er nådd. Prøv igjen om et minutt."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Oppdater",
+            "description": "Henter de siste meldingene for ett TomTom-område, én rute eller én sporer med én gang, i stedet for å vente på neste planlagte henting - og for en liverute, selve ruten først. Returnerer meldingene.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Område, rute eller sporer",
+                    "description": "Hvilket TomTom-område, hvilken rute eller hvilken sporer som skal oppdateres."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Hva vil du endre?",
+                "menu_options": {
+                    "edit_route": "Endre ruten (start, destinasjon, viapunkter)",
+                    "edit_route_settings": "Rediger søkeinnstillinger (timer, typer, filtre)",
+                    "edit_key": "Bytt API-nøkkel",
+                    "route_defaults": "Standardverdier for nye ruter",
+                    "quota_warning": "Kvotevarsel",
+                    "sources": "Datakilder"
+                }
+            },
+            "route_defaults": {
+                "title": "Standardverdier for nye ruter",
+                "description": "Det hver ny rute starter med: på kortet lagres en rute som planlegges der, med disse innstillingene med én gang; i oppsettsveiviseren fylles de inn og kan fortsatt endres. Dagene og timene er de ruten holdes oppdatert i, og returen kan opprettes sammen med den - kjørt på et annet tidspunkt på dagen, med egne timer.",
+                "data": {
+                    "default_start": "Start for ruter planlagt på kortet (valgfritt)",
+                    "return_route": "Opprett også returen",
+                    "live_days": "Dager ruten holdes oppdatert",
+                    "live_from": "Fra",
+                    "live_until": "Til",
+                    "live_back_from": "Fra (retur)",
+                    "live_back_until": "Til (retur)",
+                    "categories": "Meldinger"
+                },
+                "data_description": {
+                    "return_route": "En ny oppføring, fra destinasjon til start - på en motorvei er returen den andre kjørebanen, og en kø på den ene er ikke en kø på den andre. Navngitt etter denne oppføringen, med \"retur\" lagt til."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Kvotevarsel",
+                "description": "Når forespørslene til et API begynner å ta slutt, sier en reparasjon fra, og sensoren **Kvote i fare** på TomTom Generelt slås på.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "Fra den åttende dagen i måneden fremskrives forespørslene så langt til slutten av måneden. Det som telles, er det denne integrasjonen spør om; en nøkkel som også brukes andre steder, står høyere hos TomTom.",
+                        "data": {
+                            "quota_warning": "Varsle når gratiskvoten ikke vil vare måneden ut",
+                            "quota_threshold": "Varsle fra denne andelen av gratiskvoten"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % varsler når selve kvoten vil bli overskredet, 80 % allerede ved fire femtedeler av den."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "Lufop teller per dag, fra midnatt til midnatt UTC, alt som bruker nøkkelen medregnet. Gjelder mens Lufop er på under Datakilder.",
+                        "data": {
+                            "lufop_quota_warning": "Varsle når dagens forespørsler begynner å ta slutt eller er brukt opp",
+                            "lufop_quota_threshold": "Varsle fra denne andelen av dagens forespørsler"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "Det første varselet kommer ved denne andelen; et andre når alle er brukt."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Datakilder",
+                "description": "Flere kilder til meldinger ved siden av TomTom, for alle oppføringer samtidig. En kilde legger bare til det TomTom ikke har, under egne typer i listen til hver oppføring, så ingen melding står der to ganger.\n\n**blitzer.de** melder fartskameraer og trafikkontroller, faste og mobile, i Tyskland og nabolandene. Ingen nøkkel og ingen konto; den leser det nettstedets eget kart leser, som blitzer.de ikke har publisert som et API, og som kan endres eller stenges. Hver forespørsel telles under **blitzer.de denne måneden**.\n\n**Lufop** melder fartskameraer, faste, mobile og rødlys, og strekningsmålinger, fra sin radardatabase - et dokumentert API med en gratis personlig nøkkel fra [api.lufop.net](https://api.lufop.net/). En forespørsel svarer for ett land; gratisplanen dekker Frankrike, Belgia og Sveits, 200 forespørsler om dagen og 200 radarer per forespørsel. Hver forespørsel telles under **Lufop i dag**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Lufop API-nøkkel",
+                    "lufop_country": "Lufop: land"
+                },
+                "data_description": {
+                    "lufop_api_key": "Kontrolleres når den oppgis og når Lufop slås på; en som allerede er lagret, beholdes ved å la feltet stå tomt.",
+                    "lufop_country": "Det ene landet hver oppføring spør Lufop om - gratisplanen tillater Frankrike, Belgia og Sveits."
+                }
+            },
+            "key": {
+                "title": "TomTom API-nøkkel",
+                "description": "Alt her kommer fra TomTom, som trenger en API-nøkkel - gratis, uten betalingsmetode:\n\n1. Registrer deg på [developer.tomtom.com]({url}).\n2. Rett etterpå står det allerede en nøkkel under **API & SDK Keys** i dashbordet, *My First API key*, med alle API-er aktivert - blant dem Traffic API, Routing API og Search API, de som brukes her. Kopier den med knappen ved siden av.\n3. Lim den inn her.\n\nÉn nøkkel betjener alle oppføringene i denne Home Assistant-installasjonen. Er en allerede lagret, la feltet stå tomt for å beholde den.",
+                "data": {
+                    "api_key": "API-nøkkel"
+                }
+            },
+            "area": {
+                "title": "Område (radius)",
+                "description": "Velg sirkelen TomToms meldinger vises i - opptil 50 km rundt midtpunktet, som er den største boksen TomTom svarer på i én forespørsel. Hver henting er én Incident Details-forespørsel (én til per 10 000 km² søkeflate), og en gratis nøkkel har 2 500 av dem i måneden: med standardtimen bruker et område omtrent 720.",
+                "data": {
+                    "location": "Område",
+                    "categories": "Meldinger"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Enhetssporer (radius)",
+                "description": "Velg enhetssporeren som skal følges, og hvor stor sirkel det skal søkes i rundt den. Bare sporere som melder koordinater akkurat nå, er listet opp - en som bare kjenner hjemme og borte, har ingen posisjon å legge en sirkel rundt. Hver henting er én Incident Details-forespørsel (én til per 10 000 km² søkeflate), og en gratis nøkkel har 2 500 av dem i måneden: med standardtimen bruker et område omtrent 720.",
+                "data": {
+                    "tracker": "Enhetssporer",
+                    "tracker_radius": "Radius (meter)",
+                    "categories": "Meldinger"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Hvor starter ruten?",
+                "menu_options": {
+                    "route_start_zone": "Sone",
+                    "route_start_point": "Punkt på kartet",
+                    "route_start_address": "Adresse"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: sone",
+                "data": {
+                    "zone": "Sone"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: punkt på kartet",
+                "description": "Flytt kartet så markøren står på starten.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adresse",
+                "description": "Gate og sted.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adresse funnet",
+                "description": "Funnet: **{label}**\n\nHvis dette ikke er stedet du mente, rett adressen og fortsett - den slås opp på nytt.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_destination": {
+                "title": "Destinasjon",
+                "description": "Hvor slutter ruten?",
+                "menu_options": {
+                    "route_destination_zone": "Sone",
+                    "route_destination_point": "Punkt på kartet",
+                    "route_destination_address": "Adresse"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Destinasjon: sone",
+                "data": {
+                    "zone": "Sone"
+                }
+            },
+            "route_destination_point": {
+                "title": "Destinasjon: punkt på kartet",
+                "description": "Flytt kartet så markøren står på destinasjonen.",
+                "data": {
+                    "location": "Destinasjon"
+                }
+            },
+            "route_destination_address": {
+                "title": "Destinasjon: adresse",
+                "description": "Gate og sted.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Destinasjon: adresse funnet",
+                "description": "Funnet: **{label}**\n\nHvis dette ikke er stedet du mente, rett adressen og fortsett - den slås opp på nytt.",
+                "data": {
+                    "address": "Adresse"
+                }
+            },
+            "route_vias": {
+                "title": "Viapunkter",
+                "description": "Fra {start} til {destination}, {count} viapunkter så langt. TomTom tar den raskeste veien mellom dem - legg til et viapunkt der din vanlige vei avviker.",
+                "menu_options": {
+                    "route_via": "Legg til et viapunkt",
+                    "route_vias_clear": "Fjern alle viapunkter",
+                    "route_review": "Beregn ruten"
+                }
+            },
+            "route_via": {
+                "title": "Viapunkt {count}",
+                "description": "Flytt kartet så markøren står på en vei ruten skal ta.",
+                "data": {
+                    "location": "Viapunkt"
+                }
+            },
+            "route_failed": {
+                "title": "Ingen rute",
+                "description": "Fortsett for å endre punktene."
+            },
+            "route_review": {
+                "title": "Ruten din, akkurat nå",
+                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omtrent {duration} min akkurat nå, {delay} min av det forsinkelse. Ruten regnes ut på nytt ved hver henting; kartet viser den som trafikken gjør raskest i dette øyeblikket. Innenfor timene sine er hver henting én Routing-forespørsel, av 20 000 gratis i måneden; meldingene på ruten følger med, og Incident Details spørres én gang per ny melding om resten av det som er å vite.",
+                "data": {
+                    "live_days": "Dager ruten holdes oppdatert",
+                    "live_from": "Fra",
+                    "live_until": "Til",
+                    "categories": "Meldinger"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valgfrie innstillinger",
+                        "data": {
+                            "only_certain": "Bare meldinger TomTom er sikker på",
+                            "count": "Antall meldinger",
+                            "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
+                            "new_minutes": "Regnes som ny i (minutter, 0 = av)",
+                            "roads": "Bare disse veiene (veinumre atskilt med komma, f.eks. A8, B2)",
+                            "blacklist": "Svarteliste (hendelses-ID-er atskilt med komma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
+                            "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "Radiusen kan være høyst 50 km - den største boksen TomTom svarer på i én forespørsel.",
+            "invalid_api_key": "TomTom godtok ikke API-nøkkelen.",
+            "quota_exceeded": "Nøkkelens kvote hos TomTom er brukt opp for nå. Prøv igjen senere.",
+            "address_not_found": "Fant ikke noe sted for denne adressen.",
+            "point_not_routable": "Et av punktene ligger for langt fra en vei. Flytt det nærmere en.",
+            "no_route": "TomTom fant ingen vei som forbinder disse punktene.",
+            "route_too_long": "Ruten er for lang for TomTom, eller har for mange punkter.",
+            "return_name_taken": "En oppføring med det navnet finnes allerede - denne inkludert.",
+            "cannot_connect": "TomTom kunne ikke nås.",
+            "zone_without_position": "Denne sonen har ingen posisjon.",
+            "api_key_required": "Skriv inn en API-nøkkel.",
+            "lufop_key_required": "Lufop trenger API-nøkkelen sin for å slås på.",
+            "invalid_lufop_key": "Lufop godtok ikke API-nøkkelen.",
+            "lufop_cannot_connect": "Lufop kunne ikke nås. Nøkkelen ble ikke kontrollert - prøv igjen senere.",
+            "lufop_refused": "Lufop avviste forespørselen uten å avvise nøkkelen. Dagens forespørsler kan være brukt opp - prøv igjen etter midnatt UTC, eller sjekk nøkkelen i Lufop-dashbordet ditt.",
+            "lufop_busy": "Lufops grense på 10 forespørsler i minuttet er nådd. Prøv igjen om et minutt."
+        },
+        "abort": {
+            "no_tracker_with_position": "Ingen enhetssporer melder en posisjon akkurat nå. Denne modusen trenger en som sender koordinater - en sporer som bare kjenner hjemme og borte, kan ikke sentrere en radius."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} leverer ikke",
+            "description": "TomTom-oppføringen **{name}** har mislyktes i {count} hentinger på rad, så entitetene dens er utilgjengelige. Siste årsak:\n\n`{reason}`\n\nEn sporer uten posisjon, eller en sporerentitet som ikke finnes lenger, rettes under oppføringens **Konfigurer**; en avvist nøkkel under **Konfigurer** på oppføringen TomTom Innstillinger; kan ikke TomTom selv nås, forsvinner dette av seg selv så snart det går igjen. Denne reparasjonen forsvinner med neste henting som lykkes."
+        },
+        "quota_at_risk": {
+            "title": "{api}-kvoten vil ikke vare måneden ut",
+            "description": "{used} av {tier} gratis **{api}**-forespørsler etter {days} dager; i dette tempoet omtrent **{projected}** ved slutten av måneden, mer enn {percent} % av kvoten.\n\nFærre hentinger hjelper: et lengre oppdateringsintervall, strammere timer på en rute, trafikkflyten på færre kort.\n\nDette forsvinner når tempoet faller under andelen som er satt under TomTom Innstillinger → Konfigurer → Kvotevarsel → TomTom, og med den nye måneden."
+        },
+        "quota_day_at_risk": {
+            "title": "Dagens {api}-forespørsler er nesten brukt opp",
+            "description": "{used} av de {tier} forespørslene om dagen som **{api}**-planen tillater, er brukt.\n\nDagens forespørsler deles av alle oppføringene i denne installasjonen - og av alt annet som bruker samme nøkkel. Færre hentinger hjelper: et lengre oppdateringsintervall, strammere timer på en rute, eller Lufop slått av for oppføringene som ligger utenfor landet dens.\n\nDette forsvinner ved midnatt UTC, når Lufops dag skifter, eller når andelen som er satt under TomTom Innstillinger → Konfigurer → Kvotevarsel → Lufop, heves."
+        },
+        "quota_day_used_up": {
+            "title": "Dagens {api}-forespørsler er brukt opp",
+            "description": "Alle {tier} forespørsler om dagen i **{api}**-planen er brukt - Lufop teller alt som bruker samme nøkkel. Den avviser flere forespørsler til midnatt UTC - {reset} her.\n\nFærre hentinger hjelper i morgen: et lengre oppdateringsintervall, strammere timer på en rute, eller Lufop slått av for oppføringene utenfor landet dens."
+        }
+    }
+}

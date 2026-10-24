@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Traffic jam",
+    "lane_closed": "Lane closed",
+    "road_closed": "Road closed",
+    "road_works": "Roadworks",
+    "accident": "Accident",
+    "broken_down_vehicle": "Broken down vehicle",
+    "dangerous_conditions": "Dangerous conditions",
+    "fog": "Fog",
+    "rain": "Rain",
+    "ice": "Ice",
+    "wind": "Wind",
+    "flooding": "Flooding",
+    "unknown": "Unknown",
+    "camera_fixed": "Fixed speed camera (blitzer.de, Lufop)",
+    "camera_mobile": "Mobile speed camera (blitzer.de, Lufop)",
+    "camera_trailer": "Speed camera trailer (blitzer.de)",
+    "camera_redlight": "Red-light camera (blitzer.de, Lufop)",
+    "camera_section": "Section control (blitzer.de, Lufop)",
+    "check_distance": "Distance check (blitzer.de)",
+    "check_police": "Police check (blitzer.de)"
+  },
+  "days": {
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday",
+    "sat": "Saturday",
+    "sun": "Sunday"
+  },
+  "modes": {
+    "area": "📍 Area (radius)",
+    "tracker": "📱 Device tracker (radius)",
+    "route_live": "🛣️ Route (start/destination, live with the traffic)"
+  },
+  "typeData": {
+    "categories": "Reports"
+  },
+  "optional": {
+    "name": "Optional settings",
+    "data": {
+      "only_certain": "Only reports TomTom is sure of",
+      "count": "Number of reports",
+      "update_interval": "Update interval (minutes, 0 = manual only)",
+      "new_minutes": "Counts as new for (minutes, 0 = off)",
+      "roads": "Only these roads (comma-separated road numbers, e.g. A8, B2)",
+      "blacklist": "Blacklist (comma-separated incident IDs)"
+    },
+    "description": {
+      "only_certain": "TomTom rates every report: certain, probable, risk_of or improbable. A jam measured from moving cars is certain, a roadwork from a road authority probable, a driver's single report a risk. On, the first two are kept; off, the uncertain ones come along too.",
+      "roads": "Only reports TomTom files under one of these road numbers, A8 or B2 - the motorways of a commute without every side street along it. Case and spaces do not matter. Empty keeps every road.",
+      "blacklist": "Reports to leave out, by TomTom's incident id - the id or short_id attribute of a report's entity, shown in its details. TomTom's own apps do not show it."
+    }
+  },
+  "budgetArea": "Every poll is one Incident Details request (one more per 10,000 km² of the search), and a free key has 2,500 of those a month: at the default hour an area spends about 720.",
+  "budgetRoute": "Inside its hours every poll is one Routing request, of 20,000 free a month; the reports on the route come with it, and Incident Details is asked once per new report for the rest of what there is to know.",
+  "entities": {
+    "sensor": {
+      "report_count": "Reports",
+      "travel_time": "Travel time",
+      "traffic_delay": "Traffic delay",
+      "route_length": "Route length",
+      "requests": "TomTom requests this month",
+      "requests_total": "All requests this month",
+      "requests_incidents": "Incident Details this month",
+      "requests_routing": "Routing this month",
+      "requests_geocoding": "Geocoding this month",
+      "requests_reverse_geocoding": "Reverse Geocoding this month",
+      "requests_search": "Search this month",
+      "requests_tiles": "Flow tiles this month",
+      "requests_blitzer": "blitzer.de this month",
+      "requests_lufop": "Lufop today"
+    },
+    "number": {
+      "new_minutes": "New for"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Quota at risk"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "TomTom Setup",
+      "description": "Name this entry and choose how it should be searched. An area or a tracker reads TomTom's traffic incidents in its circle; a route from start to destination is worked out by TomTom on every poll, with the traffic of the moment, and reports what it runs through.",
+      "data": {
+        "name": "Display name",
+        "search_mode": "Search mode"
+      }
+    },
+    "key": {
+      "title": "TomTom API key",
+      "description": "Everything here comes from TomTom, which needs an API key - free, no payment method:\n\n1. Sign up at [developer.tomtom.com]({url}).\n2. Right after that, **API & SDK Keys** in the dashboard already lists a key, *My First API key*, with every API enabled - the Traffic API, the Routing API and the Search API among them, the ones used here. Copy it with the button beside it.\n3. Paste it here.\n\nOne key serves every entry of this Home Assistant. If one is already saved, leave the field empty to keep it.",
+      "data": {
+        "api_key": "API key"
+      }
+    },
+    "area": {
+      "title": "Area (radius)",
+      "description": "Select the circle in which TomTom's reports are shown - up to 50 km around its centre, which is the largest box TomTom answers in one request. ",
+      "data": {
+        "location": "Area"
+      }
+    },
+    "tracker": {
+      "title": "Device tracker (radius)",
+      "description": "Pick the device tracker to follow and how wide a circle to search around it. Only trackers currently reporting coordinates are listed - one that knows nothing but home and away has no position to put a circle around. ",
+      "data": {
+        "tracker": "Device tracker",
+        "tracker_radius": "Radius (meters)"
+      }
+    },
+    "route_start": {
+      "title": "Start",
+      "description": "Where does the route start?",
+      "menu": {
+        "route_start_zone": "Zone",
+        "route_start_point": "Point on the map",
+        "route_start_address": "Address"
+      }
+    },
+    "route_start_zone": {
+      "title": "Start: zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_start_point": {
+      "title": "Start: point on the map",
+      "description": "Move the map so the marker sits on the start.",
+      "data": {
+        "location": "Start"
+      }
+    },
+    "route_start_address": {
+      "title": "Start: address",
+      "description": "Street and town.",
+      "data": {
+        "address": "Address"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Start: address found",
+      "description": "Found: **{label}**\n\nIf this is not the place you meant, correct the address and continue - it will be looked up again.",
+      "data": {
+        "address": "Address"
+      }
+    },
+    "route_destination": {
+      "title": "Destination",
+      "description": "Where does the route end?",
+      "menu": {
+        "route_destination_zone": "Zone",
+        "route_destination_point": "Point on the map",
+        "route_destination_address": "Address"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Destination: zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_destination_point": {
+      "title": "Destination: point on the map",
+      "description": "Move the map so the marker sits on the destination.",
+      "data": {
+        "location": "Destination"
+      }
+    },
+    "route_destination_address": {
+      "title": "Destination: address",
+      "description": "Street and town.",
+      "data": {
+        "address": "Address"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Destination: address found",
+      "description": "Found: **{label}**\n\nIf this is not the place you meant, correct the address and continue - it will be looked up again.",
+      "data": {
+        "address": "Address"
+      }
+    },
+    "route_vias": {
+      "title": "Via points",
+      "description": "From {start} to {destination}, {count} via points so far. TomTom takes the fastest road between them - add a via point wherever your usual way differs.",
+      "menu": {
+        "route_via": "Add a via point",
+        "route_vias_clear": "Remove all via points",
+        "route_review": "Calculate the route"
+      }
+    },
+    "route_via": {
+      "title": "Via point {count}",
+      "description": "Move the map so the marker sits on a road the route should take.",
+      "data": {
+        "location": "Via point"
+      }
+    },
+    "route_review": {
+      "title": "Your route, right now",
+      "description": "{start} → {destination}, {vias} via points: {distance}, about {duration} min right now, {delay} min of it delay. The route is worked out again on every poll; the map shows the one the traffic makes fastest at this moment. ",
+      "data": {
+        "return_route": "Also create the way back",
+        "return_name": "Name of the way back",
+        "live_days": "Days the route is kept up to date",
+        "live_from": "From",
+        "live_until": "Until",
+        "live_back_from": "From (way back)",
+        "live_back_until": "Until (way back)"
+      },
+      "data_description": {
+        "return_route": "A second entry, destination to start - on a motorway the way back is the other carriageway, and a jam on one is not one on the other. Named after this entry, with \"return\" added.",
+        "return_name": "Only used when the way back is created. Filled with this entry's name and \"return\" added; type another to call it something else - \"Home\" and \"Work\", say."
+      }
+    },
+    "route_failed": {
+      "title": "No route",
+      "description": "Continue to change the points."
+    },
+    "init": {
+      "title": "What do you want to edit?",
+      "menu": {
+        "edit_route": "Change the route (start, destination, via points)",
+        "edit_route_settings": "Edit search settings (hours, kinds, filters)",
+        "edit_key": "Change the API key",
+        "route_defaults": "Defaults for new routes",
+        "quota_warning": "Quota warning",
+        "sources": "Data sources"
+      }
+    },
+    "route_defaults": {
+      "title": "Defaults for new routes",
+      "description": "What every new route starts with: on the card, a route planned there is saved with these settings straight away; in the setup wizard they are filled in and can still be changed. The days and hours are the ones the route is kept up to date in, and the way back can be made along with it - driven at another time of day, with hours of its own.",
+      "data": {
+        "default_start": "Start for routes planned on the card (optional)"
+      }
+    },
+    "quota_warning": {
+      "title": "Quota warning",
+      "description": "When an API's requests run low, a repair says so and the **Quota at risk** sensor on TomTom General turns on.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "From the eighth day of the month, the requests so far are projected to the month's end. Counted is what this integration asks for; a key used elsewhere too stands higher at TomTom.",
+          "data": {
+            "quota_warning": "Warn when the free tier will not last the month",
+            "quota_threshold": "Warn from this share of the free tier"
+          },
+          "data_description": {
+            "quota_threshold": "100 % warns when the tier itself will be passed, 80 % already at four fifths of it."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop counts by the day, midnight to midnight UTC, everything that uses the key included. Applies while Lufop is on under Data sources.",
+          "data": {
+            "lufop_quota_warning": "Warn when the day's requests run low or out",
+            "lufop_quota_threshold": "Warn from this share of the day's requests"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "The first warning comes at this share; a second one when all are used."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Data sources",
+      "description": "Further sources of reports beside TomTom, for every entry at once. A source adds only what TomTom has not got, under kinds of its own in each entry's list, so no report stands there twice.\n\n**blitzer.de** reports speed cameras and traffic checks, fixed and mobile, in Germany and its neighbours. No key and no account; it reads what the site's own map reads, which blitzer.de has not published as an API and may change or close. Every request is counted under **blitzer.de this month**.\n\n**Lufop** reports speed cameras, fixed, mobile and red-light, and section controls, from its radar database - a documented API with a free personal key from [api.lufop.net](https://api.lufop.net/). A request answers one country; the free plan covers France, Belgium and Switzerland, 200 requests a day and 200 radars a request. Every request is counted under **Lufop today**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop API key",
+        "lufop_country": "Lufop: country"
+      },
+      "data_description": {
+        "lufop_api_key": "Checked when it is given and when Lufop is switched on; one already saved is kept by leaving the field empty.",
+        "lufop_country": "The one country every entry asks Lufop for - the free plan allows France, Belgium and Switzerland."
+      }
+    },
+    "first": {
+      "title": "TomTom is set up",
+      "description": "The key is saved, and the defaults for new routes are kept under the **TomTom Settings** entry - its Configure changes both later. Finish now and add the first area, tracker or route from the TomTom tile's own **Add entry** whenever you like, or make it right away.",
+      "menu": {
+        "finish": "Finish setup",
+        "add_entry": "Add the first area, tracker or route now"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom is already configured for this name. Pick a different one.",
+    "location_missing": "Please select a position (move the map).",
+    "no_tracker_with_position": "No device tracker is reporting a position right now. This mode needs one that sends coordinates - a tracker that knows nothing but home and away cannot centre a radius."
+  },
+  "error": {
+    "radius_too_large": "The radius may be at most 50 km - the largest box TomTom answers in one request.",
+    "invalid_api_key": "TomTom did not accept the API key.",
+    "quota_exceeded": "The key's quota at TomTom is used up for now. Try again later.",
+    "address_not_found": "No place was found for this address.",
+    "point_not_routable": "One of the points is too far from a road. Move it closer to one.",
+    "no_route": "TomTom found no road connecting these points.",
+    "route_too_long": "The route is too long for TomTom, or has too many points.",
+    "return_name_taken": "An entry of that name exists already - this one included.",
+    "cannot_connect": "TomTom could not be reached.",
+    "zone_without_position": "This zone has no position.",
+    "api_key_required": "Enter an API key.",
+    "lufop_key_required": "Lufop needs its API key to be switched on.",
+    "invalid_lufop_key": "Lufop did not accept the API key.",
+    "lufop_cannot_connect": "Lufop could not be reached. The key was not checked - try again later.",
+    "lufop_refused": "Lufop refused the request without refusing the key. The day's requests may be used up - try again after midnight UTC, or check the key on your Lufop dashboard.",
+    "lufop_busy": "Lufop's limit of 10 requests a minute was reached. Try again in a minute."
+  },
+  "service": {
+    "name": "Refresh",
+    "description": "Immediately fetch the latest reports for one TomTom area, route or tracker, instead of waiting for its next scheduled poll - and, for a live route, the route itself first. Returns the reports.",
+    "field": {
+      "name": "Area, route or tracker",
+      "description": "Which TomTom area, route or tracker to refresh."
+    }
+  },
+  "issue": {
+    "title": "{name} is not delivering",
+    "description": "The TomTom entry **{name}** has failed {count} polls in a row, so its entities are unavailable. The last reason:\n\n`{reason}`\n\nA tracker without a position, or a tracker entity that no longer exists, is fixed under the entry's **Configure**; a refused key under **Configure** on the TomTom Settings entry; if TomTom itself cannot be reached, this clears on its own once it can. This repair goes away with the next poll that succeeds."
+  },
+  "quotaIssue": {
+    "title": "The {api} quota will not last the month",
+    "description": "{used} of {tier} free **{api}** requests after {days} days; at this pace about **{projected}** by the month's end, more than {percent} % of the tier.\n\nFewer polls help: a longer update interval, tighter hours on a route, the traffic flow on fewer cards.\n\nThis goes away when the pace drops below the share set under TomTom Settings → Configure → Quota warning → TomTom, and with the new month."
+  },
+  "quotaDayIssue": {
+    "title": "The {api} requests of the day are nearly used up",
+    "description": "{used} of the {tier} requests a day the **{api}** plan allows are used.\n\nThe day's requests are shared by every entry of this installation - and by anything else that uses the same key. Fewer polls help: a longer update interval, tighter hours on a route, or Lufop switched off for the entries that lie outside its country.\n\nThis goes away at midnight UTC, when Lufop's day turns, or when the share set under TomTom Settings → Configure → Quota warning → Lufop is raised."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "The {api} requests of the day are used up",
+    "description": "All {tier} requests a day of the **{api}** plan are used - Lufop counts everything that uses the same key. It refuses further requests until midnight UTC - {reset} here.\n\nFewer polls help tomorrow: a longer update interval, tighter hours on a route, or Lufop switched off for the entries outside its country."
+  },
+  "device": {
+    "general": "TomTom General",
+    "settings": "TomTom Settings"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Australia",
+    "be": "Belgium",
+    "bg": "Bulgaria",
+    "ca": "Canada",
+    "cz": "Czechia",
+    "fi": "Finland",
+    "fr": "France",
+    "de": "Germany",
+    "ie": "Ireland",
+    "it": "Italy",
+    "lv": "Latvia",
+    "lu": "Luxembourg",
+    "ma": "Morocco",
+    "nl": "Netherlands",
+    "nz": "New Zealand",
+    "no": "Norway",
+    "pl": "Poland",
+    "pt": "Portugal",
+    "es": "Spain",
+    "se": "Sweden",
+    "ch": "Switzerland",
+    "ae": "United Arab Emirates",
+    "gb": "United Kingdom"
+  }
+}

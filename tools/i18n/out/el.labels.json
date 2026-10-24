@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Μποτιλιάρισμα",
+    "lane_closed": "Κλειστή λωρίδα",
+    "road_closed": "Κλειστός δρόμος",
+    "road_works": "Οδικά έργα",
+    "accident": "Ατύχημα",
+    "broken_down_vehicle": "Ακινητοποιημένο όχημα",
+    "dangerous_conditions": "Επικίνδυνες συνθήκες",
+    "fog": "Ομίχλη",
+    "rain": "Βροχή",
+    "ice": "Πάγος",
+    "wind": "Άνεμος",
+    "flooding": "Πλημμύρα",
+    "unknown": "Άγνωστο",
+    "camera_fixed": "Σταθερή κάμερα ταχύτητας",
+    "camera_mobile": "Κινητή κάμερα ταχύτητας",
+    "camera_trailer": "Ρυμουλκούμενη κάμερα ταχύτητας",
+    "camera_redlight": "Κάμερα κόκκινου σηματοδότη",
+    "camera_section": "Έλεγχος μέσης ταχύτητας",
+    "check_distance": "Έλεγχος απόστασης",
+    "check_police": "Αστυνομικός έλεγχος"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "μικρή",
+    "moderate": "μέτρια",
+    "major": "μεγάλη",
+    "indefinite": "απροσδιόριστη"
+  }
+}

@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "塞車",
+    "lane_closed": "車道封閉",
+    "road_closed": "道路封閉",
+    "road_works": "道路施工",
+    "accident": "事故",
+    "broken_down_vehicle": "故障車輛",
+    "dangerous_conditions": "路況危險",
+    "fog": "濃霧",
+    "rain": "降雨",
+    "ice": "路面結冰",
+    "wind": "強風",
+    "flooding": "淹水",
+    "unknown": "不明",
+    "camera_fixed": "固定式測速照相（blitzer.de、Lufop）",
+    "camera_mobile": "移動式測速照相（blitzer.de、Lufop）",
+    "camera_trailer": "拖車式測速照相（blitzer.de）",
+    "camera_redlight": "闖紅燈照相（blitzer.de、Lufop）",
+    "camera_section": "區間測速（blitzer.de、Lufop）",
+    "check_distance": "車距檢查（blitzer.de）",
+    "check_police": "警察臨檢（blitzer.de）"
+  },
+  "days": {
+    "mon": "星期一",
+    "tue": "星期二",
+    "wed": "星期三",
+    "thu": "星期四",
+    "fri": "星期五",
+    "sat": "星期六",
+    "sun": "星期日"
+  },
+  "modes": {
+    "area": "📍 範圍（半徑）",
+    "tracker": "📱 裝置追蹤器（半徑）",
+    "route_live": "🛣️ 路線（起點/終點，隨路況即時更新）"
+  },
+  "typeData": {
+    "categories": "通報"
+  },
+  "optional": {
+    "name": "選用設定",
+    "data": {
+      "only_certain": "只顯示 TomTom 確定的通報",
+      "count": "通報數量",
+      "update_interval": "更新間隔（分鐘，0 = 僅手動）",
+      "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
+      "roads": "只限這些道路（以逗號分隔的道路編號，例如 A8, B2）",
+      "blacklist": "黑名單（以逗號分隔的事件 ID）"
+    },
+    "description": {
+      "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+      "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
+      "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
+    }
+  },
+  "budgetArea": "每次輪詢都是一次 Incident Details 請求（搜尋範圍每增加 10,000 km² 再多一次），免費金鑰每月有 2,500 次：以預設的每小時一次，一個範圍每月約用掉 720 次。",
+  "budgetRoute": "在設定的時段內，每次輪詢都是一次 Routing 請求，免費額度每月 20,000 次；路線上的通報會隨之一併取得，每則新通報再向 Incident Details 查詢一次以補足其餘資訊。",
+  "entities": {
+    "sensor": {
+      "report_count": "通報",
+      "travel_time": "行車時間",
+      "traffic_delay": "交通延誤",
+      "route_length": "路線長度",
+      "requests": "本月 TomTom 請求",
+      "requests_total": "本月所有請求",
+      "requests_incidents": "本月 Incident Details",
+      "requests_routing": "本月 Routing",
+      "requests_geocoding": "本月 Geocoding",
+      "requests_reverse_geocoding": "本月 Reverse Geocoding",
+      "requests_search": "本月 Search",
+      "requests_tiles": "本月車流圖磚",
+      "requests_blitzer": "本月 blitzer.de",
+      "requests_lufop": "今日 Lufop"
+    },
+    "number": {
+      "new_minutes": "視為新通報"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "額度可能超出"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "設定 TomTom",
+      "description": "為這個項目命名，並選擇搜尋方式。範圍或追蹤器會讀取其圓圈內 TomTom 的交通事件；從起點到終點的路線則由 TomTom 在每次輪詢時依當下路況重新計算，並回報沿途經過的事件。",
+      "data": {
+        "name": "顯示名稱",
+        "search_mode": "搜尋模式"
+      }
+    },
+    "key": {
+      "title": "TomTom API 金鑰",
+      "description": "這裡的所有資料都來自 TomTom，需要一組 API 金鑰——免費，不必綁付款方式：\n\n1. 到 [developer.tomtom.com]({url}) 註冊。\n2. 註冊後，儀表板的 **API & SDK Keys** 已列出一組金鑰 *My First API key*，所有 API 都已啟用——包括這裡會用到的 Traffic API、Routing API 與 Search API。用旁邊的按鈕複製它。\n3. 貼到這裡。\n\n一組金鑰供這個 Home Assistant 的所有項目使用。若已儲存過金鑰，留空即可沿用。",
+      "data": {
+        "api_key": "API 金鑰"
+      }
+    },
+    "area": {
+      "title": "範圍（半徑）",
+      "description": "選擇要顯示 TomTom 通報的圓圈——以其中心為準最大 50 km，這是 TomTom 單次請求能回應的最大範圍。 ",
+      "data": {
+        "location": "範圍"
+      }
+    },
+    "tracker": {
+      "title": "裝置追蹤器（半徑）",
+      "description": "選擇要跟隨的裝置追蹤器，以及在其周圍搜尋的圓圈大小。只列出目前有回報座標的追蹤器——只知道在家或外出的追蹤器沒有可以畫圓的位置。 ",
+      "data": {
+        "tracker": "裝置追蹤器",
+        "tracker_radius": "半徑（公尺）"
+      }
+    },
+    "route_start": {
+      "title": "起點",
+      "description": "路線從哪裡開始？",
+      "menu": {
+        "route_start_zone": "區域",
+        "route_start_point": "地圖上的點",
+        "route_start_address": "地址"
+      }
+    },
+    "route_start_zone": {
+      "title": "起點：區域",
+      "data": {
+        "zone": "區域"
+      }
+    },
+    "route_start_point": {
+      "title": "起點：地圖上的點",
+      "description": "移動地圖，讓標記落在起點上。",
+      "data": {
+        "location": "起點"
+      }
+    },
+    "route_start_address": {
+      "title": "起點：地址",
+      "description": "街道與城鎮。",
+      "data": {
+        "address": "地址"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "起點：找到地址",
+      "description": "找到：**{label}**\n\n如果這不是你要的地點，請修正地址後繼續——系統會重新查詢。",
+      "data": {
+        "address": "地址"
+      }
+    },
+    "route_destination": {
+      "title": "終點",
+      "description": "路線在哪裡結束？",
+      "menu": {
+        "route_destination_zone": "區域",
+        "route_destination_point": "地圖上的點",
+        "route_destination_address": "地址"
+      }
+    },
+    "route_destination_zone": {
+      "title": "終點：區域",
+      "data": {
+        "zone": "區域"
+      }
+    },
+    "route_destination_point": {
+      "title": "終點：地圖上的點",
+      "description": "移動地圖，讓標記落在終點上。",
+      "data": {
+        "location": "終點"
+      }
+    },
+    "route_destination_address": {
+      "title": "終點：地址",
+      "description": "街道與城鎮。",
+      "data": {
+        "address": "地址"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "終點：找到地址",
+      "description": "找到：**{label}**\n\n如果這不是你要的地點，請修正地址後繼續——系統會重新查詢。",
+      "data": {
+        "address": "地址"
+      }
+    },
+    "route_vias": {
+      "title": "途經點",
+      "description": "從 {start} 到 {destination}，目前有 {count} 個途經點。TomTom 會取各點之間最快的道路——若你慣走的路不同，就在該處加一個途經點。",
+      "menu": {
+        "route_via": "新增途經點",
+        "route_vias_clear": "移除所有途經點",
+        "route_review": "計算路線"
+      }
+    },
+    "route_via": {
+      "title": "途經點 {count}",
+      "description": "移動地圖，讓標記落在路線應經過的道路上。",
+      "data": {
+        "location": "途經點"
+      }
+    },
+    "route_review": {
+      "title": "你目前的路線",
+      "description": "{start} → {destination}，{vias} 個途經點：{distance}，目前約需 {duration} 分鐘，其中延誤 {delay} 分鐘。路線在每次輪詢時都會重新計算；地圖顯示的是此刻路況下最快的那一條。 ",
+      "data": {
+        "return_route": "同時建立回程",
+        "return_name": "回程名稱",
+        "live_days": "路線持續更新的日子",
+        "live_from": "從",
+        "live_until": "到",
+        "live_back_from": "從（回程）",
+        "live_back_until": "到（回程）"
+      },
+      "data_description": {
+        "return_route": "另建一個項目，從終點回到起點——在高速公路上，回程走的是對向車道，一邊塞車不代表另一邊也塞。以此項目的名稱加上「回程」命名。",
+        "return_name": "只在建立回程時使用。預設為此項目的名稱加上「回程」；輸入其他名稱即可改叫別的，例如「回家」與「上班」。"
+      }
+    },
+    "route_failed": {
+      "title": "沒有路線",
+      "description": "繼續以修改各點。"
+    },
+    "init": {
+      "title": "你要編輯什麼？",
+      "menu": {
+        "edit_route": "修改路線（起點、終點、途經點）",
+        "edit_route_settings": "編輯搜尋設定（時段、類型、篩選）",
+        "edit_key": "更改 API 金鑰",
+        "route_defaults": "新路線的預設值",
+        "quota_warning": "額度警告",
+        "sources": "資料來源"
+      }
+    },
+    "route_defaults": {
+      "title": "新路線的預設值",
+      "description": "每條新路線的起始設定：在卡片上規劃的路線會直接以這些設定儲存；在設定精靈中則會預先填入，仍可更改。日子與時段是路線持續更新的時間，回程也可一併建立——在一天中的另一個時段行駛，有自己的時段。",
+      "data": {
+        "default_start": "在卡片上規劃的路線的起點（選用）"
+      }
+    },
+    "quota_warning": {
+      "title": "額度警告",
+      "description": "當某個 API 的請求快用完時，會出現一則修復提示，且 TomTom 一般上的 **額度可能超出** 感測器會開啟。",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "從每月第八天起，會將目前為止的請求推算到月底。只計算這個整合發出的請求；若金鑰也用在其他地方，TomTom 那邊的數字會更高。",
+          "data": {
+            "quota_warning": "免費額度撐不到月底時發出警告",
+            "quota_threshold": "達到免費額度的此比例時警告"
+          },
+          "data_description": {
+            "quota_threshold": "100 % 會在將超過額度本身時警告，80 % 則在達到其五分之四時就警告。"
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop 以日計算，從 UTC 午夜到午夜，所有使用該金鑰的請求都算在內。僅在「資料來源」中開啟 Lufop 時適用。",
+          "data": {
+            "lufop_quota_warning": "當天請求快用完或已用完時警告",
+            "lufop_quota_threshold": "達到當天請求的此比例時警告"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "達到此比例時發出第一次警告；全部用完時再發出第二次。"
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "資料來源",
+      "description": "TomTom 以外的其他通報來源，一次套用到所有項目。來源只補上 TomTom 沒有的通報，並在每個項目的清單中以自己的類型列出，因此不會有通報重複出現。\n\n**blitzer.de** 提供德國及其鄰國的測速照相與交通稽查，包括固定式與移動式。不需金鑰也不需帳號；它讀取的是該網站自己的地圖所讀取的資料，blitzer.de 並未將其公開為 API，隨時可能變更或關閉。每次請求都計入 **本月 blitzer.de**。\n\n**Lufop** 從其雷達資料庫提供測速照相（固定式、移動式與闖紅燈）以及區間測速——這是有文件說明的 API，可在 [api.lufop.net](https://api.lufop.net/) 取得免費的個人金鑰。每次請求只針對一個國家；免費方案涵蓋法國、比利時與瑞士，每天 200 次請求，每次請求最多 200 個雷達。每次請求都計入 **今日 Lufop**。",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop API 金鑰",
+        "lufop_country": "Lufop：國家"
+      },
+      "data_description": {
+        "lufop_api_key": "在輸入時以及開啟 Lufop 時檢查；若已儲存過金鑰，留空即可沿用。",
+        "lufop_country": "所有項目向 Lufop 查詢的唯一國家——免費方案允許法國、比利時與瑞士。"
+      }
+    },
+    "first": {
+      "title": "TomTom 已設定完成",
+      "description": "金鑰已儲存，新路線的預設值存放在 **TomTom 設定** 項目下——之後可用其「設定」更改兩者。現在完成設定，之後隨時從 TomTom 方塊上的 **增加條目** 加入第一個範圍、追蹤器或路線，或是立即建立。",
+      "menu": {
+        "finish": "完成設定",
+        "add_entry": "立即加入第一個範圍、追蹤器或路線"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "這個名稱已設定過 TomTom。請換一個名稱。",
+    "location_missing": "請選擇一個位置（移動地圖）。",
+    "no_tracker_with_position": "目前沒有裝置追蹤器回報位置。此模式需要一個會傳送座標的追蹤器——只知道在家或外出的追蹤器無法作為半徑的中心。"
+  },
+  "error": {
+    "radius_too_large": "半徑最多 50 km——這是 TomTom 單次請求能回應的最大範圍。",
+    "invalid_api_key": "TomTom 不接受這組 API 金鑰。",
+    "quota_exceeded": "這組金鑰在 TomTom 的額度暫時用完了。請稍後再試。",
+    "address_not_found": "找不到這個地址對應的地點。",
+    "point_not_routable": "其中一個點離道路太遠。請把它移近道路。",
+    "no_route": "TomTom 找不到連接這些點的道路。",
+    "route_too_long": "路線對 TomTom 而言太長，或是點太多。",
+    "return_name_taken": "已有同名的項目——包括這一個。",
+    "cannot_connect": "無法連線到 TomTom。",
+    "zone_without_position": "這個區域沒有位置。",
+    "api_key_required": "請輸入 API 金鑰。",
+    "lufop_key_required": "Lufop 需要 API 金鑰才能開啟。",
+    "invalid_lufop_key": "Lufop 不接受這組 API 金鑰。",
+    "lufop_cannot_connect": "無法連線到 Lufop。金鑰未經檢查——請稍後再試。",
+    "lufop_refused": "Lufop 拒絕了請求，但沒有拒絕金鑰。當天的請求可能已用完——請在 UTC 午夜後再試，或到你的 Lufop 儀表板檢查金鑰。",
+    "lufop_busy": "已達到 Lufop 每分鐘 10 次請求的上限。請一分鐘後再試。"
+  },
+  "service": {
+    "name": "重新整理",
+    "description": "立即取得某個 TomTom 範圍、路線或追蹤器的最新通報，而不等待下一次排定的輪詢——若是即時路線，會先重新計算路線本身。回傳通報。",
+    "field": {
+      "name": "範圍、路線或追蹤器",
+      "description": "要重新整理哪個 TomTom 範圍、路線或追蹤器。"
+    }
+  },
+  "issue": {
+    "title": "{name} 沒有資料",
+    "description": "TomTom 項目 **{name}** 已連續 {count} 次輪詢失敗，其實體因此無法使用。最後一次的原因：\n\n`{reason}`\n\n追蹤器沒有位置，或追蹤器實體已不存在，可在該項目的**設定**中修正；金鑰被拒絕，則在 TomTom 設定項目的**設定**中處理；若是 TomTom 本身無法連線，恢復後會自行解除。下一次輪詢成功後，這則修復提示就會消失。"
+  },
+  "quotaIssue": {
+    "title": "{api} 額度撐不到月底",
+    "description": "{days} 天內已使用 {tier} 次免費 **{api}** 請求中的 {used} 次；照這個速度，到月底約為 **{projected}** 次，超過額度的 {percent} %。\n\n減少輪詢會有幫助：拉長更新間隔、縮短路線的時段、減少顯示車流的卡片。\n\n當速度降到「TomTom 設定」→「設定」→「額度警告」→「TomTom」中設定的比例以下，或進入新的月份時，這則提示就會消失。"
+  },
+  "quotaDayIssue": {
+    "title": "今日的 {api} 請求即將用完",
+    "description": "**{api}** 方案每天允許的 {tier} 次請求中，已使用 {used} 次。\n\n當天的請求由這個安裝中的所有項目共用——也與其他使用同一金鑰的程式共用。減少輪詢會有幫助：拉長更新間隔、縮短路線的時段，或對位於其國家以外的項目關閉 Lufop。\n\n在 UTC 午夜 Lufop 換日時，或在「TomTom 設定」→「設定」→「額度警告」→「Lufop」中調高比例後，這則提示就會消失。"
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "今日的 {api} 請求已用完",
+    "description": "**{api}** 方案每天的 {tier} 次請求已全部用完——Lufop 會計入所有使用同一金鑰的請求。在 UTC 午夜（此地時間 {reset}）之前，它會拒絕後續請求。\n\n明天減少輪詢會有幫助：拉長更新間隔、縮短路線的時段，或對其國家以外的項目關閉 Lufop。"
+  },
+  "device": {
+    "general": "TomTom 一般",
+    "settings": "TomTom 設定"
+  },
+  "lufopCountries": {
+    "ad": "安道爾",
+    "au": "澳洲",
+    "be": "比利時",
+    "bg": "保加利亞",
+    "ca": "加拿大",
+    "cz": "捷克",
+    "fi": "芬蘭",
+    "fr": "法國",
+    "de": "德國",
+    "ie": "愛爾蘭",
+    "it": "義大利",
+    "lv": "拉脫維亞",
+    "lu": "盧森堡",
+    "ma": "摩洛哥",
+    "nl": "荷蘭",
+    "nz": "紐西蘭",
+    "no": "挪威",
+    "pl": "波蘭",
+    "pt": "葡萄牙",
+    "es": "西班牙",
+    "se": "瑞典",
+    "ch": "瑞士",
+    "ae": "阿拉伯聯合大公國",
+    "gb": "英國"
+  }
+}

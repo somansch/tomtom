@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Alue (säde)",
+                "tracker": "📱 Laiteseurain (säde)",
+                "route_live": "🛣️ Reitti (lähtö/määränpää, live liikenteen mukaan)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Maanantai",
+                "tue": "Tiistai",
+                "wed": "Keskiviikko",
+                "thu": "Torstai",
+                "fri": "Perjantai",
+                "sat": "Lauantai",
+                "sun": "Sunnuntai"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Ruuhka",
+                "lane_closed": "Kaista suljettu",
+                "road_closed": "Tie suljettu",
+                "road_works": "Tietyö",
+                "accident": "Onnettomuus",
+                "broken_down_vehicle": "Rikkoutunut ajoneuvo",
+                "dangerous_conditions": "Vaaralliset olosuhteet",
+                "fog": "Sumu",
+                "rain": "Sade",
+                "ice": "Jäinen tie",
+                "wind": "Tuuli",
+                "flooding": "Tulva",
+                "unknown": "Tuntematon",
+                "camera_fixed": "Kiinteä nopeusvalvontakamera (blitzer.de, Lufop)",
+                "camera_mobile": "Liikkuva nopeusvalvontakamera (blitzer.de, Lufop)",
+                "camera_trailer": "Nopeusvalvontakamera perävaunussa (blitzer.de)",
+                "camera_redlight": "Punaisen valon valvontakamera (blitzer.de, Lufop)",
+                "camera_section": "Keskinopeusvalvonta (blitzer.de, Lufop)",
+                "check_distance": "Turvavälivalvonta (blitzer.de)",
+                "check_police": "Poliisitarkastus (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andorra",
+                "au": "Australia",
+                "be": "Belgia",
+                "bg": "Bulgaria",
+                "ca": "Kanada",
+                "cz": "Tšekki",
+                "fi": "Suomi",
+                "fr": "Ranska",
+                "de": "Saksa",
+                "ie": "Irlanti",
+                "it": "Italia",
+                "lv": "Latvia",
+                "lu": "Luxemburg",
+                "ma": "Marokko",
+                "nl": "Alankomaat",
+                "nz": "Uusi-Seelanti",
+                "no": "Norja",
+                "pl": "Puola",
+                "pt": "Portugali",
+                "es": "Espanja",
+                "se": "Ruotsi",
+                "ch": "Sveitsi",
+                "ae": "Arabiemiirikunnat",
+                "gb": "Yhdistynyt kuningaskunta"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Yleiset"
+        },
+        "settings": {
+            "name": "TomTom Asetukset"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Ilmoitukset"
+            },
+            "travel_time": {
+                "name": "Matka-aika"
+            },
+            "traffic_delay": {
+                "name": "Liikenteen viive"
+            },
+            "route_length": {
+                "name": "Reitin pituus"
+            },
+            "requests": {
+                "name": "TomTom-pyynnöt tässä kuussa"
+            },
+            "requests_total": {
+                "name": "Kaikki pyynnöt tässä kuussa"
+            },
+            "requests_incidents": {
+                "name": "Incident Details tässä kuussa"
+            },
+            "requests_routing": {
+                "name": "Routing tässä kuussa"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding tässä kuussa"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding tässä kuussa"
+            },
+            "requests_search": {
+                "name": "Search tässä kuussa"
+            },
+            "requests_tiles": {
+                "name": "Virtaruudut tässä kuussa"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de tässä kuussa"
+            },
+            "requests_lufop": {
+                "name": "Lufop tänään"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Uutena"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Kiintiö vaarassa"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "TomTomin määritys",
+                "description": "Anna merkinnälle nimi ja valitse, miten haetaan. Alue tai seurain lukee TomTomin liikennetapahtumat ympyrässään; reitin lähdöstä määränpäähän TomTom laskee jokaisella haulla tämänhetkisen liikenteen mukaan ja ilmoittaa, minkä läpi se kulkee.",
+                "data": {
+                    "name": "Näyttönimi",
+                    "search_mode": "Hakutapa"
+                }
+            },
+            "key": {
+                "title": "TomTom-API-avain",
+                "description": "Kaikki tässä tulee TomTomilta, joka tarvitsee API-avaimen - ilmainen, ei maksutapaa:\n\n1. Rekisteröidy osoitteessa [developer.tomtom.com]({url}).\n2. Heti sen jälkeen hallintapaneelin kohdassa **API & SDK Keys** on jo avain, *My First API key*, jolla kaikki API:t ovat käytössä - niiden joukossa Traffic API, Routing API ja Search API, joita tässä käytetään. Kopioi se viereisellä painikkeella.\n3. Liitä se tähän.\n\nYksi avain palvelee tämän Home Assistantin jokaista merkintää. Jos avain on jo tallennettu, jätä kenttä tyhjäksi säilyttääksesi sen.",
+                "data": {
+                    "api_key": "API-avain"
+                }
+            },
+            "route_defaults": {
+                "title": "Uusien reittien oletukset",
+                "description": "Mistä jokainen uusi reitti alkaa: kortilla siellä suunniteltu reitti tallennetaan heti näillä asetuksilla; ohjatussa määrityksessä ne on esitäytetty ja niitä voi vielä muuttaa. Päivät ja tunnit ovat ne, joina reitti pidetään ajan tasalla, ja paluumatka voidaan luoda sen mukana - ajetaan toiseen aikaan päivästä, omine tunteineen.",
+                "data": {
+                    "default_start": "Lähtö kortilla suunnitelluille reiteille (valinnainen)",
+                    "return_route": "Luo myös paluumatka",
+                    "live_days": "Päivät, joina reitti pidetään ajan tasalla",
+                    "live_from": "Alkaen",
+                    "live_until": "Asti",
+                    "live_back_from": "Alkaen (paluumatka)",
+                    "live_back_until": "Asti (paluumatka)",
+                    "categories": "Ilmoitukset"
+                },
+                "data_description": {
+                    "return_route": "Toinen merkintä, määränpäästä lähtöön - moottoritiellä paluumatka on toinen ajorata, eikä ruuhka toisella ole ruuhka toisella. Nimetään tämän merkinnän mukaan lisäyksellä ”paluu”."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "TomTom on määritetty",
+                "description": "Avain on tallennettu, ja uusien reittien oletukset ovat merkinnässä **TomTom Asetukset** - sen **Määrittele** muuttaa molempia myöhemmin. Lopeta nyt ja lisää ensimmäinen alue, seurain tai reitti TomTom-ruudun omasta kohdasta **Lisää esiintymä** milloin haluat, tai tee se heti.",
+                "menu_options": {
+                    "finish": "Viimeistele määritys",
+                    "add_entry": "Lisää ensimmäinen alue, seurain tai reitti nyt"
+                }
+            },
+            "area": {
+                "title": "Alue (säde)",
+                "description": "Valitse ympyrä, jonka sisällä TomTomin ilmoitukset näytetään - enintään 50 km sen keskipisteestä, mikä on suurin laatikko, johon TomTom vastaa yhdellä pyynnöllä. Jokainen haku on yksi Incident Details -pyyntö (yksi lisää kutakin haun 10 000 km²:ä kohti), ja ilmaisella avaimella niitä on 2 500 kuukaudessa: oletustunnilla alue kuluttaa noin 720.",
+                "data": {
+                    "location": "Alue",
+                    "categories": "Ilmoitukset"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Laiteseurain (säde)",
+                "description": "Valitse seurattava laiteseurain ja kuinka laaja ympyrä sen ympäriltä haetaan. Vain koordinaatteja parhaillaan ilmoittavat seuraimet ovat listalla - sellaisella, joka tuntee vain kotona ja poissa, ei ole sijaintia, jonka ympärille ympyrän voisi piirtää. Jokainen haku on yksi Incident Details -pyyntö (yksi lisää kutakin haun 10 000 km²:ä kohti), ja ilmaisella avaimella niitä on 2 500 kuukaudessa: oletustunnilla alue kuluttaa noin 720.",
+                "data": {
+                    "tracker": "Laiteseurain",
+                    "tracker_radius": "Säde (metriä)",
+                    "categories": "Ilmoitukset"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Lähtö",
+                "description": "Mistä reitti alkaa?",
+                "menu_options": {
+                    "route_start_zone": "Vyöhyke",
+                    "route_start_point": "Piste kartalla",
+                    "route_start_address": "Osoite"
+                }
+            },
+            "route_start_zone": {
+                "title": "Lähtö: vyöhyke",
+                "data": {
+                    "zone": "Vyöhyke"
+                }
+            },
+            "route_start_point": {
+                "title": "Lähtö: piste kartalla",
+                "description": "Siirrä karttaa niin, että merkki on lähtöpisteen kohdalla.",
+                "data": {
+                    "location": "Lähtö"
+                }
+            },
+            "route_start_address": {
+                "title": "Lähtö: osoite",
+                "description": "Katu ja paikkakunta.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Lähtö: osoite löytyi",
+                "description": "Löytyi: **{label}**\n\nJos tämä ei ole tarkoittamasi paikka, korjaa osoite ja jatka - se haetaan uudelleen.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_destination": {
+                "title": "Määränpää",
+                "description": "Mihin reitti päättyy?",
+                "menu_options": {
+                    "route_destination_zone": "Vyöhyke",
+                    "route_destination_point": "Piste kartalla",
+                    "route_destination_address": "Osoite"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Määränpää: vyöhyke",
+                "data": {
+                    "zone": "Vyöhyke"
+                }
+            },
+            "route_destination_point": {
+                "title": "Määränpää: piste kartalla",
+                "description": "Siirrä karttaa niin, että merkki on määränpään kohdalla.",
+                "data": {
+                    "location": "Määränpää"
+                }
+            },
+            "route_destination_address": {
+                "title": "Määränpää: osoite",
+                "description": "Katu ja paikkakunta.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Määränpää: osoite löytyi",
+                "description": "Löytyi: **{label}**\n\nJos tämä ei ole tarkoittamasi paikka, korjaa osoite ja jatka - se haetaan uudelleen.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_vias": {
+                "title": "Välipisteet",
+                "description": "{start} → {destination}, tähän mennessä {count} välipistettä. TomTom valitsee niiden välille nopeimman tien - lisää välipiste sinne, missä tavallinen reittisi poikkeaa.",
+                "menu_options": {
+                    "route_via": "Lisää välipiste",
+                    "route_vias_clear": "Poista kaikki välipisteet",
+                    "route_review": "Laske reitti"
+                }
+            },
+            "route_via": {
+                "title": "Välipiste {count}",
+                "description": "Siirrä karttaa niin, että merkki on tiellä, jota reitin pitäisi kulkea.",
+                "data": {
+                    "location": "Välipiste"
+                }
+            },
+            "route_failed": {
+                "title": "Ei reittiä",
+                "description": "Jatka muuttaaksesi pisteitä."
+            },
+            "route_review": {
+                "title": "Reittisi juuri nyt",
+                "description": "{start} → {destination}, {vias} välipistettä: {distance}, juuri nyt noin {duration} min, josta {delay} min viivettä. Reitti lasketaan uudelleen jokaisella haulla; kartta näyttää sen, jonka liikenne tekee tällä hetkellä nopeimmaksi. Tunteinaan jokainen haku on yksi Routing-pyyntö, joita on 20 000 ilmaista kuukaudessa; reitin ilmoitukset tulevat sen mukana, ja Incident Details -pyyntö tehdään kerran jokaista uutta ilmoitusta kohti lopuista tiedoista.",
+                "data": {
+                    "return_route": "Luo myös paluumatka",
+                    "return_name": "Paluumatkan nimi",
+                    "live_days": "Päivät, joina reitti pidetään ajan tasalla",
+                    "live_from": "Alkaen",
+                    "live_until": "Asti",
+                    "live_back_from": "Alkaen (paluumatka)",
+                    "live_back_until": "Asti (paluumatka)",
+                    "categories": "Ilmoitukset"
+                },
+                "data_description": {
+                    "return_route": "Toinen merkintä, määränpäästä lähtöön - moottoritiellä paluumatka on toinen ajorata, eikä ruuhka toisella ole ruuhka toisella. Nimetään tämän merkinnän mukaan lisäyksellä ”paluu”.",
+                    "return_name": "Käytetään vain, kun paluumatka luodaan. Esitäytetty tämän merkinnän nimellä ja lisäyksellä ”paluu”; kirjoita toinen antaaksesi sille muun nimen - vaikkapa ”Koti” ja ”Työ”."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "TomTom on jo määritetty tälle nimelle. Valitse toinen.",
+            "location_missing": "Valitse sijainti (siirrä karttaa).",
+            "no_tracker_with_position": "Yksikään laiteseurain ei ilmoita sijaintia juuri nyt. Tämä tila tarvitsee sellaisen, joka lähettää koordinaatteja - seurain, joka tuntee vain kotona ja poissa, ei voi olla säteen keskipiste."
+        },
+        "error": {
+            "radius_too_large": "Säde saa olla enintään 50 km - suurin laatikko, johon TomTom vastaa yhdellä pyynnöllä.",
+            "invalid_api_key": "TomTom ei hyväksynyt API-avainta.",
+            "quota_exceeded": "Avaimen kiintiö TomTomilla on toistaiseksi käytetty. Yritä myöhemmin uudelleen.",
+            "address_not_found": "Tälle osoitteelle ei löytynyt paikkaa.",
+            "point_not_routable": "Yksi pisteistä on liian kaukana tiestä. Siirrä se lähemmäs tietä.",
+            "no_route": "TomTom ei löytänyt tietä, joka yhdistäisi nämä pisteet.",
+            "route_too_long": "Reitti on TomTomille liian pitkä tai siinä on liikaa pisteitä.",
+            "return_name_taken": "Tämänniminen merkintä on jo olemassa - tämä mukaan lukien.",
+            "cannot_connect": "TomTomiin ei saatu yhteyttä.",
+            "zone_without_position": "Tällä vyöhykkeellä ei ole sijaintia.",
+            "api_key_required": "Anna API-avain.",
+            "lufop_key_required": "Lufop tarvitsee API-avaimensa, jotta sen voi kytkeä päälle.",
+            "invalid_lufop_key": "Lufop ei hyväksynyt API-avainta.",
+            "lufop_cannot_connect": "Lufopiin ei saatu yhteyttä. Avainta ei tarkistettu - yritä myöhemmin uudelleen.",
+            "lufop_refused": "Lufop hylkäsi pyynnön hylkäämättä avainta. Päivän pyynnöt voivat olla käytetty - yritä uudelleen keskiyön UTC jälkeen tai tarkista avain Lufopin hallintapaneelista.",
+            "lufop_busy": "Lufopin 10 pyynnön minuuttiraja tuli täyteen. Yritä uudelleen minuutin kuluttua."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Päivitä",
+            "description": "Hakee heti uusimmat ilmoitukset yhdelle TomTom-alueelle, -reitille tai -seuraimelle odottamatta sen seuraavaa ajastettua hakua - ja live-reitillä ensin reitin itsensä. Palauttaa ilmoitukset.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Alue, reitti tai seurain",
+                    "description": "Mikä TomTom-alue, -reitti tai -seurain päivitetään."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Mitä haluat muokata?",
+                "menu_options": {
+                    "edit_route": "Muuta reittiä (lähtö, määränpää, välipisteet)",
+                    "edit_route_settings": "Muokkaa hakuasetuksia (tunnit, lajit, suodattimet)",
+                    "edit_key": "Vaihda API-avain",
+                    "route_defaults": "Uusien reittien oletukset",
+                    "quota_warning": "Kiintiövaroitus",
+                    "sources": "Tietolähteet"
+                }
+            },
+            "route_defaults": {
+                "title": "Uusien reittien oletukset",
+                "description": "Mistä jokainen uusi reitti alkaa: kortilla siellä suunniteltu reitti tallennetaan heti näillä asetuksilla; ohjatussa määrityksessä ne on esitäytetty ja niitä voi vielä muuttaa. Päivät ja tunnit ovat ne, joina reitti pidetään ajan tasalla, ja paluumatka voidaan luoda sen mukana - ajetaan toiseen aikaan päivästä, omine tunteineen.",
+                "data": {
+                    "default_start": "Lähtö kortilla suunnitelluille reiteille (valinnainen)",
+                    "return_route": "Luo myös paluumatka",
+                    "live_days": "Päivät, joina reitti pidetään ajan tasalla",
+                    "live_from": "Alkaen",
+                    "live_until": "Asti",
+                    "live_back_from": "Alkaen (paluumatka)",
+                    "live_back_until": "Asti (paluumatka)",
+                    "categories": "Ilmoitukset"
+                },
+                "data_description": {
+                    "return_route": "Toinen merkintä, määränpäästä lähtöön - moottoritiellä paluumatka on toinen ajorata, eikä ruuhka toisella ole ruuhka toisella. Nimetään tämän merkinnän mukaan lisäyksellä ”paluu”."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Kiintiövaroitus",
+                "description": "Kun API:n pyynnöt käyvät vähiin, korjaus kertoo siitä ja laitteen TomTom Yleiset anturi **Kiintiö vaarassa** kytkeytyy päälle.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "Kuukauden kahdeksannesta päivästä alkaen tähänastiset pyynnöt ennustetaan kuukauden loppuun. Lasketaan se, mitä tämä integraatio pyytää; muuallakin käytetyn avaimen lukema on TomTomilla suurempi.",
+                        "data": {
+                            "quota_warning": "Varoita, kun ilmaiskiintiö ei riitä koko kuukaudeksi",
+                            "quota_threshold": "Varoita tästä ilmaiskiintiön osuudesta alkaen"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % varoittaa, kun itse kiintiö ylittyy, 80 % jo neljän viidesosan kohdalla."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "Lufop laskee päivittäin, keskiyöstä keskiyöhön UTC, kaiken avainta käyttävän mukaan lukien. Pätee, kun Lufop on päällä kohdassa Tietolähteet.",
+                        "data": {
+                            "lufop_quota_warning": "Varoita, kun päivän pyynnöt käyvät vähiin tai loppuvat",
+                            "lufop_quota_threshold": "Varoita tästä päivän pyyntöjen osuudesta alkaen"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "Ensimmäinen varoitus tulee tällä osuudella, toinen, kun kaikki on käytetty."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Tietolähteet",
+                "description": "Muita ilmoituslähteitä TomTomin rinnalla, kaikille merkinnöille kerralla. Lähde lisää vain sen, mitä TomTomilla ei ole, omina lajeinaan kunkin merkinnän listassa, joten mikään ilmoitus ei ole siellä kahdesti.\n\n**blitzer.de** ilmoittaa nopeusvalvontakamerat ja liikennevalvonnat, kiinteät ja liikkuvat, Saksassa ja sen naapurimaissa. Ei avainta eikä tiliä; se lukee sen, mitä sivuston oma kartta lukee - blitzer.de ei ole julkaissut sitä API:na, ja se voi muuttua tai sulkeutua. Jokainen pyyntö lasketaan kohtaan **blitzer.de tässä kuussa**.\n\n**Lufop** ilmoittaa nopeusvalvontakamerat, kiinteät, liikkuvat ja punaisen valon kamerat, sekä keskinopeusvalvonnat tutkatietokannastaan - dokumentoitu API, jonka ilmaisen henkilökohtaisen avaimen saa osoitteesta [api.lufop.net](https://api.lufop.net/). Yksi pyyntö koskee yhtä maata; ilmaispaketti kattaa Ranskan, Belgian ja Sveitsin, 200 pyyntöä päivässä ja 200 tutkaa pyyntöä kohti. Jokainen pyyntö lasketaan kohtaan **Lufop tänään**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Lufop-API-avain",
+                    "lufop_country": "Lufop: maa"
+                },
+                "data_description": {
+                    "lufop_api_key": "Tarkistetaan, kun se annetaan ja kun Lufop kytketään päälle; jo tallennettu säilyy, kun kenttä jätetään tyhjäksi.",
+                    "lufop_country": "Se yksi maa, jota jokainen merkintä kysyy Lufopilta - ilmaispaketti sallii Ranskan, Belgian ja Sveitsin."
+                }
+            },
+            "key": {
+                "title": "TomTom-API-avain",
+                "description": "Kaikki tässä tulee TomTomilta, joka tarvitsee API-avaimen - ilmainen, ei maksutapaa:\n\n1. Rekisteröidy osoitteessa [developer.tomtom.com]({url}).\n2. Heti sen jälkeen hallintapaneelin kohdassa **API & SDK Keys** on jo avain, *My First API key*, jolla kaikki API:t ovat käytössä - niiden joukossa Traffic API, Routing API ja Search API, joita tässä käytetään. Kopioi se viereisellä painikkeella.\n3. Liitä se tähän.\n\nYksi avain palvelee tämän Home Assistantin jokaista merkintää. Jos avain on jo tallennettu, jätä kenttä tyhjäksi säilyttääksesi sen.",
+                "data": {
+                    "api_key": "API-avain"
+                }
+            },
+            "area": {
+                "title": "Alue (säde)",
+                "description": "Valitse ympyrä, jonka sisällä TomTomin ilmoitukset näytetään - enintään 50 km sen keskipisteestä, mikä on suurin laatikko, johon TomTom vastaa yhdellä pyynnöllä. Jokainen haku on yksi Incident Details -pyyntö (yksi lisää kutakin haun 10 000 km²:ä kohti), ja ilmaisella avaimella niitä on 2 500 kuukaudessa: oletustunnilla alue kuluttaa noin 720.",
+                "data": {
+                    "location": "Alue",
+                    "categories": "Ilmoitukset"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Laiteseurain (säde)",
+                "description": "Valitse seurattava laiteseurain ja kuinka laaja ympyrä sen ympäriltä haetaan. Vain koordinaatteja parhaillaan ilmoittavat seuraimet ovat listalla - sellaisella, joka tuntee vain kotona ja poissa, ei ole sijaintia, jonka ympärille ympyrän voisi piirtää. Jokainen haku on yksi Incident Details -pyyntö (yksi lisää kutakin haun 10 000 km²:ä kohti), ja ilmaisella avaimella niitä on 2 500 kuukaudessa: oletustunnilla alue kuluttaa noin 720.",
+                "data": {
+                    "tracker": "Laiteseurain",
+                    "tracker_radius": "Säde (metriä)",
+                    "categories": "Ilmoitukset"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Lähtö",
+                "description": "Mistä reitti alkaa?",
+                "menu_options": {
+                    "route_start_zone": "Vyöhyke",
+                    "route_start_point": "Piste kartalla",
+                    "route_start_address": "Osoite"
+                }
+            },
+            "route_start_zone": {
+                "title": "Lähtö: vyöhyke",
+                "data": {
+                    "zone": "Vyöhyke"
+                }
+            },
+            "route_start_point": {
+                "title": "Lähtö: piste kartalla",
+                "description": "Siirrä karttaa niin, että merkki on lähtöpisteen kohdalla.",
+                "data": {
+                    "location": "Lähtö"
+                }
+            },
+            "route_start_address": {
+                "title": "Lähtö: osoite",
+                "description": "Katu ja paikkakunta.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Lähtö: osoite löytyi",
+                "description": "Löytyi: **{label}**\n\nJos tämä ei ole tarkoittamasi paikka, korjaa osoite ja jatka - se haetaan uudelleen.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_destination": {
+                "title": "Määränpää",
+                "description": "Mihin reitti päättyy?",
+                "menu_options": {
+                    "route_destination_zone": "Vyöhyke",
+                    "route_destination_point": "Piste kartalla",
+                    "route_destination_address": "Osoite"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Määränpää: vyöhyke",
+                "data": {
+                    "zone": "Vyöhyke"
+                }
+            },
+            "route_destination_point": {
+                "title": "Määränpää: piste kartalla",
+                "description": "Siirrä karttaa niin, että merkki on määränpään kohdalla.",
+                "data": {
+                    "location": "Määränpää"
+                }
+            },
+            "route_destination_address": {
+                "title": "Määränpää: osoite",
+                "description": "Katu ja paikkakunta.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Määränpää: osoite löytyi",
+                "description": "Löytyi: **{label}**\n\nJos tämä ei ole tarkoittamasi paikka, korjaa osoite ja jatka - se haetaan uudelleen.",
+                "data": {
+                    "address": "Osoite"
+                }
+            },
+            "route_vias": {
+                "title": "Välipisteet",
+                "description": "{start} → {destination}, tähän mennessä {count} välipistettä. TomTom valitsee niiden välille nopeimman tien - lisää välipiste sinne, missä tavallinen reittisi poikkeaa.",
+                "menu_options": {
+                    "route_via": "Lisää välipiste",
+                    "route_vias_clear": "Poista kaikki välipisteet",
+                    "route_review": "Laske reitti"
+                }
+            },
+            "route_via": {
+                "title": "Välipiste {count}",
+                "description": "Siirrä karttaa niin, että merkki on tiellä, jota reitin pitäisi kulkea.",
+                "data": {
+                    "location": "Välipiste"
+                }
+            },
+            "route_failed": {
+                "title": "Ei reittiä",
+                "description": "Jatka muuttaaksesi pisteitä."
+            },
+            "route_review": {
+                "title": "Reittisi juuri nyt",
+                "description": "{start} → {destination}, {vias} välipistettä: {distance}, juuri nyt noin {duration} min, josta {delay} min viivettä. Reitti lasketaan uudelleen jokaisella haulla; kartta näyttää sen, jonka liikenne tekee tällä hetkellä nopeimmaksi. Tunteinaan jokainen haku on yksi Routing-pyyntö, joita on 20 000 ilmaista kuukaudessa; reitin ilmoitukset tulevat sen mukana, ja Incident Details -pyyntö tehdään kerran jokaista uutta ilmoitusta kohti lopuista tiedoista.",
+                "data": {
+                    "live_days": "Päivät, joina reitti pidetään ajan tasalla",
+                    "live_from": "Alkaen",
+                    "live_until": "Asti",
+                    "categories": "Ilmoitukset"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Valinnaiset asetukset",
+                        "data": {
+                            "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "count": "Ilmoitusten määrä",
+                            "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
+                            "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
+                            "roads": "Vain nämä tiet (tienumerot pilkuilla eroteltuina, esim. A8, B2)",
+                            "blacklist": "Estolista (ilmoitusten tunnukset pilkuilla eroteltuina)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
+                            "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "Säde saa olla enintään 50 km - suurin laatikko, johon TomTom vastaa yhdellä pyynnöllä.",
+            "invalid_api_key": "TomTom ei hyväksynyt API-avainta.",
+            "quota_exceeded": "Avaimen kiintiö TomTomilla on toistaiseksi käytetty. Yritä myöhemmin uudelleen.",
+            "address_not_found": "Tälle osoitteelle ei löytynyt paikkaa.",
+            "point_not_routable": "Yksi pisteistä on liian kaukana tiestä. Siirrä se lähemmäs tietä.",
+            "no_route": "TomTom ei löytänyt tietä, joka yhdistäisi nämä pisteet.",
+            "route_too_long": "Reitti on TomTomille liian pitkä tai siinä on liikaa pisteitä.",
+            "return_name_taken": "Tämänniminen merkintä on jo olemassa - tämä mukaan lukien.",
+            "cannot_connect": "TomTomiin ei saatu yhteyttä.",
+            "zone_without_position": "Tällä vyöhykkeellä ei ole sijaintia.",
+            "api_key_required": "Anna API-avain.",
+            "lufop_key_required": "Lufop tarvitsee API-avaimensa, jotta sen voi kytkeä päälle.",
+            "invalid_lufop_key": "Lufop ei hyväksynyt API-avainta.",
+            "lufop_cannot_connect": "Lufopiin ei saatu yhteyttä. Avainta ei tarkistettu - yritä myöhemmin uudelleen.",
+            "lufop_refused": "Lufop hylkäsi pyynnön hylkäämättä avainta. Päivän pyynnöt voivat olla käytetty - yritä uudelleen keskiyön UTC jälkeen tai tarkista avain Lufopin hallintapaneelista.",
+            "lufop_busy": "Lufopin 10 pyynnön minuuttiraja tuli täyteen. Yritä uudelleen minuutin kuluttua."
+        },
+        "abort": {
+            "no_tracker_with_position": "Yksikään laiteseurain ei ilmoita sijaintia juuri nyt. Tämä tila tarvitsee sellaisen, joka lähettää koordinaatteja - seurain, joka tuntee vain kotona ja poissa, ei voi olla säteen keskipiste."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} ei toimita",
+            "description": "TomTom-merkinnän **{name}** haku on epäonnistunut {count} kertaa peräkkäin, joten sen entiteetit eivät ole käytettävissä. Viimeisin syy:\n\n`{reason}`\n\nSeurain ilman sijaintia tai seurainentiteetti, jota ei enää ole, korjataan merkinnän kohdassa **Määrittele**; hylätty avain TomTom Asetukset -merkinnän kohdassa **Määrittele**; jos TomTomiin itseensä ei saada yhteyttä, tämä poistuu itsestään, kun yhteys taas toimii. Tämä korjaus katoaa seuraavan onnistuneen haun myötä."
+        },
+        "quota_at_risk": {
+            "title": "{api}-kiintiö ei riitä koko kuukaudeksi",
+            "description": "{days} päivän jälkeen käytetty {used}/{tier} ilmaisesta **{api}**-pyynnöstä; tällä tahdilla noin **{projected}** kuun loppuun mennessä, yli {percent} % kiintiöstä.\n\nHarvemmat haut auttavat: pidempi päivitysväli, tiukemmat tunnit reitillä, liikennevirta harvemmilla korteilla.\n\nTämä poistuu, kun tahti laskee alle osuuden, joka on asetettu kohdassa TomTom Asetukset → Määrittele → Kiintiövaroitus → TomTom, sekä uuden kuukauden alkaessa."
+        },
+        "quota_day_at_risk": {
+            "title": "Päivän {api}-pyynnöt ovat melkein lopussa",
+            "description": "**{api}**-paketin sallimista {tier} päivittäisestä pyynnöstä on käytetty {used}.\n\nPäivän pyynnöt jaetaan tämän asennuksen kaikkien merkintöjen kesken - ja kaiken muun kanssa, mikä käyttää samaa avainta. Harvemmat haut auttavat: pidempi päivitysväli, tiukemmat tunnit reitillä tai Lufop pois päältä merkinnöiltä, jotka ovat sen maan ulkopuolella.\n\nTämä poistuu keskiyöllä UTC, kun Lufopin päivä vaihtuu, tai kun kohdassa TomTom Asetukset → Määrittele → Kiintiövaroitus → Lufop asetettua osuutta nostetaan."
+        },
+        "quota_day_used_up": {
+            "title": "Päivän {api}-pyynnöt on käytetty",
+            "description": "Kaikki **{api}**-paketin {tier} päivittäistä pyyntöä on käytetty - Lufop laskee kaiken, mikä käyttää samaa avainta. Se hylkää uudet pyynnöt keskiyöhön UTC asti - täällä klo {reset}.\n\nHarvemmat haut auttavat huomenna: pidempi päivitysväli, tiukemmat tunnit reitillä tai Lufop pois päältä merkinnöiltä, jotka ovat sen maan ulkopuolella."
+        }
+    }
+}

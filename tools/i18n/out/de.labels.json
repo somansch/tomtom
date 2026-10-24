@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Stau",
+    "lane_closed": "Fahrstreifen gesperrt",
+    "road_closed": "Straße gesperrt",
+    "road_works": "Baustelle",
+    "accident": "Unfall",
+    "broken_down_vehicle": "Liegengebliebenes Fahrzeug",
+    "dangerous_conditions": "Gefährliche Bedingungen",
+    "fog": "Nebel",
+    "rain": "Regen",
+    "ice": "Glätte",
+    "wind": "Wind",
+    "flooding": "Überflutung",
+    "unknown": "Unbekannt",
+    "camera_fixed": "Fester Blitzer",
+    "camera_mobile": "Mobiler Blitzer",
+    "camera_trailer": "Anhängerblitzer",
+    "camera_redlight": "Ampelblitzer",
+    "camera_section": "Abschnittskontrolle",
+    "check_distance": "Abstandskontrolle",
+    "check_police": "Polizeikontrolle"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "gering",
+    "moderate": "mäßig",
+    "major": "erheblich",
+    "indefinite": "unbestimmt"
+  }
+}

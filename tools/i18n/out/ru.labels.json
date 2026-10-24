@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Пробка",
+    "lane_closed": "Полоса закрыта",
+    "road_closed": "Дорога закрыта",
+    "road_works": "Дорожные работы",
+    "accident": "ДТП",
+    "broken_down_vehicle": "Сломавшийся автомобиль",
+    "dangerous_conditions": "Опасные условия",
+    "fog": "Туман",
+    "rain": "Дождь",
+    "ice": "Гололёд",
+    "wind": "Ветер",
+    "flooding": "Затопление",
+    "unknown": "Неизвестно",
+    "camera_fixed": "Стационарная камера контроля скорости",
+    "camera_mobile": "Мобильная камера контроля скорости",
+    "camera_trailer": "Камера контроля скорости в прицепе",
+    "camera_redlight": "Камера на красный свет",
+    "camera_section": "Контроль средней скорости",
+    "check_distance": "Контроль дистанции",
+    "check_police": "Полицейская проверка"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "небольшая",
+    "moderate": "умеренная",
+    "major": "серьёзная",
+    "indefinite": "неопределённая"
+  }
+}

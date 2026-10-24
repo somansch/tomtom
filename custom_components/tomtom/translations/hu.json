@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Terület (sugár)",
+                "tracker": "📱 Eszközkövető (sugár)",
+                "route_live": "🛣️ Útvonal (indulás/cél, élőben a forgalommal)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Hétfő",
+                "tue": "Kedd",
+                "wed": "Szerda",
+                "thu": "Csütörtök",
+                "fri": "Péntek",
+                "sat": "Szombat",
+                "sun": "Vasárnap"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Forgalmi dugó",
+                "lane_closed": "Sávlezárás",
+                "road_closed": "Útlezárás",
+                "road_works": "Útmunkák",
+                "accident": "Baleset",
+                "broken_down_vehicle": "Lerobbant jármű",
+                "dangerous_conditions": "Veszélyes útviszonyok",
+                "fog": "Köd",
+                "rain": "Eső",
+                "ice": "Jegesedés",
+                "wind": "Szél",
+                "flooding": "Áradás",
+                "unknown": "Ismeretlen",
+                "camera_fixed": "Fix traffipax (blitzer.de, Lufop)",
+                "camera_mobile": "Mobil traffipax (blitzer.de, Lufop)",
+                "camera_trailer": "Utánfutós traffipax (blitzer.de)",
+                "camera_redlight": "Piroslámpa-kamera (blitzer.de, Lufop)",
+                "camera_section": "Szakaszos sebességmérés (blitzer.de, Lufop)",
+                "check_distance": "Követési távolság ellenőrzése (blitzer.de)",
+                "check_police": "Rendőri ellenőrzés (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andorra",
+                "au": "Ausztrália",
+                "be": "Belgium",
+                "bg": "Bulgária",
+                "ca": "Kanada",
+                "cz": "Csehország",
+                "fi": "Finnország",
+                "fr": "Franciaország",
+                "de": "Németország",
+                "ie": "Írország",
+                "it": "Olaszország",
+                "lv": "Lettország",
+                "lu": "Luxemburg",
+                "ma": "Marokkó",
+                "nl": "Hollandia",
+                "nz": "Új-Zéland",
+                "no": "Norvégia",
+                "pl": "Lengyelország",
+                "pt": "Portugália",
+                "es": "Spanyolország",
+                "se": "Svédország",
+                "ch": "Svájc",
+                "ae": "Egyesült Arab Emírségek",
+                "gb": "Egyesült Királyság"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Általános"
+        },
+        "settings": {
+            "name": "TomTom Beállítások"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Jelentések"
+            },
+            "travel_time": {
+                "name": "Menetidő"
+            },
+            "traffic_delay": {
+                "name": "Forgalmi késés"
+            },
+            "route_length": {
+                "name": "Útvonal hossza"
+            },
+            "requests": {
+                "name": "TomTom-kérések ebben a hónapban"
+            },
+            "requests_total": {
+                "name": "Összes kérés ebben a hónapban"
+            },
+            "requests_incidents": {
+                "name": "Incident Details ebben a hónapban"
+            },
+            "requests_routing": {
+                "name": "Routing ebben a hónapban"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding ebben a hónapban"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding ebben a hónapban"
+            },
+            "requests_search": {
+                "name": "Keresés ebben a hónapban"
+            },
+            "requests_tiles": {
+                "name": "Áramlási csempék ebben a hónapban"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de ebben a hónapban"
+            },
+            "requests_lufop": {
+                "name": "Lufop ma"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Újnak számít"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Kvóta veszélyben"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "TomTom beállítása",
+                "description": "Nevezd el ezt a bejegyzést, és válaszd ki, hogyan keressen. Egy terület vagy nyomkövető a TomTom forgalmi incidenseit olvassa a körében; az indulástól a célig vezető útvonalat a TomTom minden lekérdezéskor újraszámolja a pillanatnyi forgalommal, és azt jelenti, amin áthalad.",
+                "data": {
+                    "name": "Megjelenített név",
+                    "search_mode": "Keresési mód"
+                }
+            },
+            "key": {
+                "title": "TomTom API-kulcs",
+                "description": "Itt minden a TomTomtól jön, amihez API-kulcs kell - ingyenes, fizetési mód nélkül:\n\n1. Regisztrálj a [developer.tomtom.com]({url}) oldalon.\n2. Rögtön utána az irányítópult **API & SDK Keys** része már mutat egy kulcsot, a *My First API key*-t, minden API-val engedélyezve - köztük a Traffic API, a Routing API és a Search API, amelyeket itt használunk. Másold ki a mellette lévő gombbal.\n3. Illeszd be ide.\n\nEgy kulcs ennek a Home Assistantnak minden bejegyzését kiszolgálja. Ha már el van mentve egy, hagyd üresen a mezőt, hogy megmaradjon.",
+                "data": {
+                    "api_key": "API-kulcs"
+                }
+            },
+            "route_defaults": {
+                "title": "Alapértelmezések az új útvonalakhoz",
+                "description": "Amivel minden új útvonal indul: a kártyán az ott tervezett útvonal rögtön ezekkel a beállításokkal mentődik; a beállítási varázslóban ki vannak töltve, de még módosíthatók. A napok és órák azok, amelyeken az útvonal naprakészen marad, és vele együtt a visszaút is létrehozható - amelyet a nap más szakában tesznek meg, saját óráival.",
+                "data": {
+                    "default_start": "Indulás a kártyán tervezett útvonalakhoz (választható)",
+                    "return_route": "A visszaút létrehozása is",
+                    "live_days": "Napok, amelyeken az útvonal naprakészen marad",
+                    "live_from": "Ettől",
+                    "live_until": "Eddig",
+                    "live_back_from": "Ettől (visszaút)",
+                    "live_back_until": "Eddig (visszaút)",
+                    "categories": "Jelentések"
+                },
+                "data_description": {
+                    "return_route": "Egy második bejegyzés, a céltól az indulásig - autópályán a visszaút a másik pálya, és az egyiken lévő dugó nem dugó a másikon. E bejegyzés nevét kapja, „vissza” hozzáfűzve."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "A TomTom be van állítva",
+                "description": "A kulcs mentve, az új útvonalak alapértelmezései pedig a **TomTom Beállítások** bejegyzés alatt vannak - később ennek Konfigurálás gombja módosítja mindkettőt. Fejezd be most, és add hozzá az első területet, nyomkövetőt vagy útvonalat bármikor a TomTom csempe saját **Bejegyzés hozzáadása** gombjával, vagy hozd létre rögtön.",
+                "menu_options": {
+                    "finish": "Beállítás befejezése",
+                    "add_entry": "Az első terület, nyomkövető vagy útvonal hozzáadása most"
+                }
+            },
+            "area": {
+                "title": "Terület (sugár)",
+                "description": "Válaszd ki a kört, amelyben a TomTom jelentései megjelennek - legfeljebb 50 km a középpontja körül, ez a legnagyobb doboz, amelyre a TomTom egy kéréssel válaszol. Minden lekérdezés egy Incident Details kérés (a keresés minden 10 000 km²-e után eggyel több), és egy ingyenes kulcsnak havi 2500 jár belőle: az alapértelmezett óránkénti ütemmel egy terület körülbelül 720-at használ el.",
+                "data": {
+                    "location": "Terület",
+                    "categories": "Jelentések"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Eszközkövető (sugár)",
+                "description": "Válaszd ki a követendő eszközkövetőt, és hogy mekkora kört keressen körülötte. Csak a jelenleg koordinátákat jelentő követők szerepelnek - amelyik csak az otthon és a távol állapotot ismeri, annak nincs pozíciója, amely köré kör rajzolható. Minden lekérdezés egy Incident Details kérés (a keresés minden 10 000 km²-e után eggyel több), és egy ingyenes kulcsnak havi 2500 jár belőle: az alapértelmezett óránkénti ütemmel egy terület körülbelül 720-at használ el.",
+                "data": {
+                    "tracker": "Eszközkövető",
+                    "tracker_radius": "Sugár (méter)",
+                    "categories": "Jelentések"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Indulás",
+                "description": "Honnan indul az útvonal?",
+                "menu_options": {
+                    "route_start_zone": "Zóna",
+                    "route_start_point": "Pont a térképen",
+                    "route_start_address": "Cím"
+                }
+            },
+            "route_start_zone": {
+                "title": "Indulás: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_start_point": {
+                "title": "Indulás: pont a térképen",
+                "description": "Mozgasd a térképet úgy, hogy a jelölő az indulási pontra kerüljön.",
+                "data": {
+                    "location": "Indulás"
+                }
+            },
+            "route_start_address": {
+                "title": "Indulás: cím",
+                "description": "Utca és település.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Indulás: cím megtalálva",
+                "description": "Találat: **{label}**\n\nHa nem ezt a helyet gondoltad, javítsd a címet és lépj tovább - újra ki lesz keresve.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_destination": {
+                "title": "Cél",
+                "description": "Hol ér véget az útvonal?",
+                "menu_options": {
+                    "route_destination_zone": "Zóna",
+                    "route_destination_point": "Pont a térképen",
+                    "route_destination_address": "Cím"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Cél: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_destination_point": {
+                "title": "Cél: pont a térképen",
+                "description": "Mozgasd a térképet úgy, hogy a jelölő a célra kerüljön.",
+                "data": {
+                    "location": "Cél"
+                }
+            },
+            "route_destination_address": {
+                "title": "Cél: cím",
+                "description": "Utca és település.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Cél: cím megtalálva",
+                "description": "Találat: **{label}**\n\nHa nem ezt a helyet gondoltad, javítsd a címet és lépj tovább - újra ki lesz keresve.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_vias": {
+                "title": "Köztes pontok",
+                "description": "{start} – {destination} között, eddig {count} köztes pont. A TomTom a leggyorsabb utat veszi köztük - adj hozzá köztes pontot ott, ahol a szokásos utad eltér.",
+                "menu_options": {
+                    "route_via": "Köztes pont hozzáadása",
+                    "route_vias_clear": "Minden köztes pont eltávolítása",
+                    "route_review": "Útvonal kiszámítása"
+                }
+            },
+            "route_via": {
+                "title": "{count}. köztes pont",
+                "description": "Mozgasd a térképet úgy, hogy a jelölő egy olyan útra kerüljön, amelyen az útvonalnak át kell haladnia.",
+                "data": {
+                    "location": "Köztes pont"
+                }
+            },
+            "route_failed": {
+                "title": "Nincs útvonal",
+                "description": "Lépj tovább a pontok módosításához."
+            },
+            "route_review": {
+                "title": "Az útvonalad, most",
+                "description": "{start} → {destination}, {vias} köztes pont: {distance}, most körülbelül {duration} perc, ebből {delay} perc késés. Az útvonal minden lekérdezéskor újraszámolódik; a térkép azt mutatja, amelyet a forgalom ebben a pillanatban a leggyorsabbá tesz. Az óráin belül minden lekérdezés egy Routing kérés a havi 20 000 ingyenesből; az útvonalon lévő jelentések vele jönnek, az Incident Details pedig új jelentésenként egyszer kérdezi le a többi tudnivalót.",
+                "data": {
+                    "return_route": "A visszaút létrehozása is",
+                    "return_name": "A visszaút neve",
+                    "live_days": "Napok, amelyeken az útvonal naprakészen marad",
+                    "live_from": "Ettől",
+                    "live_until": "Eddig",
+                    "live_back_from": "Ettől (visszaút)",
+                    "live_back_until": "Eddig (visszaút)",
+                    "categories": "Jelentések"
+                },
+                "data_description": {
+                    "return_route": "Egy második bejegyzés, a céltól az indulásig - autópályán a visszaút a másik pálya, és az egyiken lévő dugó nem dugó a másikon. E bejegyzés nevét kapja, „vissza” hozzáfűzve.",
+                    "return_name": "Csak akkor használt, ha a visszaút létrejön. E bejegyzés nevével és a hozzáfűzött „vissza” szóval van kitöltve; írj másikat, hogy máshogy hívd - például „Otthon” és „Munka”."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "A TomTom ezzel a névvel már be van állítva. Válassz másikat.",
+            "location_missing": "Válassz pozíciót (mozgasd a térképet).",
+            "no_tracker_with_position": "Jelenleg egyetlen eszközkövető sem jelent pozíciót. Ehhez a módhoz koordinátákat küldő követő kell - amelyik csak az otthon és a távol állapotot ismeri, nem tud sugarat középre tenni."
+        },
+        "error": {
+            "radius_too_large": "A sugár legfeljebb 50 km lehet - ez a legnagyobb doboz, amelyre a TomTom egy kéréssel válaszol.",
+            "invalid_api_key": "A TomTom nem fogadta el az API-kulcsot.",
+            "quota_exceeded": "A kulcs TomTom-kvótája egyelőre elfogyott. Próbáld újra később.",
+            "address_not_found": "Ehhez a címhez nem található hely.",
+            "point_not_routable": "Az egyik pont túl messze van az úttól. Vidd közelebb egy úthoz.",
+            "no_route": "A TomTom nem talált utat, amely összeköti ezeket a pontokat.",
+            "route_too_long": "Az útvonal túl hosszú a TomTomnak, vagy túl sok pontja van.",
+            "return_name_taken": "Már van ilyen nevű bejegyzés - ezt is beleértve.",
+            "cannot_connect": "A TomTom nem érhető el.",
+            "zone_without_position": "Ennek a zónának nincs pozíciója.",
+            "api_key_required": "Adj meg egy API-kulcsot.",
+            "lufop_key_required": "A Lufop bekapcsolásához meg kell adni az API-kulcsát.",
+            "invalid_lufop_key": "A Lufop nem fogadta el az API-kulcsot.",
+            "lufop_cannot_connect": "A Lufop nem érhető el. A kulcs nem lett ellenőrizve - próbáld újra később.",
+            "lufop_refused": "A Lufop elutasította a kérést anélkül, hogy a kulcsot elutasította volna. Lehet, hogy elfogytak a napi kérések - próbáld újra UTC szerint éjfél után, vagy ellenőrizd a kulcsot a Lufop irányítópultodon.",
+            "lufop_busy": "A Lufop percenkénti 10 kéréses korlátja elérve. Próbáld újra egy perc múlva."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Frissítés",
+            "description": "Azonnal lekéri egy TomTom-terület, -útvonal vagy -nyomkövető legfrissebb jelentéseit a következő ütemezett lekérdezés megvárása helyett - élő útvonalnál először magát az útvonalat. Visszaadja a jelentéseket.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Terület, útvonal vagy nyomkövető",
+                    "description": "Melyik TomTom-terület, -útvonal vagy -nyomkövető frissüljön."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Mit szeretnél szerkeszteni?",
+                "menu_options": {
+                    "edit_route": "Útvonal módosítása (indulás, cél, köztes pontok)",
+                    "edit_route_settings": "Keresési beállítások szerkesztése (órák, fajták, szűrők)",
+                    "edit_key": "Az API-kulcs módosítása",
+                    "route_defaults": "Alapértelmezések az új útvonalakhoz",
+                    "quota_warning": "Kvótafigyelmeztetés",
+                    "sources": "Adatforrások"
+                }
+            },
+            "route_defaults": {
+                "title": "Alapértelmezések az új útvonalakhoz",
+                "description": "Amivel minden új útvonal indul: a kártyán az ott tervezett útvonal rögtön ezekkel a beállításokkal mentődik; a beállítási varázslóban ki vannak töltve, de még módosíthatók. A napok és órák azok, amelyeken az útvonal naprakészen marad, és vele együtt a visszaút is létrehozható - amelyet a nap más szakában tesznek meg, saját óráival.",
+                "data": {
+                    "default_start": "Indulás a kártyán tervezett útvonalakhoz (választható)",
+                    "return_route": "A visszaút létrehozása is",
+                    "live_days": "Napok, amelyeken az útvonal naprakészen marad",
+                    "live_from": "Ettől",
+                    "live_until": "Eddig",
+                    "live_back_from": "Ettől (visszaút)",
+                    "live_back_until": "Eddig (visszaút)",
+                    "categories": "Jelentések"
+                },
+                "data_description": {
+                    "return_route": "Egy második bejegyzés, a céltól az indulásig - autópályán a visszaút a másik pálya, és az egyiken lévő dugó nem dugó a másikon. E bejegyzés nevét kapja, „vissza” hozzáfűzve."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Kvótafigyelmeztetés",
+                "description": "Ha egy API kérései fogyóban vannak, egy javítás jelzi ezt, és a TomTom Általános eszköz **Kvóta veszélyben** érzékelője bekapcsol.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "A hónap nyolcadik napjától az eddigi kéréseket a hónap végéig vetíti előre. Az számít, amit ez az integráció kér; egy máshol is használt kulcs a TomTomnál magasabban áll.",
+                        "data": {
+                            "quota_warning": "Figyelmeztetés, ha az ingyenes keret nem elég a hónapra",
+                            "quota_threshold": "Figyelmeztetés az ingyenes keret ennyi részétől"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % akkor figyelmeztet, ha magát a keretet túllépi, 80 % már a négyötödénél."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "A Lufop naponta számol, éjféltől éjfélig UTC szerint, mindent beleértve, ami a kulcsot használja. Akkor érvényes, ha a Lufop be van kapcsolva az Adatforrások alatt.",
+                        "data": {
+                            "lufop_quota_warning": "Figyelmeztetés, ha a napi kérések fogyóban vannak vagy elfogytak",
+                            "lufop_quota_threshold": "Figyelmeztetés a napi kérések ennyi részétől"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "Az első figyelmeztetés ennél a résznél jön; a második, amikor mind elfogyott."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Adatforrások",
+                "description": "További jelentésforrások a TomTom mellett, egyszerre minden bejegyzéshez. Egy forrás csak azt adja hozzá, ami a TomTomnál nincs meg, saját fajták alatt minden bejegyzés listájában, így egy jelentés sem szerepel kétszer.\n\nA **blitzer.de** traffipaxokat és forgalmi ellenőrzéseket jelent, fixeket és mobilokat, Németországban és szomszédos országaiban. Nem kell kulcs és fiók; azt olvassa, amit az oldal saját térképe, amelyet a blitzer.de nem tett közzé API-ként, és megváltozhat vagy megszűnhet. Minden kérés a **blitzer.de ebben a hónapban** alatt számít.\n\nA **Lufop** fix, mobil és piroslámpa-traffipaxokat, valamint szakaszos sebességméréseket jelent a radaradatbázisából - dokumentált API, ingyenes személyes kulccsal az [api.lufop.net](https://api.lufop.net/) oldalról. Egy kérés egy országra válaszol; az ingyenes csomag Franciaországot, Belgiumot és Svájcot fedi le, napi 200 kéréssel és kérésenként 200 radarral. Minden kérés a **Lufop ma** alatt számít.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Lufop API-kulcs",
+                    "lufop_country": "Lufop: ország"
+                },
+                "data_description": {
+                    "lufop_api_key": "Ellenőrzésre kerül, amikor megadod, és amikor a Lufop bekapcsol; a már mentett kulcs megmarad, ha üresen hagyod a mezőt.",
+                    "lufop_country": "Az az egy ország, amelyre minden bejegyzés a Lufopnál kérdez - az ingyenes csomag Franciaországot, Belgiumot és Svájcot engedi."
+                }
+            },
+            "key": {
+                "title": "TomTom API-kulcs",
+                "description": "Itt minden a TomTomtól jön, amihez API-kulcs kell - ingyenes, fizetési mód nélkül:\n\n1. Regisztrálj a [developer.tomtom.com]({url}) oldalon.\n2. Rögtön utána az irányítópult **API & SDK Keys** része már mutat egy kulcsot, a *My First API key*-t, minden API-val engedélyezve - köztük a Traffic API, a Routing API és a Search API, amelyeket itt használunk. Másold ki a mellette lévő gombbal.\n3. Illeszd be ide.\n\nEgy kulcs ennek a Home Assistantnak minden bejegyzését kiszolgálja. Ha már el van mentve egy, hagyd üresen a mezőt, hogy megmaradjon.",
+                "data": {
+                    "api_key": "API-kulcs"
+                }
+            },
+            "area": {
+                "title": "Terület (sugár)",
+                "description": "Válaszd ki a kört, amelyben a TomTom jelentései megjelennek - legfeljebb 50 km a középpontja körül, ez a legnagyobb doboz, amelyre a TomTom egy kéréssel válaszol. Minden lekérdezés egy Incident Details kérés (a keresés minden 10 000 km²-e után eggyel több), és egy ingyenes kulcsnak havi 2500 jár belőle: az alapértelmezett óránkénti ütemmel egy terület körülbelül 720-at használ el.",
+                "data": {
+                    "location": "Terület",
+                    "categories": "Jelentések"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Eszközkövető (sugár)",
+                "description": "Válaszd ki a követendő eszközkövetőt, és hogy mekkora kört keressen körülötte. Csak a jelenleg koordinátákat jelentő követők szerepelnek - amelyik csak az otthon és a távol állapotot ismeri, annak nincs pozíciója, amely köré kör rajzolható. Minden lekérdezés egy Incident Details kérés (a keresés minden 10 000 km²-e után eggyel több), és egy ingyenes kulcsnak havi 2500 jár belőle: az alapértelmezett óránkénti ütemmel egy terület körülbelül 720-at használ el.",
+                "data": {
+                    "tracker": "Eszközkövető",
+                    "tracker_radius": "Sugár (méter)",
+                    "categories": "Jelentések"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Indulás",
+                "description": "Honnan indul az útvonal?",
+                "menu_options": {
+                    "route_start_zone": "Zóna",
+                    "route_start_point": "Pont a térképen",
+                    "route_start_address": "Cím"
+                }
+            },
+            "route_start_zone": {
+                "title": "Indulás: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_start_point": {
+                "title": "Indulás: pont a térképen",
+                "description": "Mozgasd a térképet úgy, hogy a jelölő az indulási pontra kerüljön.",
+                "data": {
+                    "location": "Indulás"
+                }
+            },
+            "route_start_address": {
+                "title": "Indulás: cím",
+                "description": "Utca és település.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Indulás: cím megtalálva",
+                "description": "Találat: **{label}**\n\nHa nem ezt a helyet gondoltad, javítsd a címet és lépj tovább - újra ki lesz keresve.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_destination": {
+                "title": "Cél",
+                "description": "Hol ér véget az útvonal?",
+                "menu_options": {
+                    "route_destination_zone": "Zóna",
+                    "route_destination_point": "Pont a térképen",
+                    "route_destination_address": "Cím"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Cél: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_destination_point": {
+                "title": "Cél: pont a térképen",
+                "description": "Mozgasd a térképet úgy, hogy a jelölő a célra kerüljön.",
+                "data": {
+                    "location": "Cél"
+                }
+            },
+            "route_destination_address": {
+                "title": "Cél: cím",
+                "description": "Utca és település.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Cél: cím megtalálva",
+                "description": "Találat: **{label}**\n\nHa nem ezt a helyet gondoltad, javítsd a címet és lépj tovább - újra ki lesz keresve.",
+                "data": {
+                    "address": "Cím"
+                }
+            },
+            "route_vias": {
+                "title": "Köztes pontok",
+                "description": "{start} – {destination} között, eddig {count} köztes pont. A TomTom a leggyorsabb utat veszi köztük - adj hozzá köztes pontot ott, ahol a szokásos utad eltér.",
+                "menu_options": {
+                    "route_via": "Köztes pont hozzáadása",
+                    "route_vias_clear": "Minden köztes pont eltávolítása",
+                    "route_review": "Útvonal kiszámítása"
+                }
+            },
+            "route_via": {
+                "title": "{count}. köztes pont",
+                "description": "Mozgasd a térképet úgy, hogy a jelölő egy olyan útra kerüljön, amelyen az útvonalnak át kell haladnia.",
+                "data": {
+                    "location": "Köztes pont"
+                }
+            },
+            "route_failed": {
+                "title": "Nincs útvonal",
+                "description": "Lépj tovább a pontok módosításához."
+            },
+            "route_review": {
+                "title": "Az útvonalad, most",
+                "description": "{start} → {destination}, {vias} köztes pont: {distance}, most körülbelül {duration} perc, ebből {delay} perc késés. Az útvonal minden lekérdezéskor újraszámolódik; a térkép azt mutatja, amelyet a forgalom ebben a pillanatban a leggyorsabbá tesz. Az óráin belül minden lekérdezés egy Routing kérés a havi 20 000 ingyenesből; az útvonalon lévő jelentések vele jönnek, az Incident Details pedig új jelentésenként egyszer kérdezi le a többi tudnivalót.",
+                "data": {
+                    "live_days": "Napok, amelyeken az útvonal naprakészen marad",
+                    "live_from": "Ettől",
+                    "live_until": "Eddig",
+                    "categories": "Jelentések"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Választható beállítások",
+                        "data": {
+                            "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "count": "Jelentések száma",
+                            "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
+                            "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
+                            "roads": "Csak ezek az utak (útszámok vesszővel elválasztva, pl. A8, B2)",
+                            "blacklist": "Tiltólista (incidensazonosítók vesszővel elválasztva)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
+                            "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "A sugár legfeljebb 50 km lehet - ez a legnagyobb doboz, amelyre a TomTom egy kéréssel válaszol.",
+            "invalid_api_key": "A TomTom nem fogadta el az API-kulcsot.",
+            "quota_exceeded": "A kulcs TomTom-kvótája egyelőre elfogyott. Próbáld újra később.",
+            "address_not_found": "Ehhez a címhez nem található hely.",
+            "point_not_routable": "Az egyik pont túl messze van az úttól. Vidd közelebb egy úthoz.",
+            "no_route": "A TomTom nem talált utat, amely összeköti ezeket a pontokat.",
+            "route_too_long": "Az útvonal túl hosszú a TomTomnak, vagy túl sok pontja van.",
+            "return_name_taken": "Már van ilyen nevű bejegyzés - ezt is beleértve.",
+            "cannot_connect": "A TomTom nem érhető el.",
+            "zone_without_position": "Ennek a zónának nincs pozíciója.",
+            "api_key_required": "Adj meg egy API-kulcsot.",
+            "lufop_key_required": "A Lufop bekapcsolásához meg kell adni az API-kulcsát.",
+            "invalid_lufop_key": "A Lufop nem fogadta el az API-kulcsot.",
+            "lufop_cannot_connect": "A Lufop nem érhető el. A kulcs nem lett ellenőrizve - próbáld újra később.",
+            "lufop_refused": "A Lufop elutasította a kérést anélkül, hogy a kulcsot elutasította volna. Lehet, hogy elfogytak a napi kérések - próbáld újra UTC szerint éjfél után, vagy ellenőrizd a kulcsot a Lufop irányítópultodon.",
+            "lufop_busy": "A Lufop percenkénti 10 kéréses korlátja elérve. Próbáld újra egy perc múlva."
+        },
+        "abort": {
+            "no_tracker_with_position": "Jelenleg egyetlen eszközkövető sem jelent pozíciót. Ehhez a módhoz koordinátákat küldő követő kell - amelyik csak az otthon és a távol állapotot ismeri, nem tud sugarat középre tenni."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} nem szolgáltat",
+            "description": "A(z) **{name}** TomTom-bejegyzés {count} lekérdezésnél bukott el egymás után, ezért az entitásai nem elérhetők. Az utolsó ok:\n\n`{reason}`\n\nA pozíció nélküli nyomkövető, vagy a már nem létező nyomkövető-entitás a bejegyzés **Konfigurálás** gombja alatt javítható; az elutasított kulcs a TomTom Beállítások bejegyzés **Konfigurálás** gombja alatt; ha maga a TomTom nem érhető el, ez magától megszűnik, amint újra elérhető. Ez a javítás a következő sikeres lekérdezéssel eltűnik."
+        },
+        "quota_at_risk": {
+            "title": "A(z) {api} kvóta nem lesz elég a hónapra",
+            "description": "{days} nap után {used} a(z) {tier} ingyenes **{api}** kérésből; ebben az ütemben a hónap végéig kb. **{projected}**, a keret több mint {percent} %-a.\n\nKevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, a forgalomáramlás kevesebb kártyán.\n\nEz eltűnik, amint az ütem a TomTom Beállítások → Konfigurálás → Kvótafigyelmeztetés → TomTom alatt beállított rész alá esik, valamint az új hónappal."
+        },
+        "quota_day_at_risk": {
+            "title": "A(z) {api} napi kérései majdnem elfogytak",
+            "description": "A(z) **{api}** csomag által engedett napi {tier} kérésből {used} elhasználva.\n\nA napi kéréseken ennek a telepítésnek minden bejegyzése osztozik - és minden más is, ami ugyanazt a kulcsot használja. Kevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, vagy a Lufop kikapcsolása az országán kívül eső bejegyzéseknél.\n\nEz eltűnik UTC szerint éjfélkor, amikor a Lufop napja fordul, vagy ha a TomTom Beállítások → Konfigurálás → Kvótafigyelmeztetés → Lufop alatt beállított részt megemeled."
+        },
+        "quota_day_used_up": {
+            "title": "A(z) {api} napi kérései elfogytak",
+            "description": "A(z) **{api}** csomag mind a napi {tier} kérése elhasználva - a Lufop mindent beleszámol, ami ugyanazt a kulcsot használja. További kéréseket UTC szerint éjfélig utasít el - ez itt {reset}.\n\nHolnap kevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, vagy a Lufop kikapcsolása az országán kívüli bejegyzéseknél."
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "塞車",
+    "lane_closed": "車道封閉",
+    "road_closed": "道路封閉",
+    "road_works": "道路施工",
+    "accident": "事故",
+    "broken_down_vehicle": "故障車輛",
+    "dangerous_conditions": "路況危險",
+    "fog": "濃霧",
+    "rain": "降雨",
+    "ice": "路面結冰",
+    "wind": "強風",
+    "flooding": "淹水",
+    "unknown": "不明",
+    "camera_fixed": "固定式測速照相",
+    "camera_mobile": "移動式測速照相",
+    "camera_trailer": "拖車式測速照相",
+    "camera_redlight": "闖紅燈照相",
+    "camera_section": "區間測速",
+    "check_distance": "車距檢查",
+    "check_police": "警察臨檢"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "輕微",
+    "moderate": "中等",
+    "major": "嚴重",
+    "indefinite": "未定"
+  }
+}

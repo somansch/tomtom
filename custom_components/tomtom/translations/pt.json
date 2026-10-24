@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Área (raio)",
+                "tracker": "📱 Rastreador de dispositivo (raio)",
+                "route_live": "🛣️ Rota (partida/destino, em direto com o trânsito)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Segunda-feira",
+                "tue": "Terça-feira",
+                "wed": "Quarta-feira",
+                "thu": "Quinta-feira",
+                "fri": "Sexta-feira",
+                "sat": "Sábado",
+                "sun": "Domingo"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Engarrafamento",
+                "lane_closed": "Via cortada",
+                "road_closed": "Estrada cortada",
+                "road_works": "Obras na estrada",
+                "accident": "Acidente",
+                "broken_down_vehicle": "Veículo avariado",
+                "dangerous_conditions": "Condições perigosas",
+                "fog": "Nevoeiro",
+                "rain": "Chuva",
+                "ice": "Gelo",
+                "wind": "Vento",
+                "flooding": "Inundação",
+                "unknown": "Desconhecido",
+                "camera_fixed": "Radar fixo (blitzer.de, Lufop)",
+                "camera_mobile": "Radar móvel (blitzer.de, Lufop)",
+                "camera_trailer": "Radar em reboque (blitzer.de)",
+                "camera_redlight": "Radar de semáforo (blitzer.de, Lufop)",
+                "camera_section": "Controlo de velocidade média (blitzer.de, Lufop)",
+                "check_distance": "Controlo de distância (blitzer.de)",
+                "check_police": "Controlo policial (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andorra",
+                "au": "Austrália",
+                "be": "Bélgica",
+                "bg": "Bulgária",
+                "ca": "Canadá",
+                "cz": "Chéquia",
+                "fi": "Finlândia",
+                "fr": "França",
+                "de": "Alemanha",
+                "ie": "Irlanda",
+                "it": "Itália",
+                "lv": "Letónia",
+                "lu": "Luxemburgo",
+                "ma": "Marrocos",
+                "nl": "Países Baixos",
+                "nz": "Nova Zelândia",
+                "no": "Noruega",
+                "pl": "Polónia",
+                "pt": "Portugal",
+                "es": "Espanha",
+                "se": "Suécia",
+                "ch": "Suíça",
+                "ae": "Emirados Árabes Unidos",
+                "gb": "Reino Unido"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Geral"
+        },
+        "settings": {
+            "name": "TomTom Definições"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Ocorrências"
+            },
+            "travel_time": {
+                "name": "Tempo de viagem"
+            },
+            "traffic_delay": {
+                "name": "Atraso de trânsito"
+            },
+            "route_length": {
+                "name": "Comprimento da rota"
+            },
+            "requests": {
+                "name": "Pedidos TomTom este mês"
+            },
+            "requests_total": {
+                "name": "Todos os pedidos este mês"
+            },
+            "requests_incidents": {
+                "name": "Incident Details este mês"
+            },
+            "requests_routing": {
+                "name": "Routing este mês"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding este mês"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding este mês"
+            },
+            "requests_search": {
+                "name": "Pesquisa este mês"
+            },
+            "requests_tiles": {
+                "name": "Mosaicos de fluxo este mês"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de este mês"
+            },
+            "requests_lufop": {
+                "name": "Lufop hoje"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Nova durante"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Quota em risco"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "Configurar TomTom",
+                "description": "Dê um nome a esta entrada e escolha como deve ser pesquisada. Uma área ou um rastreador lê os incidentes de trânsito da TomTom dentro do seu círculo; uma rota de partida a destino é calculada pela TomTom em cada consulta, com o trânsito do momento, e comunica o que atravessa.",
+                "data": {
+                    "name": "Nome a apresentar",
+                    "search_mode": "Modo de pesquisa"
+                }
+            },
+            "key": {
+                "title": "Chave de API TomTom",
+                "description": "Tudo aqui vem da TomTom, que precisa de uma chave de API - gratuita, sem meio de pagamento:\n\n1. Registe-se em [developer.tomtom.com]({url}).\n2. Logo a seguir, **API & SDK Keys** no painel já lista uma chave, *My First API key*, com todas as APIs ativadas - entre elas a Traffic API, a Routing API e a Search API, as usadas aqui. Copie-a com o botão ao lado.\n3. Cole-a aqui.\n\nUma chave serve todas as entradas deste Home Assistant. Se já houver uma guardada, deixe o campo vazio para a manter.",
+                "data": {
+                    "api_key": "Chave de API"
+                }
+            },
+            "route_defaults": {
+                "title": "Predefinições para novas rotas",
+                "description": "Aquilo com que cada nova rota começa: no cartão, uma rota aí planeada é guardada de imediato com estas definições; no assistente de configuração são preenchidas e ainda podem ser alteradas. Os dias e as horas são aqueles em que a rota é mantida atualizada, e o regresso pode ser criado com ela - percorrido a outra hora do dia, com horas próprias.",
+                "data": {
+                    "default_start": "Partida para rotas planeadas no cartão (opcional)",
+                    "return_route": "Criar também o regresso",
+                    "live_days": "Dias em que a rota é mantida atualizada",
+                    "live_from": "Das",
+                    "live_until": "Até",
+                    "live_back_from": "Das (regresso)",
+                    "live_back_until": "Até (regresso)",
+                    "categories": "Ocorrências"
+                },
+                "data_description": {
+                    "return_route": "Uma segunda entrada, do destino à partida - numa autoestrada o regresso é a outra faixa de rodagem, e um engarrafamento numa não o é na outra. Com o nome desta entrada e \"regresso\" acrescentado."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "A TomTom está configurada",
+                "description": "A chave está guardada, e as predefinições para novas rotas ficam na entrada **TomTom Definições** - o seu Configurar altera ambas mais tarde. Termine agora e adicione a primeira área, rastreador ou rota quando quiser a partir de **Adicionar entrada** no próprio mosaico TomTom, ou crie-a já.",
+                "menu_options": {
+                    "finish": "Concluir a configuração",
+                    "add_entry": "Adicionar já a primeira área, rastreador ou rota"
+                }
+            },
+            "area": {
+                "title": "Área (raio)",
+                "description": "Selecione o círculo em que as ocorrências da TomTom são mostradas - até 50 km à volta do seu centro, a maior caixa que a TomTom responde num único pedido. Cada consulta é um pedido ao Incident Details (mais um por cada 10.000 km² de área de pesquisa), e uma chave gratuita tem 2.500 por mês: com a hora predefinida, uma área gasta cerca de 720.",
+                "data": {
+                    "location": "Área",
+                    "categories": "Ocorrências"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Rastreador de dispositivo (raio)",
+                "description": "Escolha o rastreador de dispositivo a seguir e o tamanho do círculo a pesquisar à sua volta. Só são listados rastreadores que estão a comunicar coordenadas - um que só conhece casa e fora não tem posição à volta da qual traçar um círculo. Cada consulta é um pedido ao Incident Details (mais um por cada 10.000 km² de área de pesquisa), e uma chave gratuita tem 2.500 por mês: com a hora predefinida, uma área gasta cerca de 720.",
+                "data": {
+                    "tracker": "Rastreador de dispositivo",
+                    "tracker_radius": "Raio (metros)",
+                    "categories": "Ocorrências"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Partida",
+                "description": "Onde começa a rota?",
+                "menu_options": {
+                    "route_start_zone": "Zona",
+                    "route_start_point": "Ponto no mapa",
+                    "route_start_address": "Morada"
+                }
+            },
+            "route_start_zone": {
+                "title": "Partida: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_start_point": {
+                "title": "Partida: ponto no mapa",
+                "description": "Mova o mapa até o marcador ficar sobre a partida.",
+                "data": {
+                    "location": "Partida"
+                }
+            },
+            "route_start_address": {
+                "title": "Partida: morada",
+                "description": "Rua e localidade.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Partida: morada encontrada",
+                "description": "Encontrado: **{label}**\n\nSe não for o lugar que pretendia, corrija a morada e continue - será procurada de novo.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_destination": {
+                "title": "Destino",
+                "description": "Onde termina a rota?",
+                "menu_options": {
+                    "route_destination_zone": "Zona",
+                    "route_destination_point": "Ponto no mapa",
+                    "route_destination_address": "Morada"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Destino: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_destination_point": {
+                "title": "Destino: ponto no mapa",
+                "description": "Mova o mapa até o marcador ficar sobre o destino.",
+                "data": {
+                    "location": "Destino"
+                }
+            },
+            "route_destination_address": {
+                "title": "Destino: morada",
+                "description": "Rua e localidade.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Destino: morada encontrada",
+                "description": "Encontrado: **{label}**\n\nSe não for o lugar que pretendia, corrija a morada e continue - será procurada de novo.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_vias": {
+                "title": "Pontos intermédios",
+                "description": "De {start} a {destination}, {count} pontos intermédios até agora. A TomTom escolhe a estrada mais rápida entre eles - acrescente um ponto intermédio onde o seu caminho habitual for diferente.",
+                "menu_options": {
+                    "route_via": "Adicionar um ponto intermédio",
+                    "route_vias_clear": "Remover todos os pontos intermédios",
+                    "route_review": "Calcular a rota"
+                }
+            },
+            "route_via": {
+                "title": "Ponto intermédio {count}",
+                "description": "Mova o mapa até o marcador ficar sobre uma estrada por onde a rota deve passar.",
+                "data": {
+                    "location": "Ponto intermédio"
+                }
+            },
+            "route_failed": {
+                "title": "Sem rota",
+                "description": "Continue para alterar os pontos."
+            },
+            "route_review": {
+                "title": "A sua rota, neste momento",
+                "description": "{start} → {destination}, {vias} pontos intermédios: {distance}, cerca de {duration} min neste momento, dos quais {delay} min de atraso. A rota é recalculada em cada consulta; o mapa mostra a que o trânsito torna mais rápida neste momento. Dentro das suas horas, cada consulta é um pedido ao Routing, de 20.000 gratuitos por mês; as ocorrências na rota vêm com ele, e o Incident Details é consultado uma vez por ocorrência nova para o resto do que há a saber.",
+                "data": {
+                    "return_route": "Criar também o regresso",
+                    "return_name": "Nome do regresso",
+                    "live_days": "Dias em que a rota é mantida atualizada",
+                    "live_from": "Das",
+                    "live_until": "Até",
+                    "live_back_from": "Das (regresso)",
+                    "live_back_until": "Até (regresso)",
+                    "categories": "Ocorrências"
+                },
+                "data_description": {
+                    "return_route": "Uma segunda entrada, do destino à partida - numa autoestrada o regresso é a outra faixa de rodagem, e um engarrafamento numa não o é na outra. Com o nome desta entrada e \"regresso\" acrescentado.",
+                    "return_name": "Só usado quando o regresso é criado. Preenchido com o nome desta entrada e \"regresso\" acrescentado; escreva outro para lhe dar um nome diferente - \"Casa\" e \"Trabalho\", por exemplo."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "A TomTom já está configurada com este nome. Escolha outro.",
+            "location_missing": "Selecione uma posição (mova o mapa).",
+            "no_tracker_with_position": "Nenhum rastreador de dispositivo está a comunicar uma posição neste momento. Este modo precisa de um que envie coordenadas - um rastreador que só conhece casa e fora não pode centrar um raio."
+        },
+        "error": {
+            "radius_too_large": "O raio pode ter no máximo 50 km - a maior caixa que a TomTom responde num único pedido.",
+            "invalid_api_key": "A TomTom não aceitou a chave de API.",
+            "quota_exceeded": "A quota desta chave na TomTom está esgotada por agora. Tente mais tarde.",
+            "address_not_found": "Não foi encontrado nenhum lugar para esta morada.",
+            "point_not_routable": "Um dos pontos está demasiado longe de uma estrada. Aproxime-o de uma.",
+            "no_route": "A TomTom não encontrou nenhuma estrada que ligue estes pontos.",
+            "route_too_long": "A rota é demasiado longa para a TomTom, ou tem pontos a mais.",
+            "return_name_taken": "Já existe uma entrada com esse nome - esta incluída.",
+            "cannot_connect": "Não foi possível contactar a TomTom.",
+            "zone_without_position": "Esta zona não tem posição.",
+            "api_key_required": "Introduza uma chave de API.",
+            "lufop_key_required": "A Lufop precisa da sua chave de API para ser ligada.",
+            "invalid_lufop_key": "A Lufop não aceitou a chave de API.",
+            "lufop_cannot_connect": "Não foi possível contactar a Lufop. A chave não foi verificada - tente mais tarde.",
+            "lufop_refused": "A Lufop recusou o pedido sem recusar a chave. Os pedidos do dia podem estar esgotados - tente depois da meia-noite UTC, ou verifique a chave no seu painel Lufop.",
+            "lufop_busy": "Foi atingido o limite da Lufop de 10 pedidos por minuto. Tente de novo dentro de um minuto."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Atualizar",
+            "description": "Obtém de imediato as ocorrências mais recentes de uma área, rota ou rastreador TomTom, em vez de esperar pela próxima consulta agendada - e, numa rota em direto, primeiro a própria rota. Devolve as ocorrências.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Área, rota ou rastreador",
+                    "description": "Qual área, rota ou rastreador TomTom atualizar."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "O que pretende editar?",
+                "menu_options": {
+                    "edit_route": "Alterar a rota (partida, destino, pontos intermédios)",
+                    "edit_route_settings": "Editar as definições de pesquisa (horas, tipos, filtros)",
+                    "edit_key": "Alterar a chave de API",
+                    "route_defaults": "Predefinições para novas rotas",
+                    "quota_warning": "Aviso de quota",
+                    "sources": "Fontes de dados"
+                }
+            },
+            "route_defaults": {
+                "title": "Predefinições para novas rotas",
+                "description": "Aquilo com que cada nova rota começa: no cartão, uma rota aí planeada é guardada de imediato com estas definições; no assistente de configuração são preenchidas e ainda podem ser alteradas. Os dias e as horas são aqueles em que a rota é mantida atualizada, e o regresso pode ser criado com ela - percorrido a outra hora do dia, com horas próprias.",
+                "data": {
+                    "default_start": "Partida para rotas planeadas no cartão (opcional)",
+                    "return_route": "Criar também o regresso",
+                    "live_days": "Dias em que a rota é mantida atualizada",
+                    "live_from": "Das",
+                    "live_until": "Até",
+                    "live_back_from": "Das (regresso)",
+                    "live_back_until": "Até (regresso)",
+                    "categories": "Ocorrências"
+                },
+                "data_description": {
+                    "return_route": "Uma segunda entrada, do destino à partida - numa autoestrada o regresso é a outra faixa de rodagem, e um engarrafamento numa não o é na outra. Com o nome desta entrada e \"regresso\" acrescentado."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Aviso de quota",
+                "description": "Quando os pedidos de uma API começam a escassear, uma reparação avisa e o sensor **Quota em risco** em TomTom Geral liga-se.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "A partir do oitavo dia do mês, os pedidos feitos até então são projetados até ao fim do mês. Conta-se o que esta integração pede; uma chave usada também noutro lado tem uma contagem mais alta na TomTom.",
+                        "data": {
+                            "quota_warning": "Avisar quando o escalão gratuito não chegar para o mês",
+                            "quota_threshold": "Avisar a partir desta parte do escalão gratuito"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % avisa quando o próprio escalão for ultrapassado, 80 % já aos quatro quintos dele."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "A Lufop conta por dia, de meia-noite a meia-noite UTC, incluindo tudo o que usa a chave. Aplica-se enquanto a Lufop estiver ligada em Fontes de dados.",
+                        "data": {
+                            "lufop_quota_warning": "Avisar quando os pedidos do dia estiverem a escassear ou esgotados",
+                            "lufop_quota_threshold": "Avisar a partir desta parte dos pedidos do dia"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "O primeiro aviso chega a esta parte; um segundo quando todos estiverem usados."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Fontes de dados",
+                "description": "Outras fontes de ocorrências além da TomTom, para todas as entradas de uma vez. Uma fonte só acrescenta o que a TomTom não tem, sob tipos próprios na lista de cada entrada, para que nenhuma ocorrência apareça duas vezes.\n\n**blitzer.de** comunica radares e operações de controlo, fixos e móveis, na Alemanha e nos países vizinhos. Sem chave e sem conta; lê o que o próprio mapa do site lê, que a blitzer.de não publicou como API e pode alterar ou encerrar. Cada pedido é contado em **blitzer.de este mês**.\n\n**Lufop** comunica radares, fixos, móveis e de semáforo, e controlos de velocidade média, a partir da sua base de dados de radares - uma API documentada com uma chave pessoal gratuita de [api.lufop.net](https://api.lufop.net/). Um pedido responde a um país; o plano gratuito cobre França, Bélgica e Suíça, 200 pedidos por dia e 200 radares por pedido. Cada pedido é contado em **Lufop hoje**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Chave de API Lufop",
+                    "lufop_country": "Lufop: país"
+                },
+                "data_description": {
+                    "lufop_api_key": "Verificada quando é indicada e quando a Lufop é ligada; uma já guardada mantém-se deixando o campo vazio.",
+                    "lufop_country": "O único país que cada entrada pede à Lufop - o plano gratuito permite França, Bélgica e Suíça."
+                }
+            },
+            "key": {
+                "title": "Chave de API TomTom",
+                "description": "Tudo aqui vem da TomTom, que precisa de uma chave de API - gratuita, sem meio de pagamento:\n\n1. Registe-se em [developer.tomtom.com]({url}).\n2. Logo a seguir, **API & SDK Keys** no painel já lista uma chave, *My First API key*, com todas as APIs ativadas - entre elas a Traffic API, a Routing API e a Search API, as usadas aqui. Copie-a com o botão ao lado.\n3. Cole-a aqui.\n\nUma chave serve todas as entradas deste Home Assistant. Se já houver uma guardada, deixe o campo vazio para a manter.",
+                "data": {
+                    "api_key": "Chave de API"
+                }
+            },
+            "area": {
+                "title": "Área (raio)",
+                "description": "Selecione o círculo em que as ocorrências da TomTom são mostradas - até 50 km à volta do seu centro, a maior caixa que a TomTom responde num único pedido. Cada consulta é um pedido ao Incident Details (mais um por cada 10.000 km² de área de pesquisa), e uma chave gratuita tem 2.500 por mês: com a hora predefinida, uma área gasta cerca de 720.",
+                "data": {
+                    "location": "Área",
+                    "categories": "Ocorrências"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Rastreador de dispositivo (raio)",
+                "description": "Escolha o rastreador de dispositivo a seguir e o tamanho do círculo a pesquisar à sua volta. Só são listados rastreadores que estão a comunicar coordenadas - um que só conhece casa e fora não tem posição à volta da qual traçar um círculo. Cada consulta é um pedido ao Incident Details (mais um por cada 10.000 km² de área de pesquisa), e uma chave gratuita tem 2.500 por mês: com a hora predefinida, uma área gasta cerca de 720.",
+                "data": {
+                    "tracker": "Rastreador de dispositivo",
+                    "tracker_radius": "Raio (metros)",
+                    "categories": "Ocorrências"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Partida",
+                "description": "Onde começa a rota?",
+                "menu_options": {
+                    "route_start_zone": "Zona",
+                    "route_start_point": "Ponto no mapa",
+                    "route_start_address": "Morada"
+                }
+            },
+            "route_start_zone": {
+                "title": "Partida: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_start_point": {
+                "title": "Partida: ponto no mapa",
+                "description": "Mova o mapa até o marcador ficar sobre a partida.",
+                "data": {
+                    "location": "Partida"
+                }
+            },
+            "route_start_address": {
+                "title": "Partida: morada",
+                "description": "Rua e localidade.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Partida: morada encontrada",
+                "description": "Encontrado: **{label}**\n\nSe não for o lugar que pretendia, corrija a morada e continue - será procurada de novo.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_destination": {
+                "title": "Destino",
+                "description": "Onde termina a rota?",
+                "menu_options": {
+                    "route_destination_zone": "Zona",
+                    "route_destination_point": "Ponto no mapa",
+                    "route_destination_address": "Morada"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Destino: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_destination_point": {
+                "title": "Destino: ponto no mapa",
+                "description": "Mova o mapa até o marcador ficar sobre o destino.",
+                "data": {
+                    "location": "Destino"
+                }
+            },
+            "route_destination_address": {
+                "title": "Destino: morada",
+                "description": "Rua e localidade.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Destino: morada encontrada",
+                "description": "Encontrado: **{label}**\n\nSe não for o lugar que pretendia, corrija a morada e continue - será procurada de novo.",
+                "data": {
+                    "address": "Morada"
+                }
+            },
+            "route_vias": {
+                "title": "Pontos intermédios",
+                "description": "De {start} a {destination}, {count} pontos intermédios até agora. A TomTom escolhe a estrada mais rápida entre eles - acrescente um ponto intermédio onde o seu caminho habitual for diferente.",
+                "menu_options": {
+                    "route_via": "Adicionar um ponto intermédio",
+                    "route_vias_clear": "Remover todos os pontos intermédios",
+                    "route_review": "Calcular a rota"
+                }
+            },
+            "route_via": {
+                "title": "Ponto intermédio {count}",
+                "description": "Mova o mapa até o marcador ficar sobre uma estrada por onde a rota deve passar.",
+                "data": {
+                    "location": "Ponto intermédio"
+                }
+            },
+            "route_failed": {
+                "title": "Sem rota",
+                "description": "Continue para alterar os pontos."
+            },
+            "route_review": {
+                "title": "A sua rota, neste momento",
+                "description": "{start} → {destination}, {vias} pontos intermédios: {distance}, cerca de {duration} min neste momento, dos quais {delay} min de atraso. A rota é recalculada em cada consulta; o mapa mostra a que o trânsito torna mais rápida neste momento. Dentro das suas horas, cada consulta é um pedido ao Routing, de 20.000 gratuitos por mês; as ocorrências na rota vêm com ele, e o Incident Details é consultado uma vez por ocorrência nova para o resto do que há a saber.",
+                "data": {
+                    "live_days": "Dias em que a rota é mantida atualizada",
+                    "live_from": "Das",
+                    "live_until": "Até",
+                    "categories": "Ocorrências"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Definições opcionais",
+                        "data": {
+                            "only_certain": "Só ocorrências de que a TomTom tem certeza",
+                            "count": "Número de ocorrências",
+                            "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
+                            "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
+                            "roads": "Só estas estradas (números de estrada separados por vírgulas, p. ex. A8, B2)",
+                            "blacklist": "Lista negra (IDs de incidente separados por vírgulas)"
+                        },
+                        "data_description": {
+                            "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+                            "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
+                            "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "O raio pode ter no máximo 50 km - a maior caixa que a TomTom responde num único pedido.",
+            "invalid_api_key": "A TomTom não aceitou a chave de API.",
+            "quota_exceeded": "A quota desta chave na TomTom está esgotada por agora. Tente mais tarde.",
+            "address_not_found": "Não foi encontrado nenhum lugar para esta morada.",
+            "point_not_routable": "Um dos pontos está demasiado longe de uma estrada. Aproxime-o de uma.",
+            "no_route": "A TomTom não encontrou nenhuma estrada que ligue estes pontos.",
+            "route_too_long": "A rota é demasiado longa para a TomTom, ou tem pontos a mais.",
+            "return_name_taken": "Já existe uma entrada com esse nome - esta incluída.",
+            "cannot_connect": "Não foi possível contactar a TomTom.",
+            "zone_without_position": "Esta zona não tem posição.",
+            "api_key_required": "Introduza uma chave de API.",
+            "lufop_key_required": "A Lufop precisa da sua chave de API para ser ligada.",
+            "invalid_lufop_key": "A Lufop não aceitou a chave de API.",
+            "lufop_cannot_connect": "Não foi possível contactar a Lufop. A chave não foi verificada - tente mais tarde.",
+            "lufop_refused": "A Lufop recusou o pedido sem recusar a chave. Os pedidos do dia podem estar esgotados - tente depois da meia-noite UTC, ou verifique a chave no seu painel Lufop.",
+            "lufop_busy": "Foi atingido o limite da Lufop de 10 pedidos por minuto. Tente de novo dentro de um minuto."
+        },
+        "abort": {
+            "no_tracker_with_position": "Nenhum rastreador de dispositivo está a comunicar uma posição neste momento. Este modo precisa de um que envie coordenadas - um rastreador que só conhece casa e fora não pode centrar um raio."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} não está a entregar",
+            "description": "A entrada TomTom **{name}** falhou {count} consultas seguidas, pelo que as suas entidades estão indisponíveis. O último motivo:\n\n`{reason}`\n\nUm rastreador sem posição, ou uma entidade de rastreador que já não existe, corrige-se em **Configurar** da entrada; uma chave recusada em **Configurar** da entrada TomTom Definições; se a própria TomTom não estiver contactável, isto resolve-se sozinho assim que voltar a estar. Esta reparação desaparece com a próxima consulta bem-sucedida."
+        },
+        "quota_at_risk": {
+            "title": "A quota {api} não vai chegar para o mês",
+            "description": "{used} de {tier} pedidos **{api}** gratuitos após {days} dias; a este ritmo cerca de **{projected}** até ao fim do mês, mais de {percent} % do escalão.\n\nMenos consultas ajudam: um intervalo de atualização mais longo, horas mais apertadas numa rota, o fluxo de trânsito em menos cartões.\n\nIsto desaparece quando o ritmo descer abaixo da parte definida em TomTom Definições → Configurar → Aviso de quota → TomTom, e com o novo mês."
+        },
+        "quota_day_at_risk": {
+            "title": "Os pedidos {api} do dia estão quase esgotados",
+            "description": "{used} dos {tier} pedidos por dia que o plano **{api}** permite estão usados.\n\nOs pedidos do dia são partilhados por todas as entradas desta instalação - e por tudo o resto que use a mesma chave. Menos consultas ajudam: um intervalo de atualização mais longo, horas mais apertadas numa rota, ou a Lufop desligada nas entradas que ficam fora do seu país.\n\nIsto desaparece à meia-noite UTC, quando o dia da Lufop muda, ou quando a parte definida em TomTom Definições → Configurar → Aviso de quota → Lufop for aumentada."
+        },
+        "quota_day_used_up": {
+            "title": "Os pedidos {api} do dia estão esgotados",
+            "description": "Todos os {tier} pedidos por dia do plano **{api}** estão usados - a Lufop conta tudo o que usa a mesma chave. Recusa mais pedidos até à meia-noite UTC - {reset} aqui.\n\nMenos consultas ajudam amanhã: um intervalo de atualização mais longo, horas mais apertadas numa rota, ou a Lufop desligada nas entradas fora do seu país."
+        }
+    }
+}

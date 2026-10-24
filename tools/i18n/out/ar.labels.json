@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "ازدحام مروري",
+    "lane_closed": "حارة مغلقة",
+    "road_closed": "طريق مغلق",
+    "road_works": "أشغال طرق",
+    "accident": "حادث",
+    "broken_down_vehicle": "مركبة معطّلة",
+    "dangerous_conditions": "ظروف خطرة",
+    "fog": "ضباب",
+    "rain": "مطر",
+    "ice": "جليد",
+    "wind": "رياح",
+    "flooding": "فيضان",
+    "unknown": "غير معروف",
+    "camera_fixed": "كاميرا سرعة ثابتة",
+    "camera_mobile": "كاميرا سرعة متنقلة",
+    "camera_trailer": "مقطورة كاميرا سرعة",
+    "camera_redlight": "كاميرا الإشارة الحمراء",
+    "camera_section": "مراقبة السرعة على مقطع",
+    "check_distance": "مراقبة مسافة الأمان",
+    "check_police": "تفتيش شرطة"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "طفيف",
+    "moderate": "متوسط",
+    "major": "شديد",
+    "indefinite": "غير محدد"
+  }
+}

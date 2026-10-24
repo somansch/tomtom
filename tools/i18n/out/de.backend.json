@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Stau",
+    "lane_closed": "Fahrstreifen gesperrt",
+    "road_closed": "Straße gesperrt",
+    "road_works": "Baustelle",
+    "accident": "Unfall",
+    "broken_down_vehicle": "Liegengebliebenes Fahrzeug",
+    "dangerous_conditions": "Gefährliche Bedingungen",
+    "fog": "Nebel",
+    "rain": "Regen",
+    "ice": "Glätte",
+    "wind": "Wind",
+    "flooding": "Überflutung",
+    "unknown": "Unbekannt",
+    "camera_fixed": "Fester Blitzer (blitzer.de, Lufop)",
+    "camera_mobile": "Mobiler Blitzer (blitzer.de, Lufop)",
+    "camera_trailer": "Anhängerblitzer (blitzer.de)",
+    "camera_redlight": "Ampelblitzer (blitzer.de, Lufop)",
+    "camera_section": "Abschnittskontrolle (blitzer.de, Lufop)",
+    "check_distance": "Abstandskontrolle (blitzer.de)",
+    "check_police": "Polizeikontrolle (blitzer.de)"
+  },
+  "days": {
+    "mon": "Montag",
+    "tue": "Dienstag",
+    "wed": "Mittwoch",
+    "thu": "Donnerstag",
+    "fri": "Freitag",
+    "sat": "Samstag",
+    "sun": "Sonntag"
+  },
+  "modes": {
+    "area": "📍 Bereich (Radius)",
+    "tracker": "📱 Gerätetracker (Radius)",
+    "route_live": "🛣️ Route (Start/Ziel, live mit dem Verkehr)"
+  },
+  "typeData": {
+    "categories": "Meldungen"
+  },
+  "optional": {
+    "name": "Optionale Einstellungen",
+    "data": {
+      "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+      "count": "Anzahl Meldungen",
+      "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
+      "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
+      "roads": "Nur diese Straßen (Straßennummern mit Komma, z. B. A8, B2)",
+      "blacklist": "Blacklist (Meldungs-IDs mit Komma)"
+    },
+    "description": {
+      "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+      "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
+      "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
+    }
+  },
+  "budgetArea": "Jede Abfrage ist eine Anfrage an Incident Details (eine mehr je 10.000 km² Suchfläche), und ein kostenloser Key hat davon 2.500 im Monat: mit der Standardstunde verbraucht ein Bereich etwa 720.",
+  "budgetRoute": "Innerhalb ihrer Stunden ist jede Abfrage eine Routing-Anfrage, von 20.000 freien im Monat; die Meldungen auf der Route kommen damit mit, und Incident Details wird je neuer Meldung einmal nach dem Rest gefragt.",
+  "entities": {
+    "sensor": {
+      "report_count": "Meldungen",
+      "travel_time": "Fahrzeit",
+      "traffic_delay": "Verzögerung",
+      "route_length": "Routenlänge",
+      "requests": "TomTom-Anfragen diesen Monat",
+      "requests_total": "Alle Anfragen diesen Monat",
+      "requests_incidents": "Incident Details diesen Monat",
+      "requests_routing": "Routing diesen Monat",
+      "requests_geocoding": "Geocoding diesen Monat",
+      "requests_reverse_geocoding": "Reverse Geocoding diesen Monat",
+      "requests_search": "Suche diesen Monat",
+      "requests_tiles": "Fluss-Kacheln diesen Monat",
+      "requests_blitzer": "blitzer.de diesen Monat",
+      "requests_lufop": "Lufop heute"
+    },
+    "number": {
+      "new_minutes": "Neu für"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Kontingent gefährdet"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "TomTom einrichten",
+      "description": "Gib dem Eintrag einen Namen und wähle, wie gesucht wird. Ein Bereich oder ein Tracker liest TomToms Verkehrsmeldungen in seinem Kreis; eine Route von Start zu Ziel rechnet TomTom bei jeder Abfrage neu, mit dem Verkehr des Moments, und meldet, wodurch sie führt.",
+      "data": {
+        "name": "Anzeigename",
+        "search_mode": "Suchmodus"
+      }
+    },
+    "key": {
+      "title": "TomTom-API-Key",
+      "description": "Alles hier kommt von TomTom, und das braucht einen API-Key - kostenlos, ohne Zahlungsmittel:\n\n1. Registriere dich auf [developer.tomtom.com]({url}).\n2. Direkt danach steht unter **API & SDK Keys** im Dashboard schon ein Key, *My First API key*, mit allen APIs freigeschaltet - darunter die Traffic API, die Routing API und die Search API, die hier genutzt werden. Kopiere ihn mit dem Knopf daneben.\n3. Füge ihn hier ein.\n\nEin Key gilt für alle Einträge dieses Home Assistant. Ist schon einer gespeichert, lass das Feld leer, um ihn zu behalten.",
+      "data": {
+        "api_key": "API-Key"
+      }
+    },
+    "area": {
+      "title": "Bereich (Radius)",
+      "description": "Wähle den Kreis, in dem TomToms Meldungen gezeigt werden - bis zu 50 km um seinen Mittelpunkt, die größte Box, die TomTom in einer Anfrage beantwortet. ",
+      "data": {
+        "location": "Bereich"
+      }
+    },
+    "tracker": {
+      "title": "Gerätetracker (Radius)",
+      "description": "Wähle den Gerätetracker, dem gefolgt wird, und wie groß der Kreis um ihn ist. Nur Tracker, die gerade Koordinaten melden, stehen zur Wahl - einer, der nur zu Hause und unterwegs kennt, hat keine Position für einen Kreis. ",
+      "data": {
+        "tracker": "Gerätetracker",
+        "tracker_radius": "Radius (Meter)"
+      }
+    },
+    "route_start": {
+      "title": "Start",
+      "description": "Wo beginnt die Route?",
+      "menu": {
+        "route_start_zone": "Zone",
+        "route_start_point": "Punkt auf der Karte",
+        "route_start_address": "Adresse"
+      }
+    },
+    "route_start_zone": {
+      "title": "Start: Zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_start_point": {
+      "title": "Start: Punkt auf der Karte",
+      "description": "Verschiebe die Karte, bis der Marker auf dem Start steht.",
+      "data": {
+        "location": "Start"
+      }
+    },
+    "route_start_address": {
+      "title": "Start: Adresse",
+      "description": "Straße und Ort.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Start: Adresse gefunden",
+      "description": "Gefunden: **{label}**\n\nWenn das nicht der gemeinte Ort ist, korrigiere die Adresse und fahre fort - sie wird erneut gesucht.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_destination": {
+      "title": "Ziel",
+      "description": "Wo endet die Route?",
+      "menu": {
+        "route_destination_zone": "Zone",
+        "route_destination_point": "Punkt auf der Karte",
+        "route_destination_address": "Adresse"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Ziel: Zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_destination_point": {
+      "title": "Ziel: Punkt auf der Karte",
+      "description": "Verschiebe die Karte, bis der Marker auf dem Ziel steht.",
+      "data": {
+        "location": "Ziel"
+      }
+    },
+    "route_destination_address": {
+      "title": "Ziel: Adresse",
+      "description": "Straße und Ort.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Ziel: Adresse gefunden",
+      "description": "Gefunden: **{label}**\n\nWenn das nicht der gemeinte Ort ist, korrigiere die Adresse und fahre fort - sie wird erneut gesucht.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_vias": {
+      "title": "Zwischenpunkte",
+      "description": "Von {start} nach {destination}, bisher {count} Zwischenpunkte. TomTom nimmt dazwischen die schnellste Straße - setze einen Zwischenpunkt, wo dein üblicher Weg abweicht.",
+      "menu": {
+        "route_via": "Zwischenpunkt hinzufügen",
+        "route_vias_clear": "Alle Zwischenpunkte entfernen",
+        "route_review": "Route berechnen"
+      }
+    },
+    "route_via": {
+      "title": "Zwischenpunkt {count}",
+      "description": "Verschiebe die Karte, bis der Marker auf einer Straße steht, die die Route nehmen soll.",
+      "data": {
+        "location": "Zwischenpunkt"
+      }
+    },
+    "route_review": {
+      "title": "Deine Route, jetzt gerade",
+      "description": "{start} → {destination}, {vias} Zwischenpunkte: {distance}, aktuell etwa {duration} min, davon {delay} min Verzögerung. Die Route wird bei jeder Abfrage neu berechnet; die Karte zeigt die, die der Verkehr gerade am schnellsten macht. ",
+      "data": {
+        "return_route": "Auch den Rückweg anlegen",
+        "return_name": "Name des Rückwegs",
+        "live_days": "Tage, an denen die Route aktuell gehalten wird",
+        "live_from": "Von",
+        "live_until": "Bis",
+        "live_back_from": "Von (Rückweg)",
+        "live_back_until": "Bis (Rückweg)"
+      },
+      "data_description": {
+        "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter.",
+        "return_name": "Nur wenn der Rückweg angelegt wird. Vorbelegt mit dem Namen dieses Eintrags und „Rückweg“; tippe einen anderen, um ihn anders zu nennen - „Heim“ und „Arbeit“ etwa."
+      }
+    },
+    "route_failed": {
+      "title": "Keine Route",
+      "description": "Weiter, um die Punkte zu ändern."
+    },
+    "init": {
+      "title": "Was möchtest du ändern?",
+      "menu": {
+        "edit_route": "Route ändern (Start, Ziel, Zwischenpunkte)",
+        "edit_route_settings": "Sucheinstellungen bearbeiten (Stunden, Arten, Filter)",
+        "edit_key": "API-Key ändern",
+        "route_defaults": "Standard für neue Routen",
+        "quota_warning": "Kontingent-Warnung",
+        "sources": "Datenquellen"
+      }
+    },
+    "route_defaults": {
+      "title": "Standard für neue Routen",
+      "description": "Womit jede neue Route beginnt: Eine auf der Karte geplante Route wird mit diesen Einstellungen direkt gespeichert; im Einrichtungsassistenten sind sie vorbelegt und bleiben änderbar. Die Tage und Stunden sind die, in denen die Route aktuell gehalten wird, und der Rückweg kann gleich mit angelegt werden - er wird zu einer anderen Tageszeit gefahren und hat eigene Stunden.",
+      "data": {
+        "default_start": "Start für auf der Karte geplante Routen (optional)"
+      }
+    },
+    "quota_warning": {
+      "title": "Kontingent-Warnung",
+      "description": "Werden die Anfragen einer API knapp, meldet das eine Reparatur, und der Sensor **Kontingent gefährdet** an TomTom Allgemein geht an.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "Ab dem achten Tag des Monats werden die bisherigen Anfragen auf das Monatsende hochgerechnet. Gezählt wird, was diese Integration anfragt; ein auch anderswo genutzter Key steht bei TomTom höher.",
+          "data": {
+            "quota_warning": "Warnen, wenn das freie Kontingent den Monat nicht reicht",
+            "quota_threshold": "Warnen ab diesem Anteil des freien Kontingents"
+          },
+          "data_description": {
+            "quota_threshold": "100 % warnt, wenn das Kontingent selbst überschritten wird, 80 % schon bei vier Fünfteln davon."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop zählt tageweise, von Mitternacht bis Mitternacht UTC, alles mit, was den Key nutzt. Gilt, solange Lufop unter Datenquellen an ist.",
+          "data": {
+            "lufop_quota_warning": "Warnen, wenn die Anfragen des Tages knapp werden oder aufgebraucht sind",
+            "lufop_quota_threshold": "Warnen ab diesem Anteil der Anfragen des Tages"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "Die erste Warnung kommt bei diesem Anteil, eine zweite, wenn alle verbraucht sind."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Datenquellen",
+      "description": "Weitere Quellen von Meldungen neben TomTom, für alle Einträge zugleich. Eine Quelle liefert nur, was TomTom nicht hat, unter eigenen Arten in der Liste jedes Eintrags, so steht keine Meldung doppelt da.\n\n**blitzer.de** meldet Blitzer und Verkehrskontrollen, fest und mobil, in Deutschland und den Nachbarländern. Ohne Key und ohne Konto; gelesen wird, was die Karte der Seite selbst liest - keine von blitzer.de veröffentlichte API, sie kann sich ändern oder schließen. Jede Anfrage zählt unter **blitzer.de diesen Monat**.\n\n**Lufop** meldet Blitzer, fest, mobil und Rotlicht, sowie Abschnittskontrollen aus seiner Radar-Datenbank - eine dokumentierte API mit kostenlosem persönlichem Key von [api.lufop.net](https://api.lufop.net/). Eine Anfrage gilt einem Land; der freie Tarif deckt Frankreich, Belgien und die Schweiz ab, 200 Anfragen am Tag und 200 Radare je Anfrage. Jede Anfrage zählt unter **Lufop heute**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop-API-Key",
+        "lufop_country": "Lufop: Land"
+      },
+      "data_description": {
+        "lufop_api_key": "Wird geprüft, wenn er angegeben wird und wenn Lufop eingeschaltet wird; ein gespeicherter bleibt, wenn das Feld leer bleibt.",
+        "lufop_country": "Das eine Land, für das jeder Eintrag Lufop fragt - der freie Tarif erlaubt Frankreich, Belgien und die Schweiz."
+      }
+    },
+    "first": {
+      "title": "TomTom ist eingerichtet",
+      "description": "Der Key ist gespeichert, und die Standardwerte für neue Routen liegen im Eintrag **TomTom Einstellungen** - dessen Konfigurieren ändert später beides. Jetzt abschließen und den ersten Bereich, Tracker oder die erste Route irgendwann über **Eintrag hinzufügen** auf der TomTom-Kachel anlegen, oder gleich jetzt.",
+      "menu": {
+        "finish": "Einrichtung abschließen",
+        "add_entry": "Jetzt den ersten Bereich, Tracker oder die erste Route anlegen"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom ist für diesen Namen schon eingerichtet. Wähle einen anderen.",
+    "location_missing": "Bitte wähle eine Position (Karte verschieben).",
+    "no_tracker_with_position": "Kein Gerätetracker meldet gerade eine Position. Dieser Modus braucht einen, der Koordinaten sendet - einer, der nur zu Hause und unterwegs kennt, kann keinen Radius zentrieren."
+  },
+  "error": {
+    "radius_too_large": "Der Radius darf höchstens 50 km sein - die größte Box, die TomTom in einer Anfrage beantwortet.",
+    "invalid_api_key": "TomTom hat den API-Key nicht angenommen.",
+    "quota_exceeded": "Das Kontingent dieses Keys bei TomTom ist vorerst aufgebraucht. Versuche es später noch einmal.",
+    "address_not_found": "Zu dieser Adresse wurde kein Ort gefunden.",
+    "point_not_routable": "Einer der Punkte liegt zu weit von einer Straße entfernt. Rücke ihn näher an eine heran.",
+    "no_route": "TomTom hat keine Straße gefunden, die diese Punkte verbindet.",
+    "route_too_long": "Die Route ist für TomTom zu lang oder hat zu viele Punkte.",
+    "return_name_taken": "Einen Eintrag mit diesem Namen gibt es schon - diesen eingeschlossen.",
+    "cannot_connect": "TomTom war nicht erreichbar.",
+    "zone_without_position": "Diese Zone hat keine Position.",
+    "api_key_required": "Gib einen API-Key ein.",
+    "lufop_key_required": "Lufop braucht seinen API-Key, um eingeschaltet zu werden.",
+    "invalid_lufop_key": "Lufop hat den API-Key nicht angenommen.",
+    "lufop_cannot_connect": "Lufop war nicht erreichbar. Der Key wurde nicht geprüft - später noch einmal versuchen.",
+    "lufop_refused": "Lufop hat die Anfrage abgewiesen, ohne den Key abzulehnen. Vielleicht sind die Anfragen des Tages aufgebraucht - nach Mitternacht UTC noch einmal versuchen oder den Key im Lufop-Dashboard prüfen.",
+    "lufop_busy": "Lufops Grenze von 10 Anfragen pro Minute ist erreicht. In einer Minute noch einmal versuchen."
+  },
+  "service": {
+    "name": "Aktualisieren",
+    "description": "Holt sofort die aktuellen Meldungen eines TomTom-Bereichs, einer Route oder eines Trackers, statt auf die nächste planmäßige Abfrage zu warten - bei einer Live-Route zuerst die Route selbst. Gibt die Meldungen zurück.",
+    "field": {
+      "name": "Bereich, Route oder Tracker",
+      "description": "Welcher TomTom-Bereich, welche Route oder welcher Tracker aktualisiert wird."
+    }
+  },
+  "issue": {
+    "title": "{name} liefert nicht",
+    "description": "Der TomTom-Eintrag **{name}** ist bei {count} Abfragen in Folge gescheitert, seine Entitäten sind nicht verfügbar. Der letzte Grund:\n\n`{reason}`\n\nEin Tracker ohne Position oder eine Tracker-Entität, die es nicht mehr gibt, wird unter **Konfigurieren** des Eintrags behoben; ein abgelehnter Key unter **Konfigurieren** am Eintrag TomTom Einstellungen; ist TomTom selbst nicht erreichbar, verschwindet das von allein, sobald es wieder geht. Diese Reparatur erledigt sich mit der nächsten erfolgreichen Abfrage."
+  },
+  "quotaIssue": {
+    "title": "Das {api}-Kontingent reicht den Monat nicht",
+    "description": "{used} von {tier} freien **{api}**-Anfragen nach {days} Tagen; in diesem Tempo etwa **{projected}** bis Monatsende, mehr als {percent} % des Kontingents.\n\nWeniger Abfragen helfen: ein längeres Aktualisierungsintervall, engere Stunden einer Route, der Verkehrsfluss auf weniger Karten.\n\nDas verschwindet, sobald das Tempo unter den Anteil fällt, der unter TomTom Einstellungen → Konfigurieren → Kontingent-Warnung → TomTom eingestellt ist, und mit dem neuen Monat."
+  },
+  "quotaDayIssue": {
+    "title": "Die {api}-Anfragen des Tages sind fast aufgebraucht",
+    "description": "{used} der {tier} Anfragen am Tag, die der **{api}**-Tarif erlaubt, sind verbraucht.\n\nDie Anfragen des Tages teilen sich alle Einträge dieser Installation - und alles andere, das denselben Key nutzt. Weniger Abfragen helfen: ein längeres Aktualisierungsintervall, engere Stunden einer Route, oder Lufop abgeschaltet für Einträge außerhalb seines Landes.\n\nDas verschwindet um Mitternacht UTC, wenn Lufops Tag wechselt, oder wenn der Anteil unter TomTom Einstellungen → Konfigurieren → Kontingent-Warnung → Lufop angehoben wird."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "Die {api}-Anfragen des Tages sind aufgebraucht",
+    "description": "Alle {tier} Anfragen am Tag des **{api}**-Tarifs sind verbraucht - Lufop zählt alles, was denselben Key nutzt. Weitere Anfragen weist es bis Mitternacht UTC ab - hier um {reset} Uhr.\n\nWeniger Abfragen helfen morgen: ein längeres Aktualisierungsintervall, engere Stunden einer Route, oder Lufop abgeschaltet für Einträge außerhalb seines Landes."
+  },
+  "device": {
+    "general": "TomTom Allgemein",
+    "settings": "TomTom Einstellungen"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Australien",
+    "be": "Belgien",
+    "bg": "Bulgarien",
+    "ca": "Kanada",
+    "cz": "Tschechien",
+    "fi": "Finnland",
+    "fr": "Frankreich",
+    "de": "Deutschland",
+    "ie": "Irland",
+    "it": "Italien",
+    "lv": "Lettland",
+    "lu": "Luxemburg",
+    "ma": "Marokko",
+    "nl": "Niederlande",
+    "nz": "Neuseeland",
+    "no": "Norwegen",
+    "pl": "Polen",
+    "pt": "Portugal",
+    "es": "Spanien",
+    "se": "Schweden",
+    "ch": "Schweiz",
+    "ae": "Vereinigte Arabische Emirate",
+    "gb": "Vereinigtes Königreich"
+  }
+}

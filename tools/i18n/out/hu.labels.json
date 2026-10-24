@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Forgalmi dugó",
+    "lane_closed": "Sávlezárás",
+    "road_closed": "Útlezárás",
+    "road_works": "Útmunkák",
+    "accident": "Baleset",
+    "broken_down_vehicle": "Lerobbant jármű",
+    "dangerous_conditions": "Veszélyes útviszonyok",
+    "fog": "Köd",
+    "rain": "Eső",
+    "ice": "Jegesedés",
+    "wind": "Szél",
+    "flooding": "Áradás",
+    "unknown": "Ismeretlen",
+    "camera_fixed": "Fix traffipax",
+    "camera_mobile": "Mobil traffipax",
+    "camera_trailer": "Utánfutós traffipax",
+    "camera_redlight": "Piroslámpa-kamera",
+    "camera_section": "Szakaszos sebességmérés",
+    "check_distance": "Követési távolság ellenőrzése",
+    "check_police": "Rendőri ellenőrzés"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "kisebb",
+    "moderate": "közepes",
+    "major": "jelentős",
+    "indefinite": "meghatározatlan"
+  }
+}

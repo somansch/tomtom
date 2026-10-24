@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Gebied (straal)",
+                "tracker": "📱 Apparaattracker (straal)",
+                "route_live": "🛣️ Route (start/bestemming, live met het verkeer)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Maandag",
+                "tue": "Dinsdag",
+                "wed": "Woensdag",
+                "thu": "Donderdag",
+                "fri": "Vrijdag",
+                "sat": "Zaterdag",
+                "sun": "Zondag"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "File",
+                "lane_closed": "Rijstrook afgesloten",
+                "road_closed": "Weg afgesloten",
+                "road_works": "Wegwerkzaamheden",
+                "accident": "Ongeval",
+                "broken_down_vehicle": "Pechgeval",
+                "dangerous_conditions": "Gevaarlijke omstandigheden",
+                "fog": "Mist",
+                "rain": "Regen",
+                "ice": "Gladheid",
+                "wind": "Wind",
+                "flooding": "Wateroverlast",
+                "unknown": "Onbekend",
+                "camera_fixed": "Vaste flitser (blitzer.de, Lufop)",
+                "camera_mobile": "Mobiele flitser (blitzer.de, Lufop)",
+                "camera_trailer": "Flitsaanhanger (blitzer.de)",
+                "camera_redlight": "Roodlichtcamera (blitzer.de, Lufop)",
+                "camera_section": "Trajectcontrole (blitzer.de, Lufop)",
+                "check_distance": "Afstandscontrole (blitzer.de)",
+                "check_police": "Politiecontrole (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andorra",
+                "au": "Australië",
+                "be": "België",
+                "bg": "Bulgarije",
+                "ca": "Canada",
+                "cz": "Tsjechië",
+                "fi": "Finland",
+                "fr": "Frankrijk",
+                "de": "Duitsland",
+                "ie": "Ierland",
+                "it": "Italië",
+                "lv": "Letland",
+                "lu": "Luxemburg",
+                "ma": "Marokko",
+                "nl": "Nederland",
+                "nz": "Nieuw-Zeeland",
+                "no": "Noorwegen",
+                "pl": "Polen",
+                "pt": "Portugal",
+                "es": "Spanje",
+                "se": "Zweden",
+                "ch": "Zwitserland",
+                "ae": "Verenigde Arabische Emiraten",
+                "gb": "Verenigd Koninkrijk"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Algemeen"
+        },
+        "settings": {
+            "name": "TomTom Instellingen"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Meldingen"
+            },
+            "travel_time": {
+                "name": "Reistijd"
+            },
+            "traffic_delay": {
+                "name": "Verkeersvertraging"
+            },
+            "route_length": {
+                "name": "Routelengte"
+            },
+            "requests": {
+                "name": "TomTom-aanvragen deze maand"
+            },
+            "requests_total": {
+                "name": "Alle aanvragen deze maand"
+            },
+            "requests_incidents": {
+                "name": "Incident Details deze maand"
+            },
+            "requests_routing": {
+                "name": "Routing deze maand"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding deze maand"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding deze maand"
+            },
+            "requests_search": {
+                "name": "Zoeken deze maand"
+            },
+            "requests_tiles": {
+                "name": "Stroomtegels deze maand"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de deze maand"
+            },
+            "requests_lufop": {
+                "name": "Lufop vandaag"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Nieuw gedurende"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Quotum in gevaar"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "TomTom instellen",
+                "description": "Geef dit item een naam en kies hoe er gezocht wordt. Een gebied of een tracker leest de verkeersincidenten van TomTom binnen zijn cirkel; een route van start naar bestemming berekent TomTom bij elke opvraging opnieuw, met het verkeer van dat moment, en meldt waar ze doorheen loopt.",
+                "data": {
+                    "name": "Weergavenaam",
+                    "search_mode": "Zoekmodus"
+                }
+            },
+            "key": {
+                "title": "TomTom API-sleutel",
+                "description": "Alles hier komt van TomTom, en daarvoor is een API-sleutel nodig - gratis, zonder betaalmethode:\n\n1. Registreer je op [developer.tomtom.com]({url}).\n2. Direct daarna staat onder **API & SDK Keys** in het dashboard al een sleutel, *My First API key*, met elke API ingeschakeld - waaronder de Traffic API, de Routing API en de Search API, die hier worden gebruikt. Kopieer hem met de knop ernaast.\n3. Plak hem hier.\n\nEén sleutel geldt voor elk item van deze Home Assistant. Is er al een opgeslagen, laat het veld dan leeg om die te houden.",
+                "data": {
+                    "api_key": "API-sleutel"
+                }
+            },
+            "route_defaults": {
+                "title": "Standaardwaarden voor nieuwe routes",
+                "description": "Waar elke nieuwe route mee begint: op de kaart wordt een daar geplande route meteen met deze instellingen opgeslagen; in de instelwizard zijn ze vooraf ingevuld en kunnen ze nog worden gewijzigd. De dagen en uren zijn die waarin de route wordt bijgehouden, en de terugweg kan er meteen bij worden aangemaakt - op een ander moment van de dag gereden, met eigen uren.",
+                "data": {
+                    "default_start": "Start voor routes die op de kaart worden gepland (optioneel)",
+                    "return_route": "Ook de terugweg aanmaken",
+                    "live_days": "Dagen waarop de route wordt bijgehouden",
+                    "live_from": "Van",
+                    "live_until": "Tot",
+                    "live_back_from": "Van (terugweg)",
+                    "live_back_until": "Tot (terugweg)",
+                    "categories": "Meldingen"
+                },
+                "data_description": {
+                    "return_route": "Een tweede item, van bestemming naar start - op een snelweg is de terugweg de andere rijbaan, en een file op de ene is er geen op de andere. Genoemd naar dit item, met \"terug\" erachter."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "TomTom is ingesteld",
+                "description": "De sleutel is opgeslagen, en de standaardwaarden voor nieuwe routes staan onder het item **TomTom Instellingen** - via Configureren daarvan wijzig je later beide. Rond nu af en voeg het eerste gebied, de eerste tracker of route toe wanneer je wilt via **Item toevoegen** op de eigen tegel van TomTom, of maak het meteen aan.",
+                "menu_options": {
+                    "finish": "Instellen voltooien",
+                    "add_entry": "Nu het eerste gebied, de eerste tracker of route toevoegen"
+                }
+            },
+            "area": {
+                "title": "Gebied (straal)",
+                "description": "Kies de cirkel waarin de meldingen van TomTom worden getoond - tot 50 km om zijn middelpunt, het grootste vak dat TomTom in één aanvraag beantwoordt. Elke opvraging is één Incident Details-aanvraag (één extra per 10.000 km² zoekgebied), en een gratis sleutel heeft er 2.500 per maand: op het standaarduur verbruikt een gebied er ongeveer 720.",
+                "data": {
+                    "location": "Gebied",
+                    "categories": "Meldingen"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Apparaattracker (straal)",
+                "description": "Kies de apparaattracker die gevolgd wordt en hoe groot de cirkel eromheen moet zijn. Alleen trackers die op dit moment coördinaten doorgeven staan in de lijst - een die alleen thuis en weg kent, heeft geen positie om een cirkel omheen te leggen. Elke opvraging is één Incident Details-aanvraag (één extra per 10.000 km² zoekgebied), en een gratis sleutel heeft er 2.500 per maand: op het standaarduur verbruikt een gebied er ongeveer 720.",
+                "data": {
+                    "tracker": "Apparaattracker",
+                    "tracker_radius": "Straal (meter)",
+                    "categories": "Meldingen"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Waar begint de route?",
+                "menu_options": {
+                    "route_start_zone": "Zone",
+                    "route_start_point": "Punt op de kaart",
+                    "route_start_address": "Adres"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: zone",
+                "data": {
+                    "zone": "Zone"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: punt op de kaart",
+                "description": "Verschuif de kaart zodat de markering op het startpunt staat.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adres",
+                "description": "Straat en plaats.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adres gevonden",
+                "description": "Gevonden: **{label}**\n\nAls dit niet de bedoelde plaats is, corrigeer dan het adres en ga verder - het wordt opnieuw opgezocht.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination": {
+                "title": "Bestemming",
+                "description": "Waar eindigt de route?",
+                "menu_options": {
+                    "route_destination_zone": "Zone",
+                    "route_destination_point": "Punt op de kaart",
+                    "route_destination_address": "Adres"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Bestemming: zone",
+                "data": {
+                    "zone": "Zone"
+                }
+            },
+            "route_destination_point": {
+                "title": "Bestemming: punt op de kaart",
+                "description": "Verschuif de kaart zodat de markering op de bestemming staat.",
+                "data": {
+                    "location": "Bestemming"
+                }
+            },
+            "route_destination_address": {
+                "title": "Bestemming: adres",
+                "description": "Straat en plaats.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Bestemming: adres gevonden",
+                "description": "Gevonden: **{label}**\n\nAls dit niet de bedoelde plaats is, corrigeer dan het adres en ga verder - het wordt opnieuw opgezocht.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_vias": {
+                "title": "Tussenpunten",
+                "description": "Van {start} naar {destination}, tot nu toe {count} tussenpunten. TomTom neemt de snelste weg ertussen - zet een tussenpunt waar je gebruikelijke route afwijkt.",
+                "menu_options": {
+                    "route_via": "Een tussenpunt toevoegen",
+                    "route_vias_clear": "Alle tussenpunten verwijderen",
+                    "route_review": "De route berekenen"
+                }
+            },
+            "route_via": {
+                "title": "Tussenpunt {count}",
+                "description": "Verschuif de kaart zodat de markering op een weg staat die de route moet nemen.",
+                "data": {
+                    "location": "Tussenpunt"
+                }
+            },
+            "route_failed": {
+                "title": "Geen route",
+                "description": "Ga verder om de punten te wijzigen."
+            },
+            "route_review": {
+                "title": "Je route, op dit moment",
+                "description": "{start} → {destination}, {vias} tussenpunten: {distance}, op dit moment ongeveer {duration} min, waarvan {delay} min vertraging. De route wordt bij elke opvraging opnieuw berekend; de kaart toont de route die het verkeer op dat moment het snelst maakt. Binnen zijn uren is elke opvraging één Routing-aanvraag, van 20.000 gratis per maand; de meldingen op de route komen daarmee mee, en Incident Details wordt eenmaal per nieuwe melding gevraagd naar de rest van wat er te weten valt.",
+                "data": {
+                    "return_route": "Ook de terugweg aanmaken",
+                    "return_name": "Naam van de terugweg",
+                    "live_days": "Dagen waarop de route wordt bijgehouden",
+                    "live_from": "Van",
+                    "live_until": "Tot",
+                    "live_back_from": "Van (terugweg)",
+                    "live_back_until": "Tot (terugweg)",
+                    "categories": "Meldingen"
+                },
+                "data_description": {
+                    "return_route": "Een tweede item, van bestemming naar start - op een snelweg is de terugweg de andere rijbaan, en een file op de ene is er geen op de andere. Genoemd naar dit item, met \"terug\" erachter.",
+                    "return_name": "Alleen gebruikt als de terugweg wordt aangemaakt. Vooraf ingevuld met de naam van dit item en \"terug\" erachter; typ een andere om hem anders te noemen - \"Thuis\" en \"Werk\", bijvoorbeeld."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "TomTom is voor deze naam al ingesteld. Kies een andere.",
+            "location_missing": "Kies een positie (verschuif de kaart).",
+            "no_tracker_with_position": "Geen enkele apparaattracker geeft op dit moment een positie door. Deze modus heeft er een nodig die coördinaten stuurt - een tracker die alleen thuis en weg kent, kan geen straal centreren."
+        },
+        "error": {
+            "radius_too_large": "De straal mag hoogstens 50 km zijn - het grootste vak dat TomTom in één aanvraag beantwoordt.",
+            "invalid_api_key": "TomTom heeft de API-sleutel niet geaccepteerd.",
+            "quota_exceeded": "Het quotum van de sleutel bij TomTom is voorlopig op. Probeer het later opnieuw.",
+            "address_not_found": "Voor dit adres is geen plaats gevonden.",
+            "point_not_routable": "Een van de punten ligt te ver van een weg. Schuif hem dichter naar een weg toe.",
+            "no_route": "TomTom heeft geen weg gevonden die deze punten verbindt.",
+            "route_too_long": "De route is te lang voor TomTom, of heeft te veel punten.",
+            "return_name_taken": "Er bestaat al een item met die naam - dit item meegerekend.",
+            "cannot_connect": "TomTom was niet bereikbaar.",
+            "zone_without_position": "Deze zone heeft geen positie.",
+            "api_key_required": "Voer een API-sleutel in.",
+            "lufop_key_required": "Lufop heeft zijn API-sleutel nodig om ingeschakeld te worden.",
+            "invalid_lufop_key": "Lufop heeft de API-sleutel niet geaccepteerd.",
+            "lufop_cannot_connect": "Lufop was niet bereikbaar. De sleutel is niet gecontroleerd - probeer het later opnieuw.",
+            "lufop_refused": "Lufop heeft de aanvraag geweigerd zonder de sleutel te weigeren. Misschien zijn de aanvragen van de dag op - probeer het na middernacht UTC opnieuw, of controleer de sleutel in je Lufop-dashboard.",
+            "lufop_busy": "De limiet van Lufop van 10 aanvragen per minuut is bereikt. Probeer het over een minuut opnieuw."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Vernieuwen",
+            "description": "Haalt meteen de nieuwste meldingen op voor één TomTom-gebied, -route of -tracker, in plaats van op de volgende geplande opvraging te wachten - en bij een live route eerst de route zelf. Geeft de meldingen terug.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Gebied, route of tracker",
+                    "description": "Welk TomTom-gebied, welke route of welke tracker vernieuwd wordt."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Wat wil je bewerken?",
+                "menu_options": {
+                    "edit_route": "De route wijzigen (start, bestemming, tussenpunten)",
+                    "edit_route_settings": "Zoekinstellingen bewerken (uren, soorten, filters)",
+                    "edit_key": "De API-sleutel wijzigen",
+                    "route_defaults": "Standaardwaarden voor nieuwe routes",
+                    "quota_warning": "Quotumwaarschuwing",
+                    "sources": "Gegevensbronnen"
+                }
+            },
+            "route_defaults": {
+                "title": "Standaardwaarden voor nieuwe routes",
+                "description": "Waar elke nieuwe route mee begint: op de kaart wordt een daar geplande route meteen met deze instellingen opgeslagen; in de instelwizard zijn ze vooraf ingevuld en kunnen ze nog worden gewijzigd. De dagen en uren zijn die waarin de route wordt bijgehouden, en de terugweg kan er meteen bij worden aangemaakt - op een ander moment van de dag gereden, met eigen uren.",
+                "data": {
+                    "default_start": "Start voor routes die op de kaart worden gepland (optioneel)",
+                    "return_route": "Ook de terugweg aanmaken",
+                    "live_days": "Dagen waarop de route wordt bijgehouden",
+                    "live_from": "Van",
+                    "live_until": "Tot",
+                    "live_back_from": "Van (terugweg)",
+                    "live_back_until": "Tot (terugweg)",
+                    "categories": "Meldingen"
+                },
+                "data_description": {
+                    "return_route": "Een tweede item, van bestemming naar start - op een snelweg is de terugweg de andere rijbaan, en een file op de ene is er geen op de andere. Genoemd naar dit item, met \"terug\" erachter."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Quotumwaarschuwing",
+                "description": "Als de aanvragen van een API opraken, meldt een reparatie dat en gaat de sensor **Quotum in gevaar** op TomTom Algemeen aan.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "Vanaf de achtste dag van de maand worden de aanvragen tot nu toe doorgerekend tot het einde van de maand. Geteld wordt wat deze integratie aanvraagt; een sleutel die ook elders wordt gebruikt, staat bij TomTom hoger.",
+                        "data": {
+                            "quota_warning": "Waarschuwen als het gratis tegoed de maand niet haalt",
+                            "quota_threshold": "Waarschuwen vanaf dit deel van het gratis tegoed"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % waarschuwt als het tegoed zelf wordt overschreden, 80 % al bij vier vijfde ervan."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "Lufop telt per dag, van middernacht tot middernacht UTC, inclusief alles wat de sleutel gebruikt. Geldt zolang Lufop aanstaat onder Gegevensbronnen.",
+                        "data": {
+                            "lufop_quota_warning": "Waarschuwen als de aanvragen van de dag opraken of op zijn",
+                            "lufop_quota_threshold": "Waarschuwen vanaf dit deel van de aanvragen van de dag"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "De eerste waarschuwing komt bij dit deel; een tweede als ze allemaal gebruikt zijn."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Gegevensbronnen",
+                "description": "Extra bronnen van meldingen naast TomTom, voor alle items tegelijk. Een bron voegt alleen toe wat TomTom niet heeft, onder eigen soorten in de lijst van elk item, zodat geen melding er twee keer staat.\n\n**blitzer.de** meldt flitsers en verkeerscontroles, vast en mobiel, in Duitsland en de buurlanden. Geen sleutel en geen account; het leest wat de eigen kaart van de site leest, wat blitzer.de niet als API heeft gepubliceerd en kan veranderen of verdwijnen. Elke aanvraag wordt geteld onder **blitzer.de deze maand**.\n\n**Lufop** meldt flitsers, vast, mobiel en roodlicht, en trajectcontroles, uit zijn radardatabase - een gedocumenteerde API met een gratis persoonlijke sleutel van [api.lufop.net](https://api.lufop.net/). Een aanvraag beantwoordt één land; het gratis abonnement dekt Frankrijk, België en Zwitserland, 200 aanvragen per dag en 200 radars per aanvraag. Elke aanvraag wordt geteld onder **Lufop vandaag**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Lufop-API-sleutel",
+                    "lufop_country": "Lufop: land"
+                },
+                "data_description": {
+                    "lufop_api_key": "Gecontroleerd als hij wordt opgegeven en als Lufop wordt ingeschakeld; een al opgeslagen sleutel blijft behouden als je het veld leeg laat.",
+                    "lufop_country": "Het ene land waarnaar elk item Lufop vraagt - het gratis abonnement staat Frankrijk, België en Zwitserland toe."
+                }
+            },
+            "key": {
+                "title": "TomTom API-sleutel",
+                "description": "Alles hier komt van TomTom, en daarvoor is een API-sleutel nodig - gratis, zonder betaalmethode:\n\n1. Registreer je op [developer.tomtom.com]({url}).\n2. Direct daarna staat onder **API & SDK Keys** in het dashboard al een sleutel, *My First API key*, met elke API ingeschakeld - waaronder de Traffic API, de Routing API en de Search API, die hier worden gebruikt. Kopieer hem met de knop ernaast.\n3. Plak hem hier.\n\nEén sleutel geldt voor elk item van deze Home Assistant. Is er al een opgeslagen, laat het veld dan leeg om die te houden.",
+                "data": {
+                    "api_key": "API-sleutel"
+                }
+            },
+            "area": {
+                "title": "Gebied (straal)",
+                "description": "Kies de cirkel waarin de meldingen van TomTom worden getoond - tot 50 km om zijn middelpunt, het grootste vak dat TomTom in één aanvraag beantwoordt. Elke opvraging is één Incident Details-aanvraag (één extra per 10.000 km² zoekgebied), en een gratis sleutel heeft er 2.500 per maand: op het standaarduur verbruikt een gebied er ongeveer 720.",
+                "data": {
+                    "location": "Gebied",
+                    "categories": "Meldingen"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Apparaattracker (straal)",
+                "description": "Kies de apparaattracker die gevolgd wordt en hoe groot de cirkel eromheen moet zijn. Alleen trackers die op dit moment coördinaten doorgeven staan in de lijst - een die alleen thuis en weg kent, heeft geen positie om een cirkel omheen te leggen. Elke opvraging is één Incident Details-aanvraag (één extra per 10.000 km² zoekgebied), en een gratis sleutel heeft er 2.500 per maand: op het standaarduur verbruikt een gebied er ongeveer 720.",
+                "data": {
+                    "tracker": "Apparaattracker",
+                    "tracker_radius": "Straal (meter)",
+                    "categories": "Meldingen"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Waar begint de route?",
+                "menu_options": {
+                    "route_start_zone": "Zone",
+                    "route_start_point": "Punt op de kaart",
+                    "route_start_address": "Adres"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: zone",
+                "data": {
+                    "zone": "Zone"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: punt op de kaart",
+                "description": "Verschuif de kaart zodat de markering op het startpunt staat.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adres",
+                "description": "Straat en plaats.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adres gevonden",
+                "description": "Gevonden: **{label}**\n\nAls dit niet de bedoelde plaats is, corrigeer dan het adres en ga verder - het wordt opnieuw opgezocht.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination": {
+                "title": "Bestemming",
+                "description": "Waar eindigt de route?",
+                "menu_options": {
+                    "route_destination_zone": "Zone",
+                    "route_destination_point": "Punt op de kaart",
+                    "route_destination_address": "Adres"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Bestemming: zone",
+                "data": {
+                    "zone": "Zone"
+                }
+            },
+            "route_destination_point": {
+                "title": "Bestemming: punt op de kaart",
+                "description": "Verschuif de kaart zodat de markering op de bestemming staat.",
+                "data": {
+                    "location": "Bestemming"
+                }
+            },
+            "route_destination_address": {
+                "title": "Bestemming: adres",
+                "description": "Straat en plaats.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Bestemming: adres gevonden",
+                "description": "Gevonden: **{label}**\n\nAls dit niet de bedoelde plaats is, corrigeer dan het adres en ga verder - het wordt opnieuw opgezocht.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_vias": {
+                "title": "Tussenpunten",
+                "description": "Van {start} naar {destination}, tot nu toe {count} tussenpunten. TomTom neemt de snelste weg ertussen - zet een tussenpunt waar je gebruikelijke route afwijkt.",
+                "menu_options": {
+                    "route_via": "Een tussenpunt toevoegen",
+                    "route_vias_clear": "Alle tussenpunten verwijderen",
+                    "route_review": "De route berekenen"
+                }
+            },
+            "route_via": {
+                "title": "Tussenpunt {count}",
+                "description": "Verschuif de kaart zodat de markering op een weg staat die de route moet nemen.",
+                "data": {
+                    "location": "Tussenpunt"
+                }
+            },
+            "route_failed": {
+                "title": "Geen route",
+                "description": "Ga verder om de punten te wijzigen."
+            },
+            "route_review": {
+                "title": "Je route, op dit moment",
+                "description": "{start} → {destination}, {vias} tussenpunten: {distance}, op dit moment ongeveer {duration} min, waarvan {delay} min vertraging. De route wordt bij elke opvraging opnieuw berekend; de kaart toont de route die het verkeer op dat moment het snelst maakt. Binnen zijn uren is elke opvraging één Routing-aanvraag, van 20.000 gratis per maand; de meldingen op de route komen daarmee mee, en Incident Details wordt eenmaal per nieuwe melding gevraagd naar de rest van wat er te weten valt.",
+                "data": {
+                    "live_days": "Dagen waarop de route wordt bijgehouden",
+                    "live_from": "Van",
+                    "live_until": "Tot",
+                    "categories": "Meldingen"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Optionele instellingen",
+                        "data": {
+                            "only_certain": "Alleen meldingen waar TomTom zeker van is",
+                            "count": "Aantal meldingen",
+                            "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
+                            "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
+                            "roads": "Alleen deze wegen (wegnummers, gescheiden door komma's, bijv. A8, B2)",
+                            "blacklist": "Blacklist (incident-ID's, gescheiden door komma's)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+                            "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
+                            "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "De straal mag hoogstens 50 km zijn - het grootste vak dat TomTom in één aanvraag beantwoordt.",
+            "invalid_api_key": "TomTom heeft de API-sleutel niet geaccepteerd.",
+            "quota_exceeded": "Het quotum van de sleutel bij TomTom is voorlopig op. Probeer het later opnieuw.",
+            "address_not_found": "Voor dit adres is geen plaats gevonden.",
+            "point_not_routable": "Een van de punten ligt te ver van een weg. Schuif hem dichter naar een weg toe.",
+            "no_route": "TomTom heeft geen weg gevonden die deze punten verbindt.",
+            "route_too_long": "De route is te lang voor TomTom, of heeft te veel punten.",
+            "return_name_taken": "Er bestaat al een item met die naam - dit item meegerekend.",
+            "cannot_connect": "TomTom was niet bereikbaar.",
+            "zone_without_position": "Deze zone heeft geen positie.",
+            "api_key_required": "Voer een API-sleutel in.",
+            "lufop_key_required": "Lufop heeft zijn API-sleutel nodig om ingeschakeld te worden.",
+            "invalid_lufop_key": "Lufop heeft de API-sleutel niet geaccepteerd.",
+            "lufop_cannot_connect": "Lufop was niet bereikbaar. De sleutel is niet gecontroleerd - probeer het later opnieuw.",
+            "lufop_refused": "Lufop heeft de aanvraag geweigerd zonder de sleutel te weigeren. Misschien zijn de aanvragen van de dag op - probeer het na middernacht UTC opnieuw, of controleer de sleutel in je Lufop-dashboard.",
+            "lufop_busy": "De limiet van Lufop van 10 aanvragen per minuut is bereikt. Probeer het over een minuut opnieuw."
+        },
+        "abort": {
+            "no_tracker_with_position": "Geen enkele apparaattracker geeft op dit moment een positie door. Deze modus heeft er een nodig die coördinaten stuurt - een tracker die alleen thuis en weg kent, kan geen straal centreren."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} levert niet",
+            "description": "Het TomTom-item **{name}** is bij {count} opvragingen op rij mislukt, dus zijn entiteiten zijn niet beschikbaar. De laatste reden:\n\n`{reason}`\n\nEen tracker zonder positie, of een tracker-entiteit die niet meer bestaat, los je op onder **Configureren** van het item; een geweigerde sleutel onder **Configureren** op het item TomTom Instellingen; als TomTom zelf niet bereikbaar is, verdwijnt dit vanzelf zodra het weer kan. Deze reparatie verdwijnt bij de volgende opvraging die slaagt."
+        },
+        "quota_at_risk": {
+            "title": "Het {api}-quotum haalt de maand niet",
+            "description": "{used} van {tier} gratis **{api}**-aanvragen na {days} dagen; in dit tempo ongeveer **{projected}** tegen het einde van de maand, meer dan {percent} % van het tegoed.\n\nMinder opvragingen helpen: een langer update-interval, kortere uren voor een route, de verkeersstroom op minder kaarten.\n\nDit verdwijnt zodra het tempo onder het deel zakt dat is ingesteld onder TomTom Instellingen → Configureren → Quotumwaarschuwing → TomTom, en met de nieuwe maand."
+        },
+        "quota_day_at_risk": {
+            "title": "De {api}-aanvragen van de dag zijn bijna op",
+            "description": "{used} van de {tier} aanvragen per dag die het **{api}**-abonnement toestaat, zijn gebruikt.\n\nDe aanvragen van de dag worden gedeeld door elk item van deze installatie - en door al het andere dat dezelfde sleutel gebruikt. Minder opvragingen helpen: een langer update-interval, kortere uren voor een route, of Lufop uitgeschakeld voor de items die buiten zijn land liggen.\n\nDit verdwijnt om middernacht UTC, als de dag van Lufop omslaat, of als het deel dat is ingesteld onder TomTom Instellingen → Configureren → Quotumwaarschuwing → Lufop wordt verhoogd."
+        },
+        "quota_day_used_up": {
+            "title": "De {api}-aanvragen van de dag zijn op",
+            "description": "Alle {tier} aanvragen per dag van het **{api}**-abonnement zijn gebruikt - Lufop telt alles wat dezelfde sleutel gebruikt. Het weigert verdere aanvragen tot middernacht UTC - hier {reset}.\n\nMinder opvragingen helpen morgen: een langer update-interval, kortere uren voor een route, of Lufop uitgeschakeld voor de items buiten zijn land."
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Atasco",
+    "lane_closed": "Carril cerrado",
+    "road_closed": "Carretera cortada",
+    "road_works": "Obras",
+    "accident": "Accidente",
+    "broken_down_vehicle": "Vehículo averiado",
+    "dangerous_conditions": "Condiciones peligrosas",
+    "fog": "Niebla",
+    "rain": "Lluvia",
+    "ice": "Hielo",
+    "wind": "Viento",
+    "flooding": "Inundación",
+    "unknown": "Desconocido",
+    "camera_fixed": "Radar fijo",
+    "camera_mobile": "Radar móvil",
+    "camera_trailer": "Radar en remolque",
+    "camera_redlight": "Cámara de semáforo",
+    "camera_section": "Radar de tramo",
+    "check_distance": "Control de distancia",
+    "check_police": "Control policial"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "leve",
+    "moderate": "moderado",
+    "major": "grave",
+    "indefinite": "indefinido"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "File",
+    "lane_closed": "Rijstrook afgesloten",
+    "road_closed": "Weg afgesloten",
+    "road_works": "Wegwerkzaamheden",
+    "accident": "Ongeval",
+    "broken_down_vehicle": "Pechgeval",
+    "dangerous_conditions": "Gevaarlijke omstandigheden",
+    "fog": "Mist",
+    "rain": "Regen",
+    "ice": "Gladheid",
+    "wind": "Wind",
+    "flooding": "Wateroverlast",
+    "unknown": "Onbekend",
+    "camera_fixed": "Vaste flitser",
+    "camera_mobile": "Mobiele flitser",
+    "camera_trailer": "Flitsaanhanger",
+    "camera_redlight": "Roodlichtcamera",
+    "camera_section": "Trajectcontrole",
+    "check_distance": "Afstandscontrole",
+    "check_police": "Politiecontrole"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "gering",
+    "moderate": "matig",
+    "major": "ernstig",
+    "indefinite": "onbepaald"
+  }
+}

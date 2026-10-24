@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Bouchon",
+    "lane_closed": "Voie fermée",
+    "road_closed": "Route barrée",
+    "road_works": "Travaux",
+    "accident": "Accident",
+    "broken_down_vehicle": "Véhicule en panne",
+    "dangerous_conditions": "Conditions dangereuses",
+    "fog": "Brouillard",
+    "rain": "Pluie",
+    "ice": "Verglas",
+    "wind": "Vent",
+    "flooding": "Inondation",
+    "unknown": "Inconnu",
+    "camera_fixed": "Radar fixe",
+    "camera_mobile": "Radar mobile",
+    "camera_trailer": "Remorque radar",
+    "camera_redlight": "Radar feu rouge",
+    "camera_section": "Radar tronçon",
+    "check_distance": "Contrôle de distance",
+    "check_police": "Contrôle de police"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "mineur",
+    "moderate": "modéré",
+    "major": "majeur",
+    "indefinite": "indéterminé"
+  }
+}

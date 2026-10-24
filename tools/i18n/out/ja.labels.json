@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "渋滞",
+    "lane_closed": "車線規制",
+    "road_closed": "通行止め",
+    "road_works": "道路工事",
+    "accident": "事故",
+    "broken_down_vehicle": "故障車",
+    "dangerous_conditions": "危険な状況",
+    "fog": "霧",
+    "rain": "雨",
+    "ice": "凍結",
+    "wind": "強風",
+    "flooding": "冠水",
+    "unknown": "不明",
+    "camera_fixed": "固定式速度取締機",
+    "camera_mobile": "移動式速度取締機",
+    "camera_trailer": "トレーラー型速度取締機",
+    "camera_redlight": "信号無視取締機",
+    "camera_section": "区間速度取締",
+    "check_distance": "車間距離取締り",
+    "check_police": "警察の検問"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "軽微",
+    "moderate": "中程度",
+    "major": "重大",
+    "indefinite": "期間未定"
+  }
+}

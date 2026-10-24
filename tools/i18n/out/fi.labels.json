@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Ruuhka",
+    "lane_closed": "Kaista suljettu",
+    "road_closed": "Tie suljettu",
+    "road_works": "Tietyö",
+    "accident": "Onnettomuus",
+    "broken_down_vehicle": "Rikkoutunut ajoneuvo",
+    "dangerous_conditions": "Vaaralliset olosuhteet",
+    "fog": "Sumu",
+    "rain": "Sade",
+    "ice": "Jäinen tie",
+    "wind": "Tuuli",
+    "flooding": "Tulva",
+    "unknown": "Tuntematon",
+    "camera_fixed": "Kiinteä nopeusvalvontakamera",
+    "camera_mobile": "Liikkuva nopeusvalvontakamera",
+    "camera_trailer": "Nopeusvalvontakamera perävaunussa",
+    "camera_redlight": "Punaisen valon valvontakamera",
+    "camera_section": "Keskinopeusvalvonta",
+    "check_distance": "Turvavälivalvonta",
+    "check_police": "Poliisitarkastus"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "vähäinen",
+    "moderate": "kohtalainen",
+    "major": "merkittävä",
+    "indefinite": "määrittämätön"
+  }
+}

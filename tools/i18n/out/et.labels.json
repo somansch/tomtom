@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Ummik",
+    "lane_closed": "Sõidurada suletud",
+    "road_closed": "Tee suletud",
+    "road_works": "Teetööd",
+    "accident": "Liiklusõnnetus",
+    "broken_down_vehicle": "Rikkis sõiduk",
+    "dangerous_conditions": "Ohtlikud olud",
+    "fog": "Udu",
+    "rain": "Vihm",
+    "ice": "Libedus",
+    "wind": "Tuul",
+    "flooding": "Üleujutus",
+    "unknown": "Teadmata",
+    "camera_fixed": "Statsionaarne kiiruskaamera",
+    "camera_mobile": "Mobiilne kiiruskaamera",
+    "camera_trailer": "Kiiruskaamera haagisel",
+    "camera_redlight": "Punase tule kaamera",
+    "camera_section": "Keskmise kiiruse mõõtmine",
+    "check_distance": "Pikivahe kontroll",
+    "check_police": "Politseikontroll"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "väike",
+    "moderate": "mõõdukas",
+    "major": "suur",
+    "indefinite": "määramata"
+  }
+}

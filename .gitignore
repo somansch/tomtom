@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.vscode/
+.idea/
+*.zip
+.DS_Store
+.claude/
+
+# agent skills (npx skills)
+.agents/
+skills-lock.json

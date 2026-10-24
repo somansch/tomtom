@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Kø",
+    "lane_closed": "Vognbane spærret",
+    "road_closed": "Vej spærret",
+    "road_works": "Vejarbejde",
+    "accident": "Uheld",
+    "broken_down_vehicle": "Havareret køretøj",
+    "dangerous_conditions": "Farlige forhold",
+    "fog": "Tåge",
+    "rain": "Regn",
+    "ice": "Glat føre",
+    "wind": "Vind",
+    "flooding": "Oversvømmelse",
+    "unknown": "Ukendt",
+    "camera_fixed": "Fast fartkamera",
+    "camera_mobile": "Mobilt fartkamera",
+    "camera_trailer": "Fartkameraanhænger",
+    "camera_redlight": "Rødlyskamera",
+    "camera_section": "Strækningskontrol",
+    "check_distance": "Afstandskontrol",
+    "check_police": "Politikontrol"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "mindre",
+    "moderate": "moderat",
+    "major": "større",
+    "indefinite": "ubestemt"
+  }
+}

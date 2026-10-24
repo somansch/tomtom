@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Spūstis",
+    "lane_closed": "Uždaryta eismo juosta",
+    "road_closed": "Uždarytas kelias",
+    "road_works": "Kelio darbai",
+    "accident": "Avarija",
+    "broken_down_vehicle": "Sugedusi transporto priemonė",
+    "dangerous_conditions": "Pavojingos sąlygos",
+    "fog": "Rūkas",
+    "rain": "Lietus",
+    "ice": "Plikledis",
+    "wind": "Vėjas",
+    "flooding": "Potvynis",
+    "unknown": "Nežinoma",
+    "camera_fixed": "Stacionarus greičio matuoklis",
+    "camera_mobile": "Mobilusis greičio matuoklis",
+    "camera_trailer": "Greičio matuoklio priekaba",
+    "camera_redlight": "Raudonos šviesos kamera",
+    "camera_section": "Vidutinio greičio matavimas",
+    "check_distance": "Atstumo patikra",
+    "check_police": "Policijos patikra"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "nedidelis",
+    "moderate": "vidutinis",
+    "major": "didelis",
+    "indefinite": "neapibrėžtas"
+  }
+}

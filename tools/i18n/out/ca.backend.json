@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Embús",
+    "lane_closed": "Carril tallat",
+    "road_closed": "Carretera tallada",
+    "road_works": "Obres",
+    "accident": "Accident",
+    "broken_down_vehicle": "Vehicle avariat",
+    "dangerous_conditions": "Condicions perilloses",
+    "fog": "Boira",
+    "rain": "Pluja",
+    "ice": "Gel",
+    "wind": "Vent",
+    "flooding": "Inundació",
+    "unknown": "Desconegut",
+    "camera_fixed": "Radar fix (blitzer.de, Lufop)",
+    "camera_mobile": "Radar mòbil (blitzer.de, Lufop)",
+    "camera_trailer": "Radar en remolc (blitzer.de)",
+    "camera_redlight": "Radar de semàfor (blitzer.de, Lufop)",
+    "camera_section": "Radar de tram (blitzer.de, Lufop)",
+    "check_distance": "Control de distància (blitzer.de)",
+    "check_police": "Control policial (blitzer.de)"
+  },
+  "days": {
+    "mon": "Dilluns",
+    "tue": "Dimarts",
+    "wed": "Dimecres",
+    "thu": "Dijous",
+    "fri": "Divendres",
+    "sat": "Dissabte",
+    "sun": "Diumenge"
+  },
+  "modes": {
+    "area": "📍 Àrea (radi)",
+    "tracker": "📱 Rastrejador de dispositiu (radi)",
+    "route_live": "🛣️ Ruta (origen/destinació, en directe amb el trànsit)"
+  },
+  "typeData": {
+    "categories": "Incidències"
+  },
+  "optional": {
+    "name": "Configuració opcional",
+    "data": {
+      "only_certain": "Només incidències de què TomTom està segur",
+      "count": "Nombre d'incidències",
+      "update_interval": "Interval d'actualització (minuts, 0 = només manual)",
+      "new_minutes": "Compta com a nova durant (minuts, 0 = desactivat)",
+      "roads": "Només aquestes carreteres (números de carretera separats per comes, p. ex. A8, B2)",
+      "blacklist": "Llista negra (IDs d'incidència separats per comes)"
+    },
+    "description": {
+      "only_certain": "TomTom valora cada incidència: certain, probable, risk_of o improbable. Un embús mesurat a partir de cotxes en moviment és certain, unes obres d'una administració de carreteres probable, l'avís aïllat d'un conductor un risc. Activat, es conserven les dues primeres; desactivat, també hi entren les incertes.",
+      "roads": "Només incidències que TomTom registra sota un d'aquests números de carretera, A8 o B2 - les autopistes d'un trajecte diari sense cap carrer lateral. Majúscules i espais no importen. Buit conserva totes les carreteres.",
+      "blacklist": "Incidències a deixar fora, per l'id d'incident de TomTom - l'atribut id o short_id de l'entitat d'una incidència, visible als seus detalls. Les apps pròpies de TomTom no el mostren."
+    }
+  },
+  "budgetArea": "Cada consulta és una petició a Incident Details (una més per cada 10.000 km² de cerca), i una clau gratuïta en té 2.500 al mes: amb l'hora per defecte una àrea en gasta unes 720.",
+  "budgetRoute": "Dins de les seves hores cada consulta és una petició a Routing, de 20.000 gratuïtes al mes; les incidències de la ruta hi venen incloses, i a Incident Details es demana un cop per cada incidència nova la resta del que cal saber.",
+  "entities": {
+    "sensor": {
+      "report_count": "Incidències",
+      "travel_time": "Temps de viatge",
+      "traffic_delay": "Retard per trànsit",
+      "route_length": "Longitud de la ruta",
+      "requests": "Peticions a TomTom aquest mes",
+      "requests_total": "Totes les peticions aquest mes",
+      "requests_incidents": "Incident Details aquest mes",
+      "requests_routing": "Routing aquest mes",
+      "requests_geocoding": "Geocoding aquest mes",
+      "requests_reverse_geocoding": "Reverse Geocoding aquest mes",
+      "requests_search": "Cerca aquest mes",
+      "requests_tiles": "Tessel·les de flux aquest mes",
+      "requests_blitzer": "blitzer.de aquest mes",
+      "requests_lufop": "Lufop avui"
+    },
+    "number": {
+      "new_minutes": "Nova durant"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Quota en risc"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "Configuració de TomTom",
+      "description": "Dona un nom a aquesta entrada i tria com s'ha de cercar. Una àrea o un rastrejador llegeix les incidències de trànsit de TomTom dins del seu cercle; una ruta d'origen a destinació la calcula TomTom a cada consulta, amb el trànsit del moment, i informa del que travessa.",
+      "data": {
+        "name": "Nom per mostrar",
+        "search_mode": "Mode de cerca"
+      }
+    },
+    "key": {
+      "title": "Clau d'API de TomTom",
+      "description": "Tot el que hi ha aquí ve de TomTom, que necessita una clau d'API - gratuïta, sense mètode de pagament:\n\n1. Registra't a [developer.tomtom.com]({url}).\n2. Just després, **API & SDK Keys** al tauler ja mostra una clau, *My First API key*, amb totes les API activades - entre elles la Traffic API, la Routing API i la Search API, que són les que s'usen aquí. Copia-la amb el botó del costat.\n3. Enganxa-la aquí.\n\nUna sola clau serveix per a totes les entrades d'aquest Home Assistant. Si ja n'hi ha una desada, deixa el camp buit per conservar-la.",
+      "data": {
+        "api_key": "Clau d'API"
+      }
+    },
+    "area": {
+      "title": "Àrea (radi)",
+      "description": "Tria el cercle on es mostren les incidències de TomTom - fins a 50 km al voltant del centre, la caixa més gran que TomTom respon en una sola petició. ",
+      "data": {
+        "location": "Àrea"
+      }
+    },
+    "tracker": {
+      "title": "Rastrejador de dispositiu (radi)",
+      "description": "Tria el rastrejador de dispositiu a seguir i com d'ample ha de ser el cercle de cerca al seu voltant. Només hi apareixen els rastrejadors que ara mateix informen de coordenades - un que només sap si és a casa o fora no té cap posició on posar un cercle. ",
+      "data": {
+        "tracker": "Rastrejador de dispositiu",
+        "tracker_radius": "Radi (metres)"
+      }
+    },
+    "route_start": {
+      "title": "Origen",
+      "description": "On comença la ruta?",
+      "menu": {
+        "route_start_zone": "Zona",
+        "route_start_point": "Punt al mapa",
+        "route_start_address": "Adreça"
+      }
+    },
+    "route_start_zone": {
+      "title": "Origen: zona",
+      "data": {
+        "zone": "Zona"
+      }
+    },
+    "route_start_point": {
+      "title": "Origen: punt al mapa",
+      "description": "Mou el mapa fins que el marcador sigui sobre l'origen.",
+      "data": {
+        "location": "Origen"
+      }
+    },
+    "route_start_address": {
+      "title": "Origen: adreça",
+      "description": "Carrer i població.",
+      "data": {
+        "address": "Adreça"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Origen: adreça trobada",
+      "description": "Trobat: **{label}**\n\nSi no és el lloc que volies, corregeix l'adreça i continua - es tornarà a cercar.",
+      "data": {
+        "address": "Adreça"
+      }
+    },
+    "route_destination": {
+      "title": "Destinació",
+      "description": "On acaba la ruta?",
+      "menu": {
+        "route_destination_zone": "Zona",
+        "route_destination_point": "Punt al mapa",
+        "route_destination_address": "Adreça"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Destinació: zona",
+      "data": {
+        "zone": "Zona"
+      }
+    },
+    "route_destination_point": {
+      "title": "Destinació: punt al mapa",
+      "description": "Mou el mapa fins que el marcador sigui sobre la destinació.",
+      "data": {
+        "location": "Destinació"
+      }
+    },
+    "route_destination_address": {
+      "title": "Destinació: adreça",
+      "description": "Carrer i població.",
+      "data": {
+        "address": "Adreça"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Destinació: adreça trobada",
+      "description": "Trobat: **{label}**\n\nSi no és el lloc que volies, corregeix l'adreça i continua - es tornarà a cercar.",
+      "data": {
+        "address": "Adreça"
+      }
+    },
+    "route_vias": {
+      "title": "Punts de pas",
+      "description": "De {start} a {destination}, {count} punts de pas fins ara. TomTom pren la carretera més ràpida entre ells - afegeix un punt de pas allà on el teu camí habitual sigui diferent.",
+      "menu": {
+        "route_via": "Afegeix un punt de pas",
+        "route_vias_clear": "Treu tots els punts de pas",
+        "route_review": "Calcula la ruta"
+      }
+    },
+    "route_via": {
+      "title": "Punt de pas {count}",
+      "description": "Mou el mapa fins que el marcador sigui sobre una carretera per on ha de passar la ruta.",
+      "data": {
+        "location": "Punt de pas"
+      }
+    },
+    "route_review": {
+      "title": "La teva ruta, ara mateix",
+      "description": "{start} → {destination}, {vias} punts de pas: {distance}, uns {duration} min ara mateix, {delay} min dels quals de retard. La ruta es torna a calcular a cada consulta; el mapa mostra la que el trànsit fa més ràpida en aquest moment. ",
+      "data": {
+        "return_route": "Crea també el camí de tornada",
+        "return_name": "Nom del camí de tornada",
+        "live_days": "Dies en què la ruta es manté actualitzada",
+        "live_from": "Des de",
+        "live_until": "Fins a",
+        "live_back_from": "Des de (tornada)",
+        "live_back_until": "Fins a (tornada)"
+      },
+      "data_description": {
+        "return_route": "Una segona entrada, de destinació a origen - en una autopista el camí de tornada és l'altra calçada, i un embús en una no ho és a l'altra. Amb el nom d'aquesta entrada i \"tornada\" afegit.",
+        "return_name": "Només s'usa quan es crea el camí de tornada. S'omple amb el nom d'aquesta entrada i \"tornada\" afegit; escriu-ne un altre per anomenar-lo diferent - \"Casa\" i \"Feina\", per exemple."
+      }
+    },
+    "route_failed": {
+      "title": "Sense ruta",
+      "description": "Continua per canviar els punts."
+    },
+    "init": {
+      "title": "Què vols editar?",
+      "menu": {
+        "edit_route": "Canvia la ruta (origen, destinació, punts de pas)",
+        "edit_route_settings": "Edita la configuració de cerca (hores, tipus, filtres)",
+        "edit_key": "Canvia la clau d'API",
+        "route_defaults": "Valors per defecte per a rutes noves",
+        "quota_warning": "Avís de quota",
+        "sources": "Fonts de dades"
+      }
+    },
+    "route_defaults": {
+      "title": "Valors per defecte per a rutes noves",
+      "description": "Amb què comença cada ruta nova: a la targeta, una ruta planificada allà es desa de seguida amb aquesta configuració; a l'assistent de configuració s'omplen i encara es poden canviar. Els dies i les hores són aquells en què la ruta es manté actualitzada, i el camí de tornada es pot crear juntament amb ella - conduït a una altra hora del dia, amb hores pròpies.",
+      "data": {
+        "default_start": "Origen per a les rutes planificades a la targeta (opcional)"
+      }
+    },
+    "quota_warning": {
+      "title": "Avís de quota",
+      "description": "Quan queden poques peticions d'una API, una reparació ho avisa i el sensor **Quota en risc** de TomTom General s'activa.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "A partir del vuitè dia del mes, les peticions fetes fins aleshores es projecten fins a final de mes. Es compta el que demana aquesta integració; una clau que també s'usa en altres llocs té un recompte més alt a TomTom.",
+          "data": {
+            "quota_warning": "Avisa quan el nivell gratuït no arribi a final de mes",
+            "quota_threshold": "Avisa a partir d'aquesta part del nivell gratuït"
+          },
+          "data_description": {
+            "quota_threshold": "100 % avisa quan se superarà el mateix nivell, 80 % ja als quatre cinquens."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop compta per dies, de mitjanit a mitjanit UTC, incloent-hi tot el que usa la clau. S'aplica mentre Lufop està activat a Fonts de dades.",
+          "data": {
+            "lufop_quota_warning": "Avisa quan quedin poques peticions del dia o s'hagin esgotat",
+            "lufop_quota_threshold": "Avisa a partir d'aquesta part de les peticions del dia"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "El primer avís arriba en aquesta part; un segon quan s'han usat totes."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Fonts de dades",
+      "description": "Altres fonts d'incidències a més de TomTom, per a totes les entrades alhora. Una font només afegeix el que TomTom no té, amb tipus propis a la llista de cada entrada, de manera que cap incidència hi apareix dues vegades.\n\n**blitzer.de** informa de radars i controls de trànsit, fixos i mòbils, a Alemanya i els països veïns. Sense clau i sense compte; llegeix el que llegeix el mapa del mateix lloc web, que blitzer.de no ha publicat com a API i que pot canviar o tancar. Cada petició es compta a **blitzer.de aquest mes**.\n\n**Lufop** informa de radars, fixos, mòbils i de semàfor, i de radars de tram, des de la seva base de dades de radars - una API documentada amb una clau personal gratuïta d'[api.lufop.net](https://api.lufop.net/). Una petició respon per a un país; el pla gratuït cobreix França, Bèlgica i Suïssa, 200 peticions al dia i 200 radars per petició. Cada petició es compta a **Lufop avui**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Clau d'API de Lufop",
+        "lufop_country": "Lufop: país"
+      },
+      "data_description": {
+        "lufop_api_key": "Es comprova quan s'introdueix i quan s'activa Lufop; una de ja desada es conserva deixant el camp buit.",
+        "lufop_country": "L'únic país pel qual cada entrada pregunta a Lufop - el pla gratuït permet França, Bèlgica i Suïssa."
+      }
+    },
+    "first": {
+      "title": "TomTom està configurat",
+      "description": "La clau està desada, i els valors per defecte per a rutes noves es guarden a l'entrada **TomTom Configuració** - el seu Configura canvia totes dues coses més endavant. Acaba ara i afegeix la primera àrea, rastrejador o ruta quan vulguis des d'**Afegeix entrada** a la mateixa fitxa de TomTom, o crea-la ara mateix.",
+      "menu": {
+        "finish": "Acaba la configuració",
+        "add_entry": "Afegeix ara la primera àrea, rastrejador o ruta"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom ja està configurat amb aquest nom. Tria'n un altre.",
+    "location_missing": "Selecciona una posició (mou el mapa).",
+    "no_tracker_with_position": "Cap rastrejador de dispositiu informa d'una posició ara mateix. Aquest mode en necessita un que enviï coordenades - un que només sap si és a casa o fora no pot centrar un radi."
+  },
+  "error": {
+    "radius_too_large": "El radi pot ser com a màxim de 50 km - la caixa més gran que TomTom respon en una sola petició.",
+    "invalid_api_key": "TomTom no ha acceptat la clau d'API.",
+    "quota_exceeded": "La quota d'aquesta clau a TomTom s'ha esgotat de moment. Torna-ho a provar més tard.",
+    "address_not_found": "No s'ha trobat cap lloc per a aquesta adreça.",
+    "point_not_routable": "Un dels punts és massa lluny d'una carretera. Acosta'l a alguna.",
+    "no_route": "TomTom no ha trobat cap carretera que connecti aquests punts.",
+    "route_too_long": "La ruta és massa llarga per a TomTom, o té massa punts.",
+    "return_name_taken": "Ja existeix una entrada amb aquest nom - aquesta inclosa.",
+    "cannot_connect": "No s'ha pogut contactar amb TomTom.",
+    "zone_without_position": "Aquesta zona no té posició.",
+    "api_key_required": "Introdueix una clau d'API.",
+    "lufop_key_required": "Lufop necessita la seva clau d'API per activar-se.",
+    "invalid_lufop_key": "Lufop no ha acceptat la clau d'API.",
+    "lufop_cannot_connect": "No s'ha pogut contactar amb Lufop. La clau no s'ha comprovat - torna-ho a provar més tard.",
+    "lufop_refused": "Lufop ha rebutjat la petició sense rebutjar la clau. Potser s'han esgotat les peticions del dia - torna-ho a provar després de mitjanit UTC, o comprova la clau al teu tauler de Lufop.",
+    "lufop_busy": "S'ha arribat al límit de Lufop de 10 peticions per minut. Torna-ho a provar d'aquí a un minut."
+  },
+  "service": {
+    "name": "Actualitza",
+    "description": "Obté immediatament les incidències més recents d'una àrea, ruta o rastrejador de TomTom, en lloc d'esperar la propera consulta programada - i, en una ruta en directe, primer la mateixa ruta. Retorna les incidències.",
+    "field": {
+      "name": "Àrea, ruta o rastrejador",
+      "description": "Quina àrea, ruta o rastrejador de TomTom s'ha d'actualitzar."
+    }
+  },
+  "issue": {
+    "title": "{name} no respon",
+    "description": "L'entrada de TomTom **{name}** ha fallat {count} consultes seguides, de manera que les seves entitats no estan disponibles. El darrer motiu:\n\n`{reason}`\n\nUn rastrejador sense posició, o una entitat de rastrejador que ja no existeix, s'arregla a **Configura** de l'entrada; una clau rebutjada a **Configura** de l'entrada TomTom Configuració; si és TomTom mateix que no es pot contactar, això es resol sol quan torni a estar disponible. Aquesta reparació desapareix amb la propera consulta que tingui èxit."
+  },
+  "quotaIssue": {
+    "title": "La quota de {api} no arribarà a final de mes",
+    "description": "{used} de {tier} peticions gratuïtes de **{api}** després de {days} dies; a aquest ritme unes **{projected}** a final de mes, més del {percent} % del nivell.\n\nMenys consultes ajuden: un interval d'actualització més llarg, hores més ajustades en una ruta, el flux de trànsit en menys targetes.\n\nAixò desapareix quan el ritme baixa per sota de la part definida a TomTom Configuració → Configura → Avís de quota → TomTom, i amb el mes nou."
+  },
+  "quotaDayIssue": {
+    "title": "Les peticions del dia de {api} gairebé s'han esgotat",
+    "description": "S'han usat {used} de les {tier} peticions al dia que permet el pla de **{api}**.\n\nLes peticions del dia les comparteixen totes les entrades d'aquesta instal·lació - i qualsevol altra cosa que usi la mateixa clau. Menys consultes ajuden: un interval d'actualització més llarg, hores més ajustades en una ruta, o Lufop desactivat a les entrades que queden fora del seu país.\n\nAixò desapareix a mitjanit UTC, quan canvia el dia de Lufop, o quan s'augmenta la part definida a TomTom Configuració → Configura → Avís de quota → Lufop."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "Les peticions del dia de {api} s'han esgotat",
+    "description": "S'han usat totes les {tier} peticions al dia del pla de **{api}** - Lufop compta tot el que usa la mateixa clau. Rebutja més peticions fins a mitjanit UTC - aquí a les {reset}.\n\nMenys consultes ajudaran demà: un interval d'actualització més llarg, hores més ajustades en una ruta, o Lufop desactivat a les entrades fora del seu país."
+  },
+  "device": {
+    "general": "TomTom General",
+    "settings": "TomTom Configuració"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Austràlia",
+    "be": "Bèlgica",
+    "bg": "Bulgària",
+    "ca": "Canadà",
+    "cz": "Txèquia",
+    "fi": "Finlàndia",
+    "fr": "França",
+    "de": "Alemanya",
+    "ie": "Irlanda",
+    "it": "Itàlia",
+    "lv": "Letònia",
+    "lu": "Luxemburg",
+    "ma": "Marroc",
+    "nl": "Països Baixos",
+    "nz": "Nova Zelanda",
+    "no": "Noruega",
+    "pl": "Polònia",
+    "pt": "Portugal",
+    "es": "Espanya",
+    "se": "Suècia",
+    "ch": "Suïssa",
+    "ae": "Emirats Àrabs Units",
+    "gb": "Regne Unit"
+  }
+}

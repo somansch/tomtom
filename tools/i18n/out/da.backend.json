@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Kø",
+    "lane_closed": "Vognbane spærret",
+    "road_closed": "Vej spærret",
+    "road_works": "Vejarbejde",
+    "accident": "Uheld",
+    "broken_down_vehicle": "Havareret køretøj",
+    "dangerous_conditions": "Farlige forhold",
+    "fog": "Tåge",
+    "rain": "Regn",
+    "ice": "Glat føre",
+    "wind": "Vind",
+    "flooding": "Oversvømmelse",
+    "unknown": "Ukendt",
+    "camera_fixed": "Fast fartkamera (blitzer.de, Lufop)",
+    "camera_mobile": "Mobilt fartkamera (blitzer.de, Lufop)",
+    "camera_trailer": "Fartkameraanhænger (blitzer.de)",
+    "camera_redlight": "Rødlyskamera (blitzer.de, Lufop)",
+    "camera_section": "Strækningskontrol (blitzer.de, Lufop)",
+    "check_distance": "Afstandskontrol (blitzer.de)",
+    "check_police": "Politikontrol (blitzer.de)"
+  },
+  "days": {
+    "mon": "Mandag",
+    "tue": "Tirsdag",
+    "wed": "Onsdag",
+    "thu": "Torsdag",
+    "fri": "Fredag",
+    "sat": "Lørdag",
+    "sun": "Søndag"
+  },
+  "modes": {
+    "area": "📍 Område (radius)",
+    "tracker": "📱 Enhedssporing (radius)",
+    "route_live": "🛣️ Rute (start/destination, live med trafikken)"
+  },
+  "typeData": {
+    "categories": "Meldinger"
+  },
+  "optional": {
+    "name": "Valgfrie indstillinger",
+    "data": {
+      "only_certain": "Kun meldinger, TomTom er sikker på",
+      "count": "Antal meldinger",
+      "update_interval": "Opdateringsinterval (minutter, 0 = kun manuelt)",
+      "new_minutes": "Tæller som ny i (minutter, 0 = fra)",
+      "roads": "Kun disse veje (kommaseparerede vejnumre, f.eks. A8, B2)",
+      "blacklist": "Sortliste (kommaseparerede hændelses-ID'er)"
+    },
+    "description": {
+      "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra kørende biler er certain, et vejarbejde fra en vejmyndighed probable, en enkelt bilists melding en risiko. Slået til beholdes de to første; slået fra kommer de usikre også med.",
+      "roads": "Kun meldinger, TomTom fører under et af disse vejnumre, A8 eller B2 - motorvejene på en pendlertur uden hver sidevej langs den. Store/små bogstaver og mellemrum er uden betydning. Tomt beholder hver vej.",
+      "blacklist": "Meldinger, der udelades, efter TomToms hændelses-id - attributten id eller short_id på en meldings entitet, vist i dens detaljer. TomToms egne apps viser det ikke."
+    }
+  },
+  "budgetArea": "Hver forespørgsel er én Incident Details-anmodning (én mere pr. 10.000 km² af søgningen), og en gratis nøgle har 2.500 af dem om måneden: med standardtimen bruger et område omkring 720.",
+  "budgetRoute": "Inden for sine timer er hver forespørgsel én Routing-anmodning, af 20.000 gratis om måneden; meldingerne på ruten følger med den, og Incident Details spørges én gang pr. ny melding om resten af det, der er at vide.",
+  "entities": {
+    "sensor": {
+      "report_count": "Meldinger",
+      "travel_time": "Rejsetid",
+      "traffic_delay": "Trafikforsinkelse",
+      "route_length": "Rutelængde",
+      "requests": "TomTom-anmodninger denne måned",
+      "requests_total": "Alle anmodninger denne måned",
+      "requests_incidents": "Incident Details denne måned",
+      "requests_routing": "Routing denne måned",
+      "requests_geocoding": "Geocoding denne måned",
+      "requests_reverse_geocoding": "Reverse Geocoding denne måned",
+      "requests_search": "Søgning denne måned",
+      "requests_tiles": "Flowfliser denne måned",
+      "requests_blitzer": "blitzer.de denne måned",
+      "requests_lufop": "Lufop i dag"
+    },
+    "number": {
+      "new_minutes": "Ny i"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Kvote i fare"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "Opsætning af TomTom",
+      "description": "Giv denne post et navn, og vælg, hvordan der skal søges. Et område eller en tracker læser TomToms trafikhændelser i sin cirkel; en rute fra start til destination beregnes af TomTom ved hver forespørgsel, med øjeblikkets trafik, og melder, hvad den kører igennem.",
+      "data": {
+        "name": "Visningsnavn",
+        "search_mode": "Søgetilstand"
+      }
+    },
+    "key": {
+      "title": "TomTom API-nøgle",
+      "description": "Alt her kommer fra TomTom, som kræver en API-nøgle - gratis, uden betalingsmiddel:\n\n1. Opret dig på [developer.tomtom.com]({url}).\n2. Lige derefter står der under **API & SDK Keys** i dashboardet allerede en nøgle, *My First API key*, med hvert API slået til - Traffic API, Routing API og Search API blandt dem, dem der bruges her. Kopiér den med knappen ved siden af.\n3. Indsæt den her.\n\nÉn nøgle betjener hver post i denne Home Assistant. Hvis der allerede er gemt en, så lad feltet stå tomt for at beholde den.",
+      "data": {
+        "api_key": "API-nøgle"
+      }
+    },
+    "area": {
+      "title": "Område (radius)",
+      "description": "Vælg cirklen, hvori TomToms meldinger vises - op til 50 km om dens midtpunkt, som er den største boks, TomTom svarer på i én anmodning. ",
+      "data": {
+        "location": "Område"
+      }
+    },
+    "tracker": {
+      "title": "Enhedssporing (radius)",
+      "description": "Vælg den enhedssporing, der skal følges, og hvor stor en cirkel der skal søges i om den. Kun sporinger, der i øjeblikket melder koordinater, er med på listen - en, der kun kender hjemme og ude, har ingen position at lægge en cirkel om. ",
+      "data": {
+        "tracker": "Enhedssporing",
+        "tracker_radius": "Radius (meter)"
+      }
+    },
+    "route_start": {
+      "title": "Start",
+      "description": "Hvor starter ruten?",
+      "menu": {
+        "route_start_zone": "Zone",
+        "route_start_point": "Punkt på kortet",
+        "route_start_address": "Adresse"
+      }
+    },
+    "route_start_zone": {
+      "title": "Start: zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_start_point": {
+      "title": "Start: punkt på kortet",
+      "description": "Flyt kortet, så markøren står på starten.",
+      "data": {
+        "location": "Start"
+      }
+    },
+    "route_start_address": {
+      "title": "Start: adresse",
+      "description": "Gade og by.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Start: adresse fundet",
+      "description": "Fundet: **{label}**\n\nHvis det ikke er det sted, du mente, så ret adressen og fortsæt - den bliver slået op igen.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_destination": {
+      "title": "Destination",
+      "description": "Hvor ender ruten?",
+      "menu": {
+        "route_destination_zone": "Zone",
+        "route_destination_point": "Punkt på kortet",
+        "route_destination_address": "Adresse"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Destination: zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_destination_point": {
+      "title": "Destination: punkt på kortet",
+      "description": "Flyt kortet, så markøren står på destinationen.",
+      "data": {
+        "location": "Destination"
+      }
+    },
+    "route_destination_address": {
+      "title": "Destination: adresse",
+      "description": "Gade og by.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Destination: adresse fundet",
+      "description": "Fundet: **{label}**\n\nHvis det ikke er det sted, du mente, så ret adressen og fortsæt - den bliver slået op igen.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_vias": {
+      "title": "Viapunkter",
+      "description": "Fra {start} til {destination}, {count} viapunkter indtil nu. TomTom tager den hurtigste vej mellem dem - tilføj et viapunkt, hvor din sædvanlige vej afviger.",
+      "menu": {
+        "route_via": "Tilføj et viapunkt",
+        "route_vias_clear": "Fjern alle viapunkter",
+        "route_review": "Beregn ruten"
+      }
+    },
+    "route_via": {
+      "title": "Viapunkt {count}",
+      "description": "Flyt kortet, så markøren står på en vej, ruten skal tage.",
+      "data": {
+        "location": "Viapunkt"
+      }
+    },
+    "route_review": {
+      "title": "Din rute, lige nu",
+      "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min lige nu, heraf {delay} min forsinkelse. Ruten beregnes igen ved hver forespørgsel; kortet viser den, trafikken gør hurtigst i dette øjeblik. ",
+      "data": {
+        "return_route": "Opret også vejen tilbage",
+        "return_name": "Navn på vejen tilbage",
+        "live_days": "Dage, ruten holdes opdateret",
+        "live_from": "Fra",
+        "live_until": "Til",
+        "live_back_from": "Fra (vejen tilbage)",
+        "live_back_until": "Til (vejen tilbage)"
+      },
+      "data_description": {
+        "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet.",
+        "return_name": "Bruges kun, når vejen tilbage oprettes. Udfyldt med denne posts navn og \"retur\" tilføjet; skriv et andet for at kalde den noget andet - \"Hjem\" og \"Arbejde\", f.eks."
+      }
+    },
+    "route_failed": {
+      "title": "Ingen rute",
+      "description": "Fortsæt for at ændre punkterne."
+    },
+    "init": {
+      "title": "Hvad vil du redigere?",
+      "menu": {
+        "edit_route": "Ændr ruten (start, destination, viapunkter)",
+        "edit_route_settings": "Redigér søgeindstillinger (timer, arter, filtre)",
+        "edit_key": "Skift API-nøglen",
+        "route_defaults": "Standardværdier for nye ruter",
+        "quota_warning": "Kvoteadvarsel",
+        "sources": "Datakilder"
+      }
+    },
+    "route_defaults": {
+      "title": "Standardværdier for nye ruter",
+      "description": "Hvad hver ny rute starter med: på kortet gemmes en rute, der planlægges dér, straks med disse indstillinger; i opsætningsguiden er de udfyldt på forhånd og kan stadig ændres. Dagene og timerne er dem, ruten holdes opdateret i, og vejen tilbage kan oprettes sammen med den - kørt på et andet tidspunkt af dagen, med sine egne timer.",
+      "data": {
+        "default_start": "Start for ruter, der planlægges på kortet (valgfrit)"
+      }
+    },
+    "quota_warning": {
+      "title": "Kvoteadvarsel",
+      "description": "Når et API's anmodninger er ved at slippe op, siger en reparation det, og sensoren **Kvote i fare** på TomTom Generelt slår til.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "Fra månedens ottende dag fremskrives anmodningerne indtil nu til månedens slutning. Der tælles det, denne integration spørger om; en nøgle, der også bruges andre steder, står højere hos TomTom.",
+          "data": {
+            "quota_warning": "Advar, når den gratis kvote ikke rækker måneden ud",
+            "quota_threshold": "Advar fra denne andel af den gratis kvote"
+          },
+          "data_description": {
+            "quota_threshold": "100 % advarer, når selve kvoten bliver overskredet, 80 % allerede ved fire femtedele af den."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop tæller pr. dag, fra midnat til midnat UTC, alt, der bruger nøglen, medregnet. Gælder, mens Lufop er slået til under Datakilder.",
+          "data": {
+            "lufop_quota_warning": "Advar, når dagens anmodninger er ved at slippe op eller er brugt op",
+            "lufop_quota_threshold": "Advar fra denne andel af dagens anmodninger"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "Den første advarsel kommer ved denne andel; en anden, når alle er brugt."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Datakilder",
+      "description": "Yderligere kilder til meldinger ud over TomTom, for alle poster på én gang. En kilde tilføjer kun det, TomTom ikke har, under egne arter i hver posts liste, så ingen melding står der to gange.\n\n**blitzer.de** melder fartkameraer og trafikkontroller, faste og mobile, i Tyskland og nabolandene. Ingen nøgle og ingen konto; det læser, hvad sidens eget kort læser, som blitzer.de ikke har udgivet som et API og kan ændre eller lukke. Hver anmodning tælles under **blitzer.de denne måned**.\n\n**Lufop** melder fartkameraer, faste, mobile og rødlys, og strækningskontroller fra sin radardatabase - et dokumenteret API med en gratis personlig nøgle fra [api.lufop.net](https://api.lufop.net/). En anmodning besvarer ét land; den gratis plan dækker Frankrig, Belgien og Schweiz, 200 anmodninger om dagen og 200 radarer pr. anmodning. Hver anmodning tælles under **Lufop i dag**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop API-nøgle",
+        "lufop_country": "Lufop: land"
+      },
+      "data_description": {
+        "lufop_api_key": "Kontrolleres, når den angives, og når Lufop slås til; en allerede gemt nøgle beholdes ved at lade feltet stå tomt.",
+        "lufop_country": "Det ene land, hver post spørger Lufop om - den gratis plan tillader Frankrig, Belgien og Schweiz."
+      }
+    },
+    "first": {
+      "title": "TomTom er sat op",
+      "description": "Nøglen er gemt, og standardværdierne for nye ruter ligger under posten **TomTom Indstillinger** - dens **Konfigurér** ændrer begge senere. Afslut nu, og tilføj det første område, den første tracker eller rute fra TomTom-flisens egen **Tilføj emne**, når du vil, eller opret den med det samme.",
+      "menu": {
+        "finish": "Afslut opsætningen",
+        "add_entry": "Tilføj det første område, den første tracker eller rute nu"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom er allerede sat op for dette navn. Vælg et andet.",
+    "location_missing": "Vælg en position (flyt kortet).",
+    "no_tracker_with_position": "Ingen enhedssporing melder en position lige nu. Denne tilstand kræver en, der sender koordinater - en sporing, der kun kender hjemme og ude, kan ikke centrere en radius."
+  },
+  "error": {
+    "radius_too_large": "Radius må højst være 50 km - den største boks, TomTom svarer på i én anmodning.",
+    "invalid_api_key": "TomTom accepterede ikke API-nøglen.",
+    "quota_exceeded": "Nøglens kvote hos TomTom er brugt op for nu. Prøv igen senere.",
+    "address_not_found": "Der blev ikke fundet noget sted for denne adresse.",
+    "point_not_routable": "Et af punkterne ligger for langt fra en vej. Flyt det tættere på en.",
+    "no_route": "TomTom fandt ingen vej, der forbinder disse punkter.",
+    "route_too_long": "Ruten er for lang for TomTom eller har for mange punkter.",
+    "return_name_taken": "En post med det navn findes allerede - denne inklusive.",
+    "cannot_connect": "TomTom kunne ikke nås.",
+    "zone_without_position": "Denne zone har ingen position.",
+    "api_key_required": "Indtast en API-nøgle.",
+    "lufop_key_required": "Lufop kræver sin API-nøgle for at blive slået til.",
+    "invalid_lufop_key": "Lufop accepterede ikke API-nøglen.",
+    "lufop_cannot_connect": "Lufop kunne ikke nås. Nøglen blev ikke kontrolleret - prøv igen senere.",
+    "lufop_refused": "Lufop afviste anmodningen uden at afvise nøglen. Dagens anmodninger kan være brugt op - prøv igen efter midnat UTC, eller kontrollér nøglen på dit Lufop-dashboard.",
+    "lufop_busy": "Lufops grænse på 10 anmodninger i minuttet er nået. Prøv igen om et minut."
+  },
+  "service": {
+    "name": "Opdatér",
+    "description": "Henter straks de seneste meldinger for ét TomTom-område, én rute eller én tracker i stedet for at vente på dens næste planlagte forespørgsel - og for en live rute først selve ruten. Returnerer meldingerne.",
+    "field": {
+      "name": "Område, rute eller tracker",
+      "description": "Hvilket TomTom-område, hvilken rute eller hvilken tracker der skal opdateres."
+    }
+  },
+  "issue": {
+    "title": "{name} leverer ikke",
+    "description": "TomTom-posten **{name}** har fejlet {count} forespørgsler i træk, så dens entiteter er utilgængelige. Den seneste årsag:\n\n`{reason}`\n\nEn tracker uden position, eller en sporingsentitet, der ikke længere findes, rettes under postens **Konfigurér**; en afvist nøgle under **Konfigurér** på posten TomTom Indstillinger; hvis TomTom selv ikke kan nås, forsvinder dette af sig selv, når det kan igen. Denne reparation forsvinder med den næste forespørgsel, der lykkes."
+  },
+  "quotaIssue": {
+    "title": "{api}-kvoten rækker ikke måneden ud",
+    "description": "{used} af {tier} gratis **{api}**-anmodninger efter {days} dage; i dette tempo omkring **{projected}** ved månedens slutning, mere end {percent} % af kvoten.\n\nFærre forespørgsler hjælper: et længere opdateringsinterval, snævrere timer på en rute, trafikflowet på færre kort.\n\nDette forsvinder, når tempoet falder under den andel, der er sat under TomTom Indstillinger → Konfigurér → Kvoteadvarsel → TomTom, og med den nye måned."
+  },
+  "quotaDayIssue": {
+    "title": "Dagens {api}-anmodninger er næsten brugt op",
+    "description": "{used} af de {tier} anmodninger om dagen, som **{api}**-planen tillader, er brugt.\n\nDagens anmodninger deles af hver post i denne installation - og af alt andet, der bruger den samme nøgle. Færre forespørgsler hjælper: et længere opdateringsinterval, snævrere timer på en rute, eller Lufop slået fra for de poster, der ligger uden for dens land.\n\nDette forsvinder ved midnat UTC, når Lufops dag skifter, eller når andelen, der er sat under TomTom Indstillinger → Konfigurér → Kvoteadvarsel → Lufop, hæves."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "Dagens {api}-anmodninger er brugt op",
+    "description": "Alle {tier} anmodninger om dagen i **{api}**-planen er brugt - Lufop tæller alt, der bruger den samme nøgle. Den afviser yderligere anmodninger indtil midnat UTC - {reset} her.\n\nFærre forespørgsler hjælper i morgen: et længere opdateringsinterval, snævrere timer på en rute, eller Lufop slået fra for posterne uden for dens land."
+  },
+  "device": {
+    "general": "TomTom Generelt",
+    "settings": "TomTom Indstillinger"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Australien",
+    "be": "Belgien",
+    "bg": "Bulgarien",
+    "ca": "Canada",
+    "cz": "Tjekkiet",
+    "fi": "Finland",
+    "fr": "Frankrig",
+    "de": "Tyskland",
+    "ie": "Irland",
+    "it": "Italien",
+    "lv": "Letland",
+    "lu": "Luxembourg",
+    "ma": "Marokko",
+    "nl": "Nederlandene",
+    "nz": "New Zealand",
+    "no": "Norge",
+    "pl": "Polen",
+    "pt": "Portugal",
+    "es": "Spanien",
+    "se": "Sverige",
+    "ch": "Schweiz",
+    "ae": "De Forenede Arabiske Emirater",
+    "gb": "Storbritannien"
+  }
+}

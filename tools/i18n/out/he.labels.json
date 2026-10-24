@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "פקק",
+    "lane_closed": "נתיב חסום",
+    "road_closed": "כביש חסום",
+    "road_works": "עבודות בכביש",
+    "accident": "תאונה",
+    "broken_down_vehicle": "רכב תקוע",
+    "dangerous_conditions": "תנאים מסוכנים",
+    "fog": "ערפל",
+    "rain": "גשם",
+    "ice": "קרח",
+    "wind": "רוח",
+    "flooding": "הצפה",
+    "unknown": "לא ידוע",
+    "camera_fixed": "מצלמת מהירות קבועה",
+    "camera_mobile": "מצלמת מהירות ניידת",
+    "camera_trailer": "נגרר מצלמת מהירות",
+    "camera_redlight": "מצלמת רמזור",
+    "camera_section": "אכיפת מהירות ממוצעת",
+    "check_distance": "אכיפת שמירת מרחק",
+    "check_police": "ביקורת משטרה"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "קל",
+    "moderate": "בינוני",
+    "major": "חמור",
+    "indefinite": "לא מוגדר"
+  }
+}

@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Ummik",
+    "lane_closed": "Sõidurada suletud",
+    "road_closed": "Tee suletud",
+    "road_works": "Teetööd",
+    "accident": "Liiklusõnnetus",
+    "broken_down_vehicle": "Rikkis sõiduk",
+    "dangerous_conditions": "Ohtlikud olud",
+    "fog": "Udu",
+    "rain": "Vihm",
+    "ice": "Libedus",
+    "wind": "Tuul",
+    "flooding": "Üleujutus",
+    "unknown": "Teadmata",
+    "camera_fixed": "Statsionaarne kiiruskaamera (blitzer.de, Lufop)",
+    "camera_mobile": "Mobiilne kiiruskaamera (blitzer.de, Lufop)",
+    "camera_trailer": "Kiiruskaamera haagisel (blitzer.de)",
+    "camera_redlight": "Punase tule kaamera (blitzer.de, Lufop)",
+    "camera_section": "Keskmise kiiruse mõõtmine (blitzer.de, Lufop)",
+    "check_distance": "Pikivahe kontroll (blitzer.de)",
+    "check_police": "Politseikontroll (blitzer.de)"
+  },
+  "days": {
+    "mon": "Esmaspäev",
+    "tue": "Teisipäev",
+    "wed": "Kolmapäev",
+    "thu": "Neljapäev",
+    "fri": "Reede",
+    "sat": "Laupäev",
+    "sun": "Pühapäev"
+  },
+  "modes": {
+    "area": "📍 Ala (raadius)",
+    "tracker": "📱 Seadmejälgija (raadius)",
+    "route_live": "🛣️ Marsruut (start/sihtkoht, reaalajas liiklusega)"
+  },
+  "typeData": {
+    "categories": "Teated"
+  },
+  "optional": {
+    "name": "Valikulised seaded",
+    "data": {
+      "only_certain": "Ainult teated, milles TomTom on kindel",
+      "count": "Teadete arv",
+      "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
+      "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
+      "roads": "Ainult need teed (teenumbrid komaga, nt A8, B2)",
+      "blacklist": "Must nimekiri (teadete ID-d komaga)"
+    },
+    "description": {
+      "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+      "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
+      "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
+    }
+  },
+  "budgetArea": "Iga uuendus on üks Incident Detailsi päring (üks lisaks iga 10 000 km² otsinguala kohta) ja tasuta võtmel on neid 2 500 kuus: vaiketunniga kulutab ala umbes 720.",
+  "budgetRoute": "Oma tundide sees on iga uuendus üks Routingu päring, 20 000 tasuta päringust kuus; marsruudil olevad teated tulevad sellega kaasa ja Incident Detailsilt küsitakse iga uue teate kohta korra ülejäänut, mis on teada.",
+  "entities": {
+    "sensor": {
+      "report_count": "Teated",
+      "travel_time": "Sõiduaeg",
+      "traffic_delay": "Liiklusviivitus",
+      "route_length": "Marsruudi pikkus",
+      "requests": "TomTomi päringud sel kuul",
+      "requests_total": "Kõik päringud sel kuul",
+      "requests_incidents": "Incident Details sel kuul",
+      "requests_routing": "Routing sel kuul",
+      "requests_geocoding": "Geocoding sel kuul",
+      "requests_reverse_geocoding": "Reverse Geocoding sel kuul",
+      "requests_search": "Otsing sel kuul",
+      "requests_tiles": "Voopaanid sel kuul",
+      "requests_blitzer": "blitzer.de sel kuul",
+      "requests_lufop": "Lufop täna"
+    },
+    "number": {
+      "new_minutes": "Uuena loeb"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Kvoot ohus"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "TomTomi seadistamine",
+      "description": "Anna kirjele nimi ja vali, kuidas otsitakse. Ala või jälgija loeb TomTomi liiklusteateid oma ringis; marsruudi stardist sihtkohta arvutab TomTom igal uuendusel uuesti, hetke liiklusega, ja teatab, millest see läbi kulgeb.",
+      "data": {
+        "name": "Kuvatav nimi",
+        "search_mode": "Otsingurežiim"
+      }
+    },
+    "key": {
+      "title": "TomTomi API võti",
+      "description": "Kõik siin tuleb TomTomilt, mis vajab API võtit – tasuta, ilma makseviisita:\n\n1. Registreeru aadressil [developer.tomtom.com]({url}).\n2. Kohe pärast seda on töölaual jaotises **API & SDK Keys** juba võti, *My First API key*, kõigi API-dega lubatud – nende seas Traffic API, Routing API ja Search API, mida siin kasutatakse. Kopeeri see kõrval oleva nupuga.\n3. Kleebi see siia.\n\nÜks võti teenib kõiki selle Home Assistanti kirjeid. Kui üks on juba salvestatud, jäta väli tühjaks, et see alles jääks.",
+      "data": {
+        "api_key": "API võti"
+      }
+    },
+    "area": {
+      "title": "Ala (raadius)",
+      "description": "Vali ring, milles TomTomi teateid näidatakse – kuni 50 km selle keskpunkti ümber, mis on suurim kast, millele TomTom ühe päringuga vastab. ",
+      "data": {
+        "location": "Ala"
+      }
+    },
+    "tracker": {
+      "title": "Seadmejälgija (raadius)",
+      "description": "Vali seadmejälgija, mida järgida, ja kui laia ringi selle ümber otsida. Loetletud on ainult jälgijad, mis praegu koordinaate teatavad – sellel, mis teab vaid kodus ja eemal, pole asukohta, mille ümber ringi panna. ",
+      "data": {
+        "tracker": "Seadmejälgija",
+        "tracker_radius": "Raadius (meetrit)"
+      }
+    },
+    "route_start": {
+      "title": "Start",
+      "description": "Kus marsruut algab?",
+      "menu": {
+        "route_start_zone": "Tsoon",
+        "route_start_point": "Punkt maakaardil",
+        "route_start_address": "Aadress"
+      }
+    },
+    "route_start_zone": {
+      "title": "Start: tsoon",
+      "data": {
+        "zone": "Tsoon"
+      }
+    },
+    "route_start_point": {
+      "title": "Start: punkt maakaardil",
+      "description": "Liiguta maakaarti, kuni marker on stardil.",
+      "data": {
+        "location": "Start"
+      }
+    },
+    "route_start_address": {
+      "title": "Start: aadress",
+      "description": "Tänav ja asula.",
+      "data": {
+        "address": "Aadress"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Start: aadress leitud",
+      "description": "Leitud: **{label}**\n\nKui see pole koht, mida mõtlesid, paranda aadressi ja jätka – seda otsitakse uuesti.",
+      "data": {
+        "address": "Aadress"
+      }
+    },
+    "route_destination": {
+      "title": "Sihtkoht",
+      "description": "Kus marsruut lõpeb?",
+      "menu": {
+        "route_destination_zone": "Tsoon",
+        "route_destination_point": "Punkt maakaardil",
+        "route_destination_address": "Aadress"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Sihtkoht: tsoon",
+      "data": {
+        "zone": "Tsoon"
+      }
+    },
+    "route_destination_point": {
+      "title": "Sihtkoht: punkt maakaardil",
+      "description": "Liiguta maakaarti, kuni marker on sihtkohal.",
+      "data": {
+        "location": "Sihtkoht"
+      }
+    },
+    "route_destination_address": {
+      "title": "Sihtkoht: aadress",
+      "description": "Tänav ja asula.",
+      "data": {
+        "address": "Aadress"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Sihtkoht: aadress leitud",
+      "description": "Leitud: **{label}**\n\nKui see pole koht, mida mõtlesid, paranda aadressi ja jätka – seda otsitakse uuesti.",
+      "data": {
+        "address": "Aadress"
+      }
+    },
+    "route_vias": {
+      "title": "Vahepunktid",
+      "description": "Kohast {start} kohta {destination}, seni {count} vahepunkti. TomTom võtab nende vahel kiireima tee – lisa vahepunkt sinna, kus sinu tavaline tee erineb.",
+      "menu": {
+        "route_via": "Lisa vahepunkt",
+        "route_vias_clear": "Eemalda kõik vahepunktid",
+        "route_review": "Arvuta marsruut"
+      }
+    },
+    "route_via": {
+      "title": "Vahepunkt {count}",
+      "description": "Liiguta maakaarti, kuni marker on teel, mida marsruut peaks võtma.",
+      "data": {
+        "location": "Vahepunkt"
+      }
+    },
+    "route_review": {
+      "title": "Sinu marsruut praegu",
+      "description": "{start} → {destination}, {vias} vahepunkti: {distance}, praegu umbes {duration} min, sellest {delay} min viivitust. Marsruut arvutatakse igal uuendusel uuesti; maakaart näitab seda, mille liiklus hetkel kiireimaks teeb. ",
+      "data": {
+        "return_route": "Loo ka tagasitee",
+        "return_name": "Tagasitee nimi",
+        "live_days": "Päevad, mil marsruuti ajakohasena hoitakse",
+        "live_from": "Alates",
+        "live_until": "Kuni",
+        "live_back_from": "Alates (tagasitee)",
+        "live_back_until": "Kuni (tagasitee)"
+      },
+      "data_description": {
+        "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“.",
+        "return_name": "Kasutatakse ainult siis, kui tagasitee luuakse. Täidetud selle kirje nimega ja lisatud „tagasi“; kirjuta teine, et seda teisiti nimetada – näiteks „Kodu“ ja „Töö“."
+      }
+    },
+    "route_failed": {
+      "title": "Marsruuti pole",
+      "description": "Jätka punktide muutmiseks."
+    },
+    "init": {
+      "title": "Mida soovid muuta?",
+      "menu": {
+        "edit_route": "Muuda marsruuti (start, sihtkoht, vahepunktid)",
+        "edit_route_settings": "Muuda otsinguseadeid (tunnid, liigid, filtrid)",
+        "edit_key": "Muuda API võtit",
+        "route_defaults": "Uute marsruutide vaikeväärtused",
+        "quota_warning": "Kvoodihoiatus",
+        "sources": "Andmeallikad"
+      }
+    },
+    "route_defaults": {
+      "title": "Uute marsruutide vaikeväärtused",
+      "description": "Millega iga uus marsruut algab: kaardil salvestatakse seal planeeritud marsruut kohe nende seadetega; seadistusviisardis on need ette täidetud ja neid saab veel muuta. Päevad ja tunnid on need, mil marsruuti ajakohasena hoitakse, ja tagasitee saab luua koos sellega – sõidetakse teisel kellaajal, oma tundidega.",
+      "data": {
+        "default_start": "Start kaardil planeeritud marsruutidele (valikuline)"
+      }
+    },
+    "quota_warning": {
+      "title": "Kvoodihoiatus",
+      "description": "Kui API päringud hakkavad otsa saama, teatab sellest parandus ja seadme TomTom Üldine andur **Kvoot ohus** lülitub sisse.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "Alates kuu kaheksandast päevast arvestatakse senised päringud kuu lõpuni ette. Loetakse seda, mida see sidumine küsib; mujal ka kasutatava võtme näit on TomTomis suurem.",
+          "data": {
+            "quota_warning": "Hoiata, kui tasuta kvoot kuu lõpuni ei jätku",
+            "quota_threshold": "Hoiata alates sellest tasuta kvoodi osast"
+          },
+          "data_description": {
+            "quota_threshold": "100 % hoiatab, kui kvoot ise ületatakse, 80 % juba selle neljal viiendikul."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop loeb päevade kaupa, keskööst keskööni UTC, kaasa arvatud kõik, mis võtit kasutab. Kehtib, kui Lufop on jaotises Andmeallikad sees.",
+          "data": {
+            "lufop_quota_warning": "Hoiata, kui päeva päringud hakkavad otsa saama või on otsas",
+            "lufop_quota_threshold": "Hoiata alates sellest päeva päringute osast"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "Esimene hoiatus tuleb selle osa juures; teine, kui kõik on kasutatud."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Andmeallikad",
+      "description": "Teised teadete allikad TomTomi kõrval, kõigile kirjetele korraga. Allikas lisab ainult selle, mida TomTomil pole, oma liikide all iga kirje loendis, nii et ükski teade ei ole seal kaks korda.\n\n**blitzer.de** teatab kiiruskaameratest ja liikluskontrollidest, statsionaarsetest ja mobiilsetest, Saksamaal ja selle naaberriikides. Ilma võtme ja kontota; see loeb seda, mida saidi enda maakaart loeb – blitzer.de pole seda API-na avaldanud ning see võib muutuda või sulguda. Iga päring loetakse **blitzer.de sel kuul** alla.\n\n**Lufop** teatab kiiruskaameratest, statsionaarsetest, mobiilsetest ja punase tule kaameratest, ning keskmise kiiruse mõõtmistest oma radariandmebaasist – dokumenteeritud API tasuta isikliku võtmega aadressilt [api.lufop.net](https://api.lufop.net/). Üks päring vastab ühe riigi kohta; tasuta pakett katab Prantsusmaa, Belgia ja Šveitsi, 200 päringut päevas ja 200 radarit päringu kohta. Iga päring loetakse **Lufop täna** alla.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufopi API võti",
+        "lufop_country": "Lufop: riik"
+      },
+      "data_description": {
+        "lufop_api_key": "Kontrollitakse, kui see sisestatakse ja kui Lufop sisse lülitatakse; juba salvestatud võti jääb alles, kui väli jäetakse tühjaks.",
+        "lufop_country": "See üks riik, mille kohta iga kirje Lufopilt küsib – tasuta pakett lubab Prantsusmaad, Belgiat ja Šveitsi."
+      }
+    },
+    "first": {
+      "title": "TomTom on seadistatud",
+      "description": "Võti on salvestatud ja uute marsruutide vaikeväärtused on kirje **TomTom Seaded** all – selle Seadista muudab hiljem mõlemat. Lõpeta nüüd ja lisa esimene ala, jälgija või marsruut TomTomi paani enda nupuga **Lisa kirje** millal soovid, või loo see kohe.",
+      "menu": {
+        "finish": "Lõpeta seadistamine",
+        "add_entry": "Lisa esimene ala, jälgija või marsruut kohe"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom on selle nimega juba seadistatud. Vali teine nimi.",
+    "location_missing": "Palun vali asukoht (liiguta maakaarti).",
+    "no_tracker_with_position": "Ükski seadmejälgija ei teata praegu asukohta. See režiim vajab jälgijat, mis saadab koordinaate – jälgija, mis teab vaid kodus ja eemal, ei saa raadiust tsentreerida."
+  },
+  "error": {
+    "radius_too_large": "Raadius võib olla kuni 50 km – suurim kast, millele TomTom ühe päringuga vastab.",
+    "invalid_api_key": "TomTom ei võtnud API võtit vastu.",
+    "quota_exceeded": "Võtme kvoot TomTomis on praeguseks ammendatud. Proovi hiljem uuesti.",
+    "address_not_found": "Sellele aadressile ei leitud kohta.",
+    "point_not_routable": "Üks punktidest on teest liiga kaugel. Liiguta see teele lähemale.",
+    "no_route": "TomTom ei leidnud teed, mis neid punkte ühendaks.",
+    "route_too_long": "Marsruut on TomTomi jaoks liiga pikk või sellel on liiga palju punkte.",
+    "return_name_taken": "Selle nimega kirje on juba olemas – see siin kaasa arvatud.",
+    "cannot_connect": "TomTomiga ei saadud ühendust.",
+    "zone_without_position": "Sellel tsoonil pole asukohta.",
+    "api_key_required": "Sisesta API võti.",
+    "lufop_key_required": "Lufop vajab sisselülitamiseks oma API võtit.",
+    "invalid_lufop_key": "Lufop ei võtnud API võtit vastu.",
+    "lufop_cannot_connect": "Lufopiga ei saadud ühendust. Võtit ei kontrollitud – proovi hiljem uuesti.",
+    "lufop_refused": "Lufop lükkas päringu tagasi, võtit tagasi lükkamata. Päeva päringud võivad olla otsas – proovi uuesti pärast keskööd UTC või kontrolli võtit oma Lufopi töölaual.",
+    "lufop_busy": "Lufopi piirang 10 päringut minutis on täis. Proovi minuti pärast uuesti."
+  },
+  "service": {
+    "name": "Värskenda",
+    "description": "Toob kohe ühe TomTomi ala, marsruudi või jälgija uusimad teated, selle asemel et oodata järgmist plaanilist uuendust – reaalajas marsruudil enne marsruudi enda. Tagastab teated.",
+    "field": {
+      "name": "Ala, marsruut või jälgija",
+      "description": "Milline TomTomi ala, marsruut või jälgija värskendada."
+    }
+  },
+  "issue": {
+    "title": "{name} ei anna andmeid",
+    "description": "TomTomi kirje **{name}** on {count} uuendust järjest ebaõnnestunud, seega pole selle olemid saadaval. Viimane põhjus:\n\n`{reason}`\n\nAsukohata jälgija või jälgija olem, mida enam pole, parandatakse kirje **Seadista** all; tagasilükatud võti kirje TomTom Seaded **Seadista** all; kui TomTom ise pole kättesaadav, kaob see iseenesest, kui jälle on. See parandus kaob järgmise õnnestunud uuendusega."
+  },
+  "quotaIssue": {
+    "title": "{api} kvoot ei jätku kuu lõpuni",
+    "description": "{days} päeva järel on kasutatud {used} tasuta **{api}** päringut {tier}-st; selles tempos umbes **{projected}** kuu lõpuks, üle {percent} % kvoodist.\n\nVähem uuendusi aitab: pikem uuendusintervall, kitsamad tunnid marsruudil, liiklusvoog vähematel kaartidel.\n\nSee kaob, kui tempo langeb alla osa, mis on määratud jaotises TomTom Seaded → Seadista → Kvoodihoiatus → TomTom, ning uue kuuga."
+  },
+  "quotaDayIssue": {
+    "title": "{api} päeva päringud on peaaegu otsas",
+    "description": "**{api}** paketi lubatud {tier} päevasest päringust on kasutatud {used}.\n\nPäeva päringuid jagavad kõik selle paigalduse kirjed – ja kõik muu, mis sama võtit kasutab. Vähem uuendusi aitab: pikem uuendusintervall, kitsamad tunnid marsruudil või Lufop välja lülitatud kirjetel, mis jäävad väljapoole selle riiki.\n\nSee kaob keskööl UTC, kui Lufopi päev vahetub, või kui jaotises TomTom Seaded → Seadista → Kvoodihoiatus → Lufop määratud osa tõstetakse."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "{api} päeva päringud on otsas",
+    "description": "Kõik **{api}** paketi {tier} päevast päringut on kasutatud – Lufop loeb kõike, mis sama võtit kasutab. See lükkab edasised päringud tagasi kuni keskööni UTC – siin kell {reset}.\n\nVähem uuendusi aitab homme: pikem uuendusintervall, kitsamad tunnid marsruudil või Lufop välja lülitatud kirjetel väljaspool selle riiki."
+  },
+  "device": {
+    "general": "TomTom Üldine",
+    "settings": "TomTom Seaded"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Austraalia",
+    "be": "Belgia",
+    "bg": "Bulgaaria",
+    "ca": "Kanada",
+    "cz": "Tšehhi",
+    "fi": "Soome",
+    "fr": "Prantsusmaa",
+    "de": "Saksamaa",
+    "ie": "Iirimaa",
+    "it": "Itaalia",
+    "lv": "Läti",
+    "lu": "Luksemburg",
+    "ma": "Maroko",
+    "nl": "Madalmaad",
+    "nz": "Uus-Meremaa",
+    "no": "Norra",
+    "pl": "Poola",
+    "pt": "Portugal",
+    "es": "Hispaania",
+    "se": "Rootsi",
+    "ch": "Šveits",
+    "ae": "Araabia Ühendemiraadid",
+    "gb": "Ühendkuningriik"
+  }
+}

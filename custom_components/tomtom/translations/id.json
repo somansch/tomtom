@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Area (radius)",
+                "tracker": "📱 Pelacak perangkat (radius)",
+                "route_live": "🛣️ Rute (awal/tujuan, langsung mengikuti lalu lintas)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Senin",
+                "tue": "Selasa",
+                "wed": "Rabu",
+                "thu": "Kamis",
+                "fri": "Jumat",
+                "sat": "Sabtu",
+                "sun": "Minggu"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Kemacetan",
+                "lane_closed": "Lajur ditutup",
+                "road_closed": "Jalan ditutup",
+                "road_works": "Pekerjaan jalan",
+                "accident": "Kecelakaan",
+                "broken_down_vehicle": "Kendaraan mogok",
+                "dangerous_conditions": "Kondisi berbahaya",
+                "fog": "Kabut",
+                "rain": "Hujan",
+                "ice": "Jalan licin es",
+                "wind": "Angin kencang",
+                "flooding": "Banjir",
+                "unknown": "Tidak diketahui",
+                "camera_fixed": "Kamera kecepatan tetap (blitzer.de, Lufop)",
+                "camera_mobile": "Kamera kecepatan bergerak (blitzer.de, Lufop)",
+                "camera_trailer": "Trailer kamera kecepatan (blitzer.de)",
+                "camera_redlight": "Kamera lampu merah (blitzer.de, Lufop)",
+                "camera_section": "Kontrol kecepatan ruas (blitzer.de, Lufop)",
+                "check_distance": "Pemeriksaan jarak (blitzer.de)",
+                "check_police": "Razia polisi (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andorra",
+                "au": "Australia",
+                "be": "Belgia",
+                "bg": "Bulgaria",
+                "ca": "Kanada",
+                "cz": "Ceko",
+                "fi": "Finlandia",
+                "fr": "Prancis",
+                "de": "Jerman",
+                "ie": "Irlandia",
+                "it": "Italia",
+                "lv": "Latvia",
+                "lu": "Luksemburg",
+                "ma": "Maroko",
+                "nl": "Belanda",
+                "nz": "Selandia Baru",
+                "no": "Norwegia",
+                "pl": "Polandia",
+                "pt": "Portugal",
+                "es": "Spanyol",
+                "se": "Swedia",
+                "ch": "Swiss",
+                "ae": "Uni Emirat Arab",
+                "gb": "Britania Raya"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Umum"
+        },
+        "settings": {
+            "name": "TomTom Pengaturan"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Laporan"
+            },
+            "travel_time": {
+                "name": "Waktu tempuh"
+            },
+            "traffic_delay": {
+                "name": "Penundaan lalu lintas"
+            },
+            "route_length": {
+                "name": "Panjang rute"
+            },
+            "requests": {
+                "name": "Permintaan TomTom bulan ini"
+            },
+            "requests_total": {
+                "name": "Semua permintaan bulan ini"
+            },
+            "requests_incidents": {
+                "name": "Incident Details bulan ini"
+            },
+            "requests_routing": {
+                "name": "Routing bulan ini"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding bulan ini"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding bulan ini"
+            },
+            "requests_search": {
+                "name": "Pencarian bulan ini"
+            },
+            "requests_tiles": {
+                "name": "Ubin arus bulan ini"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de bulan ini"
+            },
+            "requests_lufop": {
+                "name": "Lufop hari ini"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Baru selama"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Kuota terancam"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "Penyiapan TomTom",
+                "description": "Beri nama entri ini dan pilih cara pencariannya. Area atau pelacak membaca insiden lalu lintas TomTom dalam lingkarannya; rute dari awal ke tujuan dihitung TomTom pada setiap pengambilan data, dengan lalu lintas saat itu, dan melaporkan apa yang dilaluinya.",
+                "data": {
+                    "name": "Nama tampilan",
+                    "search_mode": "Mode pencarian"
+                }
+            },
+            "key": {
+                "title": "Kunci API TomTom",
+                "description": "Semua di sini berasal dari TomTom, yang membutuhkan kunci API - gratis, tanpa metode pembayaran:\n\n1. Daftar di [developer.tomtom.com]({url}).\n2. Segera setelah itu, **API & SDK Keys** di dasbor sudah mencantumkan sebuah kunci, *My First API key*, dengan setiap API diaktifkan - di antaranya Traffic API, Routing API dan Search API, yang dipakai di sini. Salin dengan tombol di sampingnya.\n3. Tempel di sini.\n\nSatu kunci melayani setiap entri Home Assistant ini. Bila sudah ada yang tersimpan, biarkan kolom kosong untuk mempertahankannya.",
+                "data": {
+                    "api_key": "Kunci API"
+                }
+            },
+            "route_defaults": {
+                "title": "Bawaan untuk rute baru",
+                "description": "Apa yang menjadi titik awal setiap rute baru: di kartu, rute yang direncanakan di sana langsung disimpan dengan pengaturan ini; di wizard penyiapan pengaturan ini sudah terisi dan masih bisa diubah. Hari dan jamnya adalah hari dan jam rute terus diperbarui, dan rute pulang bisa dibuat bersamanya - ditempuh pada waktu lain dalam sehari, dengan jamnya sendiri.",
+                "data": {
+                    "default_start": "Awal untuk rute yang direncanakan di kartu (opsional)",
+                    "return_route": "Buat juga rute pulang",
+                    "live_days": "Hari rute terus diperbarui",
+                    "live_from": "Dari",
+                    "live_until": "Sampai",
+                    "live_back_from": "Dari (rute pulang)",
+                    "live_back_until": "Sampai (rute pulang)",
+                    "categories": "Laporan"
+                },
+                "data_description": {
+                    "return_route": "Entri kedua, dari tujuan ke awal - di jalan tol rute pulang adalah jalur lawan arah, dan kemacetan di satu sisi bukan kemacetan di sisi lain. Dinamai seperti entri ini, dengan tambahan \"pulang\"."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "TomTom sudah disiapkan",
+                "description": "Kunci sudah tersimpan, dan bawaan untuk rute baru disimpan di entri **TomTom Pengaturan** - lewat **Konfigurasikan** di sana keduanya bisa diubah nanti. Selesaikan sekarang dan tambahkan area, pelacak atau rute pertama kapan saja lewat **Tambahkan entri** di kotak TomTom, atau buat langsung sekarang.",
+                "menu_options": {
+                    "finish": "Selesaikan penyiapan",
+                    "add_entry": "Tambahkan area, pelacak atau rute pertama sekarang"
+                }
+            },
+            "area": {
+                "title": "Area (radius)",
+                "description": "Pilih lingkaran tempat laporan TomTom ditampilkan - hingga 50 km di sekeliling pusatnya, kotak terbesar yang dijawab TomTom dalam satu permintaan. Setiap pengambilan data adalah satu permintaan Incident Details (satu lagi per 10.000 km² area pencarian), dan kunci gratis punya 2.500 per bulan: dengan jam bawaan satu area memakai sekitar 720.",
+                "data": {
+                    "location": "Area",
+                    "categories": "Laporan"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Pelacak perangkat (radius)",
+                "description": "Pilih pelacak perangkat yang diikuti dan seberapa lebar lingkaran pencarian di sekelilingnya. Hanya pelacak yang saat ini melaporkan koordinat yang dicantumkan - yang hanya tahu di rumah dan pergi tidak punya posisi untuk dijadikan pusat lingkaran. Setiap pengambilan data adalah satu permintaan Incident Details (satu lagi per 10.000 km² area pencarian), dan kunci gratis punya 2.500 per bulan: dengan jam bawaan satu area memakai sekitar 720.",
+                "data": {
+                    "tracker": "Pelacak perangkat",
+                    "tracker_radius": "Radius (meter)",
+                    "categories": "Laporan"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Awal",
+                "description": "Dari mana rute dimulai?",
+                "menu_options": {
+                    "route_start_zone": "Zona",
+                    "route_start_point": "Titik di peta",
+                    "route_start_address": "Alamat"
+                }
+            },
+            "route_start_zone": {
+                "title": "Awal: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_start_point": {
+                "title": "Awal: titik di peta",
+                "description": "Geser peta sehingga penanda berada di titik awal.",
+                "data": {
+                    "location": "Awal"
+                }
+            },
+            "route_start_address": {
+                "title": "Awal: alamat",
+                "description": "Jalan dan kota.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Awal: alamat ditemukan",
+                "description": "Ditemukan: **{label}**\n\nBila ini bukan tempat yang Anda maksud, perbaiki alamatnya dan lanjutkan - alamat akan dicari lagi.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_destination": {
+                "title": "Tujuan",
+                "description": "Di mana rute berakhir?",
+                "menu_options": {
+                    "route_destination_zone": "Zona",
+                    "route_destination_point": "Titik di peta",
+                    "route_destination_address": "Alamat"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Tujuan: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_destination_point": {
+                "title": "Tujuan: titik di peta",
+                "description": "Geser peta sehingga penanda berada di tujuan.",
+                "data": {
+                    "location": "Tujuan"
+                }
+            },
+            "route_destination_address": {
+                "title": "Tujuan: alamat",
+                "description": "Jalan dan kota.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Tujuan: alamat ditemukan",
+                "description": "Ditemukan: **{label}**\n\nBila ini bukan tempat yang Anda maksud, perbaiki alamatnya dan lanjutkan - alamat akan dicari lagi.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_vias": {
+                "title": "Titik lewat",
+                "description": "Dari {start} ke {destination}, sejauh ini {count} titik lewat. TomTom mengambil jalan tercepat di antaranya - tambahkan titik lewat di mana pun jalur biasa Anda berbeda.",
+                "menu_options": {
+                    "route_via": "Tambah titik lewat",
+                    "route_vias_clear": "Hapus semua titik lewat",
+                    "route_review": "Hitung rute"
+                }
+            },
+            "route_via": {
+                "title": "Titik lewat {count}",
+                "description": "Geser peta sehingga penanda berada di jalan yang harus dilalui rute.",
+                "data": {
+                    "location": "Titik lewat"
+                }
+            },
+            "route_failed": {
+                "title": "Tidak ada rute",
+                "description": "Lanjutkan untuk mengubah titik-titiknya."
+            },
+            "route_review": {
+                "title": "Rute Anda, saat ini",
+                "description": "{start} → {destination}, {vias} titik lewat: {distance}, sekitar {duration} mnt saat ini, {delay} mnt di antaranya penundaan. Rute dihitung ulang pada setiap pengambilan data; peta menampilkan rute yang dibuat tercepat oleh lalu lintas saat ini. Dalam jam-jamnya setiap pengambilan data adalah satu permintaan Routing, dari 20.000 gratis per bulan; laporan di rute ikut bersamanya, dan Incident Details ditanya sekali per laporan baru untuk sisa informasinya.",
+                "data": {
+                    "return_route": "Buat juga rute pulang",
+                    "return_name": "Nama rute pulang",
+                    "live_days": "Hari rute terus diperbarui",
+                    "live_from": "Dari",
+                    "live_until": "Sampai",
+                    "live_back_from": "Dari (rute pulang)",
+                    "live_back_until": "Sampai (rute pulang)",
+                    "categories": "Laporan"
+                },
+                "data_description": {
+                    "return_route": "Entri kedua, dari tujuan ke awal - di jalan tol rute pulang adalah jalur lawan arah, dan kemacetan di satu sisi bukan kemacetan di sisi lain. Dinamai seperti entri ini, dengan tambahan \"pulang\".",
+                    "return_name": "Hanya dipakai bila rute pulang dibuat. Diisi dengan nama entri ini dan tambahan \"pulang\"; ketik nama lain untuk menyebutnya berbeda - misalnya \"Rumah\" dan \"Kantor\"."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "TomTom sudah dikonfigurasi untuk nama ini. Pilih nama lain.",
+            "location_missing": "Silakan pilih posisi (geser peta).",
+            "no_tracker_with_position": "Tidak ada pelacak perangkat yang melaporkan posisi saat ini. Mode ini membutuhkan pelacak yang mengirim koordinat - pelacak yang hanya tahu di rumah dan pergi tidak bisa menjadi pusat radius."
+        },
+        "error": {
+            "radius_too_large": "Radius paling besar 50 km - kotak terbesar yang dijawab TomTom dalam satu permintaan.",
+            "invalid_api_key": "TomTom tidak menerima kunci API ini.",
+            "quota_exceeded": "Kuota kunci di TomTom sudah habis untuk saat ini. Coba lagi nanti.",
+            "address_not_found": "Tidak ada tempat yang ditemukan untuk alamat ini.",
+            "point_not_routable": "Salah satu titik terlalu jauh dari jalan. Geser lebih dekat ke jalan.",
+            "no_route": "TomTom tidak menemukan jalan yang menghubungkan titik-titik ini.",
+            "route_too_long": "Rute terlalu panjang untuk TomTom, atau punya terlalu banyak titik.",
+            "return_name_taken": "Entri dengan nama itu sudah ada - termasuk entri ini.",
+            "cannot_connect": "TomTom tidak dapat dihubungi.",
+            "zone_without_position": "Zona ini tidak punya posisi.",
+            "api_key_required": "Masukkan kunci API.",
+            "lufop_key_required": "Lufop membutuhkan kunci API-nya untuk diaktifkan.",
+            "invalid_lufop_key": "Lufop tidak menerima kunci API ini.",
+            "lufop_cannot_connect": "Lufop tidak dapat dihubungi. Kunci belum diperiksa - coba lagi nanti.",
+            "lufop_refused": "Lufop menolak permintaan tanpa menolak kuncinya. Permintaan hari ini mungkin sudah habis - coba lagi setelah tengah malam UTC, atau periksa kunci di dasbor Lufop Anda.",
+            "lufop_busy": "Batas Lufop 10 permintaan per menit telah tercapai. Coba lagi dalam satu menit."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Segarkan",
+            "description": "Segera ambil laporan terbaru untuk satu area, rute atau pelacak TomTom, alih-alih menunggu pengambilan data terjadwal berikutnya - dan, untuk rute langsung, rutenya sendiri lebih dulu. Mengembalikan laporan-laporannya.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Area, rute atau pelacak",
+                    "description": "Area, rute atau pelacak TomTom mana yang disegarkan."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Apa yang ingin Anda ubah?",
+                "menu_options": {
+                    "edit_route": "Ubah rute (awal, tujuan, titik lewat)",
+                    "edit_route_settings": "Ubah pengaturan pencarian (jam, jenis, filter)",
+                    "edit_key": "Ubah kunci API",
+                    "route_defaults": "Bawaan untuk rute baru",
+                    "quota_warning": "Peringatan kuota",
+                    "sources": "Sumber data"
+                }
+            },
+            "route_defaults": {
+                "title": "Bawaan untuk rute baru",
+                "description": "Apa yang menjadi titik awal setiap rute baru: di kartu, rute yang direncanakan di sana langsung disimpan dengan pengaturan ini; di wizard penyiapan pengaturan ini sudah terisi dan masih bisa diubah. Hari dan jamnya adalah hari dan jam rute terus diperbarui, dan rute pulang bisa dibuat bersamanya - ditempuh pada waktu lain dalam sehari, dengan jamnya sendiri.",
+                "data": {
+                    "default_start": "Awal untuk rute yang direncanakan di kartu (opsional)",
+                    "return_route": "Buat juga rute pulang",
+                    "live_days": "Hari rute terus diperbarui",
+                    "live_from": "Dari",
+                    "live_until": "Sampai",
+                    "live_back_from": "Dari (rute pulang)",
+                    "live_back_until": "Sampai (rute pulang)",
+                    "categories": "Laporan"
+                },
+                "data_description": {
+                    "return_route": "Entri kedua, dari tujuan ke awal - di jalan tol rute pulang adalah jalur lawan arah, dan kemacetan di satu sisi bukan kemacetan di sisi lain. Dinamai seperti entri ini, dengan tambahan \"pulang\"."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Peringatan kuota",
+                "description": "Saat permintaan sebuah API menipis, sebuah perbaikan memberitahukannya dan sensor **Kuota terancam** pada TomTom Umum menyala.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "Mulai hari kedelapan setiap bulan, permintaan sejauh ini diproyeksikan ke akhir bulan. Yang dihitung adalah permintaan integrasi ini; kunci yang juga dipakai di tempat lain tercatat lebih tinggi di TomTom.",
+                        "data": {
+                            "quota_warning": "Peringatkan saat kuota gratis tidak cukup untuk sebulan",
+                            "quota_threshold": "Peringatkan mulai porsi ini dari kuota gratis"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % memperingatkan saat kuota itu sendiri akan terlampaui, 80 % sudah pada empat perlimanya."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "Lufop menghitung per hari, tengah malam sampai tengah malam UTC, termasuk semua yang memakai kunci itu. Berlaku selama Lufop aktif di Sumber data.",
+                        "data": {
+                            "lufop_quota_warning": "Peringatkan saat permintaan hari ini menipis atau habis",
+                            "lufop_quota_threshold": "Peringatkan mulai porsi ini dari permintaan harian"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "Peringatan pertama datang pada porsi ini; yang kedua saat semuanya terpakai."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Sumber data",
+                "description": "Sumber laporan lain selain TomTom, untuk semua entri sekaligus. Sebuah sumber hanya menambahkan apa yang tidak dimiliki TomTom, dengan jenisnya sendiri di daftar setiap entri, sehingga tidak ada laporan yang muncul dua kali.\n\n**blitzer.de** melaporkan kamera kecepatan dan pemeriksaan lalu lintas, tetap dan bergerak, di Jerman dan negara tetangganya. Tanpa kunci dan tanpa akun; ia membaca apa yang dibaca peta situs itu sendiri, yang tidak diterbitkan blitzer.de sebagai API dan bisa berubah atau ditutup. Setiap permintaan dihitung di **blitzer.de bulan ini**.\n\n**Lufop** melaporkan kamera kecepatan, tetap, bergerak dan lampu merah, serta kontrol kecepatan ruas, dari basis data radarnya - API terdokumentasi dengan kunci pribadi gratis dari [api.lufop.net](https://api.lufop.net/). Satu permintaan menjawab satu negara; paket gratis mencakup Prancis, Belgia dan Swiss, 200 permintaan per hari dan 200 radar per permintaan. Setiap permintaan dihitung di **Lufop hari ini**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Kunci API Lufop",
+                    "lufop_country": "Lufop: negara"
+                },
+                "data_description": {
+                    "lufop_api_key": "Diperiksa saat dimasukkan dan saat Lufop diaktifkan; kunci yang sudah tersimpan dipertahankan dengan membiarkan kolom kosong.",
+                    "lufop_country": "Satu negara yang ditanyakan setiap entri ke Lufop - paket gratis mengizinkan Prancis, Belgia dan Swiss."
+                }
+            },
+            "key": {
+                "title": "Kunci API TomTom",
+                "description": "Semua di sini berasal dari TomTom, yang membutuhkan kunci API - gratis, tanpa metode pembayaran:\n\n1. Daftar di [developer.tomtom.com]({url}).\n2. Segera setelah itu, **API & SDK Keys** di dasbor sudah mencantumkan sebuah kunci, *My First API key*, dengan setiap API diaktifkan - di antaranya Traffic API, Routing API dan Search API, yang dipakai di sini. Salin dengan tombol di sampingnya.\n3. Tempel di sini.\n\nSatu kunci melayani setiap entri Home Assistant ini. Bila sudah ada yang tersimpan, biarkan kolom kosong untuk mempertahankannya.",
+                "data": {
+                    "api_key": "Kunci API"
+                }
+            },
+            "area": {
+                "title": "Area (radius)",
+                "description": "Pilih lingkaran tempat laporan TomTom ditampilkan - hingga 50 km di sekeliling pusatnya, kotak terbesar yang dijawab TomTom dalam satu permintaan. Setiap pengambilan data adalah satu permintaan Incident Details (satu lagi per 10.000 km² area pencarian), dan kunci gratis punya 2.500 per bulan: dengan jam bawaan satu area memakai sekitar 720.",
+                "data": {
+                    "location": "Area",
+                    "categories": "Laporan"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Pelacak perangkat (radius)",
+                "description": "Pilih pelacak perangkat yang diikuti dan seberapa lebar lingkaran pencarian di sekelilingnya. Hanya pelacak yang saat ini melaporkan koordinat yang dicantumkan - yang hanya tahu di rumah dan pergi tidak punya posisi untuk dijadikan pusat lingkaran. Setiap pengambilan data adalah satu permintaan Incident Details (satu lagi per 10.000 km² area pencarian), dan kunci gratis punya 2.500 per bulan: dengan jam bawaan satu area memakai sekitar 720.",
+                "data": {
+                    "tracker": "Pelacak perangkat",
+                    "tracker_radius": "Radius (meter)",
+                    "categories": "Laporan"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Awal",
+                "description": "Dari mana rute dimulai?",
+                "menu_options": {
+                    "route_start_zone": "Zona",
+                    "route_start_point": "Titik di peta",
+                    "route_start_address": "Alamat"
+                }
+            },
+            "route_start_zone": {
+                "title": "Awal: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_start_point": {
+                "title": "Awal: titik di peta",
+                "description": "Geser peta sehingga penanda berada di titik awal.",
+                "data": {
+                    "location": "Awal"
+                }
+            },
+            "route_start_address": {
+                "title": "Awal: alamat",
+                "description": "Jalan dan kota.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Awal: alamat ditemukan",
+                "description": "Ditemukan: **{label}**\n\nBila ini bukan tempat yang Anda maksud, perbaiki alamatnya dan lanjutkan - alamat akan dicari lagi.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_destination": {
+                "title": "Tujuan",
+                "description": "Di mana rute berakhir?",
+                "menu_options": {
+                    "route_destination_zone": "Zona",
+                    "route_destination_point": "Titik di peta",
+                    "route_destination_address": "Alamat"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Tujuan: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_destination_point": {
+                "title": "Tujuan: titik di peta",
+                "description": "Geser peta sehingga penanda berada di tujuan.",
+                "data": {
+                    "location": "Tujuan"
+                }
+            },
+            "route_destination_address": {
+                "title": "Tujuan: alamat",
+                "description": "Jalan dan kota.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Tujuan: alamat ditemukan",
+                "description": "Ditemukan: **{label}**\n\nBila ini bukan tempat yang Anda maksud, perbaiki alamatnya dan lanjutkan - alamat akan dicari lagi.",
+                "data": {
+                    "address": "Alamat"
+                }
+            },
+            "route_vias": {
+                "title": "Titik lewat",
+                "description": "Dari {start} ke {destination}, sejauh ini {count} titik lewat. TomTom mengambil jalan tercepat di antaranya - tambahkan titik lewat di mana pun jalur biasa Anda berbeda.",
+                "menu_options": {
+                    "route_via": "Tambah titik lewat",
+                    "route_vias_clear": "Hapus semua titik lewat",
+                    "route_review": "Hitung rute"
+                }
+            },
+            "route_via": {
+                "title": "Titik lewat {count}",
+                "description": "Geser peta sehingga penanda berada di jalan yang harus dilalui rute.",
+                "data": {
+                    "location": "Titik lewat"
+                }
+            },
+            "route_failed": {
+                "title": "Tidak ada rute",
+                "description": "Lanjutkan untuk mengubah titik-titiknya."
+            },
+            "route_review": {
+                "title": "Rute Anda, saat ini",
+                "description": "{start} → {destination}, {vias} titik lewat: {distance}, sekitar {duration} mnt saat ini, {delay} mnt di antaranya penundaan. Rute dihitung ulang pada setiap pengambilan data; peta menampilkan rute yang dibuat tercepat oleh lalu lintas saat ini. Dalam jam-jamnya setiap pengambilan data adalah satu permintaan Routing, dari 20.000 gratis per bulan; laporan di rute ikut bersamanya, dan Incident Details ditanya sekali per laporan baru untuk sisa informasinya.",
+                "data": {
+                    "live_days": "Hari rute terus diperbarui",
+                    "live_from": "Dari",
+                    "live_until": "Sampai",
+                    "categories": "Laporan"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Pengaturan opsional",
+                        "data": {
+                            "only_certain": "Hanya laporan yang diyakini TomTom",
+                            "count": "Jumlah laporan",
+                            "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
+                            "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
+                            "roads": "Hanya jalan ini (nomor jalan dipisah koma, mis. A8, B2)",
+                            "blacklist": "Daftar hitam (ID insiden dipisah koma)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+                            "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
+                            "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "Radius paling besar 50 km - kotak terbesar yang dijawab TomTom dalam satu permintaan.",
+            "invalid_api_key": "TomTom tidak menerima kunci API ini.",
+            "quota_exceeded": "Kuota kunci di TomTom sudah habis untuk saat ini. Coba lagi nanti.",
+            "address_not_found": "Tidak ada tempat yang ditemukan untuk alamat ini.",
+            "point_not_routable": "Salah satu titik terlalu jauh dari jalan. Geser lebih dekat ke jalan.",
+            "no_route": "TomTom tidak menemukan jalan yang menghubungkan titik-titik ini.",
+            "route_too_long": "Rute terlalu panjang untuk TomTom, atau punya terlalu banyak titik.",
+            "return_name_taken": "Entri dengan nama itu sudah ada - termasuk entri ini.",
+            "cannot_connect": "TomTom tidak dapat dihubungi.",
+            "zone_without_position": "Zona ini tidak punya posisi.",
+            "api_key_required": "Masukkan kunci API.",
+            "lufop_key_required": "Lufop membutuhkan kunci API-nya untuk diaktifkan.",
+            "invalid_lufop_key": "Lufop tidak menerima kunci API ini.",
+            "lufop_cannot_connect": "Lufop tidak dapat dihubungi. Kunci belum diperiksa - coba lagi nanti.",
+            "lufop_refused": "Lufop menolak permintaan tanpa menolak kuncinya. Permintaan hari ini mungkin sudah habis - coba lagi setelah tengah malam UTC, atau periksa kunci di dasbor Lufop Anda.",
+            "lufop_busy": "Batas Lufop 10 permintaan per menit telah tercapai. Coba lagi dalam satu menit."
+        },
+        "abort": {
+            "no_tracker_with_position": "Tidak ada pelacak perangkat yang melaporkan posisi saat ini. Mode ini membutuhkan pelacak yang mengirim koordinat - pelacak yang hanya tahu di rumah dan pergi tidak bisa menjadi pusat radius."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} tidak mengirim data",
+            "description": "Entri TomTom **{name}** gagal {count} kali pengambilan data berturut-turut, sehingga entitasnya tidak tersedia. Alasan terakhir:\n\n`{reason}`\n\nPelacak tanpa posisi, atau entitas pelacak yang sudah tidak ada, diperbaiki di **Konfigurasikan** entri itu; kunci yang ditolak di **Konfigurasikan** pada entri TomTom Pengaturan; bila TomTom sendiri tidak dapat dihubungi, ini hilang sendiri begitu bisa dihubungi lagi. Perbaikan ini hilang pada pengambilan data berikutnya yang berhasil."
+        },
+        "quota_at_risk": {
+            "title": "Kuota {api} tidak akan cukup untuk sebulan",
+            "description": "{used} dari {tier} permintaan **{api}** gratis setelah {days} hari; dengan laju ini sekitar **{projected}** pada akhir bulan, lebih dari {percent} % kuota.\n\nPengambilan data yang lebih sedikit membantu: interval pembaruan lebih panjang, jam yang lebih sempit pada rute, arus lalu lintas di lebih sedikit kartu.\n\nIni hilang saat laju turun di bawah porsi yang diatur di TomTom Pengaturan → Konfigurasikan → Peringatan kuota → TomTom, dan dengan bulan baru."
+        },
+        "quota_day_at_risk": {
+            "title": "Permintaan {api} hari ini hampir habis",
+            "description": "{used} dari {tier} permintaan per hari yang diizinkan paket **{api}** sudah terpakai.\n\nPermintaan hari ini dibagi oleh setiap entri instalasi ini - dan oleh apa pun yang memakai kunci yang sama. Pengambilan data yang lebih sedikit membantu: interval pembaruan lebih panjang, jam yang lebih sempit pada rute, atau Lufop dimatikan untuk entri yang berada di luar negaranya.\n\nIni hilang pada tengah malam UTC, saat hari Lufop berganti, atau saat porsi yang diatur di TomTom Pengaturan → Konfigurasikan → Peringatan kuota → Lufop dinaikkan."
+        },
+        "quota_day_used_up": {
+            "title": "Permintaan {api} hari ini sudah habis",
+            "description": "Semua {tier} permintaan per hari dari paket **{api}** sudah terpakai - Lufop menghitung semua yang memakai kunci yang sama. Ia menolak permintaan berikutnya sampai tengah malam UTC - pukul {reset} di sini.\n\nPengambilan data yang lebih sedikit membantu besok: interval pembaruan lebih panjang, jam yang lebih sempit pada rute, atau Lufop dimatikan untuk entri di luar negaranya."
+        }
+    }
+}

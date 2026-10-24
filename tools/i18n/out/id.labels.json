@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Kemacetan",
+    "lane_closed": "Lajur ditutup",
+    "road_closed": "Jalan ditutup",
+    "road_works": "Pekerjaan jalan",
+    "accident": "Kecelakaan",
+    "broken_down_vehicle": "Kendaraan mogok",
+    "dangerous_conditions": "Kondisi berbahaya",
+    "fog": "Kabut",
+    "rain": "Hujan",
+    "ice": "Jalan licin es",
+    "wind": "Angin kencang",
+    "flooding": "Banjir",
+    "unknown": "Tidak diketahui",
+    "camera_fixed": "Kamera kecepatan tetap",
+    "camera_mobile": "Kamera kecepatan bergerak",
+    "camera_trailer": "Trailer kamera kecepatan",
+    "camera_redlight": "Kamera lampu merah",
+    "camera_section": "Kontrol kecepatan ruas",
+    "check_distance": "Pemeriksaan jarak",
+    "check_police": "Razia polisi"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "ringan",
+    "moderate": "sedang",
+    "major": "berat",
+    "indefinite": "tidak tentu"
+  }
+}

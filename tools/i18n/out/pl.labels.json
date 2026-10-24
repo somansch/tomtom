@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Korek",
+    "lane_closed": "Pas zamknięty",
+    "road_closed": "Droga zamknięta",
+    "road_works": "Roboty drogowe",
+    "accident": "Wypadek",
+    "broken_down_vehicle": "Unieruchomiony pojazd",
+    "dangerous_conditions": "Niebezpieczne warunki",
+    "fog": "Mgła",
+    "rain": "Deszcz",
+    "ice": "Gołoledź",
+    "wind": "Wiatr",
+    "flooding": "Podtopienie",
+    "unknown": "Nieznane",
+    "camera_fixed": "Fotoradar stacjonarny",
+    "camera_mobile": "Fotoradar mobilny",
+    "camera_trailer": "Fotoradar na przyczepie",
+    "camera_redlight": "Kamera na czerwone światło",
+    "camera_section": "Odcinkowy pomiar prędkości",
+    "check_distance": "Kontrola odstępu",
+    "check_police": "Kontrola policyjna"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "niewielkie",
+    "moderate": "umiarkowane",
+    "major": "poważne",
+    "indefinite": "nieokreślone"
+  }
+}

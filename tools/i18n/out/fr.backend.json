@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Bouchon",
+    "lane_closed": "Voie fermée",
+    "road_closed": "Route barrée",
+    "road_works": "Travaux",
+    "accident": "Accident",
+    "broken_down_vehicle": "Véhicule en panne",
+    "dangerous_conditions": "Conditions dangereuses",
+    "fog": "Brouillard",
+    "rain": "Pluie",
+    "ice": "Verglas",
+    "wind": "Vent",
+    "flooding": "Inondation",
+    "unknown": "Inconnu",
+    "camera_fixed": "Radar fixe (blitzer.de, Lufop)",
+    "camera_mobile": "Radar mobile (blitzer.de, Lufop)",
+    "camera_trailer": "Remorque radar (blitzer.de)",
+    "camera_redlight": "Radar feu rouge (blitzer.de, Lufop)",
+    "camera_section": "Radar tronçon (blitzer.de, Lufop)",
+    "check_distance": "Contrôle de distance (blitzer.de)",
+    "check_police": "Contrôle de police (blitzer.de)"
+  },
+  "days": {
+    "mon": "Lundi",
+    "tue": "Mardi",
+    "wed": "Mercredi",
+    "thu": "Jeudi",
+    "fri": "Vendredi",
+    "sat": "Samedi",
+    "sun": "Dimanche"
+  },
+  "modes": {
+    "area": "📍 Secteur (rayon)",
+    "tracker": "📱 Traqueur d'appareil (rayon)",
+    "route_live": "🛣️ Itinéraire (départ/destination, en direct avec le trafic)"
+  },
+  "typeData": {
+    "categories": "Signalements"
+  },
+  "optional": {
+    "name": "Paramètres facultatifs",
+    "data": {
+      "only_certain": "Seulement les signalements dont TomTom est sûr",
+      "count": "Nombre de signalements",
+      "update_interval": "Intervalle d'actualisation (minutes, 0 = manuel seulement)",
+      "new_minutes": "Compte comme nouveau pendant (minutes, 0 = désactivé)",
+      "roads": "Seulement ces routes (numéros de route séparés par des virgules, p. ex. A8, B2)",
+      "blacklist": "Liste noire (identifiants d'incident séparés par des virgules)"
+    },
+    "description": {
+      "only_certain": "TomTom note chaque signalement : certain, probable, risk_of ou improbable. Un bouchon mesuré à partir de voitures en mouvement est certain, des travaux déclarés par une autorité routière probable, le signalement isolé d'un conducteur un risque. Activé, les deux premiers sont gardés ; désactivé, les incertains viennent aussi.",
+      "roads": "Seulement les signalements que TomTom classe sous l'un de ces numéros de route, A8 ou B2 - les autoroutes d'un trajet domicile-travail sans chaque rue adjacente. Casse et espaces sont sans importance. Vide garde toutes les routes.",
+      "blacklist": "Signalements à laisser de côté, par identifiant d'incident TomTom - l'attribut id ou short_id de l'entité d'un signalement, visible dans ses détails. Les applications de TomTom ne l'affichent pas."
+    }
+  },
+  "budgetArea": "Chaque interrogation est une requête Incident Details (une de plus par 10 000 km² de recherche), et une clé gratuite en a 2 500 par mois : à l'heure par défaut, un secteur en dépense environ 720.",
+  "budgetRoute": "Dans ses heures, chaque interrogation est une requête Routing, sur 20 000 gratuites par mois ; les signalements sur l'itinéraire viennent avec, et Incident Details est interrogé une fois par nouveau signalement pour le reste de ce qu'il y a à savoir.",
+  "entities": {
+    "sensor": {
+      "report_count": "Signalements",
+      "travel_time": "Temps de trajet",
+      "traffic_delay": "Retard dû au trafic",
+      "route_length": "Longueur de l'itinéraire",
+      "requests": "Requêtes TomTom ce mois-ci",
+      "requests_total": "Toutes les requêtes ce mois-ci",
+      "requests_incidents": "Incident Details ce mois-ci",
+      "requests_routing": "Routing ce mois-ci",
+      "requests_geocoding": "Geocoding ce mois-ci",
+      "requests_reverse_geocoding": "Reverse Geocoding ce mois-ci",
+      "requests_search": "Recherche ce mois-ci",
+      "requests_tiles": "Tuiles de flux ce mois-ci",
+      "requests_blitzer": "blitzer.de ce mois-ci",
+      "requests_lufop": "Lufop aujourd'hui"
+    },
+    "number": {
+      "new_minutes": "Nouveau pendant"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Quota menacé"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "Configuration de TomTom",
+      "description": "Nommez cette entrée et choisissez comment chercher. Un secteur ou un traqueur lit les incidents de circulation de TomTom dans son cercle ; un itinéraire du départ à la destination est recalculé par TomTom à chaque interrogation, avec le trafic du moment, et signale ce qu'il traverse.",
+      "data": {
+        "name": "Nom affiché",
+        "search_mode": "Mode de recherche"
+      }
+    },
+    "key": {
+      "title": "Clé API TomTom",
+      "description": "Tout ici vient de TomTom, qui demande une clé API - gratuite, sans moyen de paiement :\n\n1. Inscrivez-vous sur [developer.tomtom.com]({url}).\n2. Juste après, **API & SDK Keys** dans le tableau de bord liste déjà une clé, *My First API key*, avec toutes les API activées - dont la Traffic API, la Routing API et la Search API, celles utilisées ici. Copiez-la avec le bouton à côté.\n3. Collez-la ici.\n\nUne seule clé sert à toutes les entrées de ce Home Assistant. Si une est déjà enregistrée, laissez le champ vide pour la garder.",
+      "data": {
+        "api_key": "Clé API"
+      }
+    },
+    "area": {
+      "title": "Secteur (rayon)",
+      "description": "Sélectionnez le cercle dans lequel les signalements de TomTom sont affichés - jusqu'à 50 km autour de son centre, la plus grande boîte à laquelle TomTom répond en une seule requête. ",
+      "data": {
+        "location": "Secteur"
+      }
+    },
+    "tracker": {
+      "title": "Traqueur d'appareil (rayon)",
+      "description": "Choisissez le traqueur d'appareil à suivre et le rayon du cercle à chercher autour de lui. Seuls les traqueurs qui signalent actuellement des coordonnées sont listés - un qui ne connaît que maison et absent n'a pas de position autour de laquelle tracer un cercle. ",
+      "data": {
+        "tracker": "Traqueur d'appareil",
+        "tracker_radius": "Rayon (mètres)"
+      }
+    },
+    "route_start": {
+      "title": "Départ",
+      "description": "Où commence l'itinéraire ?",
+      "menu": {
+        "route_start_zone": "Zone",
+        "route_start_point": "Point sur la carte",
+        "route_start_address": "Adresse"
+      }
+    },
+    "route_start_zone": {
+      "title": "Départ : zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_start_point": {
+      "title": "Départ : point sur la carte",
+      "description": "Déplacez la carte pour que le marqueur soit sur le départ.",
+      "data": {
+        "location": "Départ"
+      }
+    },
+    "route_start_address": {
+      "title": "Départ : adresse",
+      "description": "Rue et ville.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Départ : adresse trouvée",
+      "description": "Trouvé : **{label}**\n\nSi ce n'est pas le lieu voulu, corrigez l'adresse et continuez - elle sera recherchée à nouveau.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_destination": {
+      "title": "Destination",
+      "description": "Où se termine l'itinéraire ?",
+      "menu": {
+        "route_destination_zone": "Zone",
+        "route_destination_point": "Point sur la carte",
+        "route_destination_address": "Adresse"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Destination : zone",
+      "data": {
+        "zone": "Zone"
+      }
+    },
+    "route_destination_point": {
+      "title": "Destination : point sur la carte",
+      "description": "Déplacez la carte pour que le marqueur soit sur la destination.",
+      "data": {
+        "location": "Destination"
+      }
+    },
+    "route_destination_address": {
+      "title": "Destination : adresse",
+      "description": "Rue et ville.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Destination : adresse trouvée",
+      "description": "Trouvé : **{label}**\n\nSi ce n'est pas le lieu voulu, corrigez l'adresse et continuez - elle sera recherchée à nouveau.",
+      "data": {
+        "address": "Adresse"
+      }
+    },
+    "route_vias": {
+      "title": "Points de passage",
+      "description": "De {start} à {destination}, {count} points de passage jusqu'ici. TomTom prend la route la plus rapide entre eux - ajoutez un point de passage partout où votre trajet habituel diffère.",
+      "menu": {
+        "route_via": "Ajouter un point de passage",
+        "route_vias_clear": "Supprimer tous les points de passage",
+        "route_review": "Calculer l'itinéraire"
+      }
+    },
+    "route_via": {
+      "title": "Point de passage {count}",
+      "description": "Déplacez la carte pour que le marqueur soit sur une route que l'itinéraire doit emprunter.",
+      "data": {
+        "location": "Point de passage"
+      }
+    },
+    "route_review": {
+      "title": "Votre itinéraire, en ce moment",
+      "description": "{start} → {destination}, {vias} points de passage : {distance}, environ {duration} min en ce moment, dont {delay} min de retard. L'itinéraire est recalculé à chaque interrogation ; la carte montre celui que le trafic rend le plus rapide à cet instant. ",
+      "data": {
+        "return_route": "Créer aussi le retour",
+        "return_name": "Nom du retour",
+        "live_days": "Jours où l'itinéraire est tenu à jour",
+        "live_from": "De",
+        "live_until": "À",
+        "live_back_from": "De (retour)",
+        "live_back_until": "À (retour)"
+      },
+      "data_description": {
+        "return_route": "Une seconde entrée, de la destination au départ - sur autoroute, le retour est l'autre chaussée, et un bouchon sur l'une n'en est pas un sur l'autre. Nommée comme cette entrée, avec « retour » ajouté.",
+        "return_name": "Utilisé seulement si le retour est créé. Prérempli avec le nom de cette entrée et « retour » ajouté ; tapez-en un autre pour l'appeler autrement - « Maison » et « Travail », par exemple."
+      }
+    },
+    "route_failed": {
+      "title": "Aucun itinéraire",
+      "description": "Continuez pour modifier les points."
+    },
+    "init": {
+      "title": "Que voulez-vous modifier ?",
+      "menu": {
+        "edit_route": "Modifier l'itinéraire (départ, destination, points de passage)",
+        "edit_route_settings": "Modifier les paramètres de recherche (heures, types, filtres)",
+        "edit_key": "Changer la clé API",
+        "route_defaults": "Valeurs par défaut des nouveaux itinéraires",
+        "quota_warning": "Alerte de quota",
+        "sources": "Sources de données"
+      }
+    },
+    "route_defaults": {
+      "title": "Valeurs par défaut des nouveaux itinéraires",
+      "description": "Ce avec quoi chaque nouvel itinéraire commence : sur la carte, un itinéraire planifié là est enregistré d'emblée avec ces réglages ; dans l'assistant de configuration, ils sont préremplis et peuvent encore être modifiés. Les jours et les heures sont ceux où l'itinéraire est tenu à jour, et le retour peut être créé avec lui - parcouru à un autre moment de la journée, avec ses propres heures.",
+      "data": {
+        "default_start": "Départ des itinéraires planifiés sur la carte (facultatif)"
+      }
+    },
+    "quota_warning": {
+      "title": "Alerte de quota",
+      "description": "Quand les requêtes d'une API se raréfient, une réparation le signale et le capteur **Quota menacé** de TomTom Général s'active.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "À partir du huitième jour du mois, les requêtes faites jusque-là sont extrapolées à la fin du mois. Seul ce que cette intégration demande est compté ; une clé utilisée aussi ailleurs affiche davantage chez TomTom.",
+          "data": {
+            "quota_warning": "Avertir quand le quota gratuit ne tiendra pas le mois",
+            "quota_threshold": "Avertir à partir de cette part du quota gratuit"
+          },
+          "data_description": {
+            "quota_threshold": "100 % avertit quand le quota lui-même sera dépassé, 80 % dès les quatre cinquièmes."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop compte par jour, de minuit à minuit UTC, tout ce qui utilise la clé compris. S'applique tant que Lufop est activé sous Sources de données.",
+          "data": {
+            "lufop_quota_warning": "Avertir quand les requêtes du jour se raréfient ou sont épuisées",
+            "lufop_quota_threshold": "Avertir à partir de cette part des requêtes du jour"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "Le premier avertissement arrive à cette part ; un second quand toutes sont utilisées."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Sources de données",
+      "description": "D'autres sources de signalements en plus de TomTom, pour toutes les entrées à la fois. Une source n'ajoute que ce que TomTom n'a pas, sous ses propres types dans la liste de chaque entrée, si bien qu'aucun signalement n'y figure deux fois.\n\n**blitzer.de** signale les radars et les contrôles routiers, fixes et mobiles, en Allemagne et dans les pays voisins. Ni clé ni compte ; elle lit ce que lit la carte du site lui-même, que blitzer.de n'a pas publié comme API et qui peut changer ou fermer. Chaque requête est comptée sous **blitzer.de ce mois-ci**.\n\n**Lufop** signale les radars, fixes, mobiles et feu rouge, et les radars tronçon, depuis sa base de données de radars - une API documentée avec une clé personnelle gratuite sur [api.lufop.net](https://api.lufop.net/). Une requête porte sur un pays ; l'offre gratuite couvre la France, la Belgique et la Suisse, 200 requêtes par jour et 200 radars par requête. Chaque requête est comptée sous **Lufop aujourd'hui**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Clé API Lufop",
+        "lufop_country": "Lufop : pays"
+      },
+      "data_description": {
+        "lufop_api_key": "Vérifiée quand elle est saisie et quand Lufop est activé ; une clé déjà enregistrée est conservée en laissant le champ vide.",
+        "lufop_country": "Le seul pays pour lequel chaque entrée interroge Lufop - l'offre gratuite permet la France, la Belgique et la Suisse."
+      }
+    },
+    "first": {
+      "title": "TomTom est configuré",
+      "description": "La clé est enregistrée, et les valeurs par défaut des nouveaux itinéraires sont conservées sous l'entrée **TomTom Paramètres** - son Configurer modifie les deux plus tard. Terminez maintenant et ajoutez le premier secteur, traqueur ou itinéraire quand vous voulez via **Ajouter une entrée** sur la tuile TomTom, ou créez-le tout de suite.",
+      "menu": {
+        "finish": "Terminer la configuration",
+        "add_entry": "Ajouter maintenant le premier secteur, traqueur ou itinéraire"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom est déjà configuré pour ce nom. Choisissez-en un autre.",
+    "location_missing": "Veuillez sélectionner une position (déplacez la carte).",
+    "no_tracker_with_position": "Aucun traqueur d'appareil ne signale de position en ce moment. Ce mode en demande un qui envoie des coordonnées - un traqueur qui ne connaît que maison et absent ne peut pas centrer un rayon."
+  },
+  "error": {
+    "radius_too_large": "Le rayon ne peut pas dépasser 50 km - la plus grande boîte à laquelle TomTom répond en une seule requête.",
+    "invalid_api_key": "TomTom n'a pas accepté la clé API.",
+    "quota_exceeded": "Le quota de cette clé chez TomTom est épuisé pour l'instant. Réessayez plus tard.",
+    "address_not_found": "Aucun lieu trouvé pour cette adresse.",
+    "point_not_routable": "L'un des points est trop loin d'une route. Rapprochez-le d'une route.",
+    "no_route": "TomTom n'a trouvé aucune route reliant ces points.",
+    "route_too_long": "L'itinéraire est trop long pour TomTom, ou a trop de points.",
+    "return_name_taken": "Une entrée de ce nom existe déjà - celle-ci comprise.",
+    "cannot_connect": "TomTom est injoignable.",
+    "zone_without_position": "Cette zone n'a pas de position.",
+    "api_key_required": "Saisissez une clé API.",
+    "lufop_key_required": "Lufop a besoin de sa clé API pour être activé.",
+    "invalid_lufop_key": "Lufop n'a pas accepté la clé API.",
+    "lufop_cannot_connect": "Lufop est injoignable. La clé n'a pas été vérifiée - réessayez plus tard.",
+    "lufop_refused": "Lufop a refusé la requête sans refuser la clé. Les requêtes du jour sont peut-être épuisées - réessayez après minuit UTC, ou vérifiez la clé dans votre tableau de bord Lufop.",
+    "lufop_busy": "La limite de Lufop de 10 requêtes par minute est atteinte. Réessayez dans une minute."
+  },
+  "service": {
+    "name": "Actualiser",
+    "description": "Récupère immédiatement les derniers signalements d'un secteur, d'un itinéraire ou d'un traqueur TomTom, au lieu d'attendre sa prochaine interrogation planifiée - et, pour un itinéraire en direct, l'itinéraire lui-même d'abord. Renvoie les signalements.",
+    "field": {
+      "name": "Secteur, itinéraire ou traqueur",
+      "description": "Quel secteur, itinéraire ou traqueur TomTom actualiser."
+    }
+  },
+  "issue": {
+    "title": "{name} ne livre plus",
+    "description": "L'entrée TomTom **{name}** a échoué {count} interrogations d'affilée, ses entités sont donc indisponibles. La dernière raison :\n\n`{reason}`\n\nUn traqueur sans position, ou une entité de traqueur qui n'existe plus, se corrige sous **Configurer** de l'entrée ; une clé refusée sous **Configurer** de l'entrée TomTom Paramètres ; si TomTom lui-même est injoignable, cela se résout de soi-même dès qu'il l'est à nouveau. Cette réparation disparaît avec la prochaine interrogation réussie."
+  },
+  "quotaIssue": {
+    "title": "Le quota {api} ne tiendra pas le mois",
+    "description": "{used} des {tier} requêtes **{api}** gratuites après {days} jours ; à ce rythme, environ **{projected}** d'ici la fin du mois, plus de {percent} % du quota.\n\nMoins d'interrogations aident : un intervalle d'actualisation plus long, des heures plus resserrées sur un itinéraire, le flux de trafic sur moins de cartes.\n\nCeci disparaît quand le rythme passe sous la part définie sous TomTom Paramètres → Configurer → Alerte de quota → TomTom, et avec le nouveau mois."
+  },
+  "quotaDayIssue": {
+    "title": "Les requêtes {api} du jour sont presque épuisées",
+    "description": "{used} des {tier} requêtes par jour que permet l'offre **{api}** sont utilisées.\n\nLes requêtes du jour sont partagées par toutes les entrées de cette installation - et par tout ce qui utilise la même clé. Moins d'interrogations aident : un intervalle d'actualisation plus long, des heures plus resserrées sur un itinéraire, ou Lufop désactivé pour les entrées situées hors de son pays.\n\nCeci disparaît à minuit UTC, quand le jour de Lufop change, ou quand la part définie sous TomTom Paramètres → Configurer → Alerte de quota → Lufop est relevée."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "Les requêtes {api} du jour sont épuisées",
+    "description": "Les {tier} requêtes par jour de l'offre **{api}** sont toutes utilisées - Lufop compte tout ce qui utilise la même clé. Il refuse d'autres requêtes jusqu'à minuit UTC, soit {reset} ici.\n\nMoins d'interrogations aideront demain : un intervalle d'actualisation plus long, des heures plus resserrées sur un itinéraire, ou Lufop désactivé pour les entrées hors de son pays."
+  },
+  "device": {
+    "general": "TomTom Général",
+    "settings": "TomTom Paramètres"
+  },
+  "lufopCountries": {
+    "ad": "Andorre",
+    "au": "Australie",
+    "be": "Belgique",
+    "bg": "Bulgarie",
+    "ca": "Canada",
+    "cz": "Tchéquie",
+    "fi": "Finlande",
+    "fr": "France",
+    "de": "Allemagne",
+    "ie": "Irlande",
+    "it": "Italie",
+    "lv": "Lettonie",
+    "lu": "Luxembourg",
+    "ma": "Maroc",
+    "nl": "Pays-Bas",
+    "nz": "Nouvelle-Zélande",
+    "no": "Norvège",
+    "pl": "Pologne",
+    "pt": "Portugal",
+    "es": "Espagne",
+    "se": "Suède",
+    "ch": "Suisse",
+    "ae": "Émirats arabes unis",
+    "gb": "Royaume-Uni"
+  }
+}

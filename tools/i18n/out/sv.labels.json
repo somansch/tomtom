@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Kö",
+    "lane_closed": "Körfält avstängt",
+    "road_closed": "Väg avstängd",
+    "road_works": "Vägarbete",
+    "accident": "Olycka",
+    "broken_down_vehicle": "Stillastående fordon",
+    "dangerous_conditions": "Farliga förhållanden",
+    "fog": "Dimma",
+    "rain": "Regn",
+    "ice": "Halka",
+    "wind": "Vind",
+    "flooding": "Översvämning",
+    "unknown": "Okänt",
+    "camera_fixed": "Fast fartkamera",
+    "camera_mobile": "Mobil fartkamera",
+    "camera_trailer": "Fartkamera på släp",
+    "camera_redlight": "Rödljuskamera",
+    "camera_section": "Sträckmätning",
+    "check_distance": "Avståndskontroll",
+    "check_police": "Poliskontroll"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "liten",
+    "moderate": "måttlig",
+    "major": "stor",
+    "indefinite": "obestämd"
+  }
+}

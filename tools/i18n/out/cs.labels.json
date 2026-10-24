@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Dopravní zácpa",
+    "lane_closed": "Uzavřený pruh",
+    "road_closed": "Uzavřená silnice",
+    "road_works": "Práce na silnici",
+    "accident": "Nehoda",
+    "broken_down_vehicle": "Porouchané vozidlo",
+    "dangerous_conditions": "Nebezpečné podmínky",
+    "fog": "Mlha",
+    "rain": "Déšť",
+    "ice": "Náledí",
+    "wind": "Vítr",
+    "flooding": "Záplavy",
+    "unknown": "Neznámé",
+    "camera_fixed": "Pevný radar",
+    "camera_mobile": "Mobilní radar",
+    "camera_trailer": "Radar na přívěsu",
+    "camera_redlight": "Kamera na červenou",
+    "camera_section": "Úsekové měření rychlosti",
+    "check_distance": "Kontrola odstupu",
+    "check_police": "Policejní kontrola"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "malé",
+    "moderate": "střední",
+    "major": "velké",
+    "indefinite": "neurčité"
+  }
+}

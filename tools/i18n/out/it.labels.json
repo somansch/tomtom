@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Coda",
+    "lane_closed": "Corsia chiusa",
+    "road_closed": "Strada chiusa",
+    "road_works": "Lavori in corso",
+    "accident": "Incidente",
+    "broken_down_vehicle": "Veicolo in panne",
+    "dangerous_conditions": "Condizioni pericolose",
+    "fog": "Nebbia",
+    "rain": "Pioggia",
+    "ice": "Ghiaccio",
+    "wind": "Vento",
+    "flooding": "Allagamento",
+    "unknown": "Sconosciuto",
+    "camera_fixed": "Autovelox fisso",
+    "camera_mobile": "Autovelox mobile",
+    "camera_trailer": "Autovelox su rimorchio",
+    "camera_redlight": "Telecamera semaforica",
+    "camera_section": "Controllo velocità media",
+    "check_distance": "Controllo distanza",
+    "check_police": "Controllo di polizia"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "lieve",
+    "moderate": "moderato",
+    "major": "grave",
+    "indefinite": "indefinito"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Trafik sıkışıklığı",
+    "lane_closed": "Şerit kapalı",
+    "road_closed": "Yol kapalı",
+    "road_works": "Yol çalışması",
+    "accident": "Kaza",
+    "broken_down_vehicle": "Arızalı araç",
+    "dangerous_conditions": "Tehlikeli koşullar",
+    "fog": "Sis",
+    "rain": "Yağmur",
+    "ice": "Buzlanma",
+    "wind": "Rüzgar",
+    "flooding": "Su baskını",
+    "unknown": "Bilinmiyor",
+    "camera_fixed": "Sabit hız kamerası",
+    "camera_mobile": "Mobil hız kamerası",
+    "camera_trailer": "Römork hız kamerası",
+    "camera_redlight": "Kırmızı ışık kamerası",
+    "camera_section": "Ortalama hız denetimi",
+    "check_distance": "Takip mesafesi denetimi",
+    "check_police": "Polis denetimi"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "hafif",
+    "moderate": "orta",
+    "major": "ciddi",
+    "indefinite": "belirsiz"
+  }
+}

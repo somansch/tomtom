@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "รถติด",
+    "lane_closed": "ปิดช่องทาง",
+    "road_closed": "ปิดถนน",
+    "road_works": "งานก่อสร้างถนน",
+    "accident": "อุบัติเหตุ",
+    "broken_down_vehicle": "รถเสีย",
+    "dangerous_conditions": "สภาพอันตราย",
+    "fog": "หมอก",
+    "rain": "ฝนตก",
+    "ice": "น้ำแข็งบนถนน",
+    "wind": "ลมแรง",
+    "flooding": "น้ำท่วม",
+    "unknown": "ไม่ทราบ",
+    "camera_fixed": "กล้องตรวจจับความเร็วแบบติดตั้งถาวร",
+    "camera_mobile": "กล้องตรวจจับความเร็วแบบเคลื่อนที่",
+    "camera_trailer": "รถพ่วงกล้องตรวจจับความเร็ว",
+    "camera_redlight": "กล้องตรวจจับการฝ่าไฟแดง",
+    "camera_section": "ตรวจจับความเร็วเฉลี่ยแบบช่วง",
+    "check_distance": "ตรวจระยะห่างระหว่างรถ",
+    "check_police": "ด่านตรวจของตำรวจ"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "เล็กน้อย",
+    "moderate": "ปานกลาง",
+    "major": "รุนแรง",
+    "indefinite": "ไม่มีกำหนด"
+  }
+}

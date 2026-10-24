@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Embús",
+    "lane_closed": "Carril tallat",
+    "road_closed": "Carretera tallada",
+    "road_works": "Obres",
+    "accident": "Accident",
+    "broken_down_vehicle": "Vehicle avariat",
+    "dangerous_conditions": "Condicions perilloses",
+    "fog": "Boira",
+    "rain": "Pluja",
+    "ice": "Gel",
+    "wind": "Vent",
+    "flooding": "Inundació",
+    "unknown": "Desconegut",
+    "camera_fixed": "Radar fix",
+    "camera_mobile": "Radar mòbil",
+    "camera_trailer": "Radar en remolc",
+    "camera_redlight": "Radar de semàfor",
+    "camera_section": "Radar de tram",
+    "check_distance": "Control de distància",
+    "check_police": "Control policial"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "lleu",
+    "moderate": "moderat",
+    "major": "greu",
+    "indefinite": "indefinit"
+  }
+}

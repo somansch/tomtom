@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "정체",
+    "lane_closed": "차로 통제",
+    "road_closed": "도로 통제",
+    "road_works": "도로 공사",
+    "accident": "사고",
+    "broken_down_vehicle": "고장 차량",
+    "dangerous_conditions": "위험 상황",
+    "fog": "안개",
+    "rain": "비",
+    "ice": "결빙",
+    "wind": "강풍",
+    "flooding": "침수",
+    "unknown": "알 수 없음",
+    "camera_fixed": "고정식 과속 단속 카메라",
+    "camera_mobile": "이동식 과속 단속 카메라",
+    "camera_trailer": "트레일러형 과속 단속 카메라",
+    "camera_redlight": "신호 위반 단속 카메라",
+    "camera_section": "구간 단속",
+    "check_distance": "차간 거리 단속",
+    "check_police": "경찰 검문"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "경미",
+    "moderate": "보통",
+    "major": "심각",
+    "indefinite": "무기한"
+  }
+}

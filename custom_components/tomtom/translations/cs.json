@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Oblast (okruh)",
+                "tracker": "📱 Sledovač zařízení (okruh)",
+                "route_live": "🛣️ Trasa (start/cíl, živě s provozem)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Pondělí",
+                "tue": "Úterý",
+                "wed": "Středa",
+                "thu": "Čtvrtek",
+                "fri": "Pátek",
+                "sat": "Sobota",
+                "sun": "Neděle"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Dopravní zácpa",
+                "lane_closed": "Uzavřený pruh",
+                "road_closed": "Uzavřená silnice",
+                "road_works": "Práce na silnici",
+                "accident": "Nehoda",
+                "broken_down_vehicle": "Porouchané vozidlo",
+                "dangerous_conditions": "Nebezpečné podmínky",
+                "fog": "Mlha",
+                "rain": "Déšť",
+                "ice": "Náledí",
+                "wind": "Vítr",
+                "flooding": "Záplavy",
+                "unknown": "Neznámé",
+                "camera_fixed": "Pevný radar (blitzer.de, Lufop)",
+                "camera_mobile": "Mobilní radar (blitzer.de, Lufop)",
+                "camera_trailer": "Radar na přívěsu (blitzer.de)",
+                "camera_redlight": "Kamera na červenou (blitzer.de, Lufop)",
+                "camera_section": "Úsekové měření rychlosti (blitzer.de, Lufop)",
+                "check_distance": "Kontrola odstupu (blitzer.de)",
+                "check_police": "Policejní kontrola (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andorra",
+                "au": "Austrálie",
+                "be": "Belgie",
+                "bg": "Bulharsko",
+                "ca": "Kanada",
+                "cz": "Česko",
+                "fi": "Finsko",
+                "fr": "Francie",
+                "de": "Německo",
+                "ie": "Irsko",
+                "it": "Itálie",
+                "lv": "Lotyšsko",
+                "lu": "Lucembursko",
+                "ma": "Maroko",
+                "nl": "Nizozemsko",
+                "nz": "Nový Zéland",
+                "no": "Norsko",
+                "pl": "Polsko",
+                "pt": "Portugalsko",
+                "es": "Španělsko",
+                "se": "Švédsko",
+                "ch": "Švýcarsko",
+                "ae": "Spojené arabské emiráty",
+                "gb": "Spojené království"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Obecné"
+        },
+        "settings": {
+            "name": "TomTom Nastavení"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Hlášení"
+            },
+            "travel_time": {
+                "name": "Doba jízdy"
+            },
+            "traffic_delay": {
+                "name": "Zdržení provozem"
+            },
+            "route_length": {
+                "name": "Délka trasy"
+            },
+            "requests": {
+                "name": "Požadavky TomTom tento měsíc"
+            },
+            "requests_total": {
+                "name": "Všechny požadavky tento měsíc"
+            },
+            "requests_incidents": {
+                "name": "Incident Details tento měsíc"
+            },
+            "requests_routing": {
+                "name": "Routing tento měsíc"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding tento měsíc"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding tento měsíc"
+            },
+            "requests_search": {
+                "name": "Vyhledávání tento měsíc"
+            },
+            "requests_tiles": {
+                "name": "Dlaždice plynulosti tento měsíc"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de tento měsíc"
+            },
+            "requests_lufop": {
+                "name": "Lufop dnes"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Nové po dobu"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Kvóta ohrožena"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "Nastavení TomTom",
+                "description": "Pojmenujte tento záznam a zvolte, jak se má hledat. Oblast nebo sledovač čte dopravní události TomTomu ve svém kruhu; trasu ze startu do cíle TomTom při každém dotazu spočítá znovu, s aktuálním provozem, a hlásí, čím vede.",
+                "data": {
+                    "name": "Zobrazovaný název",
+                    "search_mode": "Režim hledání"
+                }
+            },
+            "key": {
+                "title": "API klíč TomTom",
+                "description": "Vše zde pochází od TomTomu, a ten potřebuje API klíč - zdarma, bez platební metody:\n\n1. Zaregistrujte se na [developer.tomtom.com]({url}).\n2. Hned poté je v dashboardu pod **API & SDK Keys** už uveden klíč, *My First API key*, se všemi API povolenými - mezi nimi Traffic API, Routing API a Search API, které se zde používají. Zkopírujte ho tlačítkem vedle něj.\n3. Vložte ho sem.\n\nJeden klíč slouží všem záznamům tohoto Home Assistantu. Pokud už je jeden uložen, nechte pole prázdné, abyste ho zachovali.",
+                "data": {
+                    "api_key": "API klíč"
+                }
+            },
+            "route_defaults": {
+                "title": "Výchozí hodnoty pro nové trasy",
+                "description": "S čím každá nová trasa začíná: na kartě se trasa tam naplánovaná rovnou uloží s těmito nastaveními; v průvodci nastavením jsou předvyplněna a dají se ještě změnit. Dny a hodiny jsou ty, ve kterých se trasa udržuje aktuální, a spolu s ní lze vytvořit i cestu zpět - jetou v jinou denní dobu, s vlastními hodinami.",
+                "data": {
+                    "default_start": "Start pro trasy plánované na kartě (volitelné)",
+                    "return_route": "Vytvořit i cestu zpět",
+                    "live_days": "Dny, kdy se trasa udržuje aktuální",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "live_back_from": "Od (cesta zpět)",
+                    "live_back_until": "Do (cesta zpět)",
+                    "categories": "Hlášení"
+                },
+                "data_description": {
+                    "return_route": "Druhý záznam, z cíle na start - na dálnici je cesta zpět druhá vozovka a zácpa na jedné není zácpou na druhé. Pojmenovaný podle tohoto záznamu s přidaným „zpět“."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "TomTom je nastaven",
+                "description": "Klíč je uložen a výchozí hodnoty pro nové trasy jsou v záznamu **TomTom Nastavení** - jeho **Nastavit** později změní obojí. Dokončete teď a první oblast, sledovač nebo trasu přidejte kdykoli přes **Přidat položku** na dlaždici TomTom, nebo ji vytvořte hned.",
+                "menu_options": {
+                    "finish": "Dokončit nastavení",
+                    "add_entry": "Přidat teď první oblast, sledovač nebo trasu"
+                }
+            },
+            "area": {
+                "title": "Oblast (okruh)",
+                "description": "Vyberte kruh, ve kterém se zobrazí hlášení TomTomu - až 50 km kolem jeho středu, což je největší výřez, který TomTom zodpoví jedním požadavkem. Každý dotaz je jeden požadavek Incident Details (o jeden víc na každých 10 000 km² hledání) a bezplatný klíč jich má 2 500 měsíčně: při výchozí hodině oblast spotřebuje asi 720.",
+                "data": {
+                    "location": "Oblast",
+                    "categories": "Hlášení"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Sledovač zařízení (okruh)",
+                "description": "Vyberte sledovač zařízení, který se má sledovat, a jak široký kruh kolem něj prohledávat. Uvedeny jsou jen sledovače, které právě hlásí souřadnice - takový, který zná jen doma a pryč, nemá polohu, kolem níž by šel kruh položit. Každý dotaz je jeden požadavek Incident Details (o jeden víc na každých 10 000 km² hledání) a bezplatný klíč jich má 2 500 měsíčně: při výchozí hodině oblast spotřebuje asi 720.",
+                "data": {
+                    "tracker": "Sledovač zařízení",
+                    "tracker_radius": "Okruh (metry)",
+                    "categories": "Hlášení"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Kde trasa začíná?",
+                "menu_options": {
+                    "route_start_zone": "Zóna",
+                    "route_start_point": "Bod na mapě",
+                    "route_start_address": "Adresa"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: bod na mapě",
+                "description": "Posuňte mapu tak, aby značka ležela na startu.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adresa",
+                "description": "Ulice a obec.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adresa nalezena",
+                "description": "Nalezeno: **{label}**\n\nPokud to není místo, které jste měli na mysli, opravte adresu a pokračujte - vyhledá se znovu.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_destination": {
+                "title": "Cíl",
+                "description": "Kde trasa končí?",
+                "menu_options": {
+                    "route_destination_zone": "Zóna",
+                    "route_destination_point": "Bod na mapě",
+                    "route_destination_address": "Adresa"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Cíl: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_destination_point": {
+                "title": "Cíl: bod na mapě",
+                "description": "Posuňte mapu tak, aby značka ležela na cíli.",
+                "data": {
+                    "location": "Cíl"
+                }
+            },
+            "route_destination_address": {
+                "title": "Cíl: adresa",
+                "description": "Ulice a obec.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Cíl: adresa nalezena",
+                "description": "Nalezeno: **{label}**\n\nPokud to není místo, které jste měli na mysli, opravte adresu a pokračujte - vyhledá se znovu.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_vias": {
+                "title": "Průjezdní body",
+                "description": "Z {start} do {destination}, zatím {count} průjezdních bodů. TomTom mezi nimi volí nejrychlejší silnici - přidejte průjezdní bod všude tam, kde se vaše obvyklá cesta liší.",
+                "menu_options": {
+                    "route_via": "Přidat průjezdní bod",
+                    "route_vias_clear": "Odebrat všechny průjezdní body",
+                    "route_review": "Spočítat trasu"
+                }
+            },
+            "route_via": {
+                "title": "Průjezdní bod {count}",
+                "description": "Posuňte mapu tak, aby značka ležela na silnici, kterou má trasa vést.",
+                "data": {
+                    "location": "Průjezdní bod"
+                }
+            },
+            "route_failed": {
+                "title": "Žádná trasa",
+                "description": "Pokračujte a změňte body."
+            },
+            "route_review": {
+                "title": "Vaše trasa právě teď",
+                "description": "{start} → {destination}, {vias} průjezdních bodů: {distance}, právě teď asi {duration} min, z toho {delay} min zdržení. Trasa se při každém dotazu počítá znovu; mapa ukazuje tu, kterou provoz v tuto chvíli dělá nejrychlejší. Ve svých hodinách je každý dotaz jeden požadavek Routing, z 20 000 bezplatných měsíčně; hlášení na trase přijdou s ním a Incident Details se u každého nového hlášení jednou zeptá na zbytek toho, co lze zjistit.",
+                "data": {
+                    "return_route": "Vytvořit i cestu zpět",
+                    "return_name": "Název cesty zpět",
+                    "live_days": "Dny, kdy se trasa udržuje aktuální",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "live_back_from": "Od (cesta zpět)",
+                    "live_back_until": "Do (cesta zpět)",
+                    "categories": "Hlášení"
+                },
+                "data_description": {
+                    "return_route": "Druhý záznam, z cíle na start - na dálnici je cesta zpět druhá vozovka a zácpa na jedné není zácpou na druhé. Pojmenovaný podle tohoto záznamu s přidaným „zpět“.",
+                    "return_name": "Použije se jen při vytvoření cesty zpět. Předvyplněno názvem tohoto záznamu a „zpět“; napište jiný, chcete-li ji nazvat jinak - třeba „Domů“ a „Práce“."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "TomTom je pro tento název už nastaven. Zvolte jiný.",
+            "location_missing": "Vyberte prosím polohu (posuňte mapu).",
+            "no_tracker_with_position": "Žádný sledovač zařízení právě nehlásí polohu. Tento režim potřebuje takový, který posílá souřadnice - sledovač, který zná jen doma a pryč, nemůže okruh vystředit."
+        },
+        "error": {
+            "radius_too_large": "Okruh smí být nejvýše 50 km - největší výřez, který TomTom zodpoví jedním požadavkem.",
+            "invalid_api_key": "TomTom API klíč nepřijal.",
+            "quota_exceeded": "Kvóta tohoto klíče u TomTomu je prozatím vyčerpána. Zkuste to později.",
+            "address_not_found": "Pro tuto adresu nebylo nalezeno žádné místo.",
+            "point_not_routable": "Jeden z bodů je příliš daleko od silnice. Posuňte ho blíž k některé.",
+            "no_route": "TomTom nenašel silnici, která by tyto body spojovala.",
+            "route_too_long": "Trasa je pro TomTom příliš dlouhá nebo má příliš mnoho bodů.",
+            "return_name_taken": "Záznam s tímto názvem už existuje - včetně tohoto.",
+            "cannot_connect": "TomTom nebyl dostupný.",
+            "zone_without_position": "Tato zóna nemá polohu.",
+            "api_key_required": "Zadejte API klíč.",
+            "lufop_key_required": "Lufop potřebuje ke svému zapnutí API klíč.",
+            "invalid_lufop_key": "Lufop API klíč nepřijal.",
+            "lufop_cannot_connect": "Lufop nebyl dostupný. Klíč nebyl ověřen - zkuste to později.",
+            "lufop_refused": "Lufop odmítl požadavek, aniž by odmítl klíč. Denní požadavky mohou být vyčerpány - zkuste to po půlnoci UTC nebo zkontrolujte klíč na svém dashboardu Lufop.",
+            "lufop_busy": "Byl dosažen limit Lufopu 10 požadavků za minutu. Zkuste to za minutu."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Obnovit",
+            "description": "Ihned načte nejnovější hlášení jedné oblasti, trasy nebo sledovače TomTom, místo čekání na další plánovaný dotaz - a u živé trasy nejdřív trasu samotnou. Vrací hlášení.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Oblast, trasa nebo sledovač",
+                    "description": "Která oblast, trasa nebo sledovač TomTom se má obnovit."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Co chcete upravit?",
+                "menu_options": {
+                    "edit_route": "Změnit trasu (start, cíl, průjezdní body)",
+                    "edit_route_settings": "Upravit nastavení hledání (hodiny, druhy, filtry)",
+                    "edit_key": "Změnit API klíč",
+                    "route_defaults": "Výchozí hodnoty pro nové trasy",
+                    "quota_warning": "Upozornění na kvótu",
+                    "sources": "Zdroje dat"
+                }
+            },
+            "route_defaults": {
+                "title": "Výchozí hodnoty pro nové trasy",
+                "description": "S čím každá nová trasa začíná: na kartě se trasa tam naplánovaná rovnou uloží s těmito nastaveními; v průvodci nastavením jsou předvyplněna a dají se ještě změnit. Dny a hodiny jsou ty, ve kterých se trasa udržuje aktuální, a spolu s ní lze vytvořit i cestu zpět - jetou v jinou denní dobu, s vlastními hodinami.",
+                "data": {
+                    "default_start": "Start pro trasy plánované na kartě (volitelné)",
+                    "return_route": "Vytvořit i cestu zpět",
+                    "live_days": "Dny, kdy se trasa udržuje aktuální",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "live_back_from": "Od (cesta zpět)",
+                    "live_back_until": "Do (cesta zpět)",
+                    "categories": "Hlášení"
+                },
+                "data_description": {
+                    "return_route": "Druhý záznam, z cíle na start - na dálnici je cesta zpět druhá vozovka a zácpa na jedné není zácpou na druhé. Pojmenovaný podle tohoto záznamu s přidaným „zpět“."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Upozornění na kvótu",
+                "description": "Když některému API začnou docházet požadavky, ohlásí to oprava a senzor **Kvóta ohrožena** u TomTom Obecné se zapne.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "Od osmého dne měsíce se dosavadní požadavky promítnou na konec měsíce. Počítá se, na co se ptá tato integrace; klíč používaný i jinde je u TomTomu výš.",
+                        "data": {
+                            "quota_warning": "Upozornit, když bezplatná kvóta nevydrží celý měsíc",
+                            "quota_threshold": "Upozornit od tohoto podílu bezplatné kvóty"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % upozorní, když bude překročena samotná kvóta, 80 % už při čtyřech pětinách."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "Lufop počítá po dnech, od půlnoci do půlnoci UTC, včetně všeho, co používá klíč. Platí, dokud je Lufop zapnutý pod Zdroje dat.",
+                        "data": {
+                            "lufop_quota_warning": "Upozornit, když denních požadavků dochází nebo došly",
+                            "lufop_quota_threshold": "Upozornit od tohoto podílu denních požadavků"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "První upozornění přijde při tomto podílu; druhé, když jsou spotřebovány všechny."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Zdroje dat",
+                "description": "Další zdroje hlášení vedle TomTomu, pro všechny záznamy najednou. Zdroj přidá jen to, co TomTom nemá, pod vlastními druhy v seznamu každého záznamu, takže žádné hlášení tam není dvakrát.\n\n**blitzer.de** hlásí radary a dopravní kontroly, pevné i mobilní, v Německu a sousedních zemích. Bez klíče a bez účtu; čte to, co čte mapa samotného webu, kterou blitzer.de nezveřejnil jako API a může ji změnit nebo zavřít. Každý požadavek se počítá pod **blitzer.de tento měsíc**.\n\n**Lufop** hlásí radary, pevné, mobilní a na červenou, a úsekové měření rychlosti ze své databáze radarů - zdokumentované API s bezplatným osobním klíčem z [api.lufop.net](https://api.lufop.net/). Jeden požadavek platí pro jednu zemi; bezplatný tarif pokrývá Francii, Belgii a Švýcarsko, 200 požadavků denně a 200 radarů na požadavek. Každý požadavek se počítá pod **Lufop dnes**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "API klíč Lufop",
+                    "lufop_country": "Lufop: země"
+                },
+                "data_description": {
+                    "lufop_api_key": "Ověří se při zadání a při zapnutí Lufopu; již uložený zůstane, když pole necháte prázdné.",
+                    "lufop_country": "Jediná země, na kterou se každý záznam ptá Lufopu - bezplatný tarif umožňuje Francii, Belgii a Švýcarsko."
+                }
+            },
+            "key": {
+                "title": "API klíč TomTom",
+                "description": "Vše zde pochází od TomTomu, a ten potřebuje API klíč - zdarma, bez platební metody:\n\n1. Zaregistrujte se na [developer.tomtom.com]({url}).\n2. Hned poté je v dashboardu pod **API & SDK Keys** už uveden klíč, *My First API key*, se všemi API povolenými - mezi nimi Traffic API, Routing API a Search API, které se zde používají. Zkopírujte ho tlačítkem vedle něj.\n3. Vložte ho sem.\n\nJeden klíč slouží všem záznamům tohoto Home Assistantu. Pokud už je jeden uložen, nechte pole prázdné, abyste ho zachovali.",
+                "data": {
+                    "api_key": "API klíč"
+                }
+            },
+            "area": {
+                "title": "Oblast (okruh)",
+                "description": "Vyberte kruh, ve kterém se zobrazí hlášení TomTomu - až 50 km kolem jeho středu, což je největší výřez, který TomTom zodpoví jedním požadavkem. Každý dotaz je jeden požadavek Incident Details (o jeden víc na každých 10 000 km² hledání) a bezplatný klíč jich má 2 500 měsíčně: při výchozí hodině oblast spotřebuje asi 720.",
+                "data": {
+                    "location": "Oblast",
+                    "categories": "Hlášení"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Sledovač zařízení (okruh)",
+                "description": "Vyberte sledovač zařízení, který se má sledovat, a jak široký kruh kolem něj prohledávat. Uvedeny jsou jen sledovače, které právě hlásí souřadnice - takový, který zná jen doma a pryč, nemá polohu, kolem níž by šel kruh položit. Každý dotaz je jeden požadavek Incident Details (o jeden víc na každých 10 000 km² hledání) a bezplatný klíč jich má 2 500 měsíčně: při výchozí hodině oblast spotřebuje asi 720.",
+                "data": {
+                    "tracker": "Sledovač zařízení",
+                    "tracker_radius": "Okruh (metry)",
+                    "categories": "Hlášení"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Kde trasa začíná?",
+                "menu_options": {
+                    "route_start_zone": "Zóna",
+                    "route_start_point": "Bod na mapě",
+                    "route_start_address": "Adresa"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: bod na mapě",
+                "description": "Posuňte mapu tak, aby značka ležela na startu.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adresa",
+                "description": "Ulice a obec.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adresa nalezena",
+                "description": "Nalezeno: **{label}**\n\nPokud to není místo, které jste měli na mysli, opravte adresu a pokračujte - vyhledá se znovu.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_destination": {
+                "title": "Cíl",
+                "description": "Kde trasa končí?",
+                "menu_options": {
+                    "route_destination_zone": "Zóna",
+                    "route_destination_point": "Bod na mapě",
+                    "route_destination_address": "Adresa"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Cíl: zóna",
+                "data": {
+                    "zone": "Zóna"
+                }
+            },
+            "route_destination_point": {
+                "title": "Cíl: bod na mapě",
+                "description": "Posuňte mapu tak, aby značka ležela na cíli.",
+                "data": {
+                    "location": "Cíl"
+                }
+            },
+            "route_destination_address": {
+                "title": "Cíl: adresa",
+                "description": "Ulice a obec.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Cíl: adresa nalezena",
+                "description": "Nalezeno: **{label}**\n\nPokud to není místo, které jste měli na mysli, opravte adresu a pokračujte - vyhledá se znovu.",
+                "data": {
+                    "address": "Adresa"
+                }
+            },
+            "route_vias": {
+                "title": "Průjezdní body",
+                "description": "Z {start} do {destination}, zatím {count} průjezdních bodů. TomTom mezi nimi volí nejrychlejší silnici - přidejte průjezdní bod všude tam, kde se vaše obvyklá cesta liší.",
+                "menu_options": {
+                    "route_via": "Přidat průjezdní bod",
+                    "route_vias_clear": "Odebrat všechny průjezdní body",
+                    "route_review": "Spočítat trasu"
+                }
+            },
+            "route_via": {
+                "title": "Průjezdní bod {count}",
+                "description": "Posuňte mapu tak, aby značka ležela na silnici, kterou má trasa vést.",
+                "data": {
+                    "location": "Průjezdní bod"
+                }
+            },
+            "route_failed": {
+                "title": "Žádná trasa",
+                "description": "Pokračujte a změňte body."
+            },
+            "route_review": {
+                "title": "Vaše trasa právě teď",
+                "description": "{start} → {destination}, {vias} průjezdních bodů: {distance}, právě teď asi {duration} min, z toho {delay} min zdržení. Trasa se při každém dotazu počítá znovu; mapa ukazuje tu, kterou provoz v tuto chvíli dělá nejrychlejší. Ve svých hodinách je každý dotaz jeden požadavek Routing, z 20 000 bezplatných měsíčně; hlášení na trase přijdou s ním a Incident Details se u každého nového hlášení jednou zeptá na zbytek toho, co lze zjistit.",
+                "data": {
+                    "live_days": "Dny, kdy se trasa udržuje aktuální",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "categories": "Hlášení"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Volitelná nastavení",
+                        "data": {
+                            "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+                            "count": "Počet hlášení",
+                            "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
+                            "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
+                            "roads": "Jen tyto silnice (čísla silnic oddělená čárkou, např. A8, B2)",
+                            "blacklist": "Černá listina (ID hlášení oddělená čárkou)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+                            "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
+                            "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "Okruh smí být nejvýše 50 km - největší výřez, který TomTom zodpoví jedním požadavkem.",
+            "invalid_api_key": "TomTom API klíč nepřijal.",
+            "quota_exceeded": "Kvóta tohoto klíče u TomTomu je prozatím vyčerpána. Zkuste to později.",
+            "address_not_found": "Pro tuto adresu nebylo nalezeno žádné místo.",
+            "point_not_routable": "Jeden z bodů je příliš daleko od silnice. Posuňte ho blíž k některé.",
+            "no_route": "TomTom nenašel silnici, která by tyto body spojovala.",
+            "route_too_long": "Trasa je pro TomTom příliš dlouhá nebo má příliš mnoho bodů.",
+            "return_name_taken": "Záznam s tímto názvem už existuje - včetně tohoto.",
+            "cannot_connect": "TomTom nebyl dostupný.",
+            "zone_without_position": "Tato zóna nemá polohu.",
+            "api_key_required": "Zadejte API klíč.",
+            "lufop_key_required": "Lufop potřebuje ke svému zapnutí API klíč.",
+            "invalid_lufop_key": "Lufop API klíč nepřijal.",
+            "lufop_cannot_connect": "Lufop nebyl dostupný. Klíč nebyl ověřen - zkuste to později.",
+            "lufop_refused": "Lufop odmítl požadavek, aniž by odmítl klíč. Denní požadavky mohou být vyčerpány - zkuste to po půlnoci UTC nebo zkontrolujte klíč na svém dashboardu Lufop.",
+            "lufop_busy": "Byl dosažen limit Lufopu 10 požadavků za minutu. Zkuste to za minutu."
+        },
+        "abort": {
+            "no_tracker_with_position": "Žádný sledovač zařízení právě nehlásí polohu. Tento režim potřebuje takový, který posílá souřadnice - sledovač, který zná jen doma a pryč, nemůže okruh vystředit."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} nedodává data",
+            "description": "Záznam TomTom **{name}** selhal u {count} dotazů za sebou, takže jeho entity jsou nedostupné. Poslední důvod:\n\n`{reason}`\n\nSledovač bez polohy nebo entita sledovače, která už neexistuje, se opraví pod **Nastavit** u záznamu; odmítnutý klíč pod **Nastavit** u záznamu TomTom Nastavení; pokud není dostupný sám TomTom, vyřeší se to samo, jakmile zase bude. Tato oprava zmizí s dalším úspěšným dotazem."
+        },
+        "quota_at_risk": {
+            "title": "Kvóta {api} nevydrží celý měsíc",
+            "description": "{used} z {tier} bezplatných požadavků **{api}** po {days} dnech; tímto tempem asi **{projected}** do konce měsíce, víc než {percent} % kvóty.\n\nPomůže méně dotazů: delší interval aktualizace, užší hodiny u trasy, plynulost provozu na méně kartách.\n\nZmizí to, jakmile tempo klesne pod podíl nastavený v TomTom Nastavení → Nastavit → Upozornění na kvótu → TomTom, a s novým měsícem."
+        },
+        "quota_day_at_risk": {
+            "title": "Denní požadavky {api} jsou téměř vyčerpány",
+            "description": "Spotřebováno {used} z {tier} denních požadavků, které tarif **{api}** povoluje.\n\nDenní požadavky sdílejí všechny záznamy této instalace - a vše ostatní, co používá stejný klíč. Pomůže méně dotazů: delší interval aktualizace, užší hodiny u trasy nebo Lufop vypnutý u záznamů, které leží mimo jeho zemi.\n\nZmizí to o půlnoci UTC, kdy se Lufopu mění den, nebo když se podíl nastavený v TomTom Nastavení → Nastavit → Upozornění na kvótu → Lufop zvýší."
+        },
+        "quota_day_used_up": {
+            "title": "Denní požadavky {api} jsou vyčerpány",
+            "description": "Všech {tier} denních požadavků tarifu **{api}** je spotřebováno - Lufop počítá vše, co používá stejný klíč. Další požadavky odmítá do půlnoci UTC - zde {reset}.\n\nZítra pomůže méně dotazů: delší interval aktualizace, užší hodiny u trasy nebo Lufop vypnutý u záznamů mimo jeho zemi."
+        }
+    }
+}

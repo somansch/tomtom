@@ -1,0 +1,559 @@
+blueprint:
+  name: TomTom - Report Alerts
+  description: |-
+    # TomTom - Report Alerts
+
+    Two ways of being told what TomTom reports in your areas and on your routes, in one automation. Filtered down to what you care about.
+
+    **📡 Live alerts - only what is new**
+    - Fires the moment a report appears that was not there on the previous poll
+    - Never for one already known, and never right after a restart
+    - A time window keeps it quiet at night
+
+    **📋 Digest - everything currently reported**
+    - One message listing what is standing right now, nearest first
+    - Triggered at a time of day, when someone leaves a zone, by any entity you pick, or on demand via `automation.trigger`
+
+    **🎯 Filters - shared by both, so you set them once**
+    - Areas and routes
+    - The kinds of report, and a minimum delay so a jam of a minute stays quiet
+    - Within a radius of a zone or a person
+
+    **🔔 Notify - each its own section below**
+    - **Notification Content**: your own title and message templates, shared by every channel
+    - **Mobile App Notify**: push to one or more phones
+    - **Notifications**: Home Assistant's own notification bell, and/or a dashboard status helper
+    - **Text-to-Speech**: speak it on one or more media players
+    - **Custom Actions**: anything else, via the normal action editor
+
+    <details>
+    <summary><b>Available template variables</b></summary>
+
+    Both kinds of message have `{{ is_live }}`: true for a live alert, false for a digest.
+
+    **A live alert** additionally has:
+
+    - `{{ summary }}` - the whole report in one line, e.g. `Traffic jam · 1.2 km · +4 min · A9 · Nuremberg → Munich — Stationary traffic`
+    - `{{ type_name }}` - what it is, in your language: "Roadworks", "Accident"
+    - `{{ type }}` - the same as a key: `jam`, `lane_closed`, `road_closed`, `road_works`, `accident`, `broken_down_vehicle`, `dangerous_conditions`, `fog`, `rain`, `ice`, `wind`, `flooding`, `unknown` - and, with blitzer.de or Lufop switched on under TomTom Settings → Data sources, `camera_fixed`, `camera_mobile`, `camera_trailer`, `camera_redlight`, `camera_section`, `check_distance`, `check_police`
+    - `{{ area }}` - the area, route or tracker that reported it
+    - `{{ description }}` - TomTom's own wording of what is going on
+    - `{{ road }}` - the road numbers, "A8 / E52"
+    - `{{ from }}`, `{{ to }}` - where the stretch starts and ends
+    - `{{ delay_minutes }}` - how many minutes it costs, where TomTom says; `0` otherwise
+    - `{{ magnitude }}` - `minor`, `moderate`, `major`, `indefinite` or `unknown`
+    - `{{ latitude }}`, `{{ longitude }}` - where it starts
+    - `{{ distance }}` - how far from the reference point set under Proximity, in the unit your Home Assistant measures distance in (`{{ unit }}` names it: km, or mi). Without one, the report's own figure: on a route the way along it from its start ("km 23"), otherwise the distance from the area's centre or the tracker
+
+    **A digest** additionally has:
+
+    - `{{ reports }}` - the matching reports, nearest first. Each is a dictionary carrying every field listed above, plus `entity_id`, the report's own `geo_location` entity
+    - `{{ count }}` - how many there are
+    - `{{ areas_found }}` - comma-separated names of the areas they came from
+
+    </details>
+  domain: automation
+  author: somansch
+  source_url: https://github.com/somansch/tomtom/blob/main/custom_components/tomtom/blueprints/automation/tomtom/report_alerts.yaml
+  input:
+    scope:
+      name: What to report
+      icon: mdi:radar
+      collapsed: true
+      input:
+        areas:
+          name: Areas and routes
+          description: >-
+            One or more TomTom areas or routes. Each configured entry is a
+            device of its own. Leave empty to include all of them.
+          default: []
+          selector:
+            device:
+              multiple: true
+              filter:
+                integration: tomtom
+        types:
+          name: Kinds of report
+          description: Leave empty for every kind the entry is configured to fetch.
+          default: []
+          selector:
+            select:
+              multiple: true
+              mode: dropdown
+              options:
+                - label: Traffic jam
+                  value: jam
+                - label: Lane closed
+                  value: lane_closed
+                - label: Road closed
+                  value: road_closed
+                - label: Roadworks
+                  value: road_works
+                - label: Accident
+                  value: accident
+                - label: Broken down vehicle
+                  value: broken_down_vehicle
+                - label: Dangerous conditions
+                  value: dangerous_conditions
+                - label: Fog
+                  value: fog
+                - label: Rain
+                  value: rain
+                - label: Ice
+                  value: ice
+                - label: Wind
+                  value: wind
+                - label: Flooding
+                  value: flooding
+                - label: Unknown
+                  value: unknown
+                - label: Fixed speed camera (blitzer.de)
+                  value: camera_fixed
+                - label: Mobile speed camera (blitzer.de)
+                  value: camera_mobile
+                - label: Speed camera trailer (blitzer.de)
+                  value: camera_trailer
+                - label: Red-light camera (blitzer.de)
+                  value: camera_redlight
+                - label: Section control (blitzer.de)
+                  value: camera_section
+                - label: Distance check (blitzer.de)
+                  value: check_distance
+                - label: Police check (blitzer.de)
+                  value: check_police
+        min_delay:
+          name: Minimum delay
+          description: >-
+            Skip reports that cost fewer minutes than this. `0` reports every
+            one, including those TomTom gives no delay for - a road closure,
+            say.
+          default: 0
+          selector:
+            number:
+              min: 0
+              max: 120
+              step: 1
+              unit_of_measurement: min
+              mode: slider
+    live:
+      name: Live alerts
+      icon: mdi:access-point
+      collapsed: true
+      input:
+        live_enabled:
+          name: Alert on new reports
+          description: >-
+            One notification per newly reported incident, the moment it shows
+            up. Switch this off to use the digest below only.
+          default: true
+          selector:
+            boolean: {}
+        live_from:
+          name: Not before
+          description: >-
+            Live alerts are only sent between this time and the one below. Leave
+            both at 00:00:00 to allow them around the clock. A window that ends
+            before it starts, e.g. 22:00 to 06:00, spans midnight.
+          default: "00:00:00"
+          selector:
+            time: {}
+        live_to:
+          name: Not after
+          default: "00:00:00"
+          selector:
+            time: {}
+    digest:
+      name: Digest of everything currently reported
+      icon: mdi:format-list-bulleted
+      collapsed: true
+      input:
+        digest_by_time:
+          name: Send at a time of day
+          default: false
+          selector:
+            boolean: {}
+        digest_time:
+          name: Time of day
+          description: Only used when the switch above is on.
+          default: "07:00:00"
+          selector:
+            time: {}
+        digest_leaving:
+          name: Send when someone leaves a zone
+          description: >-
+            One or more people or device trackers. Useful for "what is out there
+            before I set off". Leave empty to skip this trigger.
+          default: []
+          selector:
+            entity:
+              multiple: true
+              filter:
+                - domain: person
+                - domain: device_tracker
+        digest_zone:
+          name: Zone being left
+          description: Only used when someone is picked above.
+          default: zone.home
+          selector:
+            entity:
+              domain: zone
+        digest_entities:
+          name: Send when another entity changes
+          description: >-
+            Any entity whose state change should produce a digest. An
+            input_button you press, an input_boolean, a sensor, whatever fits.
+            The automation can also be started from elsewhere with
+            `automation.trigger`, with nothing picked here.
+          default: []
+          selector:
+            entity:
+              multiple: true
+        digest_max:
+          name: Most entries per digest
+          description: >-
+            A digest is one message, and every channel has a length limit. The
+            nearest reports are kept.
+          default: 10
+          selector:
+            number:
+              min: 1
+              max: 100
+              mode: box
+    proximity:
+      name: Proximity
+      icon: mdi:map-marker-radius
+      collapsed: true
+      input:
+        reference:
+          name: Measure distance from
+          description: >-
+            A zone or a person to measure each report against. This is also what
+            `{{ distance }}` refers to, and what a digest is sorted by. Leave
+            empty to report the whole configured area with each report's own
+            figure: on a route the way along it from its start, so a digest
+            reads in driving order; otherwise the distance from the area's
+            centre or the tracker.
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain: zone
+                - domain: person
+                - domain: device_tracker
+        radius:
+          name: Only within
+          description: >-
+            Skip anything further away than this, in the unit your Home
+            Assistant measures distance in - km, or miles on an imperial
+            system. `0` means no limit, which is useful when you only want
+            the sorting.
+          default: 0
+          selector:
+            number:
+              min: 0
+              max: 200
+              step: 1
+              mode: box
+    content:
+      name: Notification Content
+      icon: mdi:pencil-outline
+      collapsed: true
+      input:
+        alert_title:
+          name: Live alert title
+          description: See the blueprint description above for the variables.
+          default: "TomTom {{ area }}"
+          selector:
+            template: {}
+        alert_message:
+          name: Live alert message
+          default: "{{ summary }}"
+          selector:
+            template: {}
+        digest_title:
+          name: Digest title
+          default: "TomTom ({{ count }})"
+          selector:
+            template: {}
+        digest_message:
+          name: Digest message
+          description: >-
+            One message for the whole digest. Loop over `reports` yourself and
+            lay the lines out however you like.
+          default: |-
+            {% for r in reports %}{{ r.distance }} {{ r.unit }} · {{ r.summary }}
+            {% endfor %}
+          selector:
+            template: {}
+        digest_empty:
+          name: Digest message when nothing matches
+          description: Leave empty to send nothing at all in that case.
+          default: ""
+          selector:
+            template: {}
+    mobile_app_notify:
+      name: Mobile App Notify
+      icon: mdi:cellphone-message
+      collapsed: true
+      input:
+        notify_devices:
+          name: Devices to push to
+          description: >-
+            One or more devices running the Home Assistant Companion App. Leave
+            empty to skip mobile push entirely.
+          default: []
+          selector:
+            device:
+              multiple: true
+              filter:
+                integration: mobile_app
+    ha_notifications:
+      name: Notifications
+      icon: mdi:bell-ring-outline
+      collapsed: true
+      input:
+        show_in_notifications:
+          name: Show in the notification bell
+          default: false
+          selector:
+            boolean: {}
+        dashboard_helper:
+          name: Dashboard status helper (optional)
+          description: >-
+            An input_text helper to keep updated, so a Markdown or Entity card
+            can show the latest alert or digest. Trimmed to that helper's own
+            maximum length.
+          default: ""
+          selector:
+            entity:
+              domain: input_text
+    tts_announcement:
+      name: Text-to-Speech Announcement
+      icon: mdi:account-voice
+      collapsed: true
+      input:
+        tts_engine:
+          name: TTS engine
+          description: Required if media players are picked below.
+          default: ""
+          selector:
+            entity:
+              domain: tts
+        tts_media_players:
+          name: Media players to announce on (optional)
+          description: Leave empty to skip TTS entirely.
+          default: []
+          selector:
+            entity:
+              multiple: true
+              domain: media_player
+    custom_actions:
+      name: Custom Actions
+      icon: mdi:cog-play-outline
+      collapsed: true
+      input:
+        user_actions:
+          name: Additional actions (optional)
+          description: >-
+            Run anything else. Email, Telegram, ntfy, a light flash. Built with
+            the normal action editor; the same variables are in scope.
+          default: []
+          selector:
+            action: {}
+
+mode: queued
+max: 10
+
+triggers:
+  - trigger: event
+    event_type: tomtom_new_report
+    id: live
+  - trigger: time
+    at: !input digest_time
+    id: digest
+    enabled: !input digest_by_time
+  - trigger: zone
+    entity_id: !input digest_leaving
+    zone: !input digest_zone
+    event: leave
+    id: digest
+  - trigger: state
+    entity_id: !input digest_entities
+    id: digest
+
+variables:
+  in_areas: !input areas
+  in_types: !input types
+  in_min_delay: !input min_delay
+  in_reference: !input reference
+  in_radius: !input radius
+  in_live_enabled: !input live_enabled
+  in_live_from: !input live_from
+  in_live_to: !input live_to
+  in_digest_max: !input digest_max
+  in_show_notifications: !input show_in_notifications
+  in_dashboard_helper: !input dashboard_helper
+  in_tts_engine: !input tts_engine
+
+  is_live: "{{ trigger.id | default('digest', true) == 'live' }}"
+
+  area_names: >-
+    {{ (in_areas | map('device_attr', 'name_by_user') | list
+        + in_areas | map('device_attr', 'name') | list)
+       | select('string') | list }}
+
+  ref_lat: "{{ state_attr(in_reference, 'latitude') if in_reference else none }}"
+  ref_lng: "{{ state_attr(in_reference, 'longitude') if in_reference else none }}"
+
+  # --- the live report -----------------------------------------------------
+  area: "{{ trigger.event.data.area if is_live else '' }}"
+  report_id: "{{ trigger.event.data.id if is_live else '' }}"
+  type: "{{ trigger.event.data.type if is_live else '' }}"
+  type_name: "{{ trigger.event.data.type_name | default('', true) if is_live else '' }}"
+  summary: "{{ trigger.event.data.summary | default('', true) if is_live else '' }}"
+  description: "{{ trigger.event.data.description | default('', true) if is_live else '' }}"
+  road: "{{ trigger.event.data.road | default('', true) if is_live else '' }}"
+  from: "{{ trigger.event.data['from'] | default('', true) if is_live else '' }}"
+  to: "{{ trigger.event.data.to | default('', true) if is_live else '' }}"
+  delay_minutes: "{{ trigger.event.data.delay_minutes | default(0, true) if is_live else 0 }}"
+  magnitude: "{{ trigger.event.data.magnitude | default('', true) if is_live else '' }}"
+  latitude: "{{ trigger.event.data.latitude if is_live else '' }}"
+  longitude: "{{ trigger.event.data.longitude if is_live else '' }}"
+  unit: "{{ trigger.event.data.distance_unit | default('km', true) if is_live else '' }}"
+
+  # --- the digest ----------------------------------------------------------
+  all_reports: >-
+    {%- set ns = namespace(rows=[]) -%}
+    {%- if not is_live -%}
+    {%- for s in states.geo_location -%}
+    {%- set src = s.attributes.source | default('', true) -%}
+    {%- if src.startswith('tomtom_') and s.state not in ['unavailable', 'unknown'] -%}
+    {%- set a = s.attributes.area | default('', true) -%}
+    {%- set t = s.attributes.type | default('', true) -%}
+    {%- set dm = s.attributes.delay_minutes | default(0, true) | int(0) -%}
+    {%- set d = ((distance(ref_lat | float, ref_lng | float,
+                           s.attributes.latitude | float,
+                           s.attributes.longitude | float) or 0) | round(1))
+                if ref_lat is not none else (s.state | float(9999)) -%}
+    {%- if (not area_names or a in area_names)
+           and (not in_types or t in in_types)
+           and (in_min_delay | int(0) == 0 or dm >= in_min_delay | int(0))
+           and (in_radius | float(0) == 0 or d <= in_radius | float(0)) -%}
+    {%- set ns.rows = ns.rows + [{
+          'area': a,
+          'report_id': s.attributes.id | default('', true),
+          'type': t,
+          'type_name': s.attributes.type_name | default('', true),
+          'summary': s.attributes.summary | default('', true),
+          'description': s.attributes.description | default('', true),
+          'road': s.attributes.road | default('', true),
+          'from': s.attributes['from'] | default('', true),
+          'to': s.attributes.to | default('', true),
+          'delay_minutes': dm,
+          'magnitude': s.attributes.magnitude | default('', true),
+          'latitude': s.attributes.latitude,
+          'longitude': s.attributes.longitude,
+          'distance': d,
+          'unit': s.attributes.unit_of_measurement | default('km', true),
+          'entity_id': s.entity_id
+        }] -%}
+    {%- endif -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- endif -%}
+    {{ ns.rows | sort(attribute='distance') | list }}
+  reports: "{{ all_reports[: in_digest_max | int(10)] }}"
+  count: "{{ reports | count }}"
+  areas_found: "{{ reports | map(attribute='area') | unique | join(', ') }}"
+
+  # The live alert's distance comes after the digest on purpose: it shares
+  # its name with the distance() function the digest measures with, and a
+  # variable rendered before it would shadow that function.
+  distance: >-
+    {%- if is_live and ref_lat is not none -%}
+    {{ (distance(ref_lat | float, ref_lng | float,
+                 latitude | float, longitude | float) or 0) | round(1) }}
+    {%- elif is_live -%}{{ trigger.event.data.distance | default('unknown', true) }}{%- else -%}{%- endif -%}
+
+  # --- whether this run has anything to say --------------------------------
+  in_window: >-
+    {%- set f = in_live_from -%}
+    {%- set t = in_live_to -%}
+    {%- if f == t -%}{{ true }}
+    {%- else -%}
+    {%- set n = now().strftime('%H:%M:%S') -%}
+    {{ (f <= n < t) if f < t else (n >= f or n < t) }}
+    {%- endif -%}
+  live_passes: >-
+    {{ is_live and in_live_enabled and in_window
+       and (not area_names or area in area_names)
+       and (not in_types or type in in_types)
+       and (in_min_delay | int(0) == 0 or (delay_minutes | int(0)) >= in_min_delay | int(0))
+       and (in_radius | float(0) == 0 or distance == 'unknown'
+            or distance | float(9999) <= in_radius | float(0)) }}
+
+  # --- the finished text ---------------------------------------------------
+  digest_empty_text: !input digest_empty
+  live_title: !input alert_title
+  live_message: !input alert_message
+  digest_title_text: !input digest_title
+  digest_body: !input digest_message
+  notify_title: "{{ live_title if is_live else digest_title_text }}"
+  notify_message: >-
+    {{ live_message if is_live
+       else (digest_body if count | int(0) > 0 else digest_empty_text) }}
+
+conditions:
+  - condition: template
+    value_template: >-
+      {{ live_passes if is_live
+         else (count | int(0) > 0 or digest_empty_text | trim != '') }}
+
+actions:
+  - repeat:
+      for_each: !input notify_devices
+      sequence:
+        - action: >-
+            notify.mobile_app_{{ device_attr(repeat.item, 'name') | slugify }}
+          data:
+            title: "{{ notify_title }}"
+            message: "{{ notify_message }}"
+  - choose:
+      - conditions: "{{ in_show_notifications }}"
+        sequence:
+          - action: persistent_notification.create
+            data:
+              title: "{{ notify_title }}"
+              message: "{{ notify_message }}"
+              notification_id: >-
+                tomtom_{{ report_id if is_live else 'digest' }}
+  - choose:
+      - conditions: "{{ in_dashboard_helper | trim != '' }}"
+        sequence:
+          - action: input_text.set_value
+            target:
+              entity_id: "{{ in_dashboard_helper }}"
+            data:
+              value: >-
+                {{ (notify_title ~ ' - ' ~ notify_message)
+                   | replace('\n', ' ')
+                   | truncate(state_attr(in_dashboard_helper, 'max') | int(255),
+                              true, '') }}
+  - choose:
+      - conditions: "{{ in_tts_engine | trim != '' }}"
+        sequence:
+          - repeat:
+              for_each: !input tts_media_players
+              sequence:
+                - action: tts.speak
+                  target:
+                    entity_id: "{{ in_tts_engine }}"
+                  data:
+                    media_player_entity_id: "{{ repeat.item }}"
+                    message: "{{ notify_title }}. {{ notify_message }}"
+                  continue_on_error: true
+                - wait_template: >-
+                    {{ is_state(repeat.item, 'idle') or is_state(repeat.item, 'off') }}
+                  timeout: "00:00:20"
+                  continue_on_timeout: true
+  - sequence: !input user_actions

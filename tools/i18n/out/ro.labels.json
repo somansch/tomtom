@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Ambuteiaj",
+    "lane_closed": "Bandă închisă",
+    "road_closed": "Drum închis",
+    "road_works": "Lucrări",
+    "accident": "Accident",
+    "broken_down_vehicle": "Vehicul în pană",
+    "dangerous_conditions": "Condiții periculoase",
+    "fog": "Ceață",
+    "rain": "Ploaie",
+    "ice": "Polei",
+    "wind": "Vânt",
+    "flooding": "Inundație",
+    "unknown": "Necunoscut",
+    "camera_fixed": "Radar fix",
+    "camera_mobile": "Radar mobil",
+    "camera_trailer": "Radar pe remorcă",
+    "camera_redlight": "Cameră de semafor",
+    "camera_section": "Control de viteză medie",
+    "check_distance": "Control de distanță",
+    "check_police": "Control polițienesc"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "minor",
+    "moderate": "moderat",
+    "major": "major",
+    "indefinite": "nedefinit"
+  }
+}

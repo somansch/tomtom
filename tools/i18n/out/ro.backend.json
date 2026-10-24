@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Ambuteiaj",
+    "lane_closed": "Bandă închisă",
+    "road_closed": "Drum închis",
+    "road_works": "Lucrări",
+    "accident": "Accident",
+    "broken_down_vehicle": "Vehicul în pană",
+    "dangerous_conditions": "Condiții periculoase",
+    "fog": "Ceață",
+    "rain": "Ploaie",
+    "ice": "Polei",
+    "wind": "Vânt",
+    "flooding": "Inundație",
+    "unknown": "Necunoscut",
+    "camera_fixed": "Radar fix (blitzer.de, Lufop)",
+    "camera_mobile": "Radar mobil (blitzer.de, Lufop)",
+    "camera_trailer": "Radar pe remorcă (blitzer.de)",
+    "camera_redlight": "Cameră de semafor (blitzer.de, Lufop)",
+    "camera_section": "Control de viteză medie (blitzer.de, Lufop)",
+    "check_distance": "Control de distanță (blitzer.de)",
+    "check_police": "Control polițienesc (blitzer.de)"
+  },
+  "days": {
+    "mon": "Luni",
+    "tue": "Marți",
+    "wed": "Miercuri",
+    "thu": "Joi",
+    "fri": "Vineri",
+    "sat": "Sâmbătă",
+    "sun": "Duminică"
+  },
+  "modes": {
+    "area": "📍 Zonă (rază)",
+    "tracker": "📱 Tracker de dispozitiv (rază)",
+    "route_live": "🛣️ Rută (start/destinație, live cu traficul)"
+  },
+  "typeData": {
+    "categories": "Rapoarte"
+  },
+  "optional": {
+    "name": "Setări opționale",
+    "data": {
+      "only_certain": "Doar rapoartele de care TomTom este sigur",
+      "count": "Numărul de rapoarte",
+      "update_interval": "Interval de actualizare (minute, 0 = doar manual)",
+      "new_minutes": "Contează ca nou timp de (minute, 0 = oprit)",
+      "roads": "Doar aceste drumuri (numere de drum separate prin virgulă, de ex. A8, B2)",
+      "blacklist": "Listă neagră (ID-uri de incident separate prin virgulă)"
+    },
+    "description": {
+      "only_certain": "TomTom evaluează fiecare raport: certain, probable, risk_of sau improbable. Un ambuteiaj măsurat din mașinile în mișcare este certain, lucrări anunțate de o administrație a drumurilor probable, raportul singular al unui șofer un risc. Pornit, primele două sunt păstrate; oprit, vin și cele nesigure.",
+      "roads": "Doar rapoartele pe care TomTom le înregistrează sub unul dintre aceste numere de drum, A8 sau B2 - autostrăzile unei navete fără fiecare stradă laterală de pe parcurs. Majusculele și spațiile nu contează. Gol păstrează fiecare drum.",
+      "blacklist": "Rapoarte de lăsat deoparte, după id-ul de incident TomTom - atributul id sau short_id al entității unui raport, afișat în detaliile lui. Aplicațiile proprii TomTom nu îl afișează."
+    }
+  },
+  "budgetArea": "Fiecare interogare este o cerere Incident Details (una în plus la fiecare 10.000 km² de căutare), iar o cheie gratuită are 2.500 dintre ele pe lună: la ora implicită o zonă consumă aproximativ 720.",
+  "budgetRoute": "În orele ei, fiecare interogare este o cerere Routing, din 20.000 gratuite pe lună; rapoartele de pe rută vin odată cu ea, iar Incident Details este întrebat o dată pentru fiecare raport nou pentru restul a ce este de aflat.",
+  "entities": {
+    "sensor": {
+      "report_count": "Rapoarte",
+      "travel_time": "Timp de călătorie",
+      "traffic_delay": "Întârziere din trafic",
+      "route_length": "Lungimea rutei",
+      "requests": "Cereri TomTom luna aceasta",
+      "requests_total": "Toate cererile luna aceasta",
+      "requests_incidents": "Incident Details luna aceasta",
+      "requests_routing": "Routing luna aceasta",
+      "requests_geocoding": "Geocoding luna aceasta",
+      "requests_reverse_geocoding": "Reverse Geocoding luna aceasta",
+      "requests_search": "Căutare luna aceasta",
+      "requests_tiles": "Dale de flux luna aceasta",
+      "requests_blitzer": "blitzer.de luna aceasta",
+      "requests_lufop": "Lufop azi"
+    },
+    "number": {
+      "new_minutes": "Nou timp de"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Cotă în pericol"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "Configurare TomTom",
+      "description": "Dă un nume acestei intrări și alege cum să caute. O zonă sau un tracker citește incidentele de trafic TomTom din cercul său; o rută de la start la destinație este calculată de TomTom la fiecare interogare, cu traficul de moment, și raportează ce traversează.",
+      "data": {
+        "name": "Nume afișat",
+        "search_mode": "Mod de căutare"
+      }
+    },
+    "key": {
+      "title": "Cheie API TomTom",
+      "description": "Tot ce este aici vine de la TomTom, care are nevoie de o cheie API - gratuită, fără metodă de plată:\n\n1. Înregistrează-te pe [developer.tomtom.com]({url}).\n2. Imediat după aceea, **API & SDK Keys** din panoul de control afișează deja o cheie, *My First API key*, cu fiecare API activat - Traffic API, Routing API și Search API printre ele, cele folosite aici. Copiaz-o cu butonul de lângă ea.\n3. Lipește-o aici.\n\nO singură cheie servește fiecare intrare a acestui Home Assistant. Dacă una este deja salvată, lasă câmpul gol pentru a o păstra.",
+      "data": {
+        "api_key": "Cheie API"
+      }
+    },
+    "area": {
+      "title": "Zonă (rază)",
+      "description": "Alege cercul în care sunt afișate rapoartele TomTom - până la 50 km în jurul centrului său, cea mai mare suprafață la care TomTom răspunde într-o singură cerere. ",
+      "data": {
+        "location": "Zonă"
+      }
+    },
+    "tracker": {
+      "title": "Tracker de dispozitiv (rază)",
+      "description": "Alege trackerul de dispozitiv de urmărit și cât de larg să fie cercul de căutare din jurul lui. Sunt listate doar trackerele care raportează coordonate în acest moment - unul care știe doar acasă și plecat nu are o poziție în jurul căreia să se pună un cerc. ",
+      "data": {
+        "tracker": "Tracker de dispozitiv",
+        "tracker_radius": "Rază (metri)"
+      }
+    },
+    "route_start": {
+      "title": "Start",
+      "description": "De unde pornește ruta?",
+      "menu": {
+        "route_start_zone": "Zonă",
+        "route_start_point": "Punct pe hartă",
+        "route_start_address": "Adresă"
+      }
+    },
+    "route_start_zone": {
+      "title": "Start: zonă",
+      "data": {
+        "zone": "Zonă"
+      }
+    },
+    "route_start_point": {
+      "title": "Start: punct pe hartă",
+      "description": "Mută harta astfel încât marcatorul să stea pe start.",
+      "data": {
+        "location": "Start"
+      }
+    },
+    "route_start_address": {
+      "title": "Start: adresă",
+      "description": "Strada și localitatea.",
+      "data": {
+        "address": "Adresă"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Start: adresă găsită",
+      "description": "Găsit: **{label}**\n\nDacă nu este locul pe care l-ai avut în vedere, corectează adresa și continuă - va fi căutată din nou.",
+      "data": {
+        "address": "Adresă"
+      }
+    },
+    "route_destination": {
+      "title": "Destinație",
+      "description": "Unde se termină ruta?",
+      "menu": {
+        "route_destination_zone": "Zonă",
+        "route_destination_point": "Punct pe hartă",
+        "route_destination_address": "Adresă"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Destinație: zonă",
+      "data": {
+        "zone": "Zonă"
+      }
+    },
+    "route_destination_point": {
+      "title": "Destinație: punct pe hartă",
+      "description": "Mută harta astfel încât marcatorul să stea pe destinație.",
+      "data": {
+        "location": "Destinație"
+      }
+    },
+    "route_destination_address": {
+      "title": "Destinație: adresă",
+      "description": "Strada și localitatea.",
+      "data": {
+        "address": "Adresă"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Destinație: adresă găsită",
+      "description": "Găsit: **{label}**\n\nDacă nu este locul pe care l-ai avut în vedere, corectează adresa și continuă - va fi căutată din nou.",
+      "data": {
+        "address": "Adresă"
+      }
+    },
+    "route_vias": {
+      "title": "Puncte intermediare",
+      "description": "De la {start} la {destination}, {count} puncte intermediare până acum. TomTom ia cel mai rapid drum între ele - adaugă un punct intermediar oriunde drumul tău obișnuit diferă.",
+      "menu": {
+        "route_via": "Adaugă un punct intermediar",
+        "route_vias_clear": "Elimină toate punctele intermediare",
+        "route_review": "Calculează ruta"
+      }
+    },
+    "route_via": {
+      "title": "Punct intermediar {count}",
+      "description": "Mută harta astfel încât marcatorul să stea pe un drum pe care ruta ar trebui să îl urmeze.",
+      "data": {
+        "location": "Punct intermediar"
+      }
+    },
+    "route_review": {
+      "title": "Ruta ta, în acest moment",
+      "description": "{start} → {destination}, {vias} puncte intermediare: {distance}, aproximativ {duration} min în acest moment, din care {delay} min întârziere. Ruta este calculată din nou la fiecare interogare; harta arată varianta pe care traficul o face cea mai rapidă în acest moment. ",
+      "data": {
+        "return_route": "Creează și drumul de întoarcere",
+        "return_name": "Numele drumului de întoarcere",
+        "live_days": "Zilele în care ruta este ținută la zi",
+        "live_from": "De la",
+        "live_until": "Până la",
+        "live_back_from": "De la (întoarcere)",
+        "live_back_until": "Până la (întoarcere)"
+      },
+      "data_description": {
+        "return_route": "O a doua intrare, de la destinație la start - pe autostradă drumul de întoarcere este celălalt sens, iar un ambuteiaj pe unul nu este unul pe celălalt. Numită după această intrare, cu „retur” adăugat.",
+        "return_name": "Folosit doar când este creat drumul de întoarcere. Completat cu numele acestei intrări și „retur” adăugat; scrie altceva pentru a-i da alt nume - „Acasă” și „Serviciu”, de exemplu."
+      }
+    },
+    "route_failed": {
+      "title": "Nicio rută",
+      "description": "Continuă pentru a schimba punctele."
+    },
+    "init": {
+      "title": "Ce vrei să modifici?",
+      "menu": {
+        "edit_route": "Schimbă ruta (start, destinație, puncte intermediare)",
+        "edit_route_settings": "Modifică setările de căutare (ore, tipuri, filtre)",
+        "edit_key": "Schimbă cheia API",
+        "route_defaults": "Valori implicite pentru rutele noi",
+        "quota_warning": "Avertizare de cotă",
+        "sources": "Surse de date"
+      }
+    },
+    "route_defaults": {
+      "title": "Valori implicite pentru rutele noi",
+      "description": "Cu ce pornește fiecare rută nouă: pe card, o rută planificată acolo este salvată imediat cu aceste setări; în asistentul de configurare sunt completate în prealabil și pot fi încă schimbate. Zilele și orele sunt cele în care ruta este ținută la zi, iar drumul de întoarcere poate fi creat odată cu ea - parcurs la altă oră a zilei, cu orele lui proprii.",
+      "data": {
+        "default_start": "Start pentru rutele planificate pe card (opțional)"
+      }
+    },
+    "quota_warning": {
+      "title": "Avertizare de cotă",
+      "description": "Când cererile unei API se împuținează, o reparație o semnalează, iar senzorul **Cotă în pericol** de pe TomTom General se activează.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "Din a opta zi a lunii, cererile de până atunci sunt proiectate până la sfârșitul lunii. Se numără ce cere această integrare; o cheie folosită și în altă parte are un număr mai mare la TomTom.",
+          "data": {
+            "quota_warning": "Avertizează când nivelul gratuit nu ajunge pentru toată luna",
+            "quota_threshold": "Avertizează de la această parte a nivelului gratuit"
+          },
+          "data_description": {
+            "quota_threshold": "100 % avertizează când nivelul însuși va fi depășit, 80 % deja la patru cincimi din el."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop numără pe zi, de la miezul nopții la miezul nopții UTC, inclusiv tot ce folosește cheia. Se aplică cât timp Lufop este pornit în Surse de date.",
+          "data": {
+            "lufop_quota_warning": "Avertizează când cererile zilei se împuținează sau se epuizează",
+            "lufop_quota_threshold": "Avertizează de la această parte a cererilor zilei"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "Prima avertizare vine la această parte; a doua când toate sunt folosite."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Surse de date",
+      "description": "Alte surse de rapoarte pe lângă TomTom, pentru toate intrările deodată. O sursă adaugă doar ce TomTom nu are, sub tipuri proprii în lista fiecărei intrări, așa că niciun raport nu apare de două ori.\n\n**blitzer.de** raportează radare și controale de trafic, fixe și mobile, în Germania și în țările vecine. Fără cheie și fără cont; citește ce citește harta proprie a site-ului, lucru pe care blitzer.de nu l-a publicat ca API și îl poate schimba sau închide. Fiecare cerere este numărată la **blitzer.de luna aceasta**.\n\n**Lufop** raportează radare, fixe, mobile și de semafor, și controale de viteză medie, din baza sa de date de radare - o API documentată cu o cheie personală gratuită de la [api.lufop.net](https://api.lufop.net/). O cerere răspunde pentru o singură țară; planul gratuit acoperă Franța, Belgia și Elveția, 200 de cereri pe zi și 200 de radare pe cerere. Fiecare cerere este numărată la **Lufop azi**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Cheie API Lufop",
+        "lufop_country": "Lufop: țară"
+      },
+      "data_description": {
+        "lufop_api_key": "Verificată când este introdusă și când Lufop este pornit; una deja salvată se păstrează lăsând câmpul gol.",
+        "lufop_country": "Singura țară pentru care fiecare intrare întreabă Lufop - planul gratuit permite Franța, Belgia și Elveția."
+      }
+    },
+    "first": {
+      "title": "TomTom este configurat",
+      "description": "Cheia este salvată, iar valorile implicite pentru rutele noi sunt păstrate în intrarea **TomTom Setări** - opțiunea ei Configurare le schimbă pe amândouă mai târziu. Termină acum și adaugă prima zonă, primul tracker sau prima rută oricând dorești din **Adaugă intrare** al integrării TomTom, sau creeaz-o chiar acum.",
+      "menu": {
+        "finish": "Finalizează configurarea",
+        "add_entry": "Adaugă acum prima zonă, primul tracker sau prima rută"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom este deja configurat pentru acest nume. Alege altul.",
+    "location_missing": "Te rugăm să selectezi o poziție (mută harta).",
+    "no_tracker_with_position": "Niciun tracker de dispozitiv nu raportează o poziție în acest moment. Acest mod are nevoie de unul care trimite coordonate - un tracker care știe doar acasă și plecat nu poate centra o rază."
+  },
+  "error": {
+    "radius_too_large": "Raza poate fi de cel mult 50 km - cea mai mare suprafață la care TomTom răspunde într-o singură cerere.",
+    "invalid_api_key": "TomTom nu a acceptat cheia API.",
+    "quota_exceeded": "Cota cheii la TomTom este epuizată deocamdată. Încearcă din nou mai târziu.",
+    "address_not_found": "Nu s-a găsit niciun loc pentru această adresă.",
+    "point_not_routable": "Unul dintre puncte este prea departe de un drum. Mută-l mai aproape de unul.",
+    "no_route": "TomTom nu a găsit niciun drum care să lege aceste puncte.",
+    "route_too_long": "Ruta este prea lungă pentru TomTom sau are prea multe puncte.",
+    "return_name_taken": "O intrare cu acest nume există deja - inclusiv aceasta.",
+    "cannot_connect": "TomTom nu a putut fi contactat.",
+    "zone_without_position": "Această zonă nu are poziție.",
+    "api_key_required": "Introdu o cheie API.",
+    "lufop_key_required": "Lufop are nevoie de cheia sa API pentru a fi pornit.",
+    "invalid_lufop_key": "Lufop nu a acceptat cheia API.",
+    "lufop_cannot_connect": "Lufop nu a putut fi contactat. Cheia nu a fost verificată - încearcă din nou mai târziu.",
+    "lufop_refused": "Lufop a refuzat cererea fără să refuze cheia. Cererile zilei ar putea fi epuizate - încearcă din nou după miezul nopții UTC sau verifică cheia în panoul tău Lufop.",
+    "lufop_busy": "Limita Lufop de 10 cereri pe minut a fost atinsă. Încearcă din nou peste un minut."
+  },
+  "service": {
+    "name": "Reîmprospătare",
+    "description": "Preia imediat cele mai noi rapoarte pentru o zonă, rută sau un tracker TomTom, în loc să aștepte următoarea interogare programată - iar pentru o rută live, mai întâi ruta însăși. Returnează rapoartele.",
+    "field": {
+      "name": "Zonă, rută sau tracker",
+      "description": "Ce zonă, rută sau tracker TomTom să fie reîmprospătat."
+    }
+  },
+  "issue": {
+    "title": "{name} nu livrează",
+    "description": "Intrarea TomTom **{name}** a eșuat la {count} interogări la rând, așa că entitățile ei sunt indisponibile. Ultimul motiv:\n\n`{reason}`\n\nUn tracker fără poziție sau o entitate de tracker care nu mai există se rezolvă din **Configurare** pe intrare; o cheie refuzată din **Configurare** pe intrarea TomTom Setări; dacă TomTom însuși nu poate fi contactat, aceasta se rezolvă singură de îndată ce poate. Această reparație dispare la următoarea interogare reușită."
+  },
+  "quotaIssue": {
+    "title": "Cota {api} nu va ajunge pentru toată luna",
+    "description": "{used} din {tier} cereri **{api}** gratuite după {days} zile; în acest ritm aproximativ **{projected}** până la sfârșitul lunii, peste {percent} % din nivel.\n\nMai puține interogări ajută: un interval de actualizare mai lung, ore mai restrânse pe o rută, fluxul de trafic pe mai puține carduri.\n\nAceasta dispare când ritmul scade sub partea setată în TomTom Setări → Configurare → Avertizare de cotă → TomTom, și odată cu noua lună."
+  },
+  "quotaDayIssue": {
+    "title": "Cererile {api} ale zilei sunt aproape epuizate",
+    "description": "{used} din cele {tier} cereri pe zi permise de planul **{api}** sunt folosite.\n\nCererile zilei sunt împărțite de toate intrările acestei instalări - și de orice altceva folosește aceeași cheie. Mai puține interogări ajută: un interval de actualizare mai lung, ore mai restrânse pe o rută sau Lufop oprit pentru intrările aflate în afara țării sale.\n\nAceasta dispare la miezul nopții UTC, când se schimbă ziua Lufop, sau când partea setată în TomTom Setări → Configurare → Avertizare de cotă → Lufop este mărită."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "Cererile {api} ale zilei sunt epuizate",
+    "description": "Toate cele {tier} cereri pe zi ale planului **{api}** sunt folosite - Lufop numără tot ce folosește aceeași cheie. Refuză alte cereri până la miezul nopții UTC - aici la {reset}.\n\nMai puține interogări ajută mâine: un interval de actualizare mai lung, ore mai restrânse pe o rută sau Lufop oprit pentru intrările din afara țării sale."
+  },
+  "device": {
+    "general": "TomTom General",
+    "settings": "TomTom Setări"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Australia",
+    "be": "Belgia",
+    "bg": "Bulgaria",
+    "ca": "Canada",
+    "cz": "Cehia",
+    "fi": "Finlanda",
+    "fr": "Franța",
+    "de": "Germania",
+    "ie": "Irlanda",
+    "it": "Italia",
+    "lv": "Letonia",
+    "lu": "Luxemburg",
+    "ma": "Maroc",
+    "nl": "Țările de Jos",
+    "nz": "Noua Zeelandă",
+    "no": "Norvegia",
+    "pl": "Polonia",
+    "pt": "Portugalia",
+    "es": "Spania",
+    "se": "Suedia",
+    "ch": "Elveția",
+    "ae": "Emiratele Arabe Unite",
+    "gb": "Regatul Unit"
+  }
+}

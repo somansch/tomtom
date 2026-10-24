@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Kö",
+    "lane_closed": "Körfält avstängt",
+    "road_closed": "Väg avstängd",
+    "road_works": "Vägarbete",
+    "accident": "Olycka",
+    "broken_down_vehicle": "Stillastående fordon",
+    "dangerous_conditions": "Farliga förhållanden",
+    "fog": "Dimma",
+    "rain": "Regn",
+    "ice": "Halka",
+    "wind": "Vind",
+    "flooding": "Översvämning",
+    "unknown": "Okänt",
+    "camera_fixed": "Fast fartkamera (blitzer.de, Lufop)",
+    "camera_mobile": "Mobil fartkamera (blitzer.de, Lufop)",
+    "camera_trailer": "Fartkamera på släp (blitzer.de)",
+    "camera_redlight": "Rödljuskamera (blitzer.de, Lufop)",
+    "camera_section": "Sträckmätning (blitzer.de, Lufop)",
+    "check_distance": "Avståndskontroll (blitzer.de)",
+    "check_police": "Poliskontroll (blitzer.de)"
+  },
+  "days": {
+    "mon": "Måndag",
+    "tue": "Tisdag",
+    "wed": "Onsdag",
+    "thu": "Torsdag",
+    "fri": "Fredag",
+    "sat": "Lördag",
+    "sun": "Söndag"
+  },
+  "modes": {
+    "area": "📍 Område (radie)",
+    "tracker": "📱 Enhetsspårare (radie)",
+    "route_live": "🛣️ Rutt (start/mål, live med trafiken)"
+  },
+  "typeData": {
+    "categories": "Rapporter"
+  },
+  "optional": {
+    "name": "Valfria inställningar",
+    "data": {
+      "only_certain": "Bara rapporter TomTom är säker på",
+      "count": "Antal rapporter",
+      "update_interval": "Uppdateringsintervall (minuter, 0 = bara manuellt)",
+      "new_minutes": "Räknas som ny i (minuter, 0 = av)",
+      "roads": "Bara dessa vägar (kommaseparerade vägnummer, t.ex. A8, B2)",
+      "blacklist": "Svartlista (kommaseparerade händelse-ID:n)"
+    },
+    "description": {
+      "only_certain": "TomTom betygsätter varje rapport: certain, probable, risk_of eller improbable. En kö mätt från bilar i rörelse är certain, ett vägarbete från en vägmyndighet probable, en enskild förares rapport en risk. På behålls de två första; av kommer de osäkra med också.",
+      "roads": "Bara rapporter TomTom för under något av dessa vägnummer, A8 eller B2 - pendlingens motorvägar utan varje sidogata längs dem. Skiftläge och mellanslag spelar ingen roll. Tomt behåller varje väg.",
+      "blacklist": "Rapporter att utelämna, efter TomToms händelse-id - attributet id eller short_id på en rapports entitet, visat i dess detaljer. TomToms egna appar visar det inte."
+    }
+  },
+  "budgetArea": "Varje hämtning är en Incident Details-förfrågan (en till per 10 000 km² sökyta), och en gratis nyckel har 2 500 sådana i månaden: med standardtimmen förbrukar ett område omkring 720.",
+  "budgetRoute": "Inom sina timmar är varje hämtning en Routing-förfrågan, av 20 000 gratis i månaden; rapporterna på rutten följer med den, och Incident Details frågas en gång per ny rapport om resten av det som finns att veta.",
+  "entities": {
+    "sensor": {
+      "report_count": "Rapporter",
+      "travel_time": "Restid",
+      "traffic_delay": "Trafikfördröjning",
+      "route_length": "Ruttlängd",
+      "requests": "TomTom-förfrågningar den här månaden",
+      "requests_total": "Alla förfrågningar den här månaden",
+      "requests_incidents": "Incident Details den här månaden",
+      "requests_routing": "Routing den här månaden",
+      "requests_geocoding": "Geocoding den här månaden",
+      "requests_reverse_geocoding": "Reverse Geocoding den här månaden",
+      "requests_search": "Sökning den här månaden",
+      "requests_tiles": "Flödesrutor den här månaden",
+      "requests_blitzer": "blitzer.de den här månaden",
+      "requests_lufop": "Lufop i dag"
+    },
+    "number": {
+      "new_minutes": "Ny i"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Kvot i fara"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "Konfigurera TomTom",
+      "description": "Namnge den här posten och välj hur den ska söka. Ett område eller en spårare läser TomToms trafikhändelser i sin cirkel; en rutt från start till mål räknas ut av TomTom vid varje hämtning, med stundens trafik, och rapporterar vad den går igenom.",
+      "data": {
+        "name": "Visningsnamn",
+        "search_mode": "Sökläge"
+      }
+    },
+    "key": {
+      "title": "TomTom API-nyckel",
+      "description": "Allt här kommer från TomTom, som behöver en API-nyckel - gratis, utan betalningsmetod:\n\n1. Registrera dig på [developer.tomtom.com]({url}).\n2. Direkt efteråt listar **API & SDK Keys** i instrumentpanelen redan en nyckel, *My First API key*, med varje API aktiverat - Traffic API, Routing API och Search API bland dem, de som används här. Kopiera den med knappen bredvid.\n3. Klistra in den här.\n\nEn nyckel tjänar varje post i den här Home Assistant. Om en redan är sparad, lämna fältet tomt för att behålla den.",
+      "data": {
+        "api_key": "API-nyckel"
+      }
+    },
+    "area": {
+      "title": "Område (radie)",
+      "description": "Välj cirkeln där TomToms rapporter visas - upp till 50 km runt dess mittpunkt, den största ruta TomTom svarar på i en förfrågan. ",
+      "data": {
+        "location": "Område"
+      }
+    },
+    "tracker": {
+      "title": "Enhetsspårare (radie)",
+      "description": "Välj enhetsspåraren att följa och hur stor cirkel som ska sökas runt den. Bara spårare som just nu rapporterar koordinater listas - en som bara känner till hemma och borta har ingen position att lägga en cirkel runt. ",
+      "data": {
+        "tracker": "Enhetsspårare",
+        "tracker_radius": "Radie (meter)"
+      }
+    },
+    "route_start": {
+      "title": "Start",
+      "description": "Var börjar rutten?",
+      "menu": {
+        "route_start_zone": "Zon",
+        "route_start_point": "Punkt på kartan",
+        "route_start_address": "Adress"
+      }
+    },
+    "route_start_zone": {
+      "title": "Start: zon",
+      "data": {
+        "zone": "Zon"
+      }
+    },
+    "route_start_point": {
+      "title": "Start: punkt på kartan",
+      "description": "Flytta kartan så att markören står på starten.",
+      "data": {
+        "location": "Start"
+      }
+    },
+    "route_start_address": {
+      "title": "Start: adress",
+      "description": "Gata och ort.",
+      "data": {
+        "address": "Adress"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Start: adress hittad",
+      "description": "Hittad: **{label}**\n\nOm det inte är platsen du menade, rätta adressen och fortsätt - den slås upp igen.",
+      "data": {
+        "address": "Adress"
+      }
+    },
+    "route_destination": {
+      "title": "Mål",
+      "description": "Var slutar rutten?",
+      "menu": {
+        "route_destination_zone": "Zon",
+        "route_destination_point": "Punkt på kartan",
+        "route_destination_address": "Adress"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Mål: zon",
+      "data": {
+        "zone": "Zon"
+      }
+    },
+    "route_destination_point": {
+      "title": "Mål: punkt på kartan",
+      "description": "Flytta kartan så att markören står på målet.",
+      "data": {
+        "location": "Mål"
+      }
+    },
+    "route_destination_address": {
+      "title": "Mål: adress",
+      "description": "Gata och ort.",
+      "data": {
+        "address": "Adress"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Mål: adress hittad",
+      "description": "Hittad: **{label}**\n\nOm det inte är platsen du menade, rätta adressen och fortsätt - den slås upp igen.",
+      "data": {
+        "address": "Adress"
+      }
+    },
+    "route_vias": {
+      "title": "Viapunkter",
+      "description": "Från {start} till {destination}, {count} viapunkter hittills. TomTom tar den snabbaste vägen mellan dem - lägg till en viapunkt där din vanliga väg skiljer sig.",
+      "menu": {
+        "route_via": "Lägg till en viapunkt",
+        "route_vias_clear": "Ta bort alla viapunkter",
+        "route_review": "Beräkna rutten"
+      }
+    },
+    "route_via": {
+      "title": "Viapunkt {count}",
+      "description": "Flytta kartan så att markören står på en väg rutten ska ta.",
+      "data": {
+        "location": "Viapunkt"
+      }
+    },
+    "route_review": {
+      "title": "Din rutt, just nu",
+      "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min just nu, varav {delay} min fördröjning. Rutten räknas ut igen vid varje hämtning; kartan visar den som trafiken gör snabbast i det här ögonblicket. ",
+      "data": {
+        "return_route": "Skapa också vägen tillbaka",
+        "return_name": "Namn på vägen tillbaka",
+        "live_days": "Dagar rutten hålls uppdaterad",
+        "live_from": "Från",
+        "live_until": "Till",
+        "live_back_from": "Från (vägen tillbaka)",
+        "live_back_until": "Till (vägen tillbaka)"
+      },
+      "data_description": {
+        "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt.",
+        "return_name": "Används bara när vägen tillbaka skapas. Fylls i med den här postens namn och \"retur\" tillagt; skriv ett annat för att kalla den något annat - \"Hem\" och \"Jobbet\", till exempel."
+      }
+    },
+    "route_failed": {
+      "title": "Ingen rutt",
+      "description": "Fortsätt för att ändra punkterna."
+    },
+    "init": {
+      "title": "Vad vill du redigera?",
+      "menu": {
+        "edit_route": "Ändra rutten (start, mål, viapunkter)",
+        "edit_route_settings": "Redigera sökinställningar (timmar, typer, filter)",
+        "edit_key": "Byt API-nyckel",
+        "route_defaults": "Standardvärden för nya rutter",
+        "quota_warning": "Kvotvarning",
+        "sources": "Datakällor"
+      }
+    },
+    "route_defaults": {
+      "title": "Standardvärden för nya rutter",
+      "description": "Vad varje ny rutt börjar med: på kortet sparas en rutt som planeras där direkt med de här inställningarna; i guiden fylls de i och kan fortfarande ändras. Dagarna och timmarna är de som rutten hålls uppdaterad i, och vägen tillbaka kan skapas tillsammans med den - körd vid en annan tid på dygnet, med egna timmar.",
+      "data": {
+        "default_start": "Start för rutter som planeras på kortet (valfritt)"
+      }
+    },
+    "quota_warning": {
+      "title": "Kvotvarning",
+      "description": "När ett API:s förfrågningar börjar ta slut säger en reparation det, och sensorn **Kvot i fara** på TomTom Allmänt slås på.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "Från månadens åttonde dag räknas förfrågningarna hittills fram till månadens slut. Det som räknas är vad den här integrationen frågar efter; en nyckel som också används på annat håll står högre hos TomTom.",
+          "data": {
+            "quota_warning": "Varna när den gratis kvoten inte räcker månaden ut",
+            "quota_threshold": "Varna från den här andelen av den gratis kvoten"
+          },
+          "data_description": {
+            "quota_threshold": "100 % varnar när själva kvoten överskrids, 80 % redan vid fyra femtedelar av den."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop räknar per dygn, midnatt till midnatt UTC, allt som använder nyckeln inräknat. Gäller medan Lufop är på under Datakällor.",
+          "data": {
+            "lufop_quota_warning": "Varna när dagens förfrågningar börjar ta slut eller är slut",
+            "lufop_quota_threshold": "Varna från den här andelen av dagens förfrågningar"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "Den första varningen kommer vid den här andelen; en andra när alla är använda."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Datakällor",
+      "description": "Ytterligare källor till rapporter utöver TomTom, för alla poster på en gång. En källa lägger bara till det som TomTom inte har, under egna typer i varje posts lista, så att ingen rapport står där två gånger.\n\n**blitzer.de** rapporterar fartkameror och trafikkontroller, fasta och mobila, i Tyskland och grannländerna. Ingen nyckel och inget konto; den läser vad webbplatsens egen karta läser, vilket blitzer.de inte har publicerat som ett API och kan ändra eller stänga. Varje förfrågan räknas under **blitzer.de den här månaden**.\n\n**Lufop** rapporterar fartkameror, fasta, mobila och rödljus, och sträckmätningar från sin radardatabas - ett dokumenterat API med en gratis personlig nyckel från [api.lufop.net](https://api.lufop.net/). En förfrågan besvarar ett land; gratisplanen täcker Frankrike, Belgien och Schweiz, 200 förfrågningar per dag och 200 radar per förfrågan. Varje förfrågan räknas under **Lufop i dag**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop API-nyckel",
+        "lufop_country": "Lufop: land"
+      },
+      "data_description": {
+        "lufop_api_key": "Kontrolleras när den anges och när Lufop slås på; en redan sparad behålls genom att lämna fältet tomt.",
+        "lufop_country": "Det enda land som varje post frågar Lufop om - gratisplanen tillåter Frankrike, Belgien och Schweiz."
+      }
+    },
+    "first": {
+      "title": "TomTom är konfigurerat",
+      "description": "Nyckeln är sparad, och standardvärdena för nya rutter finns under posten **TomTom Inställningar** - dess Konfigurera ändrar båda senare. Slutför nu och lägg till det första området, den första spåraren eller rutten från TomTom-rutans egen **Lägg till post** när du vill, eller skapa den direkt.",
+      "menu": {
+        "finish": "Slutför konfigurationen",
+        "add_entry": "Lägg till det första området, den första spåraren eller rutten nu"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom är redan konfigurerad för det här namnet. Välj ett annat.",
+    "location_missing": "Välj en position (flytta kartan).",
+    "no_tracker_with_position": "Ingen enhetsspårare rapporterar en position just nu. Det här läget behöver en som skickar koordinater - en spårare som bara känner till hemma och borta kan inte centrera en radie."
+  },
+  "error": {
+    "radius_too_large": "Radien får vara högst 50 km - den största ruta TomTom svarar på i en förfrågan.",
+    "invalid_api_key": "TomTom godtog inte API-nyckeln.",
+    "quota_exceeded": "Nyckelns kvot hos TomTom är förbrukad för tillfället. Försök igen senare.",
+    "address_not_found": "Ingen plats hittades för den här adressen.",
+    "point_not_routable": "En av punkterna ligger för långt från en väg. Flytta den närmare en.",
+    "no_route": "TomTom hittade ingen väg som förbinder de här punkterna.",
+    "route_too_long": "Rutten är för lång för TomTom, eller har för många punkter.",
+    "return_name_taken": "En post med det namnet finns redan - den här inräknad.",
+    "cannot_connect": "TomTom kunde inte nås.",
+    "zone_without_position": "Den här zonen har ingen position.",
+    "api_key_required": "Ange en API-nyckel.",
+    "lufop_key_required": "Lufop behöver sin API-nyckel för att slås på.",
+    "invalid_lufop_key": "Lufop godtog inte API-nyckeln.",
+    "lufop_cannot_connect": "Lufop kunde inte nås. Nyckeln kontrollerades inte - försök igen senare.",
+    "lufop_refused": "Lufop avvisade förfrågan utan att avvisa nyckeln. Dagens förfrågningar kan vara förbrukade - försök igen efter midnatt UTC, eller kontrollera nyckeln på din Lufop-instrumentpanel.",
+    "lufop_busy": "Lufops gräns på 10 förfrågningar per minut har nåtts. Försök igen om en minut."
+  },
+  "service": {
+    "name": "Uppdatera",
+    "description": "Hämta genast de senaste rapporterna för ett TomTom-område, en rutt eller en spårare, i stället för att vänta på nästa schemalagda hämtning - och, för en live-rutt, själva rutten först. Returnerar rapporterna.",
+    "field": {
+      "name": "Område, rutt eller spårare",
+      "description": "Vilket TomTom-område, vilken rutt eller vilken spårare som ska uppdateras."
+    }
+  },
+  "issue": {
+    "title": "{name} levererar inte",
+    "description": "TomTom-posten **{name}** har misslyckats med {count} hämtningar i rad, så dess entiteter är otillgängliga. Senaste orsaken:\n\n`{reason}`\n\nEn spårare utan position, eller en spårarentitet som inte längre finns, åtgärdas under postens **Konfigurera**; en avvisad nyckel under **Konfigurera** på posten TomTom Inställningar; om TomTom självt inte kan nås försvinner det här av sig självt så snart det går igen. Den här reparationen försvinner med nästa hämtning som lyckas."
+  },
+  "quotaIssue": {
+    "title": "{api}-kvoten räcker inte månaden ut",
+    "description": "{used} av {tier} gratis **{api}**-förfrågningar efter {days} dagar; i den här takten omkring **{projected}** vid månadens slut, mer än {percent} % av kvoten.\n\nFärre hämtningar hjälper: ett längre uppdateringsintervall, snävare timmar för en rutt, trafikflödet på färre kort.\n\nDet här försvinner när takten sjunker under andelen som är inställd under TomTom Inställningar → Konfigurera → Kvotvarning → TomTom, och med den nya månaden."
+  },
+  "quotaDayIssue": {
+    "title": "Dagens {api}-förfrågningar är nästan förbrukade",
+    "description": "{used} av de {tier} förfrågningar per dag som **{api}**-planen tillåter är använda.\n\nDagens förfrågningar delas av varje post i den här installationen - och av allt annat som använder samma nyckel. Färre hämtningar hjälper: ett längre uppdateringsintervall, snävare timmar för en rutt, eller Lufop avstängt för de poster som ligger utanför dess land.\n\nDet här försvinner vid midnatt UTC, när Lufops dygn slår om, eller när andelen som är inställd under TomTom Inställningar → Konfigurera → Kvotvarning → Lufop höjs."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "Dagens {api}-förfrågningar är förbrukade",
+    "description": "Alla {tier} förfrågningar per dag i **{api}**-planen är använda - Lufop räknar allt som använder samma nyckel. Den avvisar fler förfrågningar fram till midnatt UTC - {reset} här.\n\nFärre hämtningar hjälper i morgon: ett längre uppdateringsintervall, snävare timmar för en rutt, eller Lufop avstängt för posterna utanför dess land."
+  },
+  "device": {
+    "general": "TomTom Allmänt",
+    "settings": "TomTom Inställningar"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Australien",
+    "be": "Belgien",
+    "bg": "Bulgarien",
+    "ca": "Kanada",
+    "cz": "Tjeckien",
+    "fi": "Finland",
+    "fr": "Frankrike",
+    "de": "Tyskland",
+    "ie": "Irland",
+    "it": "Italien",
+    "lv": "Lettland",
+    "lu": "Luxemburg",
+    "ma": "Marocko",
+    "nl": "Nederländerna",
+    "nz": "Nya Zeeland",
+    "no": "Norge",
+    "pl": "Polen",
+    "pt": "Portugal",
+    "es": "Spanien",
+    "se": "Sverige",
+    "ch": "Schweiz",
+    "ae": "Förenade Arabemiraten",
+    "gb": "Storbritannien"
+  }
+}

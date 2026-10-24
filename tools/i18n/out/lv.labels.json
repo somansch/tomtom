@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Sastrēgums",
+    "lane_closed": "Slēgta josla",
+    "road_closed": "Slēgts ceļš",
+    "road_works": "Ceļa darbi",
+    "accident": "Avārija",
+    "broken_down_vehicle": "Sabojājies transportlīdzeklis",
+    "dangerous_conditions": "Bīstami apstākļi",
+    "fog": "Migla",
+    "rain": "Lietus",
+    "ice": "Apledojums",
+    "wind": "Vējš",
+    "flooding": "Plūdi",
+    "unknown": "Nezināms",
+    "camera_fixed": "Stacionārs ātruma radars",
+    "camera_mobile": "Mobilais ātruma radars",
+    "camera_trailer": "Ātruma radara piekabe",
+    "camera_redlight": "Sarkanās gaismas kamera",
+    "camera_section": "Vidējā ātruma kontrole",
+    "check_distance": "Distances pārbaude",
+    "check_police": "Policijas pārbaude"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "neliels",
+    "moderate": "mērens",
+    "major": "liels",
+    "indefinite": "nenoteikts"
+  }
+}

@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "渋滞",
+    "lane_closed": "車線規制",
+    "road_closed": "通行止め",
+    "road_works": "道路工事",
+    "accident": "事故",
+    "broken_down_vehicle": "故障車",
+    "dangerous_conditions": "危険な状況",
+    "fog": "霧",
+    "rain": "雨",
+    "ice": "凍結",
+    "wind": "強風",
+    "flooding": "冠水",
+    "unknown": "不明",
+    "camera_fixed": "固定式速度取締機（blitzer.de、Lufop）",
+    "camera_mobile": "移動式速度取締機（blitzer.de、Lufop）",
+    "camera_trailer": "トレーラー型速度取締機（blitzer.de）",
+    "camera_redlight": "信号無視取締機（blitzer.de、Lufop）",
+    "camera_section": "区間速度取締（blitzer.de、Lufop）",
+    "check_distance": "車間距離取締り（blitzer.de）",
+    "check_police": "警察の検問（blitzer.de）"
+  },
+  "days": {
+    "mon": "月曜日",
+    "tue": "火曜日",
+    "wed": "水曜日",
+    "thu": "木曜日",
+    "fri": "金曜日",
+    "sat": "土曜日",
+    "sun": "日曜日"
+  },
+  "modes": {
+    "area": "📍 エリア（半径）",
+    "tracker": "📱 デバイストラッカー（半径）",
+    "route_live": "🛣️ ルート（出発地/目的地、交通状況に連動）"
+  },
+  "typeData": {
+    "categories": "報告"
+  },
+  "optional": {
+    "name": "オプション設定",
+    "data": {
+      "only_certain": "TomTomが確実と判断した報告のみ",
+      "count": "報告数",
+      "update_interval": "更新間隔（分、0 = 手動のみ）",
+      "new_minutes": "新着とみなす時間（分、0 = オフ）",
+      "roads": "指定の道路のみ（道路番号をカンマ区切り、例: A8, B2）",
+      "blacklist": "ブラックリスト（インシデントIDをカンマ区切り）"
+    },
+    "description": {
+      "only_certain": "TomTomは各報告を certain、probable、risk_of、improbable のいずれかに評価します。走行中の車から測定された渋滞は certain、道路管理者からの工事情報は probable、運転者1人の報告は risk です。オンでは最初の2つのみ残り、オフでは不確かなものも含まれます。",
+      "roads": "TomTomがこれらの道路番号（A8やB2）に分類する報告のみ。通勤路の高速道路だけで、沿道の脇道は含めません。大文字小文字と空白は無視されます。空の場合はすべての道路が対象です。",
+      "blacklist": "除外する報告をTomTomのインシデントIDで指定します。報告のエンティティの id または short_id 属性で、詳細に表示されます。TomTom自身のアプリには表示されません。"
+    }
+  },
+  "budgetArea": "取得のたびにIncident Detailsリクエストが1回発生し（検索範囲10,000 km²ごとに1回追加）、無料キーでは月に2,500回です。デフォルトの1時間間隔では、1つのエリアで月に約720回使います。",
+  "budgetRoute": "稼働時間内では取得のたびにRoutingリクエストが1回発生し、無料枠は月に20,000回です。ルート上の報告はそれに含まれ、残りの詳細は新しい報告ごとにIncident Detailsに1回問い合わせます。",
+  "entities": {
+    "sensor": {
+      "report_count": "報告",
+      "travel_time": "所要時間",
+      "traffic_delay": "渋滞による遅延",
+      "route_length": "ルートの長さ",
+      "requests": "今月のTomTomリクエスト",
+      "requests_total": "今月の全リクエスト",
+      "requests_incidents": "今月のIncident Details",
+      "requests_routing": "今月のRouting",
+      "requests_geocoding": "今月のGeocoding",
+      "requests_reverse_geocoding": "今月のReverse Geocoding",
+      "requests_search": "今月のSearch",
+      "requests_tiles": "今月の交通流タイル",
+      "requests_blitzer": "今月のblitzer.de",
+      "requests_lufop": "今日のLufop"
+    },
+    "number": {
+      "new_minutes": "新着とみなす時間"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "割り当て超過のおそれ"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "TomTomのセットアップ",
+      "description": "このエントリに名前を付け、検索方法を選びます。エリアまたはトラッカーは、その円内のTomTomの交通インシデントを読み取ります。出発地から目的地へのルートは、取得のたびにTomTomが現在の交通状況で計算し、通過する場所の報告を示します。",
+      "data": {
+        "name": "表示名",
+        "search_mode": "検索モード"
+      }
+    },
+    "key": {
+      "title": "TomTom APIキー",
+      "description": "ここに表示される情報はすべてTomTomから取得され、APIキーが必要です。無料で、支払い方法の登録は不要です。\n\n1. [developer.tomtom.com]({url}) で登録します。\n2. 登録直後、ダッシュボードの **API & SDK Keys** にすでにキー *My First API key* が表示されており、ここで使うTraffic API、Routing API、Search APIを含むすべてのAPIが有効です。横のボタンでコピーします。\n3. ここに貼り付けます。\n\n1つのキーでこのHome Assistantのすべてのエントリに使えます。すでに保存されている場合は、空のままにすると保持されます。",
+      "data": {
+        "api_key": "APIキー"
+      }
+    },
+    "area": {
+      "title": "エリア（半径）",
+      "description": "TomTomの報告を表示する円を選びます。中心から最大50 kmで、これはTomTomが1回のリクエストで応答する最大の範囲です。 ",
+      "data": {
+        "location": "エリア"
+      }
+    },
+    "tracker": {
+      "title": "デバイストラッカー（半径）",
+      "description": "追跡するデバイストラッカーと、その周りで検索する円の大きさを選びます。現在座標を報告しているトラッカーのみ表示されます。在宅と外出しか分からないトラッカーには、円の中心となる位置がありません。 ",
+      "data": {
+        "tracker": "デバイストラッカー",
+        "tracker_radius": "半径（メートル）"
+      }
+    },
+    "route_start": {
+      "title": "出発地",
+      "description": "ルートはどこから始まりますか？",
+      "menu": {
+        "route_start_zone": "ゾーン",
+        "route_start_point": "地図上の地点",
+        "route_start_address": "住所"
+      }
+    },
+    "route_start_zone": {
+      "title": "出発地: ゾーン",
+      "data": {
+        "zone": "ゾーン"
+      }
+    },
+    "route_start_point": {
+      "title": "出発地: 地図上の地点",
+      "description": "マーカーが出発地に重なるように地図を動かしてください。",
+      "data": {
+        "location": "出発地"
+      }
+    },
+    "route_start_address": {
+      "title": "出発地: 住所",
+      "description": "番地と市区町村。",
+      "data": {
+        "address": "住所"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "出発地: 住所が見つかりました",
+      "description": "見つかった場所: **{label}**\n\n意図した場所でない場合は、住所を修正して続行してください。再度検索されます。",
+      "data": {
+        "address": "住所"
+      }
+    },
+    "route_destination": {
+      "title": "目的地",
+      "description": "ルートはどこで終わりますか？",
+      "menu": {
+        "route_destination_zone": "ゾーン",
+        "route_destination_point": "地図上の地点",
+        "route_destination_address": "住所"
+      }
+    },
+    "route_destination_zone": {
+      "title": "目的地: ゾーン",
+      "data": {
+        "zone": "ゾーン"
+      }
+    },
+    "route_destination_point": {
+      "title": "目的地: 地図上の地点",
+      "description": "マーカーが目的地に重なるように地図を動かしてください。",
+      "data": {
+        "location": "目的地"
+      }
+    },
+    "route_destination_address": {
+      "title": "目的地: 住所",
+      "description": "番地と市区町村。",
+      "data": {
+        "address": "住所"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "目的地: 住所が見つかりました",
+      "description": "見つかった場所: **{label}**\n\n意図した場所でない場合は、住所を修正して続行してください。再度検索されます。",
+      "data": {
+        "address": "住所"
+      }
+    },
+    "route_vias": {
+      "title": "経由地",
+      "description": "{start} から {destination} へ、現在の経由地は {count} か所。TomTomは地点間の最速の道路を選びます。いつもの道と異なる場所には経由地を追加してください。",
+      "menu": {
+        "route_via": "経由地を追加",
+        "route_vias_clear": "すべての経由地を削除",
+        "route_review": "ルートを計算"
+      }
+    },
+    "route_via": {
+      "title": "経由地 {count}",
+      "description": "ルートが通るべき道路にマーカーが重なるように地図を動かしてください。",
+      "data": {
+        "location": "経由地"
+      }
+    },
+    "route_review": {
+      "title": "現在のルート",
+      "description": "{start} → {destination}、経由地 {vias} か所: {distance}、現在約 {duration} 分、うち遅延 {delay} 分。ルートは取得のたびに再計算され、地図にはこの時点で交通状況上最速のルートが表示されます。 ",
+      "data": {
+        "return_route": "帰路も作成",
+        "return_name": "帰路の名前",
+        "live_days": "ルートを最新に保つ曜日",
+        "live_from": "開始",
+        "live_until": "終了",
+        "live_back_from": "開始（帰路）",
+        "live_back_until": "終了（帰路）"
+      },
+      "data_description": {
+        "return_route": "目的地から出発地への2つ目のエントリ。高速道路では帰路は反対側の車線で、片側の渋滞はもう片側の渋滞ではありません。このエントリの名前に「帰路」を付けた名前になります。",
+        "return_name": "帰路を作成する場合のみ使われます。このエントリの名前に「帰路」を付けて入力されています。別の名前にするには入力し直してください（例:「自宅」と「職場」）。"
+      }
+    },
+    "route_failed": {
+      "title": "ルートなし",
+      "description": "続行して地点を変更してください。"
+    },
+    "init": {
+      "title": "何を編集しますか？",
+      "menu": {
+        "edit_route": "ルートを変更（出発地、目的地、経由地）",
+        "edit_route_settings": "検索設定を編集（時間帯、種類、フィルター）",
+        "edit_key": "APIキーを変更",
+        "route_defaults": "新しいルートのデフォルト設定",
+        "quota_warning": "割り当ての警告",
+        "sources": "データソース"
+      }
+    },
+    "route_defaults": {
+      "title": "新しいルートのデフォルト設定",
+      "description": "新しいルートの初期設定です。カードで計画したルートは、この設定ですぐに保存されます。セットアップウィザードでは、あらかじめ入力された状態で表示され、変更できます。曜日と時間帯はルートを最新に保つ期間で、帰路も一緒に作成できます。帰路は別の時間帯に走るため、独自の時間帯を持ちます。",
+      "data": {
+        "default_start": "カードで計画するルートの出発地（オプション）"
+      }
+    },
+    "quota_warning": {
+      "title": "割り当ての警告",
+      "description": "APIのリクエストが残り少なくなると、修復の通知が表示され、TomTom 一般の **割り当て超過のおそれ** センサーがオンになります。",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "月の8日目からは、それまでのリクエスト数から月末の数を推計します。数えるのはこの統合のリクエストです。他でも使っているキーは、TomTom側ではより多くなります。",
+          "data": {
+            "quota_warning": "無料枠が月末までもたない場合に警告",
+            "quota_threshold": "無料枠のこの割合から警告"
+          },
+          "data_description": {
+            "quota_threshold": "100 %では無料枠そのものを超えそうなときに、80 %ではその5分の4の時点で警告します。"
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufopは1日単位（UTCの午前0時から午前0時まで）で、キーを使うすべてを含めて数えます。「データソース」でLufopがオンの間に適用されます。",
+          "data": {
+            "lufop_quota_warning": "その日のリクエストが残り少ないか、なくなったときに警告",
+            "lufop_quota_threshold": "その日のリクエストのこの割合から警告"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "この割合で最初の警告、すべて使い切ったときに2回目の警告が出ます。"
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "データソース",
+      "description": "TomTom以外の報告のソースで、すべてのエントリに一括で適用されます。ソースはTomTomにないものだけを、各エントリのリストに独自の種類として追加するため、同じ報告が二重に表示されることはありません。\n\n**blitzer.de** は、ドイツとその近隣諸国の固定式・移動式の速度取締機と交通取締りを報告します。キーもアカウントも不要です。サイト自身の地図が読み込むデータを読み込みますが、blitzer.deはこれをAPIとして公開しておらず、変更や停止の可能性があります。すべてのリクエストは **今月のblitzer.de** に数えられます。\n\n**Lufop** は、固定式・移動式・信号無視の速度取締機と区間速度取締を、自身のレーダーデータベースから報告します。[api.lufop.net](https://api.lufop.net/) で無料の個人キーを取得できる、ドキュメント化されたAPIです。1回のリクエストは1か国が対象で、無料プランはフランス、ベルギー、スイスに対応し、1日200リクエスト、1リクエストあたり200件のレーダーまでです。すべてのリクエストは **今日のLufop** に数えられます。",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop APIキー",
+        "lufop_country": "Lufop: 国"
+      },
+      "data_description": {
+        "lufop_api_key": "入力時とLufopをオンにしたときに確認されます。保存済みのキーは、空のままにすると保持されます。",
+        "lufop_country": "すべてのエントリがLufopに問い合わせる1つの国。無料プランではフランス、ベルギー、スイスを選べます。"
+      }
+    },
+    "first": {
+      "title": "TomTomのセットアップが完了しました",
+      "description": "キーが保存されました。新しいルートのデフォルト設定は **TomTom 設定** エントリにあり、後からその「設定」で両方を変更できます。ここで完了し、最初のエリア、トラッカー、またはルートはTomTomのタイルの **エントリーの追加** からいつでも追加できます。今すぐ作成することもできます。",
+      "menu": {
+        "finish": "セットアップを完了",
+        "add_entry": "最初のエリア、トラッカー、またはルートを今すぐ追加"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "この名前のTomTomはすでに設定されています。別の名前を選んでください。",
+    "location_missing": "位置を選択してください（地図を動かしてください）。",
+    "no_tracker_with_position": "現在位置を報告しているデバイストラッカーがありません。このモードには座標を送信するトラッカーが必要です。在宅と外出しか分からないトラッカーでは半径の中心を決められません。"
+  },
+  "error": {
+    "radius_too_large": "半径は最大50 kmです。TomTomが1回のリクエストで応答する最大の範囲です。",
+    "invalid_api_key": "TomTomがAPIキーを受け付けませんでした。",
+    "quota_exceeded": "このキーのTomTomでの割り当ては現在使い切っています。後でもう一度お試しください。",
+    "address_not_found": "この住所に該当する場所が見つかりませんでした。",
+    "point_not_routable": "地点の1つが道路から離れすぎています。道路の近くに移動してください。",
+    "no_route": "TomTomはこれらの地点を結ぶ道路を見つけられませんでした。",
+    "route_too_long": "ルートがTomTomには長すぎるか、地点が多すぎます。",
+    "return_name_taken": "その名前のエントリはすでに存在します（このエントリを含む）。",
+    "cannot_connect": "TomTomに接続できませんでした。",
+    "zone_without_position": "このゾーンには位置がありません。",
+    "api_key_required": "APIキーを入力してください。",
+    "lufop_key_required": "LufopをオンにするにはAPIキーが必要です。",
+    "invalid_lufop_key": "LufopがAPIキーを受け付けませんでした。",
+    "lufop_cannot_connect": "Lufopに接続できませんでした。キーは確認されていません。後でもう一度お試しください。",
+    "lufop_refused": "Lufopはキーを拒否せずにリクエストを拒否しました。その日のリクエストを使い切った可能性があります。UTCの午前0時以降にもう一度試すか、Lufopのダッシュボードでキーを確認してください。",
+    "lufop_busy": "Lufopの1分あたり10リクエストの上限に達しました。1分後にもう一度お試しください。"
+  },
+  "service": {
+    "name": "更新",
+    "description": "次の定期取得を待たずに、1つのTomTomのエリア、ルート、またはトラッカーの最新の報告をすぐに取得します。ライブルートではまずルート自体を取得します。報告を返します。",
+    "field": {
+      "name": "エリア、ルート、またはトラッカー",
+      "description": "更新するTomTomのエリア、ルート、またはトラッカー。"
+    }
+  },
+  "issue": {
+    "title": "{name} が取得できません",
+    "description": "TomTomのエントリ **{name}** は {count} 回連続で取得に失敗したため、エンティティが利用不可になっています。最後の理由:\n\n`{reason}`\n\n位置のないトラッカーや存在しなくなったトラッカーエンティティは、エントリの **設定** で修正します。拒否されたキーは「TomTom 設定」エントリの **設定** で修正します。TomTom自体に接続できない場合は、接続が回復すれば自動的に解消します。この修復は次の取得が成功すると消えます。"
+  },
+  "quotaIssue": {
+    "title": "{api}の割り当てが月末までもちません",
+    "description": "{days}日間で、無料の **{api}** リクエスト{tier}回のうち{used}回を使用しました。このペースでは月末までに約 **{projected}** 回となり、無料枠の{percent} %を超えます。\n\n取得回数を減らすと効果があります: 更新間隔を長くする、ルートの時間帯を絞る、交通流を表示するカードを減らす。\n\nペースが「TomTom 設定」→「設定」→「割り当ての警告」→「TomTom」で設定した割合を下回るか、新しい月になると解消します。"
+  },
+  "quotaDayIssue": {
+    "title": "本日の{api}リクエストが残りわずかです",
+    "description": "**{api}** プランで1日に使える{tier}回のリクエストのうち、{used}回を使用しました。\n\nその日のリクエストは、このインストールのすべてのエントリと、同じキーを使う他のすべてで共有されます。取得回数を減らすと効果があります: 更新間隔を長くする、ルートの時間帯を絞る、対象国の外にあるエントリでLufopをオフにする。\n\nUTCの午前0時にLufopの日付が変わるか、「TomTom 設定」→「設定」→「割り当ての警告」→「Lufop」で設定した割合を引き上げると解消します。"
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "本日の{api}リクエストを使い切りました",
+    "description": "**{api}** プランの1日{tier}回のリクエストをすべて使用しました。Lufopは同じキーを使うすべてを数えます。UTCの午前0時（こちらの時刻で{reset}）まで、それ以上のリクエストは拒否されます。\n\n明日に向けて取得回数を減らすと効果があります: 更新間隔を長くする、ルートの時間帯を絞る、対象国の外にあるエントリでLufopをオフにする。"
+  },
+  "device": {
+    "general": "TomTom 一般",
+    "settings": "TomTom 設定"
+  },
+  "lufopCountries": {
+    "ad": "アンドラ",
+    "au": "オーストラリア",
+    "be": "ベルギー",
+    "bg": "ブルガリア",
+    "ca": "カナダ",
+    "cz": "チェコ",
+    "fi": "フィンランド",
+    "fr": "フランス",
+    "de": "ドイツ",
+    "ie": "アイルランド",
+    "it": "イタリア",
+    "lv": "ラトビア",
+    "lu": "ルクセンブルク",
+    "ma": "モロッコ",
+    "nl": "オランダ",
+    "nz": "ニュージーランド",
+    "no": "ノルウェー",
+    "pl": "ポーランド",
+    "pt": "ポルトガル",
+    "es": "スペイン",
+    "se": "スウェーデン",
+    "ch": "スイス",
+    "ae": "アラブ首長国連邦",
+    "gb": "イギリス"
+  }
+}

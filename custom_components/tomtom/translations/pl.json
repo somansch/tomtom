@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Obszar (promień)",
+                "tracker": "📱 Lokalizator (promień)",
+                "route_live": "🛣️ Trasa (start/cel, na żywo z ruchem)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Poniedziałek",
+                "tue": "Wtorek",
+                "wed": "Środa",
+                "thu": "Czwartek",
+                "fri": "Piątek",
+                "sat": "Sobota",
+                "sun": "Niedziela"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Korek",
+                "lane_closed": "Pas zamknięty",
+                "road_closed": "Droga zamknięta",
+                "road_works": "Roboty drogowe",
+                "accident": "Wypadek",
+                "broken_down_vehicle": "Unieruchomiony pojazd",
+                "dangerous_conditions": "Niebezpieczne warunki",
+                "fog": "Mgła",
+                "rain": "Deszcz",
+                "ice": "Gołoledź",
+                "wind": "Wiatr",
+                "flooding": "Podtopienie",
+                "unknown": "Nieznane",
+                "camera_fixed": "Fotoradar stacjonarny (blitzer.de, Lufop)",
+                "camera_mobile": "Fotoradar mobilny (blitzer.de, Lufop)",
+                "camera_trailer": "Fotoradar na przyczepie (blitzer.de)",
+                "camera_redlight": "Kamera na czerwone światło (blitzer.de, Lufop)",
+                "camera_section": "Odcinkowy pomiar prędkości (blitzer.de, Lufop)",
+                "check_distance": "Kontrola odstępu (blitzer.de)",
+                "check_police": "Kontrola policyjna (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andora",
+                "au": "Australia",
+                "be": "Belgia",
+                "bg": "Bułgaria",
+                "ca": "Kanada",
+                "cz": "Czechy",
+                "fi": "Finlandia",
+                "fr": "Francja",
+                "de": "Niemcy",
+                "ie": "Irlandia",
+                "it": "Włochy",
+                "lv": "Łotwa",
+                "lu": "Luksemburg",
+                "ma": "Maroko",
+                "nl": "Holandia",
+                "nz": "Nowa Zelandia",
+                "no": "Norwegia",
+                "pl": "Polska",
+                "pt": "Portugalia",
+                "es": "Hiszpania",
+                "se": "Szwecja",
+                "ch": "Szwajcaria",
+                "ae": "Zjednoczone Emiraty Arabskie",
+                "gb": "Wielka Brytania"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Ogólne"
+        },
+        "settings": {
+            "name": "TomTom Ustawienia"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Zgłoszenia"
+            },
+            "travel_time": {
+                "name": "Czas przejazdu"
+            },
+            "traffic_delay": {
+                "name": "Opóźnienie przez ruch"
+            },
+            "route_length": {
+                "name": "Długość trasy"
+            },
+            "requests": {
+                "name": "Zapytania TomTom w tym miesiącu"
+            },
+            "requests_total": {
+                "name": "Wszystkie zapytania w tym miesiącu"
+            },
+            "requests_incidents": {
+                "name": "Incident Details w tym miesiącu"
+            },
+            "requests_routing": {
+                "name": "Routing w tym miesiącu"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding w tym miesiącu"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding w tym miesiącu"
+            },
+            "requests_search": {
+                "name": "Wyszukiwanie w tym miesiącu"
+            },
+            "requests_tiles": {
+                "name": "Kafelki natężenia w tym miesiącu"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de w tym miesiącu"
+            },
+            "requests_lufop": {
+                "name": "Lufop dzisiaj"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Nowe przez"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Limit zagrożony"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "Konfiguracja TomTom",
+                "description": "Nazwij ten wpis i wybierz, jak ma wyszukiwać. Obszar lub lokalizator odczytuje zdarzenia drogowe TomTom w swoim okręgu; trasę od startu do celu TomTom wylicza przy każdym pobraniu, z obecnym ruchem, i zgłasza, przez co przebiega.",
+                "data": {
+                    "name": "Wyświetlana nazwa",
+                    "search_mode": "Tryb wyszukiwania"
+                }
+            },
+            "key": {
+                "title": "Klucz API TomTom",
+                "description": "Wszystko tutaj pochodzi z TomTom, a to wymaga klucza API - darmowego, bez metody płatności:\n\n1. Zarejestruj się na [developer.tomtom.com]({url}).\n2. Zaraz potem w **API & SDK Keys** w panelu jest już klucz, *My First API key*, z włączonym każdym API - w tym Traffic API, Routing API i Search API, które są tu używane. Skopiuj go przyciskiem obok.\n3. Wklej go tutaj.\n\nJeden klucz obsługuje każdy wpis tego Home Assistant. Jeśli jeden jest już zapisany, zostaw pole puste, aby go zachować.",
+                "data": {
+                    "api_key": "Klucz API"
+                }
+            },
+            "route_defaults": {
+                "title": "Ustawienia domyślne nowych tras",
+                "description": "Od czego zaczyna każda nowa trasa: na karcie trasa tam zaplanowana jest od razu zapisywana z tymi ustawieniami; w kreatorze konfiguracji są wypełnione i wciąż można je zmienić. Dni i godziny to te, w których trasa jest aktualizowana, a razem z nią może powstać droga powrotna - jeżdżona o innej porze dnia, z własnymi godzinami.",
+                "data": {
+                    "default_start": "Start tras planowanych na karcie (opcjonalnie)",
+                    "return_route": "Utwórz też drogę powrotną",
+                    "live_days": "Dni, w które trasa jest aktualizowana",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "live_back_from": "Od (droga powrotna)",
+                    "live_back_until": "Do (droga powrotna)",
+                    "categories": "Zgłoszenia"
+                },
+                "data_description": {
+                    "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "TomTom jest skonfigurowany",
+                "description": "Klucz jest zapisany, a ustawienia domyślne nowych tras są przechowywane we wpisie **TomTom Ustawienia** - jego Konfiguruj zmienia później jedno i drugie. Zakończ teraz i dodaj pierwszy obszar, lokalizator lub trasę przez **Dodaj wpis** na kafelku TomTom, kiedy zechcesz, albo utwórz go od razu.",
+                "menu_options": {
+                    "finish": "Zakończ konfigurację",
+                    "add_entry": "Dodaj teraz pierwszy obszar, lokalizator lub trasę"
+                }
+            },
+            "area": {
+                "title": "Obszar (promień)",
+                "description": "Wybierz okrąg, w którym pokazywane są zgłoszenia TomTom - do 50 km wokół jego środka, czyli największe pole, na które TomTom odpowiada jednym zapytaniem. Każde pobranie to jedno zapytanie Incident Details (o jedno więcej na każde 10 000 km² wyszukiwania), a darmowy klucz ma ich 2 500 miesięcznie: przy domyślnej godzinie obszar zużywa około 720.",
+                "data": {
+                    "location": "Obszar",
+                    "categories": "Zgłoszenia"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Lokalizator (promień)",
+                "description": "Wybierz lokalizator, za którym podążać, i jak szeroki okrąg wokół niego przeszukiwać. Na liście są tylko lokalizatory zgłaszające obecnie współrzędne - taki, który zna tylko dom i poza domem, nie ma pozycji, wokół której dałoby się zakreślić okrąg. Każde pobranie to jedno zapytanie Incident Details (o jedno więcej na każde 10 000 km² wyszukiwania), a darmowy klucz ma ich 2 500 miesięcznie: przy domyślnej godzinie obszar zużywa około 720.",
+                "data": {
+                    "tracker": "Lokalizator",
+                    "tracker_radius": "Promień (metry)",
+                    "categories": "Zgłoszenia"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Gdzie zaczyna się trasa?",
+                "menu_options": {
+                    "route_start_zone": "Strefa",
+                    "route_start_point": "Punkt na mapie",
+                    "route_start_address": "Adres"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: strefa",
+                "data": {
+                    "zone": "Strefa"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: punkt na mapie",
+                "description": "Przesuń mapę tak, aby znacznik stał na starcie.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adres",
+                "description": "Ulica i miejscowość.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adres znaleziony",
+                "description": "Znaleziono: **{label}**\n\nJeśli to nie to miejsce, które miałeś na myśli, popraw adres i kontynuuj - zostanie wyszukany ponownie.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination": {
+                "title": "Cel",
+                "description": "Gdzie kończy się trasa?",
+                "menu_options": {
+                    "route_destination_zone": "Strefa",
+                    "route_destination_point": "Punkt na mapie",
+                    "route_destination_address": "Adres"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Cel: strefa",
+                "data": {
+                    "zone": "Strefa"
+                }
+            },
+            "route_destination_point": {
+                "title": "Cel: punkt na mapie",
+                "description": "Przesuń mapę tak, aby znacznik stał na celu.",
+                "data": {
+                    "location": "Cel"
+                }
+            },
+            "route_destination_address": {
+                "title": "Cel: adres",
+                "description": "Ulica i miejscowość.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Cel: adres znaleziony",
+                "description": "Znaleziono: **{label}**\n\nJeśli to nie to miejsce, które miałeś na myśli, popraw adres i kontynuuj - zostanie wyszukany ponownie.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_vias": {
+                "title": "Punkty pośrednie",
+                "description": "Z {start} do {destination}, dotąd {count} punktów pośrednich. TomTom bierze między nimi najszybszą drogę - dodaj punkt pośredni tam, gdzie twoja zwykła droga się różni.",
+                "menu_options": {
+                    "route_via": "Dodaj punkt pośredni",
+                    "route_vias_clear": "Usuń wszystkie punkty pośrednie",
+                    "route_review": "Wylicz trasę"
+                }
+            },
+            "route_via": {
+                "title": "Punkt pośredni {count}",
+                "description": "Przesuń mapę tak, aby znacznik stał na drodze, którą ma prowadzić trasa.",
+                "data": {
+                    "location": "Punkt pośredni"
+                }
+            },
+            "route_failed": {
+                "title": "Brak trasy",
+                "description": "Kontynuuj, aby zmienić punkty."
+            },
+            "route_review": {
+                "title": "Twoja trasa, teraz",
+                "description": "{start} → {destination}, {vias} punktów pośrednich: {distance}, obecnie około {duration} min, z czego {delay} min opóźnienia. Trasa jest wyliczana na nowo przy każdym pobraniu; mapa pokazuje tę, którą ruch czyni w tej chwili najszybszą. W swoich godzinach każde pobranie to jedno zapytanie Routing, z 20 000 darmowych miesięcznie; zgłoszenia na trasie przychodzą razem z nim, a Incident Details jest pytane raz na każde nowe zgłoszenie o resztę tego, co jest do poznania.",
+                "data": {
+                    "return_route": "Utwórz też drogę powrotną",
+                    "return_name": "Nazwa drogi powrotnej",
+                    "live_days": "Dni, w które trasa jest aktualizowana",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "live_back_from": "Od (droga powrotna)",
+                    "live_back_until": "Do (droga powrotna)",
+                    "categories": "Zgłoszenia"
+                },
+                "data_description": {
+                    "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”.",
+                    "return_name": "Używana tylko, gdy tworzona jest droga powrotna. Wypełniona nazwą tego wpisu z dodanym „powrót”; wpisz inną, aby nazwać ją inaczej - na przykład „Dom” i „Praca”."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "TomTom jest już skonfigurowany pod tą nazwą. Wybierz inną.",
+            "location_missing": "Wybierz pozycję (przesuń mapę).",
+            "no_tracker_with_position": "Żaden lokalizator nie zgłasza obecnie pozycji. Ten tryb potrzebuje takiego, który wysyła współrzędne - lokalizator znający tylko dom i poza domem nie może wyśrodkować promienia."
+        },
+        "error": {
+            "radius_too_large": "Promień może wynosić najwyżej 50 km - największe pole, na które TomTom odpowiada jednym zapytaniem.",
+            "invalid_api_key": "TomTom nie przyjął klucza API.",
+            "quota_exceeded": "Limit klucza w TomTom jest na razie wyczerpany. Spróbuj później.",
+            "address_not_found": "Nie znaleziono miejsca dla tego adresu.",
+            "point_not_routable": "Jeden z punktów leży zbyt daleko od drogi. Przesuń go bliżej.",
+            "no_route": "TomTom nie znalazł drogi łączącej te punkty.",
+            "route_too_long": "Trasa jest za długa dla TomTom lub ma za dużo punktów.",
+            "return_name_taken": "Wpis o tej nazwie już istnieje - ten także.",
+            "cannot_connect": "Nie można połączyć się z TomTom.",
+            "zone_without_position": "Ta strefa nie ma pozycji.",
+            "api_key_required": "Wprowadź klucz API.",
+            "lufop_key_required": "Lufop wymaga klucza API, aby go włączyć.",
+            "invalid_lufop_key": "Lufop nie przyjął klucza API.",
+            "lufop_cannot_connect": "Nie można połączyć się z Lufop. Klucz nie został sprawdzony - spróbuj później.",
+            "lufop_refused": "Lufop odrzucił zapytanie, nie odrzucając klucza. Dzienne zapytania mogą być wyczerpane - spróbuj po północy UTC lub sprawdź klucz w swoim panelu Lufop.",
+            "lufop_busy": "Osiągnięto limit Lufop wynoszący 10 zapytań na minutę. Spróbuj za minutę."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Odśwież",
+            "description": "Natychmiast pobiera najnowsze zgłoszenia dla jednego obszaru, trasy lub lokalizatora TomTom, zamiast czekać na następne zaplanowane pobranie - a dla trasy na żywo najpierw samą trasę. Zwraca zgłoszenia.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Obszar, trasa lub lokalizator",
+                    "description": "Który obszar, trasę lub lokalizator TomTom odświeżyć."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Co chcesz edytować?",
+                "menu_options": {
+                    "edit_route": "Zmień trasę (start, cel, punkty pośrednie)",
+                    "edit_route_settings": "Edytuj ustawienia wyszukiwania (godziny, rodzaje, filtry)",
+                    "edit_key": "Zmień klucz API",
+                    "route_defaults": "Ustawienia domyślne nowych tras",
+                    "quota_warning": "Ostrzeżenie o limicie",
+                    "sources": "Źródła danych"
+                }
+            },
+            "route_defaults": {
+                "title": "Ustawienia domyślne nowych tras",
+                "description": "Od czego zaczyna każda nowa trasa: na karcie trasa tam zaplanowana jest od razu zapisywana z tymi ustawieniami; w kreatorze konfiguracji są wypełnione i wciąż można je zmienić. Dni i godziny to te, w których trasa jest aktualizowana, a razem z nią może powstać droga powrotna - jeżdżona o innej porze dnia, z własnymi godzinami.",
+                "data": {
+                    "default_start": "Start tras planowanych na karcie (opcjonalnie)",
+                    "return_route": "Utwórz też drogę powrotną",
+                    "live_days": "Dni, w które trasa jest aktualizowana",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "live_back_from": "Od (droga powrotna)",
+                    "live_back_until": "Do (droga powrotna)",
+                    "categories": "Zgłoszenia"
+                },
+                "data_description": {
+                    "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Ostrzeżenie o limicie",
+                "description": "Gdy zapytania danego API się kończą, zgłasza to naprawa, a czujnik **Limit zagrożony** na TomTom Ogólne się włącza.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "Od ósmego dnia miesiąca dotychczasowe zapytania są przeliczane na koniec miesiąca. Liczone jest to, o co pyta ta integracja; klucz używany także gdzie indziej ma w TomTom więcej.",
+                        "data": {
+                            "quota_warning": "Ostrzegaj, gdy darmowy limit nie wystarczy na miesiąc",
+                            "quota_threshold": "Ostrzegaj od tej części darmowego limitu"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % ostrzega, gdy sam limit zostanie przekroczony, 80 % już przy czterech piątych."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "Lufop liczy dobowo, od północy do północy UTC, wliczając wszystko, co używa klucza. Obowiązuje, dopóki Lufop jest włączony w Źródła danych.",
+                        "data": {
+                            "lufop_quota_warning": "Ostrzegaj, gdy dzienne zapytania się kończą lub wyczerpią",
+                            "lufop_quota_threshold": "Ostrzegaj od tej części dziennych zapytań"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "Pierwsze ostrzeżenie przychodzi przy tej części; drugie, gdy wszystkie są zużyte."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Źródła danych",
+                "description": "Dalsze źródła zgłoszeń obok TomTom, dla wszystkich wpisów naraz. Źródło dodaje tylko to, czego TomTom nie ma, pod własnymi rodzajami na liście każdego wpisu, więc żadne zgłoszenie nie pojawia się tam dwa razy.\n\n**blitzer.de** zgłasza fotoradary i kontrole drogowe, stacjonarne i mobilne, w Niemczech i krajach sąsiednich. Bez klucza i bez konta; odczytuje to, co odczytuje mapa samej strony - blitzer.de nie opublikował tego jako API i może to zmienić lub zamknąć. Każde zapytanie jest liczone w **blitzer.de w tym miesiącu**.\n\n**Lufop** zgłasza fotoradary, stacjonarne, mobilne i na czerwone światło, oraz odcinkowe pomiary prędkości ze swojej bazy radarów - udokumentowane API z darmowym kluczem osobistym z [api.lufop.net](https://api.lufop.net/). Zapytanie dotyczy jednego kraju; darmowy plan obejmuje Francję, Belgię i Szwajcarię, 200 zapytań dziennie i 200 radarów na zapytanie. Każde zapytanie jest liczone w **Lufop dzisiaj**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Klucz API Lufop",
+                    "lufop_country": "Lufop: kraj"
+                },
+                "data_description": {
+                    "lufop_api_key": "Sprawdzany przy podaniu i przy włączeniu Lufop; już zapisany zostaje, gdy pole pozostanie puste.",
+                    "lufop_country": "Jeden kraj, o który każdy wpis pyta Lufop - darmowy plan pozwala na Francję, Belgię i Szwajcarię."
+                }
+            },
+            "key": {
+                "title": "Klucz API TomTom",
+                "description": "Wszystko tutaj pochodzi z TomTom, a to wymaga klucza API - darmowego, bez metody płatności:\n\n1. Zarejestruj się na [developer.tomtom.com]({url}).\n2. Zaraz potem w **API & SDK Keys** w panelu jest już klucz, *My First API key*, z włączonym każdym API - w tym Traffic API, Routing API i Search API, które są tu używane. Skopiuj go przyciskiem obok.\n3. Wklej go tutaj.\n\nJeden klucz obsługuje każdy wpis tego Home Assistant. Jeśli jeden jest już zapisany, zostaw pole puste, aby go zachować.",
+                "data": {
+                    "api_key": "Klucz API"
+                }
+            },
+            "area": {
+                "title": "Obszar (promień)",
+                "description": "Wybierz okrąg, w którym pokazywane są zgłoszenia TomTom - do 50 km wokół jego środka, czyli największe pole, na które TomTom odpowiada jednym zapytaniem. Każde pobranie to jedno zapytanie Incident Details (o jedno więcej na każde 10 000 km² wyszukiwania), a darmowy klucz ma ich 2 500 miesięcznie: przy domyślnej godzinie obszar zużywa około 720.",
+                "data": {
+                    "location": "Obszar",
+                    "categories": "Zgłoszenia"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Lokalizator (promień)",
+                "description": "Wybierz lokalizator, za którym podążać, i jak szeroki okrąg wokół niego przeszukiwać. Na liście są tylko lokalizatory zgłaszające obecnie współrzędne - taki, który zna tylko dom i poza domem, nie ma pozycji, wokół której dałoby się zakreślić okrąg. Każde pobranie to jedno zapytanie Incident Details (o jedno więcej na każde 10 000 km² wyszukiwania), a darmowy klucz ma ich 2 500 miesięcznie: przy domyślnej godzinie obszar zużywa około 720.",
+                "data": {
+                    "tracker": "Lokalizator",
+                    "tracker_radius": "Promień (metry)",
+                    "categories": "Zgłoszenia"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Start",
+                "description": "Gdzie zaczyna się trasa?",
+                "menu_options": {
+                    "route_start_zone": "Strefa",
+                    "route_start_point": "Punkt na mapie",
+                    "route_start_address": "Adres"
+                }
+            },
+            "route_start_zone": {
+                "title": "Start: strefa",
+                "data": {
+                    "zone": "Strefa"
+                }
+            },
+            "route_start_point": {
+                "title": "Start: punkt na mapie",
+                "description": "Przesuń mapę tak, aby znacznik stał na starcie.",
+                "data": {
+                    "location": "Start"
+                }
+            },
+            "route_start_address": {
+                "title": "Start: adres",
+                "description": "Ulica i miejscowość.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Start: adres znaleziony",
+                "description": "Znaleziono: **{label}**\n\nJeśli to nie to miejsce, które miałeś na myśli, popraw adres i kontynuuj - zostanie wyszukany ponownie.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination": {
+                "title": "Cel",
+                "description": "Gdzie kończy się trasa?",
+                "menu_options": {
+                    "route_destination_zone": "Strefa",
+                    "route_destination_point": "Punkt na mapie",
+                    "route_destination_address": "Adres"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Cel: strefa",
+                "data": {
+                    "zone": "Strefa"
+                }
+            },
+            "route_destination_point": {
+                "title": "Cel: punkt na mapie",
+                "description": "Przesuń mapę tak, aby znacznik stał na celu.",
+                "data": {
+                    "location": "Cel"
+                }
+            },
+            "route_destination_address": {
+                "title": "Cel: adres",
+                "description": "Ulica i miejscowość.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Cel: adres znaleziony",
+                "description": "Znaleziono: **{label}**\n\nJeśli to nie to miejsce, które miałeś na myśli, popraw adres i kontynuuj - zostanie wyszukany ponownie.",
+                "data": {
+                    "address": "Adres"
+                }
+            },
+            "route_vias": {
+                "title": "Punkty pośrednie",
+                "description": "Z {start} do {destination}, dotąd {count} punktów pośrednich. TomTom bierze między nimi najszybszą drogę - dodaj punkt pośredni tam, gdzie twoja zwykła droga się różni.",
+                "menu_options": {
+                    "route_via": "Dodaj punkt pośredni",
+                    "route_vias_clear": "Usuń wszystkie punkty pośrednie",
+                    "route_review": "Wylicz trasę"
+                }
+            },
+            "route_via": {
+                "title": "Punkt pośredni {count}",
+                "description": "Przesuń mapę tak, aby znacznik stał na drodze, którą ma prowadzić trasa.",
+                "data": {
+                    "location": "Punkt pośredni"
+                }
+            },
+            "route_failed": {
+                "title": "Brak trasy",
+                "description": "Kontynuuj, aby zmienić punkty."
+            },
+            "route_review": {
+                "title": "Twoja trasa, teraz",
+                "description": "{start} → {destination}, {vias} punktów pośrednich: {distance}, obecnie około {duration} min, z czego {delay} min opóźnienia. Trasa jest wyliczana na nowo przy każdym pobraniu; mapa pokazuje tę, którą ruch czyni w tej chwili najszybszą. W swoich godzinach każde pobranie to jedno zapytanie Routing, z 20 000 darmowych miesięcznie; zgłoszenia na trasie przychodzą razem z nim, a Incident Details jest pytane raz na każde nowe zgłoszenie o resztę tego, co jest do poznania.",
+                "data": {
+                    "live_days": "Dni, w które trasa jest aktualizowana",
+                    "live_from": "Od",
+                    "live_until": "Do",
+                    "categories": "Zgłoszenia"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Ustawienia opcjonalne",
+                        "data": {
+                            "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+                            "count": "Liczba zgłoszeń",
+                            "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
+                            "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
+                            "roads": "Tylko te drogi (numery dróg po przecinku, np. A8, B2)",
+                            "blacklist": "Czarna lista (identyfikatory zdarzeń po przecinku)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+                            "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
+                            "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "Promień może wynosić najwyżej 50 km - największe pole, na które TomTom odpowiada jednym zapytaniem.",
+            "invalid_api_key": "TomTom nie przyjął klucza API.",
+            "quota_exceeded": "Limit klucza w TomTom jest na razie wyczerpany. Spróbuj później.",
+            "address_not_found": "Nie znaleziono miejsca dla tego adresu.",
+            "point_not_routable": "Jeden z punktów leży zbyt daleko od drogi. Przesuń go bliżej.",
+            "no_route": "TomTom nie znalazł drogi łączącej te punkty.",
+            "route_too_long": "Trasa jest za długa dla TomTom lub ma za dużo punktów.",
+            "return_name_taken": "Wpis o tej nazwie już istnieje - ten także.",
+            "cannot_connect": "Nie można połączyć się z TomTom.",
+            "zone_without_position": "Ta strefa nie ma pozycji.",
+            "api_key_required": "Wprowadź klucz API.",
+            "lufop_key_required": "Lufop wymaga klucza API, aby go włączyć.",
+            "invalid_lufop_key": "Lufop nie przyjął klucza API.",
+            "lufop_cannot_connect": "Nie można połączyć się z Lufop. Klucz nie został sprawdzony - spróbuj później.",
+            "lufop_refused": "Lufop odrzucił zapytanie, nie odrzucając klucza. Dzienne zapytania mogą być wyczerpane - spróbuj po północy UTC lub sprawdź klucz w swoim panelu Lufop.",
+            "lufop_busy": "Osiągnięto limit Lufop wynoszący 10 zapytań na minutę. Spróbuj za minutę."
+        },
+        "abort": {
+            "no_tracker_with_position": "Żaden lokalizator nie zgłasza obecnie pozycji. Ten tryb potrzebuje takiego, który wysyła współrzędne - lokalizator znający tylko dom i poza domem nie może wyśrodkować promienia."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} nie dostarcza danych",
+            "description": "Wpis TomTom **{name}** nie powiódł się przy {count} pobraniach z rzędu, więc jego encje są niedostępne. Ostatni powód:\n\n`{reason}`\n\nLokalizator bez pozycji lub encja lokalizatora, która już nie istnieje, naprawia się w **Konfiguruj** tego wpisu; odrzucony klucz w **Konfiguruj** na wpisie TomTom Ustawienia; jeśli sam TomTom jest nieosiągalny, znika to samo, gdy znów będzie. Ta naprawa znika z następnym udanym pobraniem."
+        },
+        "quota_at_risk": {
+            "title": "Limit {api} nie wystarczy na miesiąc",
+            "description": "{used} z {tier} darmowych zapytań **{api}** po {days} dniach; w tym tempie około **{projected}** do końca miesiąca, ponad {percent} % limitu.\n\nPomaga mniej pobrań: dłuższy interwał aktualizacji, węższe godziny trasy, natężenie ruchu na mniejszej liczbie kart.\n\nTo zniknie, gdy tempo spadnie poniżej części ustawionej w TomTom Ustawienia → Konfiguruj → Ostrzeżenie o limicie → TomTom, oraz z nowym miesiącem."
+        },
+        "quota_day_at_risk": {
+            "title": "Dzienne zapytania {api} są prawie wyczerpane",
+            "description": "Zużyto {used} z {tier} dziennych zapytań, na które pozwala plan **{api}**.\n\nDzienne zapytania dzielą wszystkie wpisy tej instalacji - i wszystko inne, co używa tego samego klucza. Pomaga mniej pobrań: dłuższy interwał aktualizacji, węższe godziny trasy lub Lufop wyłączony dla wpisów leżących poza jego krajem.\n\nTo zniknie o północy UTC, gdy zmienia się doba Lufop, lub gdy część ustawiona w TomTom Ustawienia → Konfiguruj → Ostrzeżenie o limicie → Lufop zostanie podniesiona."
+        },
+        "quota_day_used_up": {
+            "title": "Dzienne zapytania {api} są wyczerpane",
+            "description": "Zużyto wszystkie {tier} dziennych zapytań planu **{api}** - Lufop liczy wszystko, co używa tego samego klucza. Kolejne zapytania odrzuca do północy UTC - tutaj {reset}.\n\nJutro pomoże mniej pobrań: dłuższy interwał aktualizacji, węższe godziny trasy lub Lufop wyłączony dla wpisów poza jego krajem."
+        }
+    }
+}

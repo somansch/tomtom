@@ -1,0 +1,728 @@
+{
+    "title": "TomTom",
+    "selector": {
+        "search_mode": {
+            "options": {
+                "area": "📍 Sritis (spindulys)",
+                "tracker": "📱 Įrenginio seklys (spindulys)",
+                "route_live": "🛣️ Maršrutas (pradžia / tikslas, gyvai su eismu)"
+            }
+        },
+        "live_days": {
+            "options": {
+                "mon": "Pirmadienis",
+                "tue": "Antradienis",
+                "wed": "Trečiadienis",
+                "thu": "Ketvirtadienis",
+                "fri": "Penktadienis",
+                "sat": "Šeštadienis",
+                "sun": "Sekmadienis"
+            }
+        },
+        "category": {
+            "options": {
+                "jam": "Spūstis",
+                "lane_closed": "Uždaryta eismo juosta",
+                "road_closed": "Uždarytas kelias",
+                "road_works": "Kelio darbai",
+                "accident": "Avarija",
+                "broken_down_vehicle": "Sugedusi transporto priemonė",
+                "dangerous_conditions": "Pavojingos sąlygos",
+                "fog": "Rūkas",
+                "rain": "Lietus",
+                "ice": "Plikledis",
+                "wind": "Vėjas",
+                "flooding": "Potvynis",
+                "unknown": "Nežinoma",
+                "camera_fixed": "Stacionarus greičio matuoklis (blitzer.de, Lufop)",
+                "camera_mobile": "Mobilusis greičio matuoklis (blitzer.de, Lufop)",
+                "camera_trailer": "Greičio matuoklio priekaba (blitzer.de)",
+                "camera_redlight": "Raudonos šviesos kamera (blitzer.de, Lufop)",
+                "camera_section": "Vidutinio greičio matavimas (blitzer.de, Lufop)",
+                "check_distance": "Atstumo patikra (blitzer.de)",
+                "check_police": "Policijos patikra (blitzer.de)"
+            }
+        },
+        "lufop_country": {
+            "options": {
+                "ad": "Andora",
+                "au": "Australija",
+                "be": "Belgija",
+                "bg": "Bulgarija",
+                "ca": "Kanada",
+                "cz": "Čekija",
+                "fi": "Suomija",
+                "fr": "Prancūzija",
+                "de": "Vokietija",
+                "ie": "Airija",
+                "it": "Italija",
+                "lv": "Latvija",
+                "lu": "Liuksemburgas",
+                "ma": "Marokas",
+                "nl": "Nyderlandai",
+                "nz": "Naujoji Zelandija",
+                "no": "Norvegija",
+                "pl": "Lenkija",
+                "pt": "Portugalija",
+                "es": "Ispanija",
+                "se": "Švedija",
+                "ch": "Šveicarija",
+                "ae": "Jungtiniai Arabų Emyratai",
+                "gb": "Jungtinė Karalystė"
+            }
+        }
+    },
+    "device": {
+        "general": {
+            "name": "TomTom Bendra"
+        },
+        "settings": {
+            "name": "TomTom Nustatymai"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "report_count": {
+                "name": "Pranešimai"
+            },
+            "travel_time": {
+                "name": "Kelionės laikas"
+            },
+            "traffic_delay": {
+                "name": "Eismo vėlavimas"
+            },
+            "route_length": {
+                "name": "Maršruto ilgis"
+            },
+            "requests": {
+                "name": "TomTom užklausos šį mėnesį"
+            },
+            "requests_total": {
+                "name": "Visos užklausos šį mėnesį"
+            },
+            "requests_incidents": {
+                "name": "Incident Details šį mėnesį"
+            },
+            "requests_routing": {
+                "name": "Routing šį mėnesį"
+            },
+            "requests_geocoding": {
+                "name": "Geocoding šį mėnesį"
+            },
+            "requests_reverse_geocoding": {
+                "name": "Reverse Geocoding šį mėnesį"
+            },
+            "requests_search": {
+                "name": "Paieška šį mėnesį"
+            },
+            "requests_tiles": {
+                "name": "Srauto plytelės šį mėnesį"
+            },
+            "requests_blitzer": {
+                "name": "blitzer.de šį mėnesį"
+            },
+            "requests_lufop": {
+                "name": "Lufop šiandien"
+            }
+        },
+        "number": {
+            "new_minutes": {
+                "name": "Laikoma nauja"
+            }
+        },
+        "binary_sensor": {
+            "quota_at_risk": {
+                "name": "Kvota pavojuje"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "user": {
+                "title": "TomTom sąranka",
+                "description": "Pavadinkite šį įrašą ir pasirinkite, kaip ieškoti. Sritis arba seklys skaito TomTom eismo įvykius savo apskritime; maršrutą nuo pradžios iki tikslo TomTom apskaičiuoja per kiekvieną užklausą su to momento eismu ir praneša, per ką jis eina.",
+                "data": {
+                    "name": "Rodomas pavadinimas",
+                    "search_mode": "Paieškos režimas"
+                }
+            },
+            "key": {
+                "title": "TomTom API raktas",
+                "description": "Viskas čia ateina iš TomTom, kuriam reikia API rakto – nemokamo, be mokėjimo būdo:\n\n1. Užsiregistruokite [developer.tomtom.com]({url}).\n2. Iškart po to valdymo skydelio skiltyje **API & SDK Keys** jau yra raktas *My First API key* su visomis įjungtomis API – tarp jų Traffic API, Routing API ir Search API, kurios čia naudojamos. Nukopijuokite jį mygtuku šalia.\n3. Įklijuokite jį čia.\n\nVienas raktas aptarnauja visus šio Home Assistant įrašus. Jei vienas jau išsaugotas, palikite lauką tuščią, kad jį išlaikytumėte.",
+                "data": {
+                    "api_key": "API raktas"
+                }
+            },
+            "route_defaults": {
+                "title": "Numatytosios reikšmės naujiems maršrutams",
+                "description": "Su kuo pradeda kiekvienas naujas maršrutas: kortelėje ten suplanuotas maršrutas iš karto išsaugomas su šiais nustatymais; sąrankos vedlyje jie užpildomi ir dar gali būti pakeisti. Dienos ir valandos – tos, kuriomis maršrutas atnaujinamas, o kelias atgal gali būti sukurtas kartu su juo – važiuojamas kitu paros metu, su savo valandomis.",
+                "data": {
+                    "default_start": "Pradžia kortelėje planuojamiems maršrutams (neprivaloma)",
+                    "return_route": "Taip pat sukurti kelią atgal",
+                    "live_days": "Dienos, kuriomis maršrutas atnaujinamas",
+                    "live_from": "Nuo",
+                    "live_until": "Iki",
+                    "live_back_from": "Nuo (kelias atgal)",
+                    "live_back_until": "Iki (kelias atgal)",
+                    "categories": "Pranešimai"
+                },
+                "data_description": {
+                    "return_route": "Antras įrašas, nuo tikslo iki pradžios – automagistralėje kelias atgal yra kita važiuojamoji dalis, o spūstis vienoje nėra spūstis kitoje. Pavadintas kaip šis įrašas, pridėjus „atgal“."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            },
+            "first": {
+                "title": "TomTom nustatytas",
+                "description": "Raktas išsaugotas, o numatytosios naujų maršrutų reikšmės laikomos įraše **TomTom Nustatymai** – jo „Konfigūruoti“ vėliau keičia abu. Užbaikite dabar ir pridėkite pirmą sritį, seklį ar maršrutą bet kada TomTom plytelės mygtuku **Pridėti įrašą**, arba sukurkite jį iš karto.",
+                "menu_options": {
+                    "finish": "Užbaigti sąranką",
+                    "add_entry": "Pridėti pirmą sritį, seklį ar maršrutą dabar"
+                }
+            },
+            "area": {
+                "title": "Sritis (spindulys)",
+                "description": "Pasirinkite apskritimą, kuriame rodomi TomTom pranešimai – iki 50 km aplink jo centrą, didžiausias stačiakampis, į kurį TomTom atsako viena užklausa. Kiekviena užklausa – viena Incident Details užklausa (po vieną papildomą kas 10 000 km² paieškos ploto), o nemokamas raktas jų turi 2 500 per mėnesį: su numatytąja valanda sritis išleidžia apie 720.",
+                "data": {
+                    "location": "Sritis",
+                    "categories": "Pranešimai"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Įrenginio seklys (spindulys)",
+                "description": "Pasirinkite įrenginio seklį, kurį sekti, ir kokio pločio apskritime aplink jį ieškoti. Sąraše tik sekliai, šiuo metu pranešantys koordinates – tas, kuris žino tik „namie“ ir „išvykęs“, neturi padėties, aplink kurią apibrėžti apskritimą. Kiekviena užklausa – viena Incident Details užklausa (po vieną papildomą kas 10 000 km² paieškos ploto), o nemokamas raktas jų turi 2 500 per mėnesį: su numatytąja valanda sritis išleidžia apie 720.",
+                "data": {
+                    "tracker": "Įrenginio seklys",
+                    "tracker_radius": "Spindulys (metrais)",
+                    "categories": "Pranešimai"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Pradžia",
+                "description": "Kur maršrutas prasideda?",
+                "menu_options": {
+                    "route_start_zone": "Zona",
+                    "route_start_point": "Taškas žemėlapyje",
+                    "route_start_address": "Adresas"
+                }
+            },
+            "route_start_zone": {
+                "title": "Pradžia: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_start_point": {
+                "title": "Pradžia: taškas žemėlapyje",
+                "description": "Perkelkite žemėlapį taip, kad žymeklis būtų ant pradžios.",
+                "data": {
+                    "location": "Pradžia"
+                }
+            },
+            "route_start_address": {
+                "title": "Pradžia: adresas",
+                "description": "Gatvė ir miestas.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Pradžia: adresas rastas",
+                "description": "Rasta: **{label}**\n\nJei tai ne ta vieta, kurią turėjote omenyje, pataisykite adresą ir tęskite – jo bus ieškoma iš naujo.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_destination": {
+                "title": "Tikslas",
+                "description": "Kur maršrutas baigiasi?",
+                "menu_options": {
+                    "route_destination_zone": "Zona",
+                    "route_destination_point": "Taškas žemėlapyje",
+                    "route_destination_address": "Adresas"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Tikslas: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_destination_point": {
+                "title": "Tikslas: taškas žemėlapyje",
+                "description": "Perkelkite žemėlapį taip, kad žymeklis būtų ant tikslo.",
+                "data": {
+                    "location": "Tikslas"
+                }
+            },
+            "route_destination_address": {
+                "title": "Tikslas: adresas",
+                "description": "Gatvė ir miestas.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Tikslas: adresas rastas",
+                "description": "Rasta: **{label}**\n\nJei tai ne ta vieta, kurią turėjote omenyje, pataisykite adresą ir tęskite – jo bus ieškoma iš naujo.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_vias": {
+                "title": "Tarpiniai taškai",
+                "description": "Nuo {start} iki {destination}, kol kas tarpinių taškų: {count}. TomTom tarp jų renkasi greičiausią kelią – pridėkite tarpinį tašką ten, kur jūsų įprastas kelias skiriasi.",
+                "menu_options": {
+                    "route_via": "Pridėti tarpinį tašką",
+                    "route_vias_clear": "Pašalinti visus tarpinius taškus",
+                    "route_review": "Apskaičiuoti maršrutą"
+                }
+            },
+            "route_via": {
+                "title": "Tarpinis taškas {count}",
+                "description": "Perkelkite žemėlapį taip, kad žymeklis būtų ant kelio, kuriuo maršrutas turėtų eiti.",
+                "data": {
+                    "location": "Tarpinis taškas"
+                }
+            },
+            "route_failed": {
+                "title": "Maršruto nėra",
+                "description": "Tęskite, kad pakeistumėte taškus."
+            },
+            "route_review": {
+                "title": "Jūsų maršrutas dabar",
+                "description": "{start} → {destination}, tarpinių taškų: {vias}: {distance}, šiuo metu apie {duration} min, iš jų {delay} min vėlavimo. Maršrutas perskaičiuojamas per kiekvieną užklausą; žemėlapis rodo tą, kurį eismas šiuo metu daro greičiausią. Savo valandomis kiekviena užklausa – viena Routing užklausa iš 20 000 nemokamų per mėnesį; pranešimai maršrute ateina kartu su ja, o Incident Details klausiama po kartą kiekvienam naujam pranešimui dėl viso kito, ką galima sužinoti.",
+                "data": {
+                    "return_route": "Taip pat sukurti kelią atgal",
+                    "return_name": "Kelio atgal pavadinimas",
+                    "live_days": "Dienos, kuriomis maršrutas atnaujinamas",
+                    "live_from": "Nuo",
+                    "live_until": "Iki",
+                    "live_back_from": "Nuo (kelias atgal)",
+                    "live_back_until": "Iki (kelias atgal)",
+                    "categories": "Pranešimai"
+                },
+                "data_description": {
+                    "return_route": "Antras įrašas, nuo tikslo iki pradžios – automagistralėje kelias atgal yra kita važiuojamoji dalis, o spūstis vienoje nėra spūstis kitoje. Pavadintas kaip šis įrašas, pridėjus „atgal“.",
+                    "return_name": "Naudojamas tik tada, kai kuriamas kelias atgal. Užpildytas šio įrašo pavadinimu ir pridėtu „atgal“; įveskite kitą, kad pavadintumėte kitaip – pavyzdžiui, „Namo“ ir „Į darbą“."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "TomTom šiuo pavadinimu jau sukonfigūruotas. Pasirinkite kitą.",
+            "location_missing": "Pasirinkite padėtį (perkelkite žemėlapį).",
+            "no_tracker_with_position": "Joks įrenginio seklys šiuo metu nepraneša padėties. Šiam režimui reikia tokio, kuris siunčia koordinates – seklys, žinantis tik „namie“ ir „išvykęs“, negali centruoti spindulio."
+        },
+        "error": {
+            "radius_too_large": "Spindulys gali būti ne didesnis kaip 50 km – didžiausias stačiakampis, į kurį TomTom atsako viena užklausa.",
+            "invalid_api_key": "TomTom nepriėmė API rakto.",
+            "quota_exceeded": "Šio rakto kvota TomTom kol kas išnaudota. Pabandykite vėliau.",
+            "address_not_found": "Šiuo adresu vietos nerasta.",
+            "point_not_routable": "Vienas iš taškų per toli nuo kelio. Perkelkite jį arčiau.",
+            "no_route": "TomTom nerado kelio, jungiančio šiuos taškus.",
+            "route_too_long": "Maršrutas TomTom per ilgas arba turi per daug taškų.",
+            "return_name_taken": "Įrašas tokiu pavadinimu jau yra – įskaitant šį.",
+            "cannot_connect": "Nepavyko pasiekti TomTom.",
+            "zone_without_position": "Ši zona neturi padėties.",
+            "api_key_required": "Įveskite API raktą.",
+            "lufop_key_required": "Lufop reikia API rakto, kad būtų įjungtas.",
+            "invalid_lufop_key": "Lufop nepriėmė API rakto.",
+            "lufop_cannot_connect": "Nepavyko pasiekti Lufop. Raktas nepatikrintas – pabandykite vėliau.",
+            "lufop_refused": "Lufop atmetė užklausą, bet ne raktą. Gali būti, kad dienos užklausos išnaudotos – pabandykite po vidurnakčio UTC arba patikrinkite raktą savo Lufop valdymo skydelyje.",
+            "lufop_busy": "Pasiekta Lufop riba – 10 užklausų per minutę. Pabandykite po minutės."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Atnaujinti",
+            "description": "Iš karto gauna naujausius vienos TomTom srities, maršruto ar seklio pranešimus, užuot laukus kitos suplanuotos užklausos – o gyvam maršrutui pirmiausia patį maršrutą. Grąžina pranešimus.",
+            "fields": {
+                "config_entry_id": {
+                    "name": "Sritis, maršrutas arba seklys",
+                    "description": "Kurią TomTom sritį, maršrutą ar seklį atnaujinti."
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Ką norite keisti?",
+                "menu_options": {
+                    "edit_route": "Keisti maršrutą (pradžia, tikslas, tarpiniai taškai)",
+                    "edit_route_settings": "Redaguoti paieškos nustatymus (valandos, rūšys, filtrai)",
+                    "edit_key": "Keisti API raktą",
+                    "route_defaults": "Numatytosios reikšmės naujiems maršrutams",
+                    "quota_warning": "Kvotos įspėjimas",
+                    "sources": "Duomenų šaltiniai"
+                }
+            },
+            "route_defaults": {
+                "title": "Numatytosios reikšmės naujiems maršrutams",
+                "description": "Su kuo pradeda kiekvienas naujas maršrutas: kortelėje ten suplanuotas maršrutas iš karto išsaugomas su šiais nustatymais; sąrankos vedlyje jie užpildomi ir dar gali būti pakeisti. Dienos ir valandos – tos, kuriomis maršrutas atnaujinamas, o kelias atgal gali būti sukurtas kartu su juo – važiuojamas kitu paros metu, su savo valandomis.",
+                "data": {
+                    "default_start": "Pradžia kortelėje planuojamiems maršrutams (neprivaloma)",
+                    "return_route": "Taip pat sukurti kelią atgal",
+                    "live_days": "Dienos, kuriomis maršrutas atnaujinamas",
+                    "live_from": "Nuo",
+                    "live_until": "Iki",
+                    "live_back_from": "Nuo (kelias atgal)",
+                    "live_back_until": "Iki (kelias atgal)",
+                    "categories": "Pranešimai"
+                },
+                "data_description": {
+                    "return_route": "Antras įrašas, nuo tikslo iki pradžios – automagistralėje kelias atgal yra kita važiuojamoji dalis, o spūstis vienoje nėra spūstis kitoje. Pavadintas kaip šis įrašas, pridėjus „atgal“."
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            },
+            "quota_warning": {
+                "title": "Kvotos įspėjimas",
+                "description": "Kai API užklausų lieka mažai, apie tai praneša taisymas ir įsijungia įrenginio TomTom Bendra jutiklis **Kvota pavojuje**.",
+                "sections": {
+                    "tomtom": {
+                        "name": "TomTom",
+                        "description": "Nuo aštuntos mėnesio dienos iki šiol pateiktos užklausos projektuojamos iki mėnesio pabaigos. Skaičiuojama tai, ko prašo ši integracija; kitur irgi naudojamo rakto skaičius TomTom yra didesnis.",
+                        "data": {
+                            "quota_warning": "Įspėti, kai nemokamo plano neužteks visam mėnesiui",
+                            "quota_threshold": "Įspėti nuo šios nemokamo plano dalies"
+                        },
+                        "data_description": {
+                            "quota_threshold": "100 % įspėja, kai bus viršytas pats planas, 80 % – jau pasiekus keturis penktadalius."
+                        }
+                    },
+                    "lufop": {
+                        "name": "Lufop",
+                        "description": "Lufop skaičiuoja paromis, nuo vidurnakčio iki vidurnakčio UTC, įskaitant viską, kas naudoja raktą. Galioja, kol Lufop įjungtas skiltyje Duomenų šaltiniai.",
+                        "data": {
+                            "lufop_quota_warning": "Įspėti, kai dienos užklausų lieka mažai arba nebelieka",
+                            "lufop_quota_threshold": "Įspėti nuo šios dienos užklausų dalies"
+                        },
+                        "data_description": {
+                            "lufop_quota_threshold": "Pirmas įspėjimas – pasiekus šią dalį; antras – kai išnaudotos visos."
+                        }
+                    }
+                }
+            },
+            "sources": {
+                "title": "Duomenų šaltiniai",
+                "description": "Papildomi pranešimų šaltiniai šalia TomTom, visiems įrašams iš karto. Šaltinis prideda tik tai, ko TomTom neturi, savomis rūšimis kiekvieno įrašo sąraše, todėl joks pranešimas nesikartoja.\n\n**blitzer.de** praneša apie greičio matuoklius ir eismo patikras, stacionarius ir mobiliuosius, Vokietijoje ir kaimyninėse šalyse. Be rakto ir be paskyros; skaitoma tai, ką skaito paties tinklalapio žemėlapis, – blitzer.de to nėra paskelbusi kaip API, tai gali pasikeisti arba būti uždaryta. Kiekviena užklausa skaičiuojama prie **blitzer.de šį mėnesį**.\n\n**Lufop** praneša apie greičio matuoklius – stacionarius, mobiliuosius ir raudonos šviesos – bei vidutinio greičio matavimą iš savo radarų duomenų bazės – dokumentuota API su nemokamu asmeniniu raktu iš [api.lufop.net](https://api.lufop.net/). Viena užklausa atsako apie vieną šalį; nemokamas planas apima Prancūziją, Belgiją ir Šveicariją, 200 užklausų per dieną ir 200 radarų per užklausą. Kiekviena užklausa skaičiuojama prie **Lufop šiandien**.",
+                "data": {
+                    "source_blitzer": "blitzer.de",
+                    "source_lufop": "Lufop",
+                    "lufop_api_key": "Lufop API raktas",
+                    "lufop_country": "Lufop: šalis"
+                },
+                "data_description": {
+                    "lufop_api_key": "Tikrinamas, kai įvedamas ir kai Lufop įjungiamas; jau išsaugotas paliekamas, jei laukas paliktas tuščias.",
+                    "lufop_country": "Viena šalis, kurios kiekvienas įrašas klausia Lufop – nemokamas planas leidžia Prancūziją, Belgiją ir Šveicariją."
+                }
+            },
+            "key": {
+                "title": "TomTom API raktas",
+                "description": "Viskas čia ateina iš TomTom, kuriam reikia API rakto – nemokamo, be mokėjimo būdo:\n\n1. Užsiregistruokite [developer.tomtom.com]({url}).\n2. Iškart po to valdymo skydelio skiltyje **API & SDK Keys** jau yra raktas *My First API key* su visomis įjungtomis API – tarp jų Traffic API, Routing API ir Search API, kurios čia naudojamos. Nukopijuokite jį mygtuku šalia.\n3. Įklijuokite jį čia.\n\nVienas raktas aptarnauja visus šio Home Assistant įrašus. Jei vienas jau išsaugotas, palikite lauką tuščią, kad jį išlaikytumėte.",
+                "data": {
+                    "api_key": "API raktas"
+                }
+            },
+            "area": {
+                "title": "Sritis (spindulys)",
+                "description": "Pasirinkite apskritimą, kuriame rodomi TomTom pranešimai – iki 50 km aplink jo centrą, didžiausias stačiakampis, į kurį TomTom atsako viena užklausa. Kiekviena užklausa – viena Incident Details užklausa (po vieną papildomą kas 10 000 km² paieškos ploto), o nemokamas raktas jų turi 2 500 per mėnesį: su numatytąja valanda sritis išleidžia apie 720.",
+                "data": {
+                    "location": "Sritis",
+                    "categories": "Pranešimai"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            },
+            "tracker": {
+                "title": "Įrenginio seklys (spindulys)",
+                "description": "Pasirinkite įrenginio seklį, kurį sekti, ir kokio pločio apskritime aplink jį ieškoti. Sąraše tik sekliai, šiuo metu pranešantys koordinates – tas, kuris žino tik „namie“ ir „išvykęs“, neturi padėties, aplink kurią apibrėžti apskritimą. Kiekviena užklausa – viena Incident Details užklausa (po vieną papildomą kas 10 000 km² paieškos ploto), o nemokamas raktas jų turi 2 500 per mėnesį: su numatytąja valanda sritis išleidžia apie 720.",
+                "data": {
+                    "tracker": "Įrenginio seklys",
+                    "tracker_radius": "Spindulys (metrais)",
+                    "categories": "Pranešimai"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            },
+            "route_start": {
+                "title": "Pradžia",
+                "description": "Kur maršrutas prasideda?",
+                "menu_options": {
+                    "route_start_zone": "Zona",
+                    "route_start_point": "Taškas žemėlapyje",
+                    "route_start_address": "Adresas"
+                }
+            },
+            "route_start_zone": {
+                "title": "Pradžia: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_start_point": {
+                "title": "Pradžia: taškas žemėlapyje",
+                "description": "Perkelkite žemėlapį taip, kad žymeklis būtų ant pradžios.",
+                "data": {
+                    "location": "Pradžia"
+                }
+            },
+            "route_start_address": {
+                "title": "Pradžia: adresas",
+                "description": "Gatvė ir miestas.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_start_address_confirm": {
+                "title": "Pradžia: adresas rastas",
+                "description": "Rasta: **{label}**\n\nJei tai ne ta vieta, kurią turėjote omenyje, pataisykite adresą ir tęskite – jo bus ieškoma iš naujo.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_destination": {
+                "title": "Tikslas",
+                "description": "Kur maršrutas baigiasi?",
+                "menu_options": {
+                    "route_destination_zone": "Zona",
+                    "route_destination_point": "Taškas žemėlapyje",
+                    "route_destination_address": "Adresas"
+                }
+            },
+            "route_destination_zone": {
+                "title": "Tikslas: zona",
+                "data": {
+                    "zone": "Zona"
+                }
+            },
+            "route_destination_point": {
+                "title": "Tikslas: taškas žemėlapyje",
+                "description": "Perkelkite žemėlapį taip, kad žymeklis būtų ant tikslo.",
+                "data": {
+                    "location": "Tikslas"
+                }
+            },
+            "route_destination_address": {
+                "title": "Tikslas: adresas",
+                "description": "Gatvė ir miestas.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_destination_address_confirm": {
+                "title": "Tikslas: adresas rastas",
+                "description": "Rasta: **{label}**\n\nJei tai ne ta vieta, kurią turėjote omenyje, pataisykite adresą ir tęskite – jo bus ieškoma iš naujo.",
+                "data": {
+                    "address": "Adresas"
+                }
+            },
+            "route_vias": {
+                "title": "Tarpiniai taškai",
+                "description": "Nuo {start} iki {destination}, kol kas tarpinių taškų: {count}. TomTom tarp jų renkasi greičiausią kelią – pridėkite tarpinį tašką ten, kur jūsų įprastas kelias skiriasi.",
+                "menu_options": {
+                    "route_via": "Pridėti tarpinį tašką",
+                    "route_vias_clear": "Pašalinti visus tarpinius taškus",
+                    "route_review": "Apskaičiuoti maršrutą"
+                }
+            },
+            "route_via": {
+                "title": "Tarpinis taškas {count}",
+                "description": "Perkelkite žemėlapį taip, kad žymeklis būtų ant kelio, kuriuo maršrutas turėtų eiti.",
+                "data": {
+                    "location": "Tarpinis taškas"
+                }
+            },
+            "route_failed": {
+                "title": "Maršruto nėra",
+                "description": "Tęskite, kad pakeistumėte taškus."
+            },
+            "route_review": {
+                "title": "Jūsų maršrutas dabar",
+                "description": "{start} → {destination}, tarpinių taškų: {vias}: {distance}, šiuo metu apie {duration} min, iš jų {delay} min vėlavimo. Maršrutas perskaičiuojamas per kiekvieną užklausą; žemėlapis rodo tą, kurį eismas šiuo metu daro greičiausią. Savo valandomis kiekviena užklausa – viena Routing užklausa iš 20 000 nemokamų per mėnesį; pranešimai maršrute ateina kartu su ja, o Incident Details klausiama po kartą kiekvienam naujam pranešimui dėl viso kito, ką galima sužinoti.",
+                "data": {
+                    "live_days": "Dienos, kuriomis maršrutas atnaujinamas",
+                    "live_from": "Nuo",
+                    "live_until": "Iki",
+                    "categories": "Pranešimai"
+                },
+                "sections": {
+                    "optional": {
+                        "name": "Papildomi nustatymai",
+                        "data": {
+                            "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+                            "count": "Pranešimų skaičius",
+                            "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
+                            "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
+                            "roads": "Tik šie keliai (kelių numeriai, atskirti kableliais, pvz., A8, B2)",
+                            "blacklist": "Juodasis sąrašas (įvykių ID, atskirti kableliais)"
+                        },
+                        "data_description": {
+                            "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+                            "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
+                            "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
+                        }
+                    }
+                }
+            }
+        },
+        "error": {
+            "radius_too_large": "Spindulys gali būti ne didesnis kaip 50 km – didžiausias stačiakampis, į kurį TomTom atsako viena užklausa.",
+            "invalid_api_key": "TomTom nepriėmė API rakto.",
+            "quota_exceeded": "Šio rakto kvota TomTom kol kas išnaudota. Pabandykite vėliau.",
+            "address_not_found": "Šiuo adresu vietos nerasta.",
+            "point_not_routable": "Vienas iš taškų per toli nuo kelio. Perkelkite jį arčiau.",
+            "no_route": "TomTom nerado kelio, jungiančio šiuos taškus.",
+            "route_too_long": "Maršrutas TomTom per ilgas arba turi per daug taškų.",
+            "return_name_taken": "Įrašas tokiu pavadinimu jau yra – įskaitant šį.",
+            "cannot_connect": "Nepavyko pasiekti TomTom.",
+            "zone_without_position": "Ši zona neturi padėties.",
+            "api_key_required": "Įveskite API raktą.",
+            "lufop_key_required": "Lufop reikia API rakto, kad būtų įjungtas.",
+            "invalid_lufop_key": "Lufop nepriėmė API rakto.",
+            "lufop_cannot_connect": "Nepavyko pasiekti Lufop. Raktas nepatikrintas – pabandykite vėliau.",
+            "lufop_refused": "Lufop atmetė užklausą, bet ne raktą. Gali būti, kad dienos užklausos išnaudotos – pabandykite po vidurnakčio UTC arba patikrinkite raktą savo Lufop valdymo skydelyje.",
+            "lufop_busy": "Pasiekta Lufop riba – 10 užklausų per minutę. Pabandykite po minutės."
+        },
+        "abort": {
+            "no_tracker_with_position": "Joks įrenginio seklys šiuo metu nepraneša padėties. Šiam režimui reikia tokio, kuris siunčia koordinates – seklys, žinantis tik „namie“ ir „išvykęs“, negali centruoti spindulio."
+        }
+    },
+    "issues": {
+        "entry_failing": {
+            "title": "{name} nebeteikia duomenų",
+            "description": "TomTom įrašo **{name}** {count} užklausos iš eilės nepavyko, todėl jo objektai nepasiekiami. Paskutinė priežastis:\n\n`{reason}`\n\nSeklys be padėties arba nebeegzistuojantis seklio objektas taisomas įrašo skiltyje **Konfigūruoti**; atmestas raktas – TomTom Nustatymai įrašo skiltyje **Konfigūruoti**; jei nepasiekiamas pats TomTom, tai išnyksta savaime, kai tik jis vėl pasiekiamas. Šis taisymas dingsta su kita sėkminga užklausa."
+        },
+        "quota_at_risk": {
+            "title": "{api} kvotos neužteks visam mėnesiui",
+            "description": "Po {days} d. panaudota {used} iš {tier} nemokamų **{api}** užklausų; tokiu tempu iki mėnesio pabaigos apie **{projected}**, daugiau nei {percent} % plano.\n\nPadeda mažiau užklausų: ilgesnis atnaujinimo intervalas, siauresnės maršruto valandos, eismo srautas mažiau kortelių.\n\nTai išnyksta, kai tempas nukrenta žemiau dalies, nustatytos skiltyje TomTom Nustatymai → Konfigūruoti → Kvotos įspėjimas → TomTom, ir prasidėjus naujam mėnesiui."
+        },
+        "quota_day_at_risk": {
+            "title": "{api} dienos užklausos beveik išnaudotos",
+            "description": "Panaudota {used} iš {tier} per dieną **{api}** plano leidžiamų užklausų.\n\nDienos užklausomis dalijasi visi šios įdiegties įrašai – ir visa kita, kas naudoja tą patį raktą. Padeda mažiau užklausų: ilgesnis atnaujinimo intervalas, siauresnės maršruto valandos arba Lufop išjungimas įrašams už jo šalies ribų.\n\nTai išnyksta vidurnaktį UTC, kai keičiasi Lufop diena, arba kai padidinama dalis, nustatyta skiltyje TomTom Nustatymai → Konfigūruoti → Kvotos įspėjimas → Lufop."
+        },
+        "quota_day_used_up": {
+            "title": "{api} dienos užklausos išnaudotos",
+            "description": "Visos {tier} **{api}** plano dienos užklausos išnaudotos – Lufop skaičiuoja viską, kas naudoja tą patį raktą. Kitas užklausas jis atmeta iki vidurnakčio UTC – čia {reset}.\n\nRytoj padės mažiau užklausų: ilgesnis atnaujinimo intervalas, siauresnės maršruto valandos arba Lufop išjungimas įrašams už jo šalies ribų."
+        }
+    }
+}

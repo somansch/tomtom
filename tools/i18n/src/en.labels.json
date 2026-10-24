@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "jam": "Traffic jam",
+    "lane_closed": "Lane closed",
+    "road_closed": "Road closed",
+    "road_works": "Roadworks",
+    "accident": "Accident",
+    "broken_down_vehicle": "Broken down vehicle",
+    "dangerous_conditions": "Dangerous conditions",
+    "fog": "Fog",
+    "rain": "Rain",
+    "ice": "Ice",
+    "wind": "Wind",
+    "flooding": "Flooding",
+    "unknown": "Unknown",
+    "camera_fixed": "Fixed speed camera",
+    "camera_mobile": "Mobile speed camera",
+    "camera_trailer": "Speed camera trailer",
+    "camera_redlight": "Red-light camera",
+    "camera_section": "Section control",
+    "check_distance": "Distance check",
+    "check_police": "Police check"
+  },
+  "magnitudes": {
+    "unknown": "",
+    "minor": "minor",
+    "moderate": "moderate",
+    "major": "major",
+    "indefinite": "indefinite"
+  }
+}

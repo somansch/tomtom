@@ -1,0 +1,7 @@
+{
+  "name": "TomTom",
+  "render_readme": true,
+  "zip_release": true,
+  "filename": "tomtom.zip",
+  "homeassistant": "2024.7.0"
+}

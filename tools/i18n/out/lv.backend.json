@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Sastrēgums",
+    "lane_closed": "Slēgta josla",
+    "road_closed": "Slēgts ceļš",
+    "road_works": "Ceļa darbi",
+    "accident": "Avārija",
+    "broken_down_vehicle": "Sabojājies transportlīdzeklis",
+    "dangerous_conditions": "Bīstami apstākļi",
+    "fog": "Migla",
+    "rain": "Lietus",
+    "ice": "Apledojums",
+    "wind": "Vējš",
+    "flooding": "Plūdi",
+    "unknown": "Nezināms",
+    "camera_fixed": "Stacionārs ātruma radars (blitzer.de, Lufop)",
+    "camera_mobile": "Mobilais ātruma radars (blitzer.de, Lufop)",
+    "camera_trailer": "Ātruma radara piekabe (blitzer.de)",
+    "camera_redlight": "Sarkanās gaismas kamera (blitzer.de, Lufop)",
+    "camera_section": "Vidējā ātruma kontrole (blitzer.de, Lufop)",
+    "check_distance": "Distances pārbaude (blitzer.de)",
+    "check_police": "Policijas pārbaude (blitzer.de)"
+  },
+  "days": {
+    "mon": "Pirmdiena",
+    "tue": "Otrdiena",
+    "wed": "Trešdiena",
+    "thu": "Ceturtdiena",
+    "fri": "Piektdiena",
+    "sat": "Sestdiena",
+    "sun": "Svētdiena"
+  },
+  "modes": {
+    "area": "📍 Apgabals (rādiuss)",
+    "tracker": "📱 Ierīces izsekotājs (rādiuss)",
+    "route_live": "🛣️ Maršruts (sākums/galamērķis, dzīvajā režīmā ar satiksmi)"
+  },
+  "typeData": {
+    "categories": "Ziņojumi"
+  },
+  "optional": {
+    "name": "Papildu iestatījumi",
+    "data": {
+      "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+      "count": "Ziņojumu skaits",
+      "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
+      "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
+      "roads": "Tikai šie ceļi (ceļu numuri ar komatu, piem., A8, B2)",
+      "blacklist": "Melnais saraksts (negadījumu ID ar komatu)"
+    },
+    "description": {
+      "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+      "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
+      "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
+    }
+  },
+  "budgetArea": "Katrs vaicājums ir viens Incident Details pieprasījums (par vienu vairāk uz katriem 10 000 km² meklēšanas platības), un bezmaksas atslēgai mēnesī ir 2 500 šādu: ar noklusējuma stundu apgabals patērē aptuveni 720.",
+  "budgetRoute": "Savās stundās katrs vaicājums ir viens Routing pieprasījums no 20 000 bezmaksas mēnesī; ziņojumi uz maršruta nāk līdzi, un Incident Details tiek vaicāts reizi par katru jaunu ziņojumu, lai uzzinātu pārējo.",
+  "entities": {
+    "sensor": {
+      "report_count": "Ziņojumi",
+      "travel_time": "Brauciena laiks",
+      "traffic_delay": "Satiksmes aizkave",
+      "route_length": "Maršruta garums",
+      "requests": "TomTom pieprasījumi šomēnes",
+      "requests_total": "Visi pieprasījumi šomēnes",
+      "requests_incidents": "Incident Details šomēnes",
+      "requests_routing": "Routing šomēnes",
+      "requests_geocoding": "Geocoding šomēnes",
+      "requests_reverse_geocoding": "Reverse Geocoding šomēnes",
+      "requests_search": "Meklēšana šomēnes",
+      "requests_tiles": "Plūsmas flīzes šomēnes",
+      "requests_blitzer": "blitzer.de šomēnes",
+      "requests_lufop": "Lufop šodien"
+    },
+    "number": {
+      "new_minutes": "Skaitās jauns"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Kvota apdraudēta"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "TomTom iestatīšana",
+      "description": "Nosauc šo ierakstu un izvēlies, kā tam meklēt. Apgabals vai izsekotājs lasa TomTom satiksmes negadījumus savā aplī; maršrutu no sākuma līdz galamērķim TomTom aprēķina katrā vaicājumā ar šī brīža satiksmi un ziņo, caur ko tas ved.",
+      "data": {
+        "name": "Attēlojamais nosaukums",
+        "search_mode": "Meklēšanas režīms"
+      }
+    },
+    "key": {
+      "title": "TomTom API atslēga",
+      "description": "Viss šeit nāk no TomTom, kam vajadzīga API atslēga - bezmaksas, bez maksājuma līdzekļa:\n\n1. Reģistrējies vietnē [developer.tomtom.com]({url}).\n2. Uzreiz pēc tam **API & SDK Keys** infopanelī jau ir atslēga *My First API key* ar visiem API iespējotiem - tostarp Traffic API, Routing API un Search API, kas tiek izmantoti šeit. Nokopē to ar pogu blakus.\n3. Ielīmē to šeit.\n\nViena atslēga kalpo katram šī Home Assistant ierakstam. Ja viena jau ir saglabāta, atstāj lauku tukšu, lai to paturētu.",
+      "data": {
+        "api_key": "API atslēga"
+      }
+    },
+    "area": {
+      "title": "Apgabals (rādiuss)",
+      "description": "Izvēlies apli, kurā rādīt TomTom ziņojumus - līdz 50 km ap tā centru, kas ir lielākais lauks, ko TomTom atbild vienā pieprasījumā. ",
+      "data": {
+        "location": "Apgabals"
+      }
+    },
+    "tracker": {
+      "title": "Ierīces izsekotājs (rādiuss)",
+      "description": "Izvēlies ierīces izsekotāju, kam sekot, un cik platu apli meklēt ap to. Sarakstā ir tikai izsekotāji, kas pašlaik ziņo koordinātas - tādam, kas zina tikai mājās un prom, nav pozīcijas, ap kuru likt apli. ",
+      "data": {
+        "tracker": "Ierīces izsekotājs",
+        "tracker_radius": "Rādiuss (metri)"
+      }
+    },
+    "route_start": {
+      "title": "Sākums",
+      "description": "Kur maršruts sākas?",
+      "menu": {
+        "route_start_zone": "Zona",
+        "route_start_point": "Punkts kartē",
+        "route_start_address": "Adrese"
+      }
+    },
+    "route_start_zone": {
+      "title": "Sākums: zona",
+      "data": {
+        "zone": "Zona"
+      }
+    },
+    "route_start_point": {
+      "title": "Sākums: punkts kartē",
+      "description": "Pārvieto karti tā, lai marķieris atrastos uz sākuma.",
+      "data": {
+        "location": "Sākums"
+      }
+    },
+    "route_start_address": {
+      "title": "Sākums: adrese",
+      "description": "Iela un pilsēta.",
+      "data": {
+        "address": "Adrese"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Sākums: adrese atrasta",
+      "description": "Atrasts: **{label}**\n\nJa šī nav domātā vieta, izlabo adresi un turpini - tā tiks meklēta vēlreiz.",
+      "data": {
+        "address": "Adrese"
+      }
+    },
+    "route_destination": {
+      "title": "Galamērķis",
+      "description": "Kur maršruts beidzas?",
+      "menu": {
+        "route_destination_zone": "Zona",
+        "route_destination_point": "Punkts kartē",
+        "route_destination_address": "Adrese"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Galamērķis: zona",
+      "data": {
+        "zone": "Zona"
+      }
+    },
+    "route_destination_point": {
+      "title": "Galamērķis: punkts kartē",
+      "description": "Pārvieto karti tā, lai marķieris atrastos uz galamērķa.",
+      "data": {
+        "location": "Galamērķis"
+      }
+    },
+    "route_destination_address": {
+      "title": "Galamērķis: adrese",
+      "description": "Iela un pilsēta.",
+      "data": {
+        "address": "Adrese"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Galamērķis: adrese atrasta",
+      "description": "Atrasts: **{label}**\n\nJa šī nav domātā vieta, izlabo adresi un turpini - tā tiks meklēta vēlreiz.",
+      "data": {
+        "address": "Adrese"
+      }
+    },
+    "route_vias": {
+      "title": "Starppunkti",
+      "description": "No {start} uz {destination}, līdz šim {count} starppunkti. TomTom starp tiem ņem ātrāko ceļu - pievieno starppunktu visur, kur tavs parastais ceļš atšķiras.",
+      "menu": {
+        "route_via": "Pievienot starppunktu",
+        "route_vias_clear": "Noņemt visus starppunktus",
+        "route_review": "Aprēķināt maršrutu"
+      }
+    },
+    "route_via": {
+      "title": "Starppunkts {count}",
+      "description": "Pārvieto karti tā, lai marķieris atrastos uz ceļa, pa kuru maršrutam jāved.",
+      "data": {
+        "location": "Starppunkts"
+      }
+    },
+    "route_review": {
+      "title": "Tavs maršruts pašlaik",
+      "description": "{start} → {destination}, {vias} starppunkti: {distance}, pašlaik aptuveni {duration} min, no tām {delay} min aizkave. Maršruts tiek aprēķināts no jauna katrā vaicājumā; karte rāda to, kuru satiksme šobrīd padara ātrāko. ",
+      "data": {
+        "return_route": "Izveidot arī atpakaļceļu",
+        "return_name": "Atpakaļceļa nosaukums",
+        "live_days": "Dienas, kurās maršruts tiek uzturēts aktuāls",
+        "live_from": "No",
+        "live_until": "Līdz",
+        "live_back_from": "No (atpakaļceļš)",
+        "live_back_until": "Līdz (atpakaļceļš)"
+      },
+      "data_description": {
+        "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\".",
+        "return_name": "Izmantots tikai tad, ja tiek izveidots atpakaļceļš. Aizpildīts ar šī ieraksta nosaukumu un pievienotu \"atpakaļ\"; ieraksti citu, lai to nosauktu citādi - piemēram, \"Mājas\" un \"Darbs\"."
+      }
+    },
+    "route_failed": {
+      "title": "Nav maršruta",
+      "description": "Turpini, lai mainītu punktus."
+    },
+    "init": {
+      "title": "Ko vēlies rediģēt?",
+      "menu": {
+        "edit_route": "Mainīt maršrutu (sākums, galamērķis, starppunkti)",
+        "edit_route_settings": "Rediģēt meklēšanas iestatījumus (stundas, veidi, filtri)",
+        "edit_key": "Mainīt API atslēgu",
+        "route_defaults": "Noklusējumi jauniem maršrutiem",
+        "quota_warning": "Kvotas brīdinājums",
+        "sources": "Datu avoti"
+      }
+    },
+    "route_defaults": {
+      "title": "Noklusējumi jauniem maršrutiem",
+      "description": "Ar ko sākas katrs jauns maršruts: kartītē tur plānots maršruts tiek uzreiz saglabāts ar šiem iestatījumiem; iestatīšanas vednī tie ir aizpildīti un vēl ir maināmi. Dienas un stundas ir tās, kurās maršruts tiek uzturēts aktuāls, un līdz ar to var izveidot arī atpakaļceļu - braucamu citā diennakts laikā, ar savām stundām.",
+      "data": {
+        "default_start": "Sākums kartītē plānotiem maršrutiem (neobligāts)"
+      }
+    },
+    "quota_warning": {
+      "title": "Kvotas brīdinājums",
+      "description": "Kad API pieprasījumi sāk beigties, to paziņo labojums, un ierīces TomTom Vispārīgi sensors **Kvota apdraudēta** ieslēdzas.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "No mēneša astotās dienas līdzšinējie pieprasījumi tiek prognozēti līdz mēneša beigām. Skaitīts tiek tas, ko pieprasa šī integrācija; ja atslēgu izmanto arī citur, pie TomTom skaitlis ir lielāks.",
+          "data": {
+            "quota_warning": "Brīdināt, ja bezmaksas limits nepietiks visam mēnesim",
+            "quota_threshold": "Brīdināt no šīs bezmaksas limita daļas"
+          },
+          "data_description": {
+            "quota_threshold": "100 % brīdina, kad tiks pārsniegts pats limits, 80 % - jau pie četrām piektdaļām no tā."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop skaita pa dienām, no pusnakts līdz pusnaktij UTC, ieskaitot visu, kas izmanto atslēgu. Attiecas, kamēr Lufop ir ieslēgts sadaļā Datu avoti.",
+          "data": {
+            "lufop_quota_warning": "Brīdināt, kad dienas pieprasījumi sāk beigties vai ir beigušies",
+            "lufop_quota_threshold": "Brīdināt no šīs dienas pieprasījumu daļas"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "Pirmais brīdinājums nāk pie šīs daļas; otrais, kad visi izlietoti."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Datu avoti",
+      "description": "Papildu ziņojumu avoti blakus TomTom, visiem ierakstiem uzreiz. Avots pievieno tikai to, kā TomTom nav, ar saviem veidiem katra ieraksta sarakstā, tāpēc neviens ziņojums tur nav divreiz.\n\n**blitzer.de** ziņo par ātruma radariem un satiksmes pārbaudēm, stacionārām un mobilām, Vācijā un tās kaimiņvalstīs. Bez atslēgas un bez konta; tas nolasa to, ko nolasa vietnes pašas karte, - blitzer.de to nav publicējis kā API, un tas var mainīties vai tikt slēgts. Katrs pieprasījums tiek skaitīts zem **blitzer.de šomēnes**.\n\n**Lufop** ziņo par ātruma radariem - stacionāriem, mobilajiem un sarkanās gaismas - un vidējā ātruma kontroli no savas radaru datubāzes - dokumentēts API ar bezmaksas personīgo atslēgu no [api.lufop.net](https://api.lufop.net/). Viens pieprasījums atbild par vienu valsti; bezmaksas plāns aptver Franciju, Beļģiju un Šveici, 200 pieprasījumus dienā un 200 radarus pieprasījumā. Katrs pieprasījums tiek skaitīts zem **Lufop šodien**.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop API atslēga",
+        "lufop_country": "Lufop: valsts"
+      },
+      "data_description": {
+        "lufop_api_key": "Tiek pārbaudīta, kad to ievada un kad Lufop tiek ieslēgts; jau saglabātā tiek paturēta, ja lauku atstāj tukšu.",
+        "lufop_country": "Vienīgā valsts, par kuru katrs ieraksts vaicā Lufop - bezmaksas plāns atļauj Franciju, Beļģiju un Šveici."
+      }
+    },
+    "first": {
+      "title": "TomTom ir iestatīts",
+      "description": "Atslēga ir saglabāta, un jauno maršrutu noklusējumi glabājas ierakstā **TomTom Iestatījumi** - tā Konfigurēt vēlāk maina abus. Pabeidz tagad un pievieno pirmo apgabalu, izsekotāju vai maršrutu jebkurā laikā ar TomTom flīzes pogu **Pievienot ierakstu**, vai izveido to uzreiz.",
+      "menu": {
+        "finish": "Pabeigt iestatīšanu",
+        "add_entry": "Pievienot pirmo apgabalu, izsekotāju vai maršrutu tagad"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom ar šādu nosaukumu jau ir iestatīts. Izvēlies citu.",
+    "location_missing": "Lūdzu, izvēlies pozīciju (pārvieto karti).",
+    "no_tracker_with_position": "Neviens ierīces izsekotājs pašlaik neziņo pozīciju. Šim režīmam vajadzīgs tāds, kas sūta koordinātas - izsekotājs, kas zina tikai mājās un prom, nevar centrēt rādiusu."
+  },
+  "error": {
+    "radius_too_large": "Rādiuss drīkst būt lielākais 50 km - lielākais lauks, ko TomTom atbild vienā pieprasījumā.",
+    "invalid_api_key": "TomTom nepieņēma API atslēgu.",
+    "quota_exceeded": "Atslēgas kvota pie TomTom pagaidām ir izsmelta. Mēģini vēlāk vēlreiz.",
+    "address_not_found": "Šai adresei netika atrasta neviena vieta.",
+    "point_not_routable": "Viens no punktiem ir pārāk tālu no ceļa. Pārvieto to tuvāk kādam.",
+    "no_route": "TomTom neatrada ceļu, kas savieno šos punktus.",
+    "route_too_long": "Maršruts TomTom ir pārāk garš vai tam ir pārāk daudz punktu.",
+    "return_name_taken": "Ieraksts ar šādu nosaukumu jau pastāv - arī šis.",
+    "cannot_connect": "TomTom nebija sasniedzams.",
+    "zone_without_position": "Šai zonai nav pozīcijas.",
+    "api_key_required": "Ievadi API atslēgu.",
+    "lufop_key_required": "Lai Lufop ieslēgtu, vajadzīga tā API atslēga.",
+    "invalid_lufop_key": "Lufop nepieņēma API atslēgu.",
+    "lufop_cannot_connect": "Lufop nebija sasniedzams. Atslēga netika pārbaudīta - mēģini vēlāk vēlreiz.",
+    "lufop_refused": "Lufop noraidīja pieprasījumu, nenoraidot atslēgu. Iespējams, dienas pieprasījumi ir izlietoti - mēģini vēlreiz pēc pusnakts UTC vai pārbaudi atslēgu savā Lufop infopanelī.",
+    "lufop_busy": "Sasniegts Lufop limits - 10 pieprasījumi minūtē. Mēģini vēlreiz pēc minūtes."
+  },
+  "service": {
+    "name": "Atsvaidzināt",
+    "description": "Tūlīt ielādē jaunākos ziņojumus vienam TomTom apgabalam, maršrutam vai izsekotājam, negaidot nākamo plānoto vaicājumu - un dzīvajam maršrutam vispirms pašu maršrutu. Atgriež ziņojumus.",
+    "field": {
+      "name": "Apgabals, maršruts vai izsekotājs",
+      "description": "Kuru TomTom apgabalu, maršrutu vai izsekotāju atsvaidzināt."
+    }
+  },
+  "issue": {
+    "title": "{name} nepiegādā datus",
+    "description": "TomTom ieraksts **{name}** nav izdevies {count} vaicājumos pēc kārtas, tāpēc tā entītijas nav pieejamas. Pēdējais iemesls:\n\n`{reason}`\n\nIzsekotāju bez pozīcijas vai izsekotāja entītiju, kas vairs nepastāv, labo ieraksta sadaļā **Konfigurēt**; noraidītu atslēgu - sadaļā **Konfigurēt** pie ieraksta TomTom Iestatījumi; ja pats TomTom nav sasniedzams, tas pazūd pats, tiklīdz tas atkal ir. Šis labojums pazūd ar nākamo veiksmīgo vaicājumu."
+  },
+  "quotaIssue": {
+    "title": "{api} kvota nepietiks visam mēnesim",
+    "description": "{used} no {tier} bezmaksas **{api}** pieprasījumiem pēc {days} d.; šādā tempā līdz mēneša beigām aptuveni **{projected}**, vairāk nekā {percent} % no limita.\n\nPalīdz mazāk vaicājumu: garāks atjaunināšanas intervāls, šaurākas stundas maršrutam, satiksmes plūsma mazākā kartīšu skaitā.\n\nTas pazūd, kad temps nokrītas zem daļas, kas iestatīta sadaļā TomTom Iestatījumi → Konfigurēt → Kvotas brīdinājums → TomTom, un ar jauno mēnesi."
+  },
+  "quotaDayIssue": {
+    "title": "{api} dienas pieprasījumi ir gandrīz izlietoti",
+    "description": "Izlietoti {used} no {tier} dienas pieprasījumiem, ko atļauj **{api}** plāns.\n\nDienas pieprasījumus dala visi šīs instalācijas ieraksti - un viss pārējais, kas izmanto to pašu atslēgu. Palīdz mazāk vaicājumu: garāks atjaunināšanas intervāls, šaurākas stundas maršrutam vai Lufop izslēgšana ierakstiem, kas atrodas ārpus tā valsts.\n\nTas pazūd pusnaktī UTC, kad mainās Lufop diena, vai kad tiek palielināta daļa, kas iestatīta sadaļā TomTom Iestatījumi → Konfigurēt → Kvotas brīdinājums → Lufop."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "{api} dienas pieprasījumi ir izlietoti",
+    "description": "Visi {tier} **{api}** plāna dienas pieprasījumi ir izlietoti - Lufop skaita visu, kas izmanto to pašu atslēgu. Turpmākos pieprasījumus tas noraida līdz pusnaktij UTC - šeit {reset}.\n\nRīt palīdzēs mazāk vaicājumu: garāks atjaunināšanas intervāls, šaurākas stundas maršrutam vai Lufop izslēgšana ierakstiem ārpus tā valsts."
+  },
+  "device": {
+    "general": "TomTom Vispārīgi",
+    "settings": "TomTom Iestatījumi"
+  },
+  "lufopCountries": {
+    "ad": "Andora",
+    "au": "Austrālija",
+    "be": "Beļģija",
+    "bg": "Bulgārija",
+    "ca": "Kanāda",
+    "cz": "Čehija",
+    "fi": "Somija",
+    "fr": "Francija",
+    "de": "Vācija",
+    "ie": "Īrija",
+    "it": "Itālija",
+    "lv": "Latvija",
+    "lu": "Luksemburga",
+    "ma": "Maroka",
+    "nl": "Nīderlande",
+    "nz": "Jaunzēlande",
+    "no": "Norvēģija",
+    "pl": "Polija",
+    "pt": "Portugāle",
+    "es": "Spānija",
+    "se": "Zviedrija",
+    "ch": "Šveice",
+    "ae": "Apvienotie Arābu Emirāti",
+    "gb": "Apvienotā Karaliste"
+  }
+}

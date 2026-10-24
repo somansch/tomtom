@@ -1,0 +1,369 @@
+{
+  "categories": {
+    "jam": "Trafik sıkışıklığı",
+    "lane_closed": "Şerit kapalı",
+    "road_closed": "Yol kapalı",
+    "road_works": "Yol çalışması",
+    "accident": "Kaza",
+    "broken_down_vehicle": "Arızalı araç",
+    "dangerous_conditions": "Tehlikeli koşullar",
+    "fog": "Sis",
+    "rain": "Yağmur",
+    "ice": "Buzlanma",
+    "wind": "Rüzgar",
+    "flooding": "Su baskını",
+    "unknown": "Bilinmiyor",
+    "camera_fixed": "Sabit hız kamerası (blitzer.de, Lufop)",
+    "camera_mobile": "Mobil hız kamerası (blitzer.de, Lufop)",
+    "camera_trailer": "Römork hız kamerası (blitzer.de)",
+    "camera_redlight": "Kırmızı ışık kamerası (blitzer.de, Lufop)",
+    "camera_section": "Ortalama hız denetimi (blitzer.de, Lufop)",
+    "check_distance": "Takip mesafesi denetimi (blitzer.de)",
+    "check_police": "Polis denetimi (blitzer.de)"
+  },
+  "days": {
+    "mon": "Pazartesi",
+    "tue": "Salı",
+    "wed": "Çarşamba",
+    "thu": "Perşembe",
+    "fri": "Cuma",
+    "sat": "Cumartesi",
+    "sun": "Pazar"
+  },
+  "modes": {
+    "area": "📍 Alan (yarıçap)",
+    "tracker": "📱 Cihaz takipçisi (yarıçap)",
+    "route_live": "🛣️ Rota (başlangıç/varış, canlı trafikle)"
+  },
+  "typeData": {
+    "categories": "Bildirimler"
+  },
+  "optional": {
+    "name": "İsteğe bağlı ayarlar",
+    "data": {
+      "only_certain": "Yalnızca TomTom'un emin olduğu bildirimler",
+      "count": "Bildirim sayısı",
+      "update_interval": "Güncelleme aralığı (dakika, 0 = yalnızca elle)",
+      "new_minutes": "Yeni sayılma süresi (dakika, 0 = kapalı)",
+      "roads": "Yalnızca bu yollar (virgülle ayrılmış yol numaraları, örn. A8, B2)",
+      "blacklist": "Kara liste (virgülle ayrılmış olay kimlikleri)"
+    },
+    "description": {
+      "only_certain": "TomTom her bildirimi derecelendirir: certain, probable, risk_of veya improbable. Hareket eden araçlardan ölçülen bir sıkışıklık certain, bir yol idaresinden gelen yol çalışması probable, bir sürücünün tek başına bildirimi ise bir risktir. Açıkken ilk ikisi tutulur; kapalıyken belirsiz olanlar da gelir.",
+      "roads": "Yalnızca TomTom'un bu yol numaralarından birinin altına kaydettiği bildirimler, A8 veya B2: bir işe gidiş yolunun otoyolları, yanındaki her ara sokak olmadan. Büyük/küçük harf ve boşluklar önemsizdir. Boş bırakılırsa her yol kalır.",
+      "blacklist": "TomTom'un olay kimliğine göre dışarıda bırakılacak bildirimler; bir bildirimin varlığının ayrıntılarında gösterilen id veya short_id özniteliği. TomTom'un kendi uygulamaları bunu göstermez."
+    }
+  },
+  "budgetArea": "Her sorgu bir Incident Details isteğidir (aramanın her 10.000 km² için bir tane daha) ve ücretsiz bir anahtarın ayda 2.500 tanesi vardır: varsayılan saatlik aralıkta bir alan yaklaşık 720 harcar.",
+  "budgetRoute": "Saatleri içinde her sorgu, ayda 20.000 ücretsiz olan bir Routing isteğidir; rotadaki bildirimler onunla birlikte gelir ve bilinecek geri kalanlar için her yeni bildirimde Incident Details bir kez sorulur.",
+  "entities": {
+    "sensor": {
+      "report_count": "Bildirimler",
+      "travel_time": "Yolculuk süresi",
+      "traffic_delay": "Trafik gecikmesi",
+      "route_length": "Rota uzunluğu",
+      "requests": "Bu ayki TomTom istekleri",
+      "requests_total": "Bu ayki tüm istekler",
+      "requests_incidents": "Bu ayki Incident Details",
+      "requests_routing": "Bu ayki Routing",
+      "requests_geocoding": "Bu ayki Geocoding",
+      "requests_reverse_geocoding": "Bu ayki Reverse Geocoding",
+      "requests_search": "Bu ayki Search",
+      "requests_tiles": "Bu ayki akış karoları",
+      "requests_blitzer": "Bu ayki blitzer.de",
+      "requests_lufop": "Bugünkü Lufop"
+    },
+    "number": {
+      "new_minutes": "Yeni sayılma süresi"
+    },
+    "binary_sensor": {
+      "quota_at_risk": "Kota risk altında"
+    }
+  },
+  "steps": {
+    "user": {
+      "title": "TomTom Kurulumu",
+      "description": "Bu girdiye bir ad verin ve nasıl aranacağını seçin. Bir alan veya takipçi, dairesi içindeki TomTom trafik olaylarını okur; başlangıçtan varışa bir rota, her sorguda anlık trafikle TomTom tarafından hesaplanır ve içinden geçtiklerini bildirir.",
+      "data": {
+        "name": "Görünen ad",
+        "search_mode": "Arama modu"
+      }
+    },
+    "key": {
+      "title": "TomTom API anahtarı",
+      "description": "Buradaki her şey TomTom'dan gelir ve bunun için bir API anahtarı gerekir; ücretsiz, ödeme yöntemi istemez:\n\n1. [developer.tomtom.com]({url}) adresinde kaydolun.\n2. Hemen ardından panodaki **API & SDK Keys** altında *My First API key* adlı bir anahtar, her API etkin olarak zaten listelenir; burada kullanılan Traffic API, Routing API ve Search API de bunların arasındadır. Yanındaki düğmeyle kopyalayın.\n3. Buraya yapıştırın.\n\nTek bir anahtar bu Home Assistant'ın her girdisine hizmet eder. Zaten kayıtlı bir anahtar varsa, onu korumak için bu kutuyu boş bırakın.",
+      "data": {
+        "api_key": "API anahtarı"
+      }
+    },
+    "area": {
+      "title": "Alan (yarıçap)",
+      "description": "TomTom bildirimlerinin gösterileceği daireyi seçin; merkezinin çevresinde en fazla 50 km, TomTom'un tek istekte yanıtladığı en büyük kutu budur. ",
+      "data": {
+        "location": "Alan"
+      }
+    },
+    "tracker": {
+      "title": "Cihaz takipçisi (yarıçap)",
+      "description": "İzlenecek cihaz takipçisini ve çevresinde ne genişlikte bir daire aranacağını seçin. Yalnızca şu anda koordinat bildiren takipçiler listelenir; evde ve dışarıda dışında bir şey bilmeyen bir takipçinin çevresine daire çizilecek konumu yoktur. ",
+      "data": {
+        "tracker": "Cihaz takipçisi",
+        "tracker_radius": "Yarıçap (metre)"
+      }
+    },
+    "route_start": {
+      "title": "Başlangıç",
+      "description": "Rota nerede başlıyor?",
+      "menu": {
+        "route_start_zone": "Bölge",
+        "route_start_point": "Haritada nokta",
+        "route_start_address": "Adres"
+      }
+    },
+    "route_start_zone": {
+      "title": "Başlangıç: bölge",
+      "data": {
+        "zone": "Bölge"
+      }
+    },
+    "route_start_point": {
+      "title": "Başlangıç: haritada nokta",
+      "description": "İşaretçi başlangıç noktasının üzerine gelene kadar haritayı kaydırın.",
+      "data": {
+        "location": "Başlangıç"
+      }
+    },
+    "route_start_address": {
+      "title": "Başlangıç: adres",
+      "description": "Sokak ve şehir.",
+      "data": {
+        "address": "Adres"
+      }
+    },
+    "route_start_address_confirm": {
+      "title": "Başlangıç: adres bulundu",
+      "description": "Bulunan: **{label}**\n\nKastettiğiniz yer bu değilse adresi düzeltin ve devam edin; yeniden aranacaktır.",
+      "data": {
+        "address": "Adres"
+      }
+    },
+    "route_destination": {
+      "title": "Varış",
+      "description": "Rota nerede bitiyor?",
+      "menu": {
+        "route_destination_zone": "Bölge",
+        "route_destination_point": "Haritada nokta",
+        "route_destination_address": "Adres"
+      }
+    },
+    "route_destination_zone": {
+      "title": "Varış: bölge",
+      "data": {
+        "zone": "Bölge"
+      }
+    },
+    "route_destination_point": {
+      "title": "Varış: haritada nokta",
+      "description": "İşaretçi varış noktasının üzerine gelene kadar haritayı kaydırın.",
+      "data": {
+        "location": "Varış"
+      }
+    },
+    "route_destination_address": {
+      "title": "Varış: adres",
+      "description": "Sokak ve şehir.",
+      "data": {
+        "address": "Adres"
+      }
+    },
+    "route_destination_address_confirm": {
+      "title": "Varış: adres bulundu",
+      "description": "Bulunan: **{label}**\n\nKastettiğiniz yer bu değilse adresi düzeltin ve devam edin; yeniden aranacaktır.",
+      "data": {
+        "address": "Adres"
+      }
+    },
+    "route_vias": {
+      "title": "Ara noktalar",
+      "description": "{start} ile {destination} arasında, şimdiye kadar {count} ara nokta. TomTom aralarındaki en hızlı yolu alır; her zamanki yolunuzun ayrıldığı yere bir ara nokta ekleyin.",
+      "menu": {
+        "route_via": "Ara nokta ekle",
+        "route_vias_clear": "Tüm ara noktaları kaldır",
+        "route_review": "Rotayı hesapla"
+      }
+    },
+    "route_via": {
+      "title": "Ara nokta {count}",
+      "description": "İşaretçi, rotanın geçmesi gereken bir yolun üzerine gelene kadar haritayı kaydırın.",
+      "data": {
+        "location": "Ara nokta"
+      }
+    },
+    "route_review": {
+      "title": "Rotanız, şu anda",
+      "description": "{start} → {destination}, {vias} ara nokta: {distance}, şu anda yaklaşık {duration} dk, bunun {delay} dakikası gecikme. Rota her sorguda yeniden hesaplanır; harita, trafiğin şu anda en hızlı kıldığı rotayı gösterir. ",
+      "data": {
+        "return_route": "Dönüş yolunu da oluştur",
+        "return_name": "Dönüş yolunun adı",
+        "live_days": "Rotanın güncel tutulduğu günler",
+        "live_from": "Başlangıç saati",
+        "live_until": "Bitiş saati",
+        "live_back_from": "Başlangıç saati (dönüş)",
+        "live_back_until": "Bitiş saati (dönüş)"
+      },
+      "data_description": {
+        "return_route": "Varıştan başlangıca ikinci bir girdi; otoyolda dönüş yolu karşı şerittir ve birindeki sıkışıklık diğerinde yoktur. Bu girdinin adını alır, sonuna \"dönüş\" eklenir.",
+        "return_name": "Yalnızca dönüş yolu oluşturulduğunda kullanılır. Bu girdinin adı ve eklenen \"dönüş\" ile doldurulur; başka bir ad vermek için başka bir şey yazın, örneğin \"Ev\" ve \"İş\"."
+      }
+    },
+    "route_failed": {
+      "title": "Rota yok",
+      "description": "Noktaları değiştirmek için devam edin."
+    },
+    "init": {
+      "title": "Neyi düzenlemek istiyorsunuz?",
+      "menu": {
+        "edit_route": "Rotayı değiştir (başlangıç, varış, ara noktalar)",
+        "edit_route_settings": "Arama ayarlarını düzenle (saatler, türler, filtreler)",
+        "edit_key": "API anahtarını değiştir",
+        "route_defaults": "Yeni rotalar için varsayılanlar",
+        "quota_warning": "Kota uyarısı",
+        "sources": "Veri kaynakları"
+      }
+    },
+    "route_defaults": {
+      "title": "Yeni rotalar için varsayılanlar",
+      "description": "Her yeni rotanın neyle başlayacağı: kartta orada planlanan bir rota doğrudan bu ayarlarla kaydedilir; kurulum sihirbazında önceden doldurulur ve yine de değiştirilebilir. Günler ve saatler, rotanın güncel tutulduğu günler ve saatlerdir; dönüş yolu da onunla birlikte oluşturulabilir - günün başka bir saatinde sürülür, kendi saatleriyle.",
+      "data": {
+        "default_start": "Kartta planlanan rotalar için başlangıç (isteğe bağlı)"
+      }
+    },
+    "quota_warning": {
+      "title": "Kota uyarısı",
+      "description": "Bir API'nin istekleri azaldığında bunu bir onarım bildirir ve TomTom Genel üzerindeki **Kota risk altında** sensörü açılır.",
+      "sections": {
+        "tomtom": {
+          "name": "TomTom",
+          "description": "Ayın sekizinci gününden itibaren şimdiye kadarki istekler ay sonuna yansıtılır. Sayılan, bu entegrasyonun istedikleridir; başka yerde de kullanılan bir anahtar TomTom'da daha yüksekte durur.",
+          "data": {
+            "quota_warning": "Ücretsiz kota ayı çıkarmayacaksa uyar",
+            "quota_threshold": "Ücretsiz kotanın bu payından itibaren uyar"
+          },
+          "data_description": {
+            "quota_threshold": "%100, kotanın kendisi aşılacağında uyarır; %80 daha beşte dördünde."
+          }
+        },
+        "lufop": {
+          "name": "Lufop",
+          "description": "Lufop, UTC gece yarısından gece yarısına günlük sayar; anahtarı kullanan her şey dahil. Lufop, Veri kaynakları altında açıkken geçerlidir.",
+          "data": {
+            "lufop_quota_warning": "Günün istekleri azaldığında veya bittiğinde uyar",
+            "lufop_quota_threshold": "Günün isteklerinin bu payından itibaren uyar"
+          },
+          "data_description": {
+            "lufop_quota_threshold": "İlk uyarı bu payda gelir; ikincisi hepsi kullanıldığında."
+          }
+        }
+      }
+    },
+    "sources": {
+      "title": "Veri kaynakları",
+      "description": "TomTom'un yanında, tüm girdiler için aynı anda ek bildirim kaynakları. Bir kaynak yalnızca TomTom'da olmayanı, her girdinin listesinde kendi türleri altında ekler; böylece hiçbir bildirim orada iki kez durmaz.\n\n**blitzer.de**, Almanya ve komşularında sabit ve mobil hız kameralarını ve trafik denetimlerini bildirir. Anahtar ve hesap gerekmez; sitenin kendi haritasının okuduğunu okur, blitzer.de bunu API olarak yayımlamamıştır ve değişebilir ya da kapanabilir. Her istek **Bu ayki blitzer.de** altında sayılır.\n\n**Lufop**, radar veritabanından sabit, mobil ve kırmızı ışık hız kameralarını ve ortalama hız denetimlerini bildirir; [api.lufop.net](https://api.lufop.net/) adresinden ücretsiz kişisel anahtarla kullanılan, belgelenmiş bir API. Bir istek tek bir ülkeyi yanıtlar; ücretsiz plan Fransa, Belçika ve İsviçre'yi, günde 200 isteği ve istek başına 200 radarı kapsar. Her istek **Bugünkü Lufop** altında sayılır.",
+      "data": {
+        "source_blitzer": "blitzer.de",
+        "source_lufop": "Lufop",
+        "lufop_api_key": "Lufop API anahtarı",
+        "lufop_country": "Lufop: ülke"
+      },
+      "data_description": {
+        "lufop_api_key": "Girildiğinde ve Lufop açıldığında denetlenir; zaten kayıtlı olan, kutu boş bırakılarak korunur.",
+        "lufop_country": "Her girdinin Lufop'a sorduğu tek ülke; ücretsiz plan Fransa, Belçika ve İsviçre'ye izin verir."
+      }
+    },
+    "first": {
+      "title": "TomTom kuruldu",
+      "description": "Anahtar kaydedildi ve yeni rotalar için varsayılanlar **TomTom Ayarlar** girdisinde tutulur; onun Yapılandır seçeneği ikisini de sonradan değiştirir. Şimdi bitirin ve ilk alanı, takipçiyi veya rotayı istediğiniz zaman TomTom kutucuğunun kendi **Giriş ekle** düğmesiyle ekleyin ya da hemen oluşturun.",
+      "menu": {
+        "finish": "Kurulumu bitir",
+        "add_entry": "İlk alanı, takipçiyi veya rotayı şimdi ekle"
+      }
+    }
+  },
+  "abort": {
+    "already_configured": "TomTom bu ad için zaten yapılandırılmış. Başka bir ad seçin.",
+    "location_missing": "Lütfen bir konum seçin (haritayı kaydırın).",
+    "no_tracker_with_position": "Şu anda hiçbir cihaz takipçisi konum bildirmiyor. Bu mod, koordinat gönderen bir takipçi gerektirir; evde ve dışarıda dışında bir şey bilmeyen bir takipçi yarıçapı ortalayamaz."
+  },
+  "error": {
+    "radius_too_large": "Yarıçap en fazla 50 km olabilir; TomTom'un tek istekte yanıtladığı en büyük kutu.",
+    "invalid_api_key": "TomTom API anahtarını kabul etmedi.",
+    "quota_exceeded": "Anahtarın TomTom'daki kotası şimdilik tükendi. Daha sonra yeniden deneyin.",
+    "address_not_found": "Bu adres için yer bulunamadı.",
+    "point_not_routable": "Noktalardan biri bir yoldan fazla uzakta. Bir yola daha yakın taşıyın.",
+    "no_route": "TomTom bu noktaları birbirine bağlayan bir yol bulamadı.",
+    "route_too_long": "Rota TomTom için fazla uzun ya da fazla nokta içeriyor.",
+    "return_name_taken": "Bu adda bir girdi zaten var; bu girdi dahil.",
+    "cannot_connect": "TomTom'a ulaşılamadı.",
+    "zone_without_position": "Bu bölgenin konumu yok.",
+    "api_key_required": "Bir API anahtarı girin.",
+    "lufop_key_required": "Lufop'un açılabilmesi için API anahtarı gerekir.",
+    "invalid_lufop_key": "Lufop API anahtarını kabul etmedi.",
+    "lufop_cannot_connect": "Lufop'a ulaşılamadı. Anahtar denetlenmedi; daha sonra yeniden deneyin.",
+    "lufop_refused": "Lufop, anahtarı reddetmeden isteği reddetti. Günün istekleri tükenmiş olabilir; UTC gece yarısından sonra yeniden deneyin ya da anahtarı Lufop panonuzda denetleyin.",
+    "lufop_busy": "Lufop'un dakikada 10 istek sınırına ulaşıldı. Bir dakika sonra yeniden deneyin."
+  },
+  "service": {
+    "name": "Yenile",
+    "description": "Bir TomTom alanı, rotası veya takipçisi için en son bildirimleri, bir sonraki planlı sorgusunu beklemek yerine hemen getirir; canlı bir rotada önce rotanın kendisini. Bildirimleri döndürür.",
+    "field": {
+      "name": "Alan, rota veya takipçi",
+      "description": "Hangi TomTom alanının, rotasının veya takipçisinin yenileneceği."
+    }
+  },
+  "issue": {
+    "title": "{name} veri sağlamıyor",
+    "description": "TomTom girdisi **{name}** art arda {count} sorguda başarısız oldu, bu yüzden varlıkları kullanılamıyor. Son neden:\n\n`{reason}`\n\nKonumu olmayan bir takipçi ya da artık var olmayan bir takipçi varlığı, girdinin **Yapılandır** seçeneğinden düzeltilir; reddedilen bir anahtar, TomTom Ayarlar girdisindeki **Yapılandır** altında; TomTom'un kendisine ulaşılamıyorsa bu, yeniden ulaşılabildiği anda kendiliğinden kalkar. Bu onarım, başarılı olan bir sonraki sorguyla kaybolur."
+  },
+  "quotaIssue": {
+    "title": "{api} kotası ayı çıkarmayacak",
+    "description": "{days} günde {tier} ücretsiz **{api}** isteğinden {used} tanesi kullanıldı; bu hızla ay sonuna kadar yaklaşık **{projected}**, kotanın %{percent} oranından fazlası.\n\nDaha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler, daha az kartta trafik akışı.\n\nBu, hız TomTom Ayarlar → Yapılandır → Kota uyarısı → TomTom altında ayarlanan payın altına düştüğünde ve yeni ayla birlikte kaybolur."
+  },
+  "quotaDayIssue": {
+    "title": "Günün {api} istekleri neredeyse tükendi",
+    "description": "**{api}** planının izin verdiği günlük {tier} istekten {used} tanesi kullanıldı.\n\nGünün istekleri bu kurulumun tüm girdileri tarafından paylaşılır; aynı anahtarı kullanan başka her şey tarafından da. Daha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler ya da ülkesinin dışında kalan girdiler için Lufop'un kapatılması.\n\nBu, Lufop'un günü döndüğünde UTC gece yarısında ya da TomTom Ayarlar → Yapılandır → Kota uyarısı → Lufop altında ayarlanan pay yükseltildiğinde kaybolur."
+  },
+  "quotaDayUsedUpIssue": {
+    "title": "Günün {api} istekleri tükendi",
+    "description": "**{api}** planının günlük {tier} isteğinin tümü kullanıldı; Lufop aynı anahtarı kullanan her şeyi sayar. UTC gece yarısına kadar, burada saat {reset}, başka istekleri reddeder.\n\nYarın daha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler ya da ülkesinin dışındaki girdiler için Lufop'un kapatılması."
+  },
+  "device": {
+    "general": "TomTom Genel",
+    "settings": "TomTom Ayarlar"
+  },
+  "lufopCountries": {
+    "ad": "Andorra",
+    "au": "Avustralya",
+    "be": "Belçika",
+    "bg": "Bulgaristan",
+    "ca": "Kanada",
+    "cz": "Çekya",
+    "fi": "Finlandiya",
+    "fr": "Fransa",
+    "de": "Almanya",
+    "ie": "İrlanda",
+    "it": "İtalya",
+    "lv": "Letonya",
+    "lu": "Lüksemburg",
+    "ma": "Fas",
+    "nl": "Hollanda",
+    "nz": "Yeni Zelanda",
+    "no": "Norveç",
+    "pl": "Polonya",
+    "pt": "Portekiz",
+    "es": "İspanya",
+    "se": "İsveç",
+    "ch": "İsviçre",
+    "ae": "Birleşik Arap Emirlikleri",
+    "gb": "Birleşik Krallık"
+  }
+}
