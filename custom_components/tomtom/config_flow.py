@@ -87,6 +87,7 @@ from .const import (
     SETTINGS_GEAR,
     SETTINGS_TITLE,
     SETTINGS_UNIQUE_ID,
+    LUFOP_SIGNUP_URL,
     TOMTOM_SIGNUP_URL,
     tracker_position,
 )
@@ -1006,7 +1007,13 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
                 ),
             }
         )
-        return self.async_show_form(step_id="sources", data_schema=schema, errors=errors, last_step=True)
+        return self.async_show_form(
+            step_id="sources",
+            data_schema=schema,
+            errors=errors,
+            last_step=True,
+            description_placeholders={"lufop_url": LUFOP_SIGNUP_URL},
+        )
 
     async def async_step_quota_warning(self, user_input=None):
         """Two sections: TomTom's month on top - whether to warn when a free

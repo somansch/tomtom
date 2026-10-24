@@ -234,6 +234,7 @@ MAX_ROUTE_VIAS = 20
 # tells someone to go there: a translated string may not carry a URL.
 CONF_API_KEY = "api_key"
 TOMTOM_SIGNUP_URL = "https://developer.tomtom.com/"
+LUFOP_SIGNUP_URL = "https://api.lufop.net/"
 
 # When a live route is kept up to date: the weekdays, and the time of day
 # from one to the other. Outside those hours the entry does not poll at all
