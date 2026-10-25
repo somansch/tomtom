@@ -18,6 +18,7 @@ restart, and what it could ever fetch is a picture of the traffic.
 
 from __future__ import annotations
 
+import hmac
 import logging
 
 from aiohttp import web
@@ -54,7 +55,14 @@ class FlowTileView(HomeAssistantView):
 
     async def get(self, request: web.Request, token: str, entry: str, style: str, z: str, x: str, y: str) -> web.Response:
         domain = self._hass.data.get(DOMAIN) or {}
-        if not token or token != domain.get(TILE_TOKEN):
+        expected = domain.get(TILE_TOKEN)
+        # No token drawn yet means nothing is served. The comparison takes
+        # the same time however much of the token is right, so it cannot be
+        # guessed a character at a time; bytes, because the token in the
+        # path may be anything at all.
+        if not token or not expected or not hmac.compare_digest(
+            token.encode("utf-8"), expected.encode("utf-8")
+        ):
             return web.Response(status=403, text="bad token")
         if style not in FLOW_STYLES:
             return web.Response(status=404, text="unknown style")

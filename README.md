@@ -296,7 +296,7 @@ The entity's `icon` is the kind's own - `mdi:car-multiple` for a jam, `mdi:excav
 
 A ready-to-use automation [blueprint](custom_components/tomtom/blueprints/automation/tomtom/report_alerts.yaml) covers both of the things people actually want, without writing any YAML. Its fields are in English: Home Assistant does not translate blueprints.
 
-**It comes with the integration.** After a restart it is waiting under **Settings → Automations & Scenes → Blueprints**, and **Create automation** is the whole of what is left to do. A release that changes the blueprint brings the new version with it.
+**It comes with the integration.** After a restart it is waiting under **Settings → Automations & Scenes → Blueprints**, and **Create automation** is the whole of what is left to do. A release that changes the blueprint brings the new version with it, as long as your copy is unchanged. A copy you edited is left alone; delete it and restart to get the new one.
 
 - **Live alerts** - only what is new. One notification per newly reported incident, the moment it shows up. Never for one already known, and never right after a restart. A time window keeps it quiet at night.
 - **Digest** - everything currently reported. One message listing what is standing right now, nearest first, capped at a length you choose. Trigger it at a time of day, when someone leaves a zone, from any entity changing state, or on demand via `automation.trigger`.
