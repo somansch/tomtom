@@ -19,7 +19,8 @@
     "camera_redlight": "Ampelblitzer",
     "camera_section": "Abschnittskontrolle",
     "check_distance": "Abstandskontrolle",
-    "check_police": "Polizeikontrolle"
+    "check_police": "Polizeikontrolle",
+    "police_report": "Polizeimeldung"
   },
   "magnitudes": {
     "unknown": "",

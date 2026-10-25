@@ -73,6 +73,13 @@ def delay_minutes(item: dict) -> int:
 # The arrow between a stretch's two ends follows the reading direction:
 # the start is met first, on the right, and the arrow points on from it.
 RTL_LANGUAGES = {"ar", "he", "fa", "ur"}
+# The languages that write a decimal comma: "1,2 km". The rest of the
+# thirty keep the point. The card writes its own numbers in each reader's
+# format; this is for the summary, which notifications send as it stands.
+DECIMAL_COMMA_LANGUAGES = {
+    "ca", "cs", "da", "de", "el", "es", "et", "fi", "fr", "hu", "id", "it",
+    "lt", "lv", "nb", "nl", "pl", "pt", "ro", "ru", "sk", "sv", "tr",
+}
 
 
 def _arrow(language: str | None) -> str:
@@ -89,18 +96,26 @@ def place_text(item: dict, language: str | None = None) -> str:
     return " · ".join(part for part in (roads, span) if part)
 
 
-def length_text(meters: float, units=None) -> str:
-    """A stretch's length the way the installation measures: "1.2 km", or
-    "0.7 mi" on an imperial one."""
+def _decimal(value: float, language: str | None) -> str:
+    """One decimal, with the separator the language writes."""
+    text = f"{value:.1f}"
+    if str(language or "").split("-")[0].lower() in DECIMAL_COMMA_LANGUAGES:
+        return text.replace(".", ",")
+    return text
+
+
+def length_text(meters: float, units=None, language: str | None = None) -> str:
+    """A stretch's length the way the installation measures and writes:
+    "1.2 km", "1,2 km" in German, or "0.7 mi" on an imperial one."""
     if units is None:
-        return f"{meters / 1000:.1f} km"
-    return f"{units.length(meters, UnitOfLength.METERS):.1f} {units.length_unit}"
+        return f"{_decimal(meters / 1000, language)} km"
+    return f"{_decimal(units.length(meters, UnitOfLength.METERS), language)} {units.length_unit}"
 
 
 def summary_text(item: dict, language: str, units=None) -> str:
     """The report in one line, ready to drop into a notification: what it
     is, how long, how much it costs, where - then TomTom's own wording of
-    it after a dash. "Stau · 1.2 km · +4 min · A9 · Nürnberg → München —
+    it after a dash. "Stau · 1,2 km · +4 min · A9 · Nürnberg → München —
     Stockender Verkehr"."""
     parts = [item.get("type_label") or category_label(item, language)]
     if item.get("speed_limit"):
@@ -109,7 +124,7 @@ def summary_text(item: dict, language: str, units=None) -> str:
         parts.append(f"{item['speed_limit']} km/h")
     length = _as_number(item.get("length"))
     if length and length >= 100:
-        parts.append(length_text(length, units))
+        parts.append(length_text(length, units, language))
     minutes = delay_minutes(item)
     if minutes:
         parts.append(f"+{minutes} min")

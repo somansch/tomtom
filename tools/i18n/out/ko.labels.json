@@ -19,7 +19,8 @@
     "camera_redlight": "신호 위반 단속 카메라",
     "camera_section": "구간 단속",
     "check_distance": "차간 거리 단속",
-    "check_police": "경찰 검문"
+    "check_police": "경찰 검문",
+    "police_report": "경찰 교통 정보"
   },
   "magnitudes": {
     "unknown": "",

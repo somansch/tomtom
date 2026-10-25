@@ -40,7 +40,8 @@
                 "camera_redlight": "Radar feu rouge (blitzer.de, Lufop)",
                 "camera_section": "Radar tronçon (blitzer.de, Lufop)",
                 "check_distance": "Contrôle de distance (blitzer.de)",
-                "check_police": "Contrôle de police (blitzer.de)"
+                "check_police": "Contrôle de police (blitzer.de)",
+                "police_report": "Message de la police (blitzer.de)"
             }
         },
         "lufop_country": {
@@ -492,7 +493,7 @@
             },
             "sources": {
                 "title": "Sources de données",
-                "description": "D'autres sources de signalements en plus de TomTom, pour toutes les entrées à la fois. Une source n'ajoute que ce que TomTom n'a pas, sous ses propres types dans la liste de chaque entrée, si bien qu'aucun signalement n'y figure deux fois.\n\n**blitzer.de** signale les radars et les contrôles routiers, fixes et mobiles, en Allemagne et dans les pays voisins. Ni clé ni compte ; elle lit ce que lit la carte du site lui-même, que blitzer.de n'a pas publié comme API et qui peut changer ou fermer. Chaque requête est comptée sous **blitzer.de ce mois-ci**.\n\n**Lufop** signale les radars, fixes, mobiles et feu rouge, et les radars tronçon, depuis sa base de données de radars - une API documentée avec une clé personnelle gratuite sur [api.lufop.net]({lufop_url}). Une requête porte sur un pays ; l'offre gratuite couvre la France, la Belgique et la Suisse, 200 requêtes par jour et 200 radars par requête. Chaque requête est comptée sous **Lufop aujourd'hui**.",
+                "description": "D'autres sources de signalements en plus de TomTom, pour toutes les entrées à la fois. Une source n'ajoute que ce que TomTom n'a pas, sous ses propres types dans la liste de chaque entrée, si bien qu'aucun signalement n'y figure deux fois.\n\n**blitzer.de** signale les radars et les contrôles routiers, fixes et mobiles, en Allemagne et dans les pays voisins, ainsi que les messages de trafic de la police. Ni clé ni compte ; elle lit ce que lit la carte du site lui-même, que blitzer.de n'a pas publié comme API et qui peut changer ou fermer. Chaque requête est comptée sous **blitzer.de ce mois-ci**.\n\n**Lufop** signale les radars, fixes, mobiles et feu rouge, et les radars tronçon, depuis sa base de données de radars - une API documentée avec une clé personnelle gratuite sur [api.lufop.net]({lufop_url}). Une requête porte sur un pays ; l'offre gratuite couvre la France, la Belgique et la Suisse, 200 requêtes par jour et 200 radars par requête. Chaque requête est comptée sous **Lufop aujourd'hui**.",
                 "data": {
                     "source_blitzer": "blitzer.de",
                     "source_lufop": "Lufop",

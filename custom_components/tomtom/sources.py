@@ -59,9 +59,18 @@ BLITZER_HOST = "www.blitzer.de"
 BLITZER_MARKERS = "/karte/api/markers"
 BLITZER_TIMEOUT = ClientTimeout(total=15)
 BLITZER_ZOOM = 18
-# How deep a cluster is followed, each step a tenth of the box: three
-# steps take a 50 km box down to 50 m.
+# A box wider than about 10 km comes back with its cameras gathered into
+# groups, each at the centre of its members. A group is asked again in a
+# box of a quarter of the parent's radius around that centre, and so on,
+# this many steps deep: three take a 50 km box down to 780 m. A quarter,
+# not the tenth it used to be: measured on 25 October 2026 against a
+# 2 km grid of the same area, a tenth lost 2 of 3 cameras in a 12 km
+# circle around Berlin-Spandau and 14 of 52 in an 18 km circle around
+# Munich - a group's members lay up to 2.9 km from its centre, and a
+# 1.2 km box around it held none of them. A quarter found every one of
+# the grid's, in the same number of requests.
 BLITZER_CLUSTER_DEPTH = 3
+BLITZER_CLUSTER_SHRINK = 4
 # blitzer.de's stamps are Berlin time, written "2026-10-18 09:25:30".
 BLITZER_TZ = "Europe/Berlin"
 
@@ -76,6 +85,11 @@ BLITZER_KIND_CODES = {
     "camera_section": [12, 112, 113],
     "check_distance": [6, 101],
     "check_police": [4, 5, 117],
+    # A traffic control centre's bulletin, passed on by blitzer.de: a
+    # written-out German report ("A8, Salzburg - München, zwischen ...
+    # Gefahr durch Gegenstände auf der Fahrbahn") at one point, with the
+    # road and the town in its address.
+    "police_report": ["vwd"],
 }
 BLITZER_CODE_KINDS = {str(code): kind for kind, codes in BLITZER_KIND_CODES.items() for code in codes}
 # What is mounted for good, as blitzer.de's own map tells them apart.
@@ -105,6 +119,7 @@ BLITZER_CODE_LABELS = {
     "114": {"en": "Speed camera in a tunnel", "de": "Blitzer im Tunnel"},
     "115": {"en": "Overtaking ban camera", "de": "Überholverbot"},
     "117": {"en": "Stationary police check", "de": "Stationäre Polizeikontrolle"},
+    "vwd": {"en": "Police report", "de": "Polizeimeldung"},
 }
 # Along a route the source is asked box by box: boxes of this radius,
 # this far apart (they overlap), and at most this many per poll - a long
@@ -118,6 +133,14 @@ ROUTE_BOXES_MAX = 40
 # and its verges and leaves out the parallel street and the junction
 # behind the corner.
 ROUTE_CORRIDOR_M = 60.0
+# The police reports are asked on their own - see BlitzerSource.type_groups
+# - and are few, so along a route in half as many boxes, twice the size:
+# the same stretch of road for half the extra requests.
+POLICE_ROUTE_BOX_RADIUS_M = 8000.0
+POLICE_ROUTE_BOX_SPACING_M = 12000.0
+POLICE_ROUTE_BOXES_MAX = 20
+# The kinds blitzer.de is asked for apart from the rest.
+BLITZER_SEPARATE_KINDS = ("police_report",)
 
 _ROAD_NUMBER = re.compile(r"^[ABDELNS]\s?\d{1,4}[a-z]?$", re.IGNORECASE)
 
@@ -177,9 +200,9 @@ def _is_cluster(poi: dict) -> bool:
 
 
 def blitzer_item(poi: dict, language: str | None) -> dict | None:
-    """One of blitzer.de's cameras or checks as a report, the way
-    incident_item shapes TomTom's - or None for one in a shape this does
-    not know, and for anything that is not a camera or a check."""
+    """One of blitzer.de's cameras, checks or police reports as a report,
+    the way incident_item shapes TomTom's - or None for one in a shape this
+    does not know, and for anything else blitzer.de reports."""
     try:
         lat = float(poi["lat"])
         lng = float(poi["lng"])
@@ -218,6 +241,11 @@ def blitzer_item(poi: dict, language: str | None) -> dict | None:
     # ("Einbahnstr. in Rtg. Velbert, 7-17 Uhr 30 km/h, sonst 50 km/h"),
     # which most mobile ones have not got.
     description = " ".join(str(info.get("desc") or "").split())
+    # A police report's whole content is its bulletin, which blitzer.de
+    # puts at the top level and repeats in "info".
+    police = key == "police_report"
+    if police:
+        description = " ".join(str(poi.get("reason") or info.get("reason") or "").split())
     # A fixed installation is permanent, not reported: as sure as it gets.
     # A mobile one is as sure as the community has made it.
     confirmed = fixed or str(info.get("confirmed", "1")) == "1"
@@ -259,8 +287,9 @@ def blitzer_item(poi: dict, language: str | None) -> dict | None:
         "type_label": _label(BLITZER_CODE_LABELS, code, language),
         # The community's confirmations: when the last was, and how many -
         # the stars on the row. A fixed installation has neither.
-        "confirmed_at": "" if fixed else confirmed_at,
-        "confirmations": None if fixed else confirmations,
+        # A police report is official, not the community's: no stars.
+        "confirmed_at": "" if fixed or police else confirmed_at,
+        "confirmations": None if fixed or police else confirmations,
     }
 
 
@@ -611,11 +640,12 @@ class BlitzerSource:
         self._usage = usage
 
     @staticmethod
-    def types_for(kinds: dict) -> list:
-        """blitzer.de's type codes for the kinds switched on."""
+    def types_for(kinds: dict, separate: bool = False) -> list:
+        """blitzer.de's type codes for the kinds switched on - the police
+        reports, or everything else."""
         types: list = []
         for kind, codes in BLITZER_KIND_CODES.items():
-            if kinds.get(kind):
+            if kinds.get(kind) and (kind in BLITZER_SEPARATE_KINDS) == separate:
                 types += codes
         return types
 
@@ -643,32 +673,44 @@ class BlitzerSource:
                     clat, clng = float(poi["lat"]), float(poi["lng"])
                 except (KeyError, TypeError, ValueError):
                     continue
-                found.extend(await self._fetch_box(entry_id, clat, clng, radius / 10, types, depth + 1))
+                found.extend(await self._fetch_box(entry_id, clat, clng, radius / BLITZER_CLUSTER_SHRINK, types, depth + 1))
                 continue
             found.append(poi)
         return found
 
     async def fetch_area(self, entry_id: str, lat: float, lng: float, radius: float, kinds: dict, language: str | None) -> list[dict]:
         """The cameras and checks in a circle: one request, more where the
-        answer came back grouped."""
-        types = self.types_for(kinds)
-        if not types:
-            return []
-        return self._items(await self._fetch_box(entry_id, lat, lng, radius, types), language)
+        answer came back grouped - and one more for the police reports.
+        Asked together with the cameras, blitzer.de folds those into
+        groups whose box, a tenth of the search's, misses them: measured
+        on an 18 km circle around Munich, two reports on their own and
+        none in the shared answer."""
+        pois: list[dict] = []
+        for types in (self.types_for(kinds), self.types_for(kinds, separate=True)):
+            if types:
+                pois.extend(await self._fetch_box(entry_id, lat, lng, radius, types))
+        return self._items(pois, language)
 
     async def fetch_route(self, entry_id: str, points: list[tuple[float, float]], kinds: dict, language: str | None) -> list[dict]:
         """The reports along a route: boxes along its line, their answers
         merged, and only what lies within the corridor kept."""
-        types = self.types_for(kinds)
-        if not types or len(points) < 2:
+        if len(points) < 2:
             return []
-        centres = _along(points, ROUTE_BOX_SPACING_M)
-        if len(centres) > ROUTE_BOXES_MAX:
-            _LOGGER.debug("blitzer.de: route needs %d boxes, asking the first %d", len(centres), ROUTE_BOXES_MAX)
-            centres = centres[:ROUTE_BOXES_MAX]
         pois: list[dict] = []
-        for lat, lng in centres:
-            pois.extend(await self._fetch_box(entry_id, lat, lng, ROUTE_BOX_RADIUS_M, types))
+        for types, radius, spacing, most in (
+            (self.types_for(kinds), ROUTE_BOX_RADIUS_M, ROUTE_BOX_SPACING_M, ROUTE_BOXES_MAX),
+            (self.types_for(kinds, separate=True), POLICE_ROUTE_BOX_RADIUS_M, POLICE_ROUTE_BOX_SPACING_M, POLICE_ROUTE_BOXES_MAX),
+        ):
+            if not types:
+                continue
+            centres = _along(points, spacing)
+            if len(centres) > most:
+                _LOGGER.debug("blitzer.de: route needs %d boxes, asking the first %d", len(centres), most)
+                centres = centres[:most]
+            for lat, lng in centres:
+                pois.extend(await self._fetch_box(entry_id, lat, lng, radius, types))
+        if not pois:
+            return []
         items = self._items(pois, language)
         return await self._hass.async_add_executor_job(_near_route, items, points, ROUTE_CORRIDOR_M)
 

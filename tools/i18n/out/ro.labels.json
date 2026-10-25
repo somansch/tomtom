@@ -19,7 +19,8 @@
     "camera_redlight": "Cameră de semafor",
     "camera_section": "Control de viteză medie",
     "check_distance": "Control de distanță",
-    "check_police": "Control polițienesc"
+    "check_police": "Control polițienesc",
+    "police_report": "Anunț al poliției"
   },
   "magnitudes": {
     "unknown": "",

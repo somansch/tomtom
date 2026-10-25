@@ -19,7 +19,8 @@
     "camera_redlight": "Rödljuskamera",
     "camera_section": "Sträckmätning",
     "check_distance": "Avståndskontroll",
-    "check_police": "Poliskontroll"
+    "check_police": "Poliskontroll",
+    "police_report": "Polismeddelande"
   },
   "magnitudes": {
     "unknown": "",

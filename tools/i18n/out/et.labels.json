@@ -19,7 +19,8 @@
     "camera_redlight": "Punase tule kaamera",
     "camera_section": "Keskmise kiiruse mõõtmine",
     "check_distance": "Pikivahe kontroll",
-    "check_police": "Politseikontroll"
+    "check_police": "Politseikontroll",
+    "police_report": "Politsei teade"
   },
   "magnitudes": {
     "unknown": "",

@@ -40,7 +40,8 @@
                 "camera_redlight": "Kamera na červenú (blitzer.de, Lufop)",
                 "camera_section": "Úsekové meranie rýchlosti (blitzer.de, Lufop)",
                 "check_distance": "Kontrola odstupu (blitzer.de)",
-                "check_police": "Policajná kontrola (blitzer.de)"
+                "check_police": "Policajná kontrola (blitzer.de)",
+                "police_report": "Policajné hlásenie (blitzer.de)"
             }
         },
         "lufop_country": {
@@ -492,7 +493,7 @@
             },
             "sources": {
                 "title": "Zdroje údajov",
-                "description": "Ďalšie zdroje hlásení popri TomTom, pre všetky záznamy naraz. Zdroj pridá len to, čo TomTom nemá, pod vlastnými druhmi v zozname každého záznamu, takže žiadne hlásenie tam nie je dvakrát.\n\n**blitzer.de** hlási radary a dopravné kontroly, pevné aj mobilné, v Nemecku a susedných krajinách. Bez kľúča a bez účtu; číta to, čo číta mapa samotného webu, ktorú blitzer.de nezverejnil ako API a môže ju zmeniť alebo zavrieť. Každá požiadavka sa počíta pod **blitzer.de tento mesiac**.\n\n**Lufop** hlási radary, pevné, mobilné a na červenú, a úsekové merania rýchlosti zo svojej databázy radarov - zdokumentované API s bezplatným osobným kľúčom z [api.lufop.net]({lufop_url}). Jedna požiadavka platí pre jednu krajinu; bezplatný plán pokrýva Francúzsko, Belgicko a Švajčiarsko, 200 požiadaviek denne a 200 radarov na požiadavku. Každá požiadavka sa počíta pod **Lufop dnes**.",
+                "description": "Ďalšie zdroje hlásení popri TomTom, pre všetky záznamy naraz. Zdroj pridá len to, čo TomTom nemá, pod vlastnými druhmi v zozname každého záznamu, takže žiadne hlásenie tam nie je dvakrát.\n\n**blitzer.de** hlási radary a dopravné kontroly, pevné aj mobilné, v Nemecku a susedných krajinách, a k tomu dopravné hlásenia polície. Bez kľúča a bez účtu; číta to, čo číta mapa samotného webu, ktorú blitzer.de nezverejnil ako API a môže ju zmeniť alebo zavrieť. Každá požiadavka sa počíta pod **blitzer.de tento mesiac**.\n\n**Lufop** hlási radary, pevné, mobilné a na červenú, a úsekové merania rýchlosti zo svojej databázy radarov - zdokumentované API s bezplatným osobným kľúčom z [api.lufop.net]({lufop_url}). Jedna požiadavka platí pre jednu krajinu; bezplatný plán pokrýva Francúzsko, Belgicko a Švajčiarsko, 200 požiadaviek denne a 200 radarov na požiadavku. Každá požiadavka sa počíta pod **Lufop dnes**.",
                 "data": {
                     "source_blitzer": "blitzer.de",
                     "source_lufop": "Lufop",

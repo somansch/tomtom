@@ -19,7 +19,8 @@
     "camera_redlight": "كاميرا الإشارة الحمراء",
     "camera_section": "مراقبة السرعة على مقطع",
     "check_distance": "مراقبة مسافة الأمان",
-    "check_police": "تفتيش شرطة"
+    "check_police": "تفتيش شرطة",
+    "police_report": "بلاغ شرطة"
   },
   "magnitudes": {
     "unknown": "",

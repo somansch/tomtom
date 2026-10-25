@@ -2352,11 +2352,15 @@
     jam: "#d32f2f",
   };
   const OTHER_LINE_COLOR = "#f9a825";
-  // blitzer.de's kinds - the cameras and checks - all in one red, on the
-  // map and in the list alike: a check is a check, whatever it measures.
-  const CAMERA_COLOR = "#e53935";
-  const CAMERA_KINDS = new Set(["camera_fixed", "camera_mobile", "camera_trailer", "camera_redlight", "camera_section", "check_distance", "check_police"]);
-  const kindColor = (type) => (CAMERA_KINDS.has(type) ? CAMERA_COLOR : LINE_COLORS[type] || OTHER_LINE_COLOR);
+  // The colour of a report's symbol - on the map's marker, on the
+  // planner's, and at the start of its row, all the same: the band's
+  // colour for TomTom's kinds, and one red for whatever a further source
+  // reports - blitzer.de's cameras, checks and police reports, Lufop's
+  // radars. The red is decided by who reported it, not by a list of
+  // kinds, so a kind a source adds later is red from the start.
+  const SOURCE_COLOR = "#e53935";
+  const fromSource = (attrs) => !!attrs.provider && attrs.provider !== "tomtom";
+  const reportColor = (attrs) => (fromSource(attrs) ? SOURCE_COLOR : LINE_COLORS[attrs.type] || OTHER_LINE_COLOR);
 
   // Changing any of this is what a re-render actually depends on. Every other
   // state update in the system leaves the card's DOM - and whatever the
@@ -4295,7 +4299,7 @@
           const disc = root.querySelector(".marker");
           if (!disc || !state || !state.attributes.icon) continue;
           if (disc.querySelector("ha-icon, img, .entity-picture")) continue;
-          const color = kindColor(state.attributes.type);
+          const color = reportColor(state.attributes);
           const icon = document.createElement("ha-icon");
           icon.setAttribute("icon", state.attributes.icon);
           icon.className = "tomtom-marker-icon";
@@ -5149,10 +5153,9 @@
           const lat = Number(r.latitude);
           const lon = Number(r.longitude);
           if (!Number.isFinite(lat) || !Number.isFinite(lon) || !r.icon) continue;
-          const type = (r.attributes || {}).type;
           const html =
             `<ha-icon class="tomtom-plan-marker" icon="${escapeHtml(r.icon)}" ` +
-            `style="--mdc-icon-size: 24px; width: 24px; height: 24px; display: block; color: ${escapeHtml(kindColor(type))}"></ha-icon>`;
+            `style="--mdc-icon-size: 24px; width: 24px; height: 24px; display: block; color: ${escapeHtml(reportColor(r.attributes || {}))}"></ha-icon>`;
           try {
             this._planMarkers.push(h.marker([lat, lon], html, 24));
           } catch (err) {
@@ -8368,7 +8371,14 @@
     const extra = summary.split(" — ").slice(1).join(" — ");
     const parts = head.split(" · ");
     const place = parts.length > 1 ? parts[parts.length - 1] : "";
-    const whatParts = parts.length > 1 ? parts.slice(0, -1) : [head];
+    // The stretch's length comes worded by the integration, in the
+    // installation's language - "1,2 km" for German. The distance in front
+    // of it is the reader's own number format, so the length is written
+    // again in that format, or one line would read "1.5 km · Stau · 1,2 km".
+    const whatParts = (parts.length > 1 ? parts.slice(0, -1) : [head]).map((part) => {
+      const m = /^(\d+(?:[.,]\d+)?) (km|mi)$/.exec(part);
+      return m ? `${fmtNumber(Number(m[1].replace(",", ".")), 1)} ${m[2]}` : part;
+    });
     const what = whatParts.join(" · ");
     const distance =
       config.show_row_distance !== false && Number.isFinite(row.distance)
@@ -8397,7 +8407,7 @@
                 config.row_picture_size
                   ? `--mdc-icon-size: ${config.row_picture_size}; width: ${config.row_picture_size}; height: ${config.row_picture_size}`
                   : "",
-                CAMERA_KINDS.has(a.type) ? `color: ${CAMERA_COLOR}` : "",
+                `color: ${reportColor(a)}`,
               ].filter(Boolean).join("; ")
             )}"></ha-icon>${config.show_row_provider ? providerBadgeHtml(a.provider) : ""}</div>`}
         <div class="body">
@@ -8887,8 +8897,15 @@
       color: var(--tomtom-delay-color, #fff);
       white-space: nowrap;
     }
+    /* "middle" centres the badge on the line's lower-case letters, half
+       an x-height above the baseline - a pixel under the capitals and
+       digits the line starts with ("1,5 km"). The shift lifts it by half
+       the difference between cap height and x-height, so it sits on the
+       middle of the capitals. A browser without the cap unit drops the
+       declaration and keeps "middle". */
     .new-tag { font-size: .68rem; padding: 1px 6px; border-radius: 8px; margin-inline-start: 6px;
-               vertical-align: middle; white-space: nowrap; }
+               vertical-align: middle; position: relative; top: calc((1ex - 1cap) / 2);
+               white-space: nowrap; }
     /* The head badge is a button - clicking it narrows the card to what is
        new - so it has to shed the browser's own button look and say, both to
        the eye and to a screen reader, whether that narrowing is on. */

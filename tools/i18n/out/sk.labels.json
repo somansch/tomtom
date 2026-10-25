@@ -19,7 +19,8 @@
     "camera_redlight": "Kamera na červenú",
     "camera_section": "Úsekové meranie rýchlosti",
     "check_distance": "Kontrola odstupu",
-    "check_police": "Policajná kontrola"
+    "check_police": "Policajná kontrola",
+    "police_report": "Policajné hlásenie"
   },
   "magnitudes": {
     "unknown": "",

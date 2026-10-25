@@ -19,7 +19,8 @@
     "camera_redlight": "Камера на красный свет",
     "camera_section": "Контроль средней скорости",
     "check_distance": "Контроль дистанции",
-    "check_police": "Полицейская проверка"
+    "check_police": "Полицейская проверка",
+    "police_report": "Сообщение полиции"
   },
   "magnitudes": {
     "unknown": "",

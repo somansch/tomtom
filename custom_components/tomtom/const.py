@@ -45,6 +45,7 @@ SOURCE_CATEGORIES = {
     "camera_section": 105,
     "check_distance": 106,
     "check_police": 107,
+    "police_report": 108,
 }
 CATEGORIES = {**TOMTOM_CATEGORIES, **SOURCE_CATEGORIES}
 # The same table the other way round, for deciding what an arriving
@@ -78,6 +79,7 @@ CATEGORY_LABELS = {
     "camera_section": {"en": "Section control", "ar": "مراقبة السرعة على مقطع", "ca": "Radar de tram", "cs": "Úsekové měření rychlosti", "da": "Strækningskontrol", "de": "Abschnittskontrolle", "el": "Έλεγχος μέσης ταχύτητας", "es": "Radar de tramo", "et": "Keskmise kiiruse mõõtmine", "fi": "Keskinopeusvalvonta", "fr": "Radar tronçon", "he": "אכיפת מהירות ממוצעת", "hu": "Szakaszos sebességmérés", "id": "Kontrol kecepatan ruas", "it": "Controllo velocità media", "ja": "区間速度取締", "ko": "구간 단속", "lt": "Vidutinio greičio matavimas", "lv": "Vidējā ātruma kontrole", "nb": "Strekningsmåling", "nl": "Trajectcontrole", "pl": "Odcinkowy pomiar prędkości", "pt": "Controlo de velocidade média", "ro": "Control de viteză medie", "ru": "Контроль средней скорости", "sk": "Úsekové meranie rýchlosti", "sv": "Sträckmätning", "th": "ตรวจจับความเร็วเฉลี่ยแบบช่วง", "tr": "Ortalama hız denetimi", "zh-Hant": "區間測速"},
     "check_distance": {"en": "Distance check", "ar": "مراقبة مسافة الأمان", "ca": "Control de distància", "cs": "Kontrola odstupu", "da": "Afstandskontrol", "de": "Abstandskontrolle", "el": "Έλεγχος απόστασης", "es": "Control de distancia", "et": "Pikivahe kontroll", "fi": "Turvavälivalvonta", "fr": "Contrôle de distance", "he": "אכיפת שמירת מרחק", "hu": "Követési távolság ellenőrzése", "id": "Pemeriksaan jarak", "it": "Controllo distanza", "ja": "車間距離取締り", "ko": "차간 거리 단속", "lt": "Atstumo patikra", "lv": "Distances pārbaude", "nb": "Avstandskontroll", "nl": "Afstandscontrole", "pl": "Kontrola odstępu", "pt": "Controlo de distância", "ro": "Control de distanță", "ru": "Контроль дистанции", "sk": "Kontrola odstupu", "sv": "Avståndskontroll", "th": "ตรวจระยะห่างระหว่างรถ", "tr": "Takip mesafesi denetimi", "zh-Hant": "車距檢查"},
     "check_police": {"en": "Police check", "ar": "تفتيش شرطة", "ca": "Control policial", "cs": "Policejní kontrola", "da": "Politikontrol", "de": "Polizeikontrolle", "el": "Αστυνομικός έλεγχος", "es": "Control policial", "et": "Politseikontroll", "fi": "Poliisitarkastus", "fr": "Contrôle de police", "he": "ביקורת משטרה", "hu": "Rendőri ellenőrzés", "id": "Razia polisi", "it": "Controllo di polizia", "ja": "警察の検問", "ko": "경찰 검문", "lt": "Policijos patikra", "lv": "Policijas pārbaude", "nb": "Politikontroll", "nl": "Politiecontrole", "pl": "Kontrola policyjna", "pt": "Controlo policial", "ro": "Control polițienesc", "ru": "Полицейская проверка", "sk": "Policajná kontrola", "sv": "Poliskontroll", "th": "ด่านตรวจของตำรวจ", "tr": "Polis denetimi", "zh-Hant": "警察臨檢"},
+    "police_report": {"en": "Police report", "ar": "بلاغ شرطة", "ca": "Avís de la policia", "cs": "Policejní hlášení", "da": "Politimelding", "de": "Polizeimeldung", "el": "Ανακοίνωση αστυνομίας", "es": "Aviso policial", "et": "Politsei teade", "fi": "Poliisin tiedote", "fr": "Message de la police", "he": "הודעת משטרה", "hu": "Rendőrségi közlemény", "id": "Laporan polisi", "it": "Comunicato della polizia", "ja": "警察の交通情報", "ko": "경찰 교통 정보", "lt": "Policijos pranešimas", "lv": "Policijas paziņojums", "nb": "Politimelding", "nl": "Politiebericht", "pl": "Komunikat policji", "pt": "Aviso da polícia", "ro": "Anunț al poliției", "ru": "Сообщение полиции", "sk": "Policajné hlásenie", "sv": "Polismeddelande", "th": "ประกาศจากตำรวจ", "tr": "Polis duyurusu", "zh-Hant": "警方通報"},
 }
 CATEGORY_ICONS = {
     "jam": "mdi:car-multiple",
@@ -100,6 +102,7 @@ CATEGORY_ICONS = {
     "camera_section": "mdi:ray-start-end",
     "check_distance": "mdi:map-marker-distance",
     "check_police": "mdi:police-badge",
+    "police_report": "mdi:bullhorn",
 }
 
 # The further sources of reports, each switched on under the settings

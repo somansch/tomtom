@@ -19,7 +19,8 @@
     "camera_redlight": "闖紅燈照相",
     "camera_section": "區間測速",
     "check_distance": "車距檢查",
-    "check_police": "警察臨檢"
+    "check_police": "警察臨檢",
+    "police_report": "警方通報"
   },
   "magnitudes": {
     "unknown": "",

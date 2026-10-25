@@ -19,7 +19,8 @@
     "camera_redlight": "Piroslámpa-kamera",
     "camera_section": "Szakaszos sebességmérés",
     "check_distance": "Követési távolság ellenőrzése",
-    "check_police": "Rendőri ellenőrzés"
+    "check_police": "Rendőri ellenőrzés",
+    "police_report": "Rendőrségi közlemény"
   },
   "magnitudes": {
     "unknown": "",

@@ -19,7 +19,8 @@
     "camera_redlight": "Kamera na czerwone światło",
     "camera_section": "Odcinkowy pomiar prędkości",
     "check_distance": "Kontrola odstępu",
-    "check_police": "Kontrola policyjna"
+    "check_police": "Kontrola policyjna",
+    "police_report": "Komunikat policji"
   },
   "magnitudes": {
     "unknown": "",

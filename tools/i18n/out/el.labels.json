@@ -19,7 +19,8 @@
     "camera_redlight": "Κάμερα κόκκινου σηματοδότη",
     "camera_section": "Έλεγχος μέσης ταχύτητας",
     "check_distance": "Έλεγχος απόστασης",
-    "check_police": "Αστυνομικός έλεγχος"
+    "check_police": "Αστυνομικός έλεγχος",
+    "police_report": "Ανακοίνωση αστυνομίας"
   },
   "magnitudes": {
     "unknown": "",

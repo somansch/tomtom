@@ -19,7 +19,8 @@
     "camera_redlight": "Radar feu rouge",
     "camera_section": "Radar tronçon",
     "check_distance": "Contrôle de distance",
-    "check_police": "Contrôle de police"
+    "check_police": "Contrôle de police",
+    "police_report": "Message de la police"
   },
   "magnitudes": {
     "unknown": "",

@@ -19,7 +19,8 @@
     "camera_redlight": "Rødlyskamera",
     "camera_section": "Strækningskontrol",
     "check_distance": "Afstandskontrol",
-    "check_police": "Politikontrol"
+    "check_police": "Politikontrol",
+    "police_report": "Politimelding"
   },
   "magnitudes": {
     "unknown": "",

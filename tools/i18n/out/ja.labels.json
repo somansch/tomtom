@@ -19,7 +19,8 @@
     "camera_redlight": "信号無視取締機",
     "camera_section": "区間速度取締",
     "check_distance": "車間距離取締り",
-    "check_police": "警察の検問"
+    "check_police": "警察の検問",
+    "police_report": "警察の交通情報"
   },
   "magnitudes": {
     "unknown": "",

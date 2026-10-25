@@ -19,7 +19,8 @@
     "camera_redlight": "Kırmızı ışık kamerası",
     "camera_section": "Ortalama hız denetimi",
     "check_distance": "Takip mesafesi denetimi",
-    "check_police": "Polis denetimi"
+    "check_police": "Polis denetimi",
+    "police_report": "Polis duyurusu"
   },
   "magnitudes": {
     "unknown": "",

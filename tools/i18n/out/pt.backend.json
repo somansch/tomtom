@@ -19,7 +19,8 @@
     "camera_redlight": "Radar de semáforo (blitzer.de, Lufop)",
     "camera_section": "Controlo de velocidade média (blitzer.de, Lufop)",
     "check_distance": "Controlo de distância (blitzer.de)",
-    "check_police": "Controlo policial (blitzer.de)"
+    "check_police": "Controlo policial (blitzer.de)",
+    "police_report": "Aviso da polícia (blitzer.de)"
   },
   "days": {
     "mon": "Segunda-feira",
@@ -268,7 +269,7 @@
     },
     "sources": {
       "title": "Fontes de dados",
-      "description": "Outras fontes de ocorrências além da TomTom, para todas as entradas de uma vez. Uma fonte só acrescenta o que a TomTom não tem, sob tipos próprios na lista de cada entrada, para que nenhuma ocorrência apareça duas vezes.\n\n**blitzer.de** comunica radares e operações de controlo, fixos e móveis, na Alemanha e nos países vizinhos. Sem chave e sem conta; lê o que o próprio mapa do site lê, que a blitzer.de não publicou como API e pode alterar ou encerrar. Cada pedido é contado em **blitzer.de este mês**.\n\n**Lufop** comunica radares, fixos, móveis e de semáforo, e controlos de velocidade média, a partir da sua base de dados de radares - uma API documentada com uma chave pessoal gratuita de [api.lufop.net]({lufop_url}). Um pedido responde a um país; o plano gratuito cobre França, Bélgica e Suíça, 200 pedidos por dia e 200 radares por pedido. Cada pedido é contado em **Lufop hoje**.",
+      "description": "Outras fontes de ocorrências além da TomTom, para todas as entradas de uma vez. Uma fonte só acrescenta o que a TomTom não tem, sob tipos próprios na lista de cada entrada, para que nenhuma ocorrência apareça duas vezes.\n\n**blitzer.de** comunica radares e operações de controlo, fixos e móveis, na Alemanha e nos países vizinhos, além dos avisos de trânsito da polícia. Sem chave e sem conta; lê o que o próprio mapa do site lê, que a blitzer.de não publicou como API e pode alterar ou encerrar. Cada pedido é contado em **blitzer.de este mês**.\n\n**Lufop** comunica radares, fixos, móveis e de semáforo, e controlos de velocidade média, a partir da sua base de dados de radares - uma API documentada com uma chave pessoal gratuita de [api.lufop.net]({lufop_url}). Um pedido responde a um país; o plano gratuito cobre França, Bélgica e Suíça, 200 pedidos por dia e 200 radares por pedido. Cada pedido é contado em **Lufop hoje**.",
       "data": {
         "source_blitzer": "blitzer.de",
         "source_lufop": "Lufop",

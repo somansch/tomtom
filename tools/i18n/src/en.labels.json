@@ -19,7 +19,8 @@
     "camera_redlight": "Red-light camera",
     "camera_section": "Section control",
     "check_distance": "Distance check",
-    "check_police": "Police check"
+    "check_police": "Police check",
+    "police_report": "Police report"
   },
   "magnitudes": {
     "unknown": "",

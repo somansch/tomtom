@@ -19,7 +19,8 @@
     "camera_redlight": "Roodlichtcamera",
     "camera_section": "Trajectcontrole",
     "check_distance": "Afstandscontrole",
-    "check_police": "Politiecontrole"
+    "check_police": "Politiecontrole",
+    "police_report": "Politiebericht"
   },
   "magnitudes": {
     "unknown": "",

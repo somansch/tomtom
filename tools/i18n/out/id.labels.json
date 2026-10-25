@@ -19,7 +19,8 @@
     "camera_redlight": "Kamera lampu merah",
     "camera_section": "Kontrol kecepatan ruas",
     "check_distance": "Pemeriksaan jarak",
-    "check_police": "Razia polisi"
+    "check_police": "Razia polisi",
+    "police_report": "Laporan polisi"
   },
   "magnitudes": {
     "unknown": "",

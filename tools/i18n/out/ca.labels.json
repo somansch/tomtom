@@ -19,7 +19,8 @@
     "camera_redlight": "Radar de semàfor",
     "camera_section": "Radar de tram",
     "check_distance": "Control de distància",
-    "check_police": "Control policial"
+    "check_police": "Control policial",
+    "police_report": "Avís de la policia"
   },
   "magnitudes": {
     "unknown": "",

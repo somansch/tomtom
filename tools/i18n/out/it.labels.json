@@ -19,7 +19,8 @@
     "camera_redlight": "Telecamera semaforica",
     "camera_section": "Controllo velocità media",
     "check_distance": "Controllo distanza",
-    "check_police": "Controllo di polizia"
+    "check_police": "Controllo di polizia",
+    "police_report": "Comunicato della polizia"
   },
   "magnitudes": {
     "unknown": "",

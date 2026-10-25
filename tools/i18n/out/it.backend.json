@@ -19,7 +19,8 @@
     "camera_redlight": "Telecamera semaforica (blitzer.de, Lufop)",
     "camera_section": "Controllo velocità media (blitzer.de, Lufop)",
     "check_distance": "Controllo distanza (blitzer.de)",
-    "check_police": "Controllo di polizia (blitzer.de)"
+    "check_police": "Controllo di polizia (blitzer.de)",
+    "police_report": "Comunicato della polizia (blitzer.de)"
   },
   "days": {
     "mon": "Lunedì",
@@ -268,7 +269,7 @@
     },
     "sources": {
       "title": "Fonti di dati",
-      "description": "Altre fonti di segnalazioni oltre a TomTom, per tutte le voci insieme. Una fonte aggiunge solo ciò che TomTom non ha, con tipi propri nell'elenco di ogni voce, così nessuna segnalazione compare due volte.\n\n**blitzer.de** segnala autovelox e controlli stradali, fissi e mobili, in Germania e nei paesi confinanti. Nessuna chiave e nessun account; legge ciò che legge la mappa del sito stesso, che blitzer.de non ha pubblicato come API e che può cambiare o chiudere. Ogni richiesta viene contata in **blitzer.de questo mese**.\n\n**Lufop** segnala autovelox, fissi, mobili e semaforici, e controlli della velocità media, dal suo database di radar - un'API documentata con una chiave personale gratuita da [api.lufop.net]({lufop_url}). Una richiesta riguarda un paese; il piano gratuito copre Francia, Belgio e Svizzera, 200 richieste al giorno e 200 radar per richiesta. Ogni richiesta viene contata in **Lufop oggi**.",
+      "description": "Altre fonti di segnalazioni oltre a TomTom, per tutte le voci insieme. Una fonte aggiunge solo ciò che TomTom non ha, con tipi propri nell'elenco di ogni voce, così nessuna segnalazione compare due volte.\n\n**blitzer.de** segnala autovelox e controlli stradali, fissi e mobili, in Germania e nei paesi confinanti, oltre ai comunicati sul traffico della polizia. Nessuna chiave e nessun account; legge ciò che legge la mappa del sito stesso, che blitzer.de non ha pubblicato come API e che può cambiare o chiudere. Ogni richiesta viene contata in **blitzer.de questo mese**.\n\n**Lufop** segnala autovelox, fissi, mobili e semaforici, e controlli della velocità media, dal suo database di radar - un'API documentata con una chiave personale gratuita da [api.lufop.net]({lufop_url}). Una richiesta riguarda un paese; il piano gratuito copre Francia, Belgio e Svizzera, 200 richieste al giorno e 200 radar per richiesta. Ogni richiesta viene contata in **Lufop oggi**.",
       "data": {
         "source_blitzer": "blitzer.de",
         "source_lufop": "Lufop",

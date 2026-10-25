@@ -40,7 +40,8 @@
                 "camera_redlight": "Punase tule kaamera (blitzer.de, Lufop)",
                 "camera_section": "Keskmise kiiruse mõõtmine (blitzer.de, Lufop)",
                 "check_distance": "Pikivahe kontroll (blitzer.de)",
-                "check_police": "Politseikontroll (blitzer.de)"
+                "check_police": "Politseikontroll (blitzer.de)",
+                "police_report": "Politsei teade (blitzer.de)"
             }
         },
         "lufop_country": {
@@ -492,7 +493,7 @@
             },
             "sources": {
                 "title": "Andmeallikad",
-                "description": "Teised teadete allikad TomTomi kõrval, kõigile kirjetele korraga. Allikas lisab ainult selle, mida TomTomil pole, oma liikide all iga kirje loendis, nii et ükski teade ei ole seal kaks korda.\n\n**blitzer.de** teatab kiiruskaameratest ja liikluskontrollidest, statsionaarsetest ja mobiilsetest, Saksamaal ja selle naaberriikides. Ilma võtme ja kontota; see loeb seda, mida saidi enda maakaart loeb – blitzer.de pole seda API-na avaldanud ning see võib muutuda või sulguda. Iga päring loetakse **blitzer.de sel kuul** alla.\n\n**Lufop** teatab kiiruskaameratest, statsionaarsetest, mobiilsetest ja punase tule kaameratest, ning keskmise kiiruse mõõtmistest oma radariandmebaasist – dokumenteeritud API tasuta isikliku võtmega aadressilt [api.lufop.net]({lufop_url}). Üks päring vastab ühe riigi kohta; tasuta pakett katab Prantsusmaa, Belgia ja Šveitsi, 200 päringut päevas ja 200 radarit päringu kohta. Iga päring loetakse **Lufop täna** alla.",
+                "description": "Teised teadete allikad TomTomi kõrval, kõigile kirjetele korraga. Allikas lisab ainult selle, mida TomTomil pole, oma liikide all iga kirje loendis, nii et ükski teade ei ole seal kaks korda.\n\n**blitzer.de** teatab kiiruskaameratest ja liikluskontrollidest, statsionaarsetest ja mobiilsetest, Saksamaal ja selle naaberriikides, lisaks politsei liiklusteadetest. Ilma võtme ja kontota; see loeb seda, mida saidi enda maakaart loeb – blitzer.de pole seda API-na avaldanud ning see võib muutuda või sulguda. Iga päring loetakse **blitzer.de sel kuul** alla.\n\n**Lufop** teatab kiiruskaameratest, statsionaarsetest, mobiilsetest ja punase tule kaameratest, ning keskmise kiiruse mõõtmistest oma radariandmebaasist – dokumenteeritud API tasuta isikliku võtmega aadressilt [api.lufop.net]({lufop_url}). Üks päring vastab ühe riigi kohta; tasuta pakett katab Prantsusmaa, Belgia ja Šveitsi, 200 päringut päevas ja 200 radarit päringu kohta. Iga päring loetakse **Lufop täna** alla.",
                 "data": {
                     "source_blitzer": "blitzer.de",
                     "source_lufop": "Lufop",

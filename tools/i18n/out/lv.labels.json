@@ -19,7 +19,8 @@
     "camera_redlight": "Sarkanās gaismas kamera",
     "camera_section": "Vidējā ātruma kontrole",
     "check_distance": "Distances pārbaude",
-    "check_police": "Policijas pārbaude"
+    "check_police": "Policijas pārbaude",
+    "police_report": "Policijas paziņojums"
   },
   "magnitudes": {
     "unknown": "",

@@ -35,7 +35,7 @@ blueprint:
 
     - `{{ summary }}` - the whole report in one line, e.g. `Traffic jam · 1.2 km · +4 min · A9 · Nuremberg → Munich — Stationary traffic`
     - `{{ type_name }}` - what it is, in your language: "Roadworks", "Accident"
-    - `{{ type }}` - the same as a key: `jam`, `lane_closed`, `road_closed`, `road_works`, `accident`, `broken_down_vehicle`, `dangerous_conditions`, `fog`, `rain`, `ice`, `wind`, `flooding`, `unknown` - and, with blitzer.de or Lufop switched on under TomTom Settings → Data sources, `camera_fixed`, `camera_mobile`, `camera_trailer`, `camera_redlight`, `camera_section`, `check_distance`, `check_police`
+    - `{{ type }}` - the same as a key: `jam`, `lane_closed`, `road_closed`, `road_works`, `accident`, `broken_down_vehicle`, `dangerous_conditions`, `fog`, `rain`, `ice`, `wind`, `flooding`, `unknown` - and, with blitzer.de or Lufop switched on under TomTom Settings → Data sources, `camera_fixed`, `camera_mobile`, `camera_trailer`, `camera_redlight`, `camera_section`, `check_distance`, `check_police`, `police_report`
     - `{{ area }}` - the area, route or tracker that reported it
     - `{{ description }}` - TomTom's own wording of what is going on
     - `{{ road }}` - the road numbers, "A8 / E52"
@@ -121,6 +121,8 @@ blueprint:
                   value: check_distance
                 - label: Police check (blitzer.de)
                   value: check_police
+                - label: Police report (blitzer.de)
+                  value: police_report
         min_delay:
           name: Minimum delay
           description: >-

@@ -19,7 +19,8 @@
     "camera_redlight": "Punaisen valon valvontakamera",
     "camera_section": "Keskinopeusvalvonta",
     "check_distance": "Turvavälivalvonta",
-    "check_police": "Poliisitarkastus"
+    "check_police": "Poliisitarkastus",
+    "police_report": "Poliisin tiedote"
   },
   "magnitudes": {
     "unknown": "",

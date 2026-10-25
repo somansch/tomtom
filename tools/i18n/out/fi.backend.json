@@ -19,7 +19,8 @@
     "camera_redlight": "Punaisen valon valvontakamera (blitzer.de, Lufop)",
     "camera_section": "Keskinopeusvalvonta (blitzer.de, Lufop)",
     "check_distance": "Turvavälivalvonta (blitzer.de)",
-    "check_police": "Poliisitarkastus (blitzer.de)"
+    "check_police": "Poliisitarkastus (blitzer.de)",
+    "police_report": "Poliisin tiedote (blitzer.de)"
   },
   "days": {
     "mon": "Maanantai",
@@ -268,7 +269,7 @@
     },
     "sources": {
       "title": "Tietolähteet",
-      "description": "Muita ilmoituslähteitä TomTomin rinnalla, kaikille merkinnöille kerralla. Lähde lisää vain sen, mitä TomTomilla ei ole, omina lajeinaan kunkin merkinnän listassa, joten mikään ilmoitus ei ole siellä kahdesti.\n\n**blitzer.de** ilmoittaa nopeusvalvontakamerat ja liikennevalvonnat, kiinteät ja liikkuvat, Saksassa ja sen naapurimaissa. Ei avainta eikä tiliä; se lukee sen, mitä sivuston oma kartta lukee - blitzer.de ei ole julkaissut sitä API:na, ja se voi muuttua tai sulkeutua. Jokainen pyyntö lasketaan kohtaan **blitzer.de tässä kuussa**.\n\n**Lufop** ilmoittaa nopeusvalvontakamerat, kiinteät, liikkuvat ja punaisen valon kamerat, sekä keskinopeusvalvonnat tutkatietokannastaan - dokumentoitu API, jonka ilmaisen henkilökohtaisen avaimen saa osoitteesta [api.lufop.net]({lufop_url}). Yksi pyyntö koskee yhtä maata; ilmaispaketti kattaa Ranskan, Belgian ja Sveitsin, 200 pyyntöä päivässä ja 200 tutkaa pyyntöä kohti. Jokainen pyyntö lasketaan kohtaan **Lufop tänään**.",
+      "description": "Muita ilmoituslähteitä TomTomin rinnalla, kaikille merkinnöille kerralla. Lähde lisää vain sen, mitä TomTomilla ei ole, omina lajeinaan kunkin merkinnän listassa, joten mikään ilmoitus ei ole siellä kahdesti.\n\n**blitzer.de** ilmoittaa nopeusvalvontakamerat ja liikennevalvonnat, kiinteät ja liikkuvat, Saksassa ja sen naapurimaissa, sekä poliisin liikennetiedotteet. Ei avainta eikä tiliä; se lukee sen, mitä sivuston oma kartta lukee - blitzer.de ei ole julkaissut sitä API:na, ja se voi muuttua tai sulkeutua. Jokainen pyyntö lasketaan kohtaan **blitzer.de tässä kuussa**.\n\n**Lufop** ilmoittaa nopeusvalvontakamerat, kiinteät, liikkuvat ja punaisen valon kamerat, sekä keskinopeusvalvonnat tutkatietokannastaan - dokumentoitu API, jonka ilmaisen henkilökohtaisen avaimen saa osoitteesta [api.lufop.net]({lufop_url}). Yksi pyyntö koskee yhtä maata; ilmaispaketti kattaa Ranskan, Belgian ja Sveitsin, 200 pyyntöä päivässä ja 200 tutkaa pyyntöä kohti. Jokainen pyyntö lasketaan kohtaan **Lufop tänään**.",
       "data": {
         "source_blitzer": "blitzer.de",
         "source_lufop": "Lufop",

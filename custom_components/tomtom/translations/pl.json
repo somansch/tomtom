@@ -40,7 +40,8 @@
                 "camera_redlight": "Kamera na czerwone światło (blitzer.de, Lufop)",
                 "camera_section": "Odcinkowy pomiar prędkości (blitzer.de, Lufop)",
                 "check_distance": "Kontrola odstępu (blitzer.de)",
-                "check_police": "Kontrola policyjna (blitzer.de)"
+                "check_police": "Kontrola policyjna (blitzer.de)",
+                "police_report": "Komunikat policji (blitzer.de)"
             }
         },
         "lufop_country": {
@@ -492,7 +493,7 @@
             },
             "sources": {
                 "title": "Źródła danych",
-                "description": "Dalsze źródła zgłoszeń obok TomTom, dla wszystkich wpisów naraz. Źródło dodaje tylko to, czego TomTom nie ma, pod własnymi rodzajami na liście każdego wpisu, więc żadne zgłoszenie nie pojawia się tam dwa razy.\n\n**blitzer.de** zgłasza fotoradary i kontrole drogowe, stacjonarne i mobilne, w Niemczech i krajach sąsiednich. Bez klucza i bez konta; odczytuje to, co odczytuje mapa samej strony - blitzer.de nie opublikował tego jako API i może to zmienić lub zamknąć. Każde zapytanie jest liczone w **blitzer.de w tym miesiącu**.\n\n**Lufop** zgłasza fotoradary, stacjonarne, mobilne i na czerwone światło, oraz odcinkowe pomiary prędkości ze swojej bazy radarów - udokumentowane API z darmowym kluczem osobistym z [api.lufop.net]({lufop_url}). Zapytanie dotyczy jednego kraju; darmowy plan obejmuje Francję, Belgię i Szwajcarię, 200 zapytań dziennie i 200 radarów na zapytanie. Każde zapytanie jest liczone w **Lufop dzisiaj**.",
+                "description": "Dalsze źródła zgłoszeń obok TomTom, dla wszystkich wpisów naraz. Źródło dodaje tylko to, czego TomTom nie ma, pod własnymi rodzajami na liście każdego wpisu, więc żadne zgłoszenie nie pojawia się tam dwa razy.\n\n**blitzer.de** zgłasza fotoradary i kontrole drogowe, stacjonarne i mobilne, w Niemczech i krajach sąsiednich, a także komunikaty drogowe policji. Bez klucza i bez konta; odczytuje to, co odczytuje mapa samej strony - blitzer.de nie opublikował tego jako API i może to zmienić lub zamknąć. Każde zapytanie jest liczone w **blitzer.de w tym miesiącu**.\n\n**Lufop** zgłasza fotoradary, stacjonarne, mobilne i na czerwone światło, oraz odcinkowe pomiary prędkości ze swojej bazy radarów - udokumentowane API z darmowym kluczem osobistym z [api.lufop.net]({lufop_url}). Zapytanie dotyczy jednego kraju; darmowy plan obejmuje Francję, Belgię i Szwajcarię, 200 zapytań dziennie i 200 radarów na zapytanie. Każde zapytanie jest liczone w **Lufop dzisiaj**.",
                 "data": {
                     "source_blitzer": "blitzer.de",
                     "source_lufop": "Lufop",

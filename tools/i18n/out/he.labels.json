@@ -19,7 +19,8 @@
     "camera_redlight": "מצלמת רמזור",
     "camera_section": "אכיפת מהירות ממוצעת",
     "check_distance": "אכיפת שמירת מרחק",
-    "check_police": "ביקורת משטרה"
+    "check_police": "ביקורת משטרה",
+    "police_report": "הודעת משטרה"
   },
   "magnitudes": {
     "unknown": "",

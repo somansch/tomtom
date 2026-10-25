@@ -19,7 +19,8 @@
     "camera_redlight": "Raudonos šviesos kamera",
     "camera_section": "Vidutinio greičio matavimas",
     "check_distance": "Atstumo patikra",
-    "check_police": "Policijos patikra"
+    "check_police": "Policijos patikra",
+    "police_report": "Policijos pranešimas"
   },
   "magnitudes": {
     "unknown": "",

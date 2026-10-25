@@ -19,7 +19,8 @@
     "camera_redlight": "Cámara de semáforo",
     "camera_section": "Radar de tramo",
     "check_distance": "Control de distancia",
-    "check_police": "Control policial"
+    "check_police": "Control policial",
+    "police_report": "Aviso policial"
   },
   "magnitudes": {
     "unknown": "",

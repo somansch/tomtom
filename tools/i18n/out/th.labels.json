@@ -19,7 +19,8 @@
     "camera_redlight": "กล้องตรวจจับการฝ่าไฟแดง",
     "camera_section": "ตรวจจับความเร็วเฉลี่ยแบบช่วง",
     "check_distance": "ตรวจระยะห่างระหว่างรถ",
-    "check_police": "ด่านตรวจของตำรวจ"
+    "check_police": "ด่านตรวจของตำรวจ",
+    "police_report": "ประกาศจากตำรวจ"
   },
   "magnitudes": {
     "unknown": "",
