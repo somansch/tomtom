@@ -43,6 +43,7 @@
     "name": "Volitelná nastavení",
     "data": {
       "only_certain": "Jen hlášení, kterými si je TomTom jistý",
+      "jam_min_delay": "Kolona od tohoto zdržení (minuty, 0 = každá kolona)",
       "count": "Počet hlášení",
       "update_interval": "Interval aktualizace (minuty, 0 = jen ručně)",
       "new_minutes": "Platí za nové po (minuty, 0 = vypnuto)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom hodnotí každé hlášení: certain, probable, risk_of nebo improbable. Zácpa změřená z jedoucích aut je certain, práce na silnici od správce komunikace probable, jednotlivé hlášení řidiče riziko. Zapnuto zůstanou první dvě; vypnuto přibudou i ta nejistá.",
+      "jam_min_delay": "Kolona se hlásí, jakmile zdržení, které jí TomTom přisuzuje, dosáhne tolika minut. 0 hlásí každou kolonu, i několikasekundovou; 5 ponechá ty, kvůli kterým stojí za to objet. Kolona, k níž TomTom zdržení neposílá, se počítá jako žádné.",
       "roads": "Jen hlášení, která TomTom vede pod jedním z těchto čísel silnic, A8 nebo B2 - dálnice cesty do práce bez každé postranní ulice u ní. Na velikosti písmen a mezerách nezáleží. Prázdné ponechá každou silnici.",
       "blacklist": "Hlášení, která se vynechají, podle ID hlášení TomTomu - atribut id nebo short_id entity hlášení, zobrazený v jejích podrobnostech. Vlastní aplikace TomTomu ho neukazují."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Hlášení",
+      "cameras": "Všechny radary",
+      "cameras_new": "Nové radary",
       "travel_time": "Doba jízdy",
       "traffic_delay": "Zdržení provozem",
       "route_length": "Délka trasy",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Od osmého dne měsíce se dosavadní požadavky promítnou na konec měsíce. Počítá se, na co se ptá tato integrace; klíč používaný i jinde je u TomTomu výš.",
           "data": {
-            "quota_warning": "Upozornit, když bezplatná kvóta nevydrží celý měsíc",
-            "quota_threshold": "Upozornit od tohoto podílu bezplatné kvóty"
+            "quota_warning": "Varovat, když měsíční požadavky docházejí nebo nevystačí",
+            "quota_threshold": "Varovat od tohoto podílu měsíčních požadavků"
           },
           "data_description": {
-            "quota_threshold": "100 % upozorní, když bude překročena samotná kvóta, 80 % už při čtyřech pětinách."
+            "quota_threshold": "První varování přijde, když odhad dosáhne tohoto podílu; druhé, když dosáhne 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "Záznam TomTom **{name}** selhal u {count} dotazů za sebou, takže jeho entity jsou nedostupné. Poslední důvod:\n\n`{reason}`\n\nSledovač bez polohy nebo entita sledovače, která už neexistuje, se opraví pod **Nastavit** u záznamu; odmítnutý klíč pod **Nastavit** u záznamu TomTom Nastavení; pokud není dostupný sám TomTom, vyřeší se to samo, jakmile zase bude. Tato oprava zmizí s dalším úspěšným dotazem."
   },
   "quotaIssue": {
-    "title": "Kvóta {api} nevydrží celý měsíc",
-    "description": "{used} z {tier} bezplatných požadavků **{api}** po {days} dnech; tímto tempem asi **{projected}** do konce měsíce, víc než {percent} % kvóty.\n\nPomůže méně dotazů: delší interval aktualizace, užší hodiny u trasy, plynulost provozu na méně kartách.\n\nZmizí to, jakmile tempo klesne pod podíl nastavený v TomTom Nastavení → Nastavit → Upozornění na kvótu → TomTom, a s novým měsícem."
+    "title": "Měsíční požadavky {api} docházejí",
+    "description": "{used} z {tier} bezplatných požadavků **{api}** po {days} dnech; tímto tempem asi **{projected}** do konce měsíce, {percent} % kvóty nebo víc.\n\nPomůže méně dotazů: delší interval aktualizace, užší hodiny na trase, provoz na méně kartách.\n\nZmizí, jakmile tempo klesne pod podíl nastavený v Nastavení TomTom → Konfigurovat → Varování o kvótě → TomTom, a s novým měsícem. Dosáhne-li tempo celé kvóty, následuje druhé varování."
+  },
+  "quotaOverIssue": {
+    "title": "Kvóta {api} na měsíc nevystačí",
+    "description": "{used} z {tier} bezplatných požadavků **{api}** po {days} dnech; tímto tempem asi **{projected}** do konce měsíce - celá bezplatná kvóta nebo víc.\n\nPomůže méně dotazů: delší interval aktualizace, užší hodiny na trase, provoz na méně kartách.\n\nZmizí, jakmile tempo klesne pod kvótu, a s novým měsícem."
   },
   "quotaDayIssue": {
     "title": "Denní požadavky {api} jsou téměř vyčerpány",

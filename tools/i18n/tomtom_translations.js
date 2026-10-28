@@ -111,7 +111,7 @@ function build(s) {
     config,
     services: { refresh: { name: s.service.name, description: s.service.description, fields: { config_entry_id: s.service.field } } },
     options,
-    issues: { entry_failing: s.issue, quota_at_risk: s.quotaIssue, quota_day_at_risk: s.quotaDayIssue, quota_day_used_up: s.quotaDayUsedUpIssue },
+    issues: { entry_failing: s.issue, quota_at_risk: s.quotaIssue, quota_over: s.quotaOverIssue, quota_day_at_risk: s.quotaDayIssue, quota_day_used_up: s.quotaDayUsedUpIssue },
   };
 }
 

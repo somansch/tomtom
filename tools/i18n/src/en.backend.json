@@ -43,6 +43,7 @@
     "name": "Optional settings",
     "data": {
       "only_certain": "Only reports TomTom is sure of",
+      "jam_min_delay": "Jam from this delay (minutes, 0 = every jam)",
       "count": "Number of reports",
       "update_interval": "Update interval (minutes, 0 = manual only)",
       "new_minutes": "Counts as new for (minutes, 0 = off)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom rates every report: certain, probable, risk_of or improbable. A jam measured from moving cars is certain, a roadwork from a road authority probable, a driver's single report a risk. On, the first two are kept; off, the uncertain ones come along too.",
+      "jam_min_delay": "A jam is reported once TomTom's figure for the delay it costs reaches this many minutes. 0 reports every jam, a few seconds' as well; 5 keeps the ones worth a detour. A jam TomTom sends no delay for counts as none.",
       "roads": "Only reports TomTom files under one of these road numbers, A8 or B2 - the motorways of a commute without every side street along it. Case and spaces do not matter. Empty keeps every road.",
       "blacklist": "Reports to leave out, by TomTom's incident id - the id or short_id attribute of a report's entity, shown in its details. TomTom's own apps do not show it."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Reports",
+      "cameras": "All speed cameras",
+      "cameras_new": "New speed cameras",
       "travel_time": "Travel time",
       "traffic_delay": "Traffic delay",
       "route_length": "Route length",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "From the eighth day of the month, the requests so far are projected to the month's end. Counted is what this integration asks for; a key used elsewhere too stands higher at TomTom.",
           "data": {
-            "quota_warning": "Warn when the free tier will not last the month",
-            "quota_threshold": "Warn from this share of the free tier"
+            "quota_warning": "Warn when the month's requests run low or will not last",
+            "quota_threshold": "Warn from this share of the month's requests"
           },
           "data_description": {
-            "quota_threshold": "100 % warns when the tier itself will be passed, 80 % already at four fifths of it."
+            "quota_threshold": "The first warning comes when the projection reaches this share; a second one when it reaches 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "The TomTom entry **{name}** has failed {count} polls in a row, so its entities are unavailable. The last reason:\n\n`{reason}`\n\nA tracker without a position, or a tracker entity that no longer exists, is fixed under the entry's **Configure**; a refused key under **Configure** on the TomTom Settings entry; if TomTom itself cannot be reached, this clears on its own once it can. This repair goes away with the next poll that succeeds."
   },
   "quotaIssue": {
+    "title": "The {api} requests of the month run low",
+    "description": "{used} of {tier} free **{api}** requests after {days} days; at this pace about **{projected}** by the month's end, {percent} % of the tier or more.\n\nFewer polls help: a longer update interval, tighter hours on a route, the traffic flow on fewer cards.\n\nThis goes away when the pace drops below the share set under TomTom Settings → Configure → Quota warning → TomTom, and with the new month. If the pace reaches the whole tier, a second warning follows."
+  },
+  "quotaOverIssue": {
     "title": "The {api} quota will not last the month",
-    "description": "{used} of {tier} free **{api}** requests after {days} days; at this pace about **{projected}** by the month's end, more than {percent} % of the tier.\n\nFewer polls help: a longer update interval, tighter hours on a route, the traffic flow on fewer cards.\n\nThis goes away when the pace drops below the share set under TomTom Settings → Configure → Quota warning → TomTom, and with the new month."
+    "description": "{used} of {tier} free **{api}** requests after {days} days; at this pace about **{projected}** by the month's end - the whole free tier or more.\n\nFewer polls help: a longer update interval, tighter hours on a route, the traffic flow on fewer cards.\n\nThis goes away when the pace drops below the tier, and with the new month."
   },
   "quotaDayIssue": {
     "title": "The {api} requests of the day are nearly used up",

@@ -47,6 +47,11 @@ def issue_id(product: str) -> str:
     return f"quota_{product}"
 
 
+def over_issue_id(product: str) -> str:
+    """The second stage: the projection reaches the whole free tier."""
+    return f"quota_{product}_over"
+
+
 def day_issue_id(product: str) -> str:
     return f"quota_day_{product}"
 
@@ -74,7 +79,9 @@ class QuotaWatch:
         self._usage = usage
         self._unsubscribe: list = []
         self._issue_stamps: dict[str, object] = {}
-        # product -> {"used", "tier", "projected"} for every API at risk.
+        # product -> {"used", "tier", "projected", "over"} for every API at
+        # risk: past the share at the month's pace, and "over" once that
+        # pace reaches the whole free tier.
         self.at_risk: dict[str, dict] = {}
         # product -> {"used", "tier"} for every source past the share of
         # its day's plan - no projection there: the day is short, and what
@@ -178,9 +185,14 @@ class QuotaWatch:
         risk: dict[str, dict] = {}
         for product, tier in FREE_TIER.items():
             projected = self._usage.projection(product, now)
-            if not enabled or projected is None or projected <= tier * threshold / 100:
+            if not enabled or projected is None:
                 continue
-            risk[product] = {"used": counts.get(product, 0), "tier": tier, "projected": projected}
+            # Two stages, as for Lufop's day: the share reached, then the
+            # whole tier. A share of 100 % makes them one, the second.
+            over = projected >= tier
+            if not over and (threshold >= 100 or projected < tier * threshold / 100):
+                continue
+            risk[product] = {"used": counts.get(product, 0), "tier": tier, "projected": projected, "over": over}
 
         start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
         for product in FREE_TIER:
@@ -190,19 +202,25 @@ class QuotaWatch:
                 # meanwhile, has no stamps and still has to clear the slate.
                 self._issue_stamps.pop(product, None)
                 ir.async_delete_issue(self._hass, DOMAIN, issue_id(product))
+                ir.async_delete_issue(self._hass, DOMAIN, over_issue_id(product))
                 continue
-            stamp = self._issue_stamps.get(product)
-            if stamp is not None and now - stamp < ISSUE_REFRESH:
-                continue
-            self._issue_stamps[product] = now
             facts = risk[product]
+            over = facts["over"]
+            # One voice at a time: the stage it is in puts its repair up and
+            # takes the other one down - at once on a change of stage, and
+            # otherwise no oftener than the refresh allows.
+            stamp = self._issue_stamps.get(product)
+            if stamp is not None and stamp[1] == over and now - stamp[0] < ISSUE_REFRESH:
+                continue
+            self._issue_stamps[product] = (now, over)
+            ir.async_delete_issue(self._hass, DOMAIN, issue_id(product) if over else over_issue_id(product))
             ir.async_create_issue(
                 self._hass,
                 DOMAIN,
-                issue_id(product),
+                over_issue_id(product) if over else issue_id(product),
                 is_fixable=False,
                 severity=ir.IssueSeverity.WARNING,
-                translation_key="quota_at_risk",
+                translation_key="quota_over" if over else "quota_at_risk",
                 translation_placeholders={
                     "api": PRODUCT_LABELS.get(product, product),
                     "used": str(facts["used"]),

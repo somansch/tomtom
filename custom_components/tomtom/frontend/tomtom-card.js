@@ -297,7 +297,7 @@
       edRefreshBg: "Background color",
       edRefreshBgHelp: "Replaces that grey. Empty keeps the theme's.",
       edShowRefresh: "Show the refresh button",
-      edShowRefreshHelp: "A button that fetches the entry again now, with how long ago it last did. Beside the live travel time, otherwise at the end of the info line. Useful with an update interval of 0.",
+      edShowRefreshHelp: "A button that fetches the entry again now, with how long ago it last did. Beside the live travel time, otherwise at the end of the info line - or on its own under the title while that line is off. Useful with an update interval of 0.",
       refreshNow: "Fetch this area again",
       edElSub: "Info line",
       edElSubHelp: "The line under the title: name, search mode, last update. On a live route it stands under the travel time and starts with the traffic's share.",
@@ -410,6 +410,19 @@
       sortOldest: "Oldest first",
       edCenterOnClick: "Click centres the map",
       edCenterOnClickHelp: "A click on an entry centres the map on the report and zooms in. Off opens the report's details.",
+      edMapOpenLink: "Map click opens the report",
+      edMapOpenLinkHelp: "A click on a report's symbol opens it in a new tab: one from blitzer.de on blitzer.de's map, one from TomTom in TomTom's route planner at its spot. Lufop has no such page; for its reports the click stays as it is.",
+      edRowStars: "Stars (blitzer.de)",
+      edKindBar: "Show the bar of kinds",
+      edKindBarHelp: "Between map and list, one symbol per kind of report the map holds. A click hides that kind on the map and in the list, a second brings it back - in this card and this browser only.",
+      edKindBarCount: "Number beside the symbol",
+      edKindBarCountHelp: "How many reports of the kind the map holds.",
+      edElKinds: "Kinds of report",
+      edElKindsHelp: "A symbol and a colour for each kind a report can have here, on the map, in the list and in the bar. Empty keeps the integration's symbol and the card's colour.",
+      edKindIconHelp: "Empty keeps the symbol the integration gives this kind.",
+      edKindColor: "Colour",
+      edKindColorHelp: "On the map, the band along the road, in the list and in the bar. Empty keeps the card's colour.",
+      edMapHighlightCovered: "Off while \"Map click opens the report\" is on: without Lufop every report has a page, and a click opens it instead. With the link off, or Lufop on, this switch applies again.",
       edMapHighlight: "Map click highlights the entry",
       edMapHighlightHelp: "A click on a report on the map backs its entry in the list; a click on the bare map lets go.",
       edElHighlight: "Highlight",
@@ -422,6 +435,11 @@
       edMapOff: "The map is switched off. Turn it on under Settings, General to set it up.",
       edShowMap: "Show a map",
       edShowMapHelp: "Home Assistant's map above the list; in the minimal format, beside the list in the pop-up.",
+      edMapTheme: "Map theme",
+      edMapThemeHelp: "The map's own light or dark. Automatic follows Home Assistant's theme, as the rest of the card does.",
+      mapThemeAuto: "Automatic",
+      mapThemeLight: "Light",
+      mapThemeDark: "Dark",
       edAspect: "Map aspect ratio",
       edAspectHelp: "Height against width. Landscape has none: the map fills its half.",
       aspectPanorama: "21:9 (panorama)",
@@ -626,6 +644,17 @@
   }
 
   // ----------------------------------------------------------------- config
+  // Every kind a report can have, in the integration's own order: TomTom's
+  // thirteen, then what the further sources add. Each has a symbol and a
+  // colour of its own that a card can set - see kind_<kind>_icon/_color.
+  const KIND_KEYS = [
+    "jam", "lane_closed", "road_closed", "road_works", "accident", "broken_down_vehicle",
+    "dangerous_conditions", "fog", "rain", "ice", "wind", "flooding", "unknown",
+    "camera_fixed", "camera_mobile", "camera_trailer", "camera_redlight", "camera_section",
+    "check_distance", "check_police", "police_report",
+  ];
+  const SOURCE_KIND_KEYS = new Set(KIND_KEYS.slice(13));
+
   const DEFAULTS = {
     // The shape of the whole card. "portrait" is the map over the list,
     // "landscape" the two side by side, and "minimal" a single line saying
@@ -947,6 +976,9 @@
     // The list itself. Off leaves the head - and the map, if that is on.
     show_list: true,
     map_aspect_ratio: "16:9",
+    // The map's light or dark: Home Assistant's own ("auto"), or one of
+    // the two whatever the theme - for a dark dashboard with a light map.
+    map_theme: "auto",
     // Home Assistant's own marker chrome. Off by default: the TomTom
     // symbols are drawings in their own right and read better without a ring
     // and a disc around them. Switch either on for Home Assistant's own look.
@@ -995,6 +1027,17 @@
     // And the other way round: a click on a report in the map backs its
     // entry in the list until the bare map is clicked.
     map_highlight: true,
+    // A click on a report's symbol opens its page instead: blitzer.de's
+    // map for blitzer.de's, TomTom's route planner at the spot for
+    // TomTom's. Lufop has no page for a radar, so its keep the click.
+    map_open_link: false,
+    // The bar between map and list: the kinds on the map, each one click
+    // from hidden, in this card and this browser only.
+    show_kind_bar: false,
+    kind_bar_count: true,
+    // A symbol and a colour per kind; empty keeps the integration's symbol
+    // and the card's colour.
+    ...Object.fromEntries(KIND_KEYS.flatMap((k) => [[`kind_${k}_icon`, ""], [`kind_${k}_color`, ""]])),
     highlight_color: "",
     // Nearest first, which is what a card about what is on the road ahead
     // is for. The other two order by when something was reported.
@@ -1021,6 +1064,8 @@
     show_row_reported: true,
     // "Until ..." where TomTom says when a report ends.
     show_row_until: true,
+    // blitzer.de's confirmation stars beside the chips.
+    show_row_stars: true,
     line1_color: "",
     line1_font_size: "",
     line1_bold: false,
@@ -2360,7 +2405,15 @@
   // kinds, so a kind a source adds later is red from the start.
   const SOURCE_COLOR = "#e53935";
   const fromSource = (attrs) => !!attrs.provider && attrs.provider !== "tomtom";
-  const reportColor = (attrs) => (fromSource(attrs) ? SOURCE_COLOR : LINE_COLORS[attrs.type] || OTHER_LINE_COLOR);
+  // What a kind is drawn in when the card sets nothing for it - also what
+  // the editor's swatch previews.
+  const kindDefaultColor = (kind) => (SOURCE_KIND_KEYS.has(kind) ? SOURCE_COLOR : LINE_COLORS[kind] || OTHER_LINE_COLOR);
+  const reportColor = (attrs, config) =>
+    (config && config[`kind_${attrs.type}_color`]) ||
+    (fromSource(attrs) ? SOURCE_COLOR : LINE_COLORS[attrs.type] || OTHER_LINE_COLOR);
+  // The symbol, the same way: the card's own for the kind, or the
+  // integration's.
+  const reportIcon = (attrs, config) => (config && config[`kind_${attrs.type}_icon`]) || attrs.icon || "";
 
   // Changing any of this is what a re-render actually depends on. Every other
   // state update in the system leaves the card's DOM - and whatever the
@@ -2793,6 +2846,110 @@
       return {};
     }
 
+    // Where the kinds the bar has switched off are remembered. Home Assistant
+    // gives a card no id of its own, so it is told apart by what it shows -
+    // its entries, the area key's scope - and by its format and its title:
+    // a portrait card and a minimal one on the same entries keep a choice
+    // each, and only two cards alike in all of that share one.
+    _hiddenKindsKey() {
+      return `hidden_kinds:${this._layout}:${this._config.title || ""}`;
+    }
+
+    // Only ever said when it is not Home Assistant's own: the map card's
+    // theme_mode, which a version from before the option does not see.
+    _mapTheme() {
+      const theme = this._config.map_theme;
+      return theme === "light" || theme === "dark" ? { theme_mode: theme } : {};
+    }
+
+    // The kinds the bar has switched off, as remembered in this browser for
+    // this card. Read again when the card is set up differently.
+    _hiddenKinds() {
+      const key = this._hiddenKindsKey();
+      if (this._hiddenKindKey !== key) {
+        this._hiddenKindKey = key;
+        this._hiddenKindSet = undefined;
+      }
+      if (!this._hiddenKindSet) {
+        let saved = [];
+        try {
+          saved = JSON.parse(this._storage(this._hiddenKindKey) || "[]");
+        } catch (err) {
+          saved = [];
+        }
+        this._hiddenKindSet = new Set(Array.isArray(saved) ? saved.filter((k) => typeof k === "string") : []);
+      }
+      return this._hiddenKindSet;
+    }
+
+    _toggleKind(kind) {
+      if (!kind) return;
+      const hidden = this._hiddenKinds();
+      if (hidden.has(kind)) hidden.delete(kind);
+      else hidden.add(kind);
+      this._storage(this._hiddenKindsKey(), JSON.stringify([...hidden]));
+      this._render();
+      if (this._popEl && this._popEl.open) this._fillPop(t(this._hass));
+    }
+
+    // The bar itself: one chip per kind the map holds right now, in the
+    // integration's order, each with its symbol in its colour and, if
+    // wanted, how many there are. A hidden kind keeps its chip, faded, so
+    // the click that brings it back stays where it was.
+    _paintKindBar(bar, wanted) {
+      if (!bar) return;
+      const rows = this._presentRows || [];
+      const on = wanted && this._config.show_kind_bar === true && rows.length > 0;
+      bar.hidden = !on;
+      if (!on) {
+        if (bar.innerHTML) bar.innerHTML = "";
+        return;
+      }
+      // Between the two: under the map where they are stacked - and where
+      // the list is off - beside it where they stand side by side.
+      const beside = bar === this._kindBarEl && this._layout === "landscape" && this._wantsMap && this._wantsList;
+      bar.classList.toggle("vertical", beside);
+      if (bar === this._kindBarEl) this._splitEl.classList.toggle("bar-below", this._layout === "landscape" && !beside);
+      const hidden = this._hiddenKinds();
+      const byKind = new Map();
+      for (const row of rows) {
+        const kind = row.state.attributes.type;
+        if (!kind) continue;
+        const entry = byKind.get(kind) || { attrs: row.state.attributes, count: 0 };
+        entry.count += 1;
+        byKind.set(kind, entry);
+      }
+      const order = (k) => {
+        const i = KIND_KEYS.indexOf(k);
+        return i < 0 ? KIND_KEYS.length : i;
+      };
+      const html = [...byKind.entries()]
+        .sort((a, b) => order(a[0]) - order(b[0]))
+        .map(([kind, { attrs, count }]) => {
+          const off = hidden.has(kind);
+          const name = attrs.type_name || kind;
+          return `<button type="button" class="kind-chip${off ? " off" : ""}" data-kind="${escapeHtml(kind)}" aria-pressed="${off ? "false" : "true"}" title="${escapeHtml(`${name} (${count})`)}"><ha-icon icon="${escapeHtml(reportIcon(attrs, this._config))}" style="color: ${escapeHtml(reportColor(attrs, this._config))}"></ha-icon>${this._config.kind_bar_count === false ? "" : `<span class="kind-count">${count}</span>`}</button>`;
+        })
+        .join("");
+      if (bar.innerHTML !== html) bar.innerHTML = html;
+    }
+
+    // A click on a report's symbol, when the card is asked to open its page:
+    // true when it did, and the click goes no further - neither the
+    // highlight nor Home Assistant's details dialog. Only the two pages the
+    // integration links to are opened: blitzer.de's map, and TomTom's route
+    // planner at the report's spot. A report without one - Lufop's - keeps
+    // what the click did.
+    _openReportLink(id, ev) {
+      if (!this._config.map_open_link) return false;
+      const url = this._hass && this._hass.states[id] && this._hass.states[id].attributes.url;
+      if (typeof url !== "string" || !/^https:\/\/(www\.blitzer\.de|plan\.tomtom\.com)\//.test(url)) return false;
+      ev.stopPropagation();
+      ev.preventDefault();
+      window.open(url, "_blank", "noopener");
+      return true;
+    }
+
     // Which area is on screen. The pick is remembered per browser rather than
     // in the dashboard, because switching it is a private act - one person
     // looking at their commute must not repoint the card for everyone else.
@@ -2835,6 +2992,7 @@
           <div class="planner" hidden></div>
           <div class="split">
             <div class="mapwrap"></div>
+            <div class="kindbar" hidden></div>
             <div class="side">
               <div class="listwrap"></div>
             </div>
@@ -2848,6 +3006,7 @@
             <div class="pop-traffic"></div>
             <div class="pop-body">
               <div class="pop-map"></div>
+              <div class="kindbar" hidden></div>
               <div class="pop-side">
                 <div class="pop-live" hidden></div>
                 <div class="pop-list"></div>
@@ -2864,6 +3023,15 @@
       this._listEl = this._root.querySelector(".listwrap");
       this._miniEl = this._root.querySelector(".mini");
       this._popEl = this._root.querySelector(".pop");
+      this._kindBarEl = this._splitEl.querySelector(".kindbar");
+      this._popKindBarEl = this._popEl.querySelector(".kindbar");
+      // One listener per bar, for whatever chips it holds at the time.
+      for (const bar of [this._kindBarEl, this._popKindBarEl]) {
+        bar.addEventListener("click", (ev) => {
+          const chip = ev.target.closest && ev.target.closest(".kind-chip");
+          if (chip) this._toggleKind(chip.dataset.kind);
+        });
+      }
       this._popEl.querySelector(".pop-close").addEventListener("click", () => this._popEl.close());
       // The dialog element itself fills the backdrop, so a click that lands
       // on it rather than on the panel inside is a click outside.
@@ -3014,9 +3182,18 @@
       // the card shows - list, badges, bands and map - the entry's own
       // come back when the planner closes.
       const planned = this._planner && this._planner.route;
-      const all = planned && Array.isArray(planned.reports)
+      const everything = planned && Array.isArray(planned.reports)
         ? planRows(planned.reports, this._config.sort)
         : reportsFor(this._hass, areaId, reference, this._config.sort);
+      // What the bar has switched off goes before anything else is counted,
+      // so the map, the list, the badges and the pop-up all agree on it.
+      // Only while the bar is on: a kind hidden by a bar that is not drawn
+      // could never be brought back.
+      this._presentRows = everything;
+      const hidden = this._config.show_kind_bar === true ? this._hiddenKinds() : null;
+      const all = hidden && hidden.size
+        ? everything.filter((r) => !hidden.has(r.state.attributes.type))
+        : everything;
       this._allRows = all;
       this._total = all.length;
       // A highlight lives only as long as the report it points at.
@@ -3095,6 +3272,7 @@
       this._splitEl.hidden = minimal;
       this._mapEl.hidden = !this._wantsMap;
       this._listEl.hidden = !this._wantsList;
+      this._paintKindBar(this._kindBarEl, !minimal);
       const sideBySide = this._layout === "landscape";
       const plannerSlot = sideBySide ? this._sideEl : this._root;
       if (this._plannerEl.parentNode !== plannerSlot) {
@@ -3104,6 +3282,16 @@
       // _syncMap runs either way: in the minimal format it is what takes the
       // map down again, rather than leaving it fetching tiles out of sight.
       this._syncMap(areaId);
+      // The bands are drawn when the map is attached and when its reports
+      // change - not when a kind's colour does. A colour set in the editor
+      // would otherwise reach the symbols at once and the bands only at the
+      // next poll, so they are drawn again, in the card and in the pop-up.
+      const lineColors = KIND_KEYS.map((k) => this._config[`kind_${k}_color`] || "").join("|");
+      if (this._lineColors !== undefined && this._lineColors !== lineColors) {
+        if (this._handles) this._paintLines();
+        if (this._popHandles && this._popRowsCache) this._paintLines(this._popHandles, this._popRowsCache, "_popLinesDrawn");
+      }
+      this._lineColors = lineColors;
       if (minimal) {
         this._renderMini(str);
         if (this._popEl.open) this._fillPop(str);
@@ -3355,6 +3543,7 @@
       this._popEl.querySelector(".pop-body").classList.toggle("solo", wantsMap !== wantsList);
       this._fillPopTrafficLine();
       this._fillPopLive(str);
+      this._paintKindBar(this._popKindBarEl, true);
       this._fillPopList(str);
       this._syncPopMap(rows);
     }
@@ -3449,9 +3638,22 @@
         ...(ids.length ? { entities: ids } : { geo_location_sources: [] }),
         auto_fit: true,
         ...(this._config.map_cluster === false ? { cluster: false } : {}),
+        ...this._mapTheme(),
       });
       if (this._popMapKey !== key) return;
       card.hass = this._hass;
+      // The observer watches the map it was made for. A new set of reports -
+      // a kind hidden in the bar, say - makes a new map, and without letting
+      // the old observer go the new one never gets its own: its markers kept
+      // Home Assistant's initials instead of the kinds' symbols.
+      if (this._popObserver) {
+        try {
+          this._popObserver.disconnect();
+        } catch (err) {
+          // Already gone with the map it was watching.
+        }
+        this._popObserver = undefined;
+      }
       wrap.innerHTML = "";
       wrap.appendChild(card);
       this._popMap = card;
@@ -3484,12 +3686,13 @@
         h.on("zoomend", this._onPopMove);
         this._scheduleTraffic("pop");
         this._onPopMarkerClick = (ev) => {
-          if (this._config.map_highlight === false) return;
           const marker = ev.composedPath().find((n) => n && n.tagName === "HA-ENTITY-MARKER");
           const id = marker && (marker.entityId || marker.getAttribute("entity-id"));
           if (!id || !(this._popRowsCache || []).some((r) => r.entityId === id)) return;
           const bubble = marker.closest && marker.closest(".cluster-marker");
           if (bubble && bubble.getAttribute("role") !== "group") return;
+          if (this._openReportLink(id, ev)) return;
+          if (this._config.map_highlight === false) return;
           ev.stopPropagation();
           ev.preventDefault();
           this._highlight = this._highlight === id ? null : id;
@@ -3623,8 +3826,10 @@
       // The moment of the last fetch is part of the refresh button; without
       // the button it is the info line's last part.
       const showUpdated = true;
+      // Its own switch decides, and nothing else: with the info line off the
+      // button stands on its own where the line would be.
       const refreshHtml =
-        this._config.show_refresh !== false && (bigLive || showSub)
+        this._config.show_refresh !== false
           ? refreshPillHtml(
               this._config,
               "refresh",
@@ -3660,9 +3865,9 @@
               .filter(Boolean)
               .join(" · ")
           : "";
-        lineHtml = showSub && (subText || refreshHtml)
+        lineHtml = subText || refreshHtml
           ? `<div class="sub" style="${escapeHtml(elementStyle(this._config, "sub"))}">${
-              leadIconHtml(this._config, "sub")
+              subText ? leadIconHtml(this._config, "sub") : ""
             }<span>${escapeHtml(subText)}</span>${refreshHtml}</div>`
           : "";
       }
@@ -4003,6 +4208,7 @@
         // Only ever said when it is off: the map groups by default, and a
         // version from before the option simply does not see the key.
         ...(this._config.map_cluster === false ? { cluster: false } : {}),
+        ...this._mapTheme(),
         // While the card is listening to the map - following it, or measuring
         // from its centre - refitting on every data update would undo the pan
         // the person just made. It fits once, when the map first appears.
@@ -4298,10 +4504,19 @@
           const state = id && this._hass && this._hass.states[id];
           const disc = root.querySelector(".marker");
           if (!disc || !state || !state.attributes.icon) continue;
+          const color = reportColor(state.attributes, this._config);
+          const name = reportIcon(state.attributes, this._config);
+          // Ours already: brought up to date, since a symbol or a colour
+          // set in the editor must reach the markers already drawn.
+          const ours = disc.querySelector(".tomtom-marker-icon");
+          if (ours) {
+            if (ours.getAttribute("icon") !== name) ours.setAttribute("icon", name);
+            if (ours.style.color !== color) ours.style.color = color;
+            continue;
+          }
           if (disc.querySelector("ha-icon, img, .entity-picture")) continue;
-          const color = reportColor(state.attributes);
           const icon = document.createElement("ha-icon");
-          icon.setAttribute("icon", state.attributes.icon);
+          icon.setAttribute("icon", name);
           icon.className = "tomtom-marker-icon";
           icon.style.color = color;
           disc.appendChild(icon);
@@ -4419,12 +4634,13 @@
         // click on - see the stylesheet). In a bubble the map has opened
         // into a group, each symbol is a report of ours again.
         this._onMarkerClick = (ev) => {
-          if (this._config.map_highlight === false) return;
           const marker = ev.composedPath().find((n) => n && n.tagName === "HA-ENTITY-MARKER");
           const id = marker && (marker.entityId || marker.getAttribute("entity-id"));
           if (!id || !(this._allRows || []).some((r) => r.entityId === id)) return;
           const bubble = marker.closest && marker.closest(".cluster-marker");
           if (bubble && bubble.getAttribute("role") !== "group") return;
+          if (this._openReportLink(id, ev)) return;
+          if (this._config.map_highlight === false) return;
           ev.stopPropagation();
           ev.preventDefault();
           this._highlight = this._highlight === id ? null : id;
@@ -5153,9 +5369,10 @@
           const lat = Number(r.latitude);
           const lon = Number(r.longitude);
           if (!Number.isFinite(lat) || !Number.isFinite(lon) || !r.icon) continue;
+          const attrs = { ...(r.attributes || {}), icon: r.icon };
           const html =
-            `<ha-icon class="tomtom-plan-marker" icon="${escapeHtml(r.icon)}" ` +
-            `style="--mdc-icon-size: 24px; width: 24px; height: 24px; display: block; color: ${escapeHtml(reportColor(r.attributes || {}))}"></ha-icon>`;
+            `<ha-icon class="tomtom-plan-marker" icon="${escapeHtml(reportIcon(attrs, this._config))}" ` +
+            `style="--mdc-icon-size: 24px; width: 24px; height: 24px; display: block; color: ${escapeHtml(reportColor(attrs, this._config))}"></ha-icon>`;
           try {
             this._planMarkers.push(h.marker([lat, lon], html, 24));
           } catch (err) {
@@ -5373,7 +5590,7 @@
           continue;
         }
         if (points.length < 2) continue;
-        const color = LINE_COLORS[attrs.type] || OTHER_LINE_COLOR;
+        const color = reportColor(attrs, this._config);
         try {
           drawn.push(h.line(points, { color, width: 6, opacity: 0.8 }));
           if (attrs.type === "road_closed") {
@@ -6103,6 +6320,30 @@
 
     set hass(hass) {
       this._hass = hass;
+      if (!this._sourcesAsked) {
+        this._sourcesAsked = true;
+        flowTemplate(hass).then((answer) => {
+          // null where the integration does not say - an older one: the
+          // highlight switch is then left alone rather than guessed at.
+          this._sources = answer && Array.isArray(answer.sources) ? answer.sources : null;
+          this._kinds = answer && Array.isArray(answer.kinds) ? answer.kinds : null;
+          if (this.shadowRoot && this.shadowRoot.querySelector(".super-panel")) this._syncValues();
+        });
+        // The kinds' names, in the reader's language: the integration's own
+        // labels for its kind switches, which say which source a kind is from.
+        hass
+          .callWS({ type: "frontend/get_translations", language: hass.language, category: "selector", integration: [DOMAIN] })
+          .then((answer) => {
+            const prefix = `component.${DOMAIN}.selector.category.options.`;
+            const names = {};
+            for (const [k, v] of Object.entries((answer && answer.resources) || {})) {
+              if (k.startsWith(prefix)) names[k.slice(prefix.length)] = v;
+            }
+            this._kindNames = names;
+            if (this.shadowRoot && this.shadowRoot.querySelector(".super-panel")) this._syncValues();
+          })
+          .catch(() => {});
+      }
       this._render();
     }
 
@@ -6369,6 +6610,59 @@
         this._set(key, invert ? !ev.target.checked : ev.target.checked)
       );
       return row;
+    }
+
+    // A symbol and a colour for each kind a report can have here - TomTom's,
+    // and those of the further sources that are switched on. Its rows come
+    // when the integration has said which kinds those are (see set hass).
+    _kindsBlock(str) {
+      const block = document.createElement("div");
+      block.className = "design-element";
+      block.dataset.design = "kinds";
+      block.appendChild(this._groupLabelRow(str.edElKinds, str.edElKindsHelp));
+      const rows = document.createElement("div");
+      rows.className = "kind-rows";
+      block.appendChild(rows);
+      return block;
+    }
+
+    _fillKinds(str) {
+      const holder = this.shadowRoot && this.shadowRoot.querySelector(".kind-rows");
+      if (!holder || !Array.isArray(this._kinds)) return;
+      const sig = this._kinds.map((k) => k.key).join(",") + "|" + (this._kindNames ? "n" : "");
+      if (holder.dataset.sig === sig) return;
+      holder.dataset.sig = sig;
+      holder.innerHTML = "";
+      for (const { key, icon } of this._kinds) {
+        const segment = document.createElement("div");
+        segment.className = "kind-segment";
+        segment.dataset.kind = key;
+        const head = document.createElement("div");
+        head.className = "kind-head";
+        head.textContent = (this._kindNames && this._kindNames[key]) || key;
+        segment.appendChild(head);
+        const fields = document.createElement("div");
+        fields.className = "kind-fields";
+        // The picker shows the symbol in use by name, the integration's own
+        // too - the way the refresh button's does. Picking that one again,
+        // or clearing the field, keeps nothing: an empty key is the default.
+        const field = `kind_${key}_icon`;
+        const picker = document.createElement("ha-selector");
+        picker.selector = { icon: {} };
+        picker.required = false;
+        picker.dataset.kindIcon = field;
+        picker.dataset.kindDefault = icon;
+        picker.hass = this._hass;
+        picker.addEventListener("value-changed", (ev) => {
+          ev.stopPropagation();
+          const value = ev.detail.value || "";
+          this._set(field, value === icon ? "" : value);
+        });
+        fields.appendChild(this._fieldRow(str.edSubIcon, str.edKindIconHelp, picker, true));
+        fields.appendChild(this._colorRow(`kind_${key}_color`, str.edSubIconColor, str.edKindColorHelp, str));
+        segment.appendChild(fields);
+        holder.appendChild(segment);
+      }
     }
 
     // The card's own background: a switch, a colour, an image with an upload
@@ -7122,7 +7416,18 @@
         const highlight = this._toggleRow("map_highlight", str.edMapHighlight, str.edMapHighlightHelp);
         highlight.classList.add("sub-field-row", "sub-toggle-row");
         highlight.dataset.withMap = "";
+        highlight.dataset.highlightRow = "";
         body.appendChild(highlight);
+        const openLink = this._toggleRow("map_open_link", str.edMapOpenLink, str.edMapOpenLinkHelp);
+        openLink.classList.add("sub-field-row", "sub-toggle-row");
+        openLink.dataset.withMap = "";
+        body.appendChild(openLink);
+        // The bar sits between map and list, so its switch does too.
+        body.appendChild(this._toggleRow("show_kind_bar", str.edKindBar, str.edKindBarHelp));
+        const barCount = this._toggleRow("kind_bar_count", str.edKindBarCount, str.edKindBarCountHelp);
+        barCount.classList.add("sub-field-row", "sub-toggle-row");
+        barCount.dataset.withKindbar = "";
+        body.appendChild(barCount);
         body.appendChild(this._toggleRow("show_list", str.edShowList, str.edShowListHelp));
         const travelPop = this._toggleRow(
           "show_travel_time", str.edShowTravelTimePop, str.edShowTravelTimePopHelp
@@ -7258,6 +7563,11 @@
         // Neither carries an "i": their names say what they are.
         chips.appendChild(this._toggleRow("show_row_reported", str.edRowReported, ""));
         chips.appendChild(this._toggleRow("show_row_until", str.edRowClosure, ""));
+        // Only blitzer.de rates its reports, so the switch is there only
+        // while blitzer.de is one of the sources.
+        const stars = this._toggleRow("show_row_stars", str.edRowStars, "");
+        stars.dataset.needsBlitzer = "";
+        chips.appendChild(stars);
         rowBody.appendChild(chips);
 
         body.appendChild(shape);
@@ -7267,7 +7577,10 @@
         if (groupKey === "list") body.appendChild(this._offNote("list", str));
         // First of all, because it is the only thing here that answers for
         // the whole card rather than for one piece of it.
-        if (groupKey === "display") body.appendChild(this._backgroundBlock(str));
+        if (groupKey === "display") {
+          body.appendChild(this._backgroundBlock(str));
+          body.appendChild(this._kindsBlock(str));
+        }
 
         // The card's own head lives under Layout -> General, everything a
         // list entry is made of under Layout -> List.
@@ -7282,6 +7595,16 @@
 
       if (groupKey === "map") {
         body.appendChild(this._offNote("map", str));
+        // First, since it answers for every map the card draws - the
+        // pop-up's too - where the ratio below is the portrait format's.
+        body.appendChild(
+          this._fieldRow(str.edMapTheme, str.edMapThemeHelp,
+            this._select("map_theme", [
+              { value: "auto", label: str.mapThemeAuto },
+              { value: "light", label: str.mapThemeLight },
+              { value: "dark", label: str.mapThemeDark },
+            ]))
+        );
         body.appendChild(
           (() => {
             const row = this._fieldRow(str.edAspect, str.edAspectHelp,
@@ -7613,7 +7936,7 @@
     _syncValues() {
       if (!this.shadowRoot || !this._config) return;
       const str = t(this._hass);
-      this.shadowRoot.querySelectorAll("ha-selector").forEach((el) => {
+      this.shadowRoot.querySelectorAll("ha-selector:not([data-kind-icon])").forEach((el) => {
         el.hass = this._hass;
         const value = this._config[el.dataset.key];
         if (value !== el.value) el.value = value;
@@ -7765,11 +8088,43 @@
       // 2026.10 or newer. On an older one it stays where it is, greyed out,
       // with its tooltip saying why: a switch that simply vanished would
       // send anyone who read about it looking for it.
+      this._fillKinds(str);
+      for (const { key } of this._kinds || []) {
+        this._syncColorRow(`kind_${key}_color`, this._config[`kind_${key}_color`] || "", kindDefaultColor(key), str);
+      }
+      this.shadowRoot.querySelectorAll("ha-selector[data-kind-icon]").forEach((el) => {
+        el.hass = this._hass;
+        const value = this._config[el.dataset.kindIcon] || el.dataset.kindDefault || "";
+        if (value !== el.value) el.value = value;
+      });
+      this.shadowRoot.querySelectorAll("[data-needs-blitzer]").forEach((row) => {
+        row.hidden = Array.isArray(this._sources) && !this._sources.includes("blitzer");
+      });
+      this.shadowRoot.querySelectorAll("[data-with-kindbar]").forEach((row) => {
+        row.hidden = this._config.show_kind_bar !== true || inOffTab(row);
+      });
       const switchable = mapClusterSwitchable(this._hass);
       this.shadowRoot.querySelectorAll("[data-needs-cluster]").forEach((row) => {
         row.classList.toggle("disabled", !switchable);
         const control = row.querySelector("input[data-toggle], select[data-field]");
         if (control) control.disabled = !switchable;
+      });
+      // With the map's click opening a report's page and no Lufop asked,
+      // every report has a page - blitzer.de's and TomTom's alike - so the
+      // highlight never happens. Its switch then shows off and greyed out,
+      // with its tooltip saying why; what is saved stays as it was, so it
+      // is back the moment the link goes off or Lufop comes on.
+      const covered =
+        this._config.map_open_link === true && Array.isArray(this._sources) && !this._sources.includes("lufop");
+      this.shadowRoot.querySelectorAll("[data-highlight-row]").forEach((row) => {
+        row.classList.toggle("disabled", covered);
+        const control = row.querySelector("input[data-toggle]");
+        if (control) {
+          control.disabled = covered;
+          if (covered) control.checked = false;
+        }
+        const anchor = row.querySelector(".tooltip-anchor");
+        if (anchor) anchor.dataset.tooltip = covered ? str.edMapHighlightCovered : str.edMapHighlightHelp;
       });
       this._syncColorRow("route_color", this._config.route_color || "", "var(--primary-color)", str);
       // What the colour falls back to is what the map draws without one: the
@@ -8150,11 +8505,22 @@
        wrapping row: at the dialog's width the three of them do not fit on one
        line on their own, and a grid keeps the third in place instead of
        dropping it to a line of its own. */
-    .row-shape-chips { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+    /* A switch that wraps to a second line keeps the 29px pitch the other
+       switches of the row have. */
+    .row-shape-chips { display: flex; flex-wrap: wrap; gap: 13px 16px; }
     .row-shape-chips .toggle-row { gap: 6px; }
     .row-shape-chips .toggle-label { white-space: nowrap; }
     .row-shape-chips .toggle-row { margin-bottom: 0; }
     .design-element { margin-bottom: 20px; }
+    /* Kinds of report: a segment per kind, its name a heading of its own. */
+    /* The gaps the other blocks keep: 8px from a heading to its first row,
+       20px from one block to the next - the last row's own 16px margin
+       plus the 4px gap make the 20. The heading's 16px margin comes out at
+       8px, since a sub row reaches 8px up into the space above it. */
+    .kind-rows { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; }
+    .design-element:not(.open) .kind-rows { display: none; }
+    .kind-head { margin-bottom: 16px; font-size: 15px; font-weight: 500; color: var(--primary-text-color); }
+    .kind-fields { padding-left: 16px; }
     .design-element:not(.open) { margin-bottom: 8px; }
     .design-element:not(.open) .group-label-row { margin-bottom: 0; }
     /* Each style switch labels itself in the style it turns on, so the row
@@ -8390,7 +8756,7 @@
       ...(config.show_row_reported === false ? [] : confirmedChip(str, a)),
       ...(config.show_row_until === false ? [] : untilChip(str, a)),
     ].filter(Boolean);
-    const stars = config.show_row_reported === false ? "" : starsHtml(a);
+    const stars = config.show_row_stars === false ? "" : starsHtml(a);
 
     const line = (prefix, inner) =>
       `<div class="${prefix}" style="${escapeHtml(elementStyle(config, prefix))}">${leadIconHtml(
@@ -8402,12 +8768,12 @@
       <div class="row${highlighted ? " hl" : ""}" data-entity="${escapeHtml(row.entityId)}"${highlighted && config.highlight_color ? ` style="background: ${escapeHtml(config.highlight_color)}"` : ""}>
         ${config.show_row_picture === false || !a.icon
           ? ""
-          : `<div class="pic"><ha-icon icon="${escapeHtml(a.icon)}" style="${escapeHtml(
+          : `<div class="pic"><ha-icon icon="${escapeHtml(reportIcon(a, config))}" style="${escapeHtml(
               [
                 config.row_picture_size
                   ? `--mdc-icon-size: ${config.row_picture_size}; width: ${config.row_picture_size}; height: ${config.row_picture_size}`
                   : "",
-                `color: ${reportColor(a)}`,
+                `color: ${reportColor(a, config)}`,
               ].filter(Boolean).join("; ")
             )}"></ha-icon>${config.show_row_provider ? providerBadgeHtml(a.provider) : ""}</div>`}
         <div class="body">
@@ -8577,6 +8943,20 @@
     .side[hidden] { display: none; }
     .side .planner { flex: 0 0 auto; margin-top: 0; margin-bottom: 10px; }
     .mapwrap { flex: 0 1 auto; position: relative; }
+    /* The bar of kinds: under the map, or beside it between map and list. */
+    .kindbar { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .kindbar[hidden] { display: none; }
+    .kindbar.vertical { flex-direction: column; flex-wrap: nowrap; margin-top: 0; overflow-y: auto; flex: 0 0 auto; }
+    ha-card[data-layout="landscape"] .split.bar-below { flex-direction: column; }
+    .kind-chip { display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 8px 3px 6px;
+                 border-radius: 999px; border: 1px solid var(--divider-color, rgba(127, 127, 127, 0.3));
+                 background: transparent; color: var(--primary-text-color); font: inherit; font-size: 0.8rem;
+                 line-height: 1; cursor: pointer; }
+    .kind-chip ha-icon { --mdc-icon-size: 18px; width: 18px; height: 18px; display: block; }
+    .kind-chip.off { opacity: 0.4; }
+    .kind-chip.off ha-icon { filter: grayscale(1); }
+    .kind-chip:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+    .pop-body > .kindbar { flex-direction: column; flex-wrap: nowrap; margin-top: 0; flex: 0 0 auto; overflow-y: auto; }
     /* The soft edge itself is drawn inside the map rather than over it - see
        _styleMapChrome. From out here it would lie across the map's own
        buttons as well, which is what made them have to move out of its way. */
@@ -8821,6 +9201,7 @@
     .pop-list { flex: 1 1 auto; min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; }
     @media (max-width: 800px) {
       .pop-body { flex-direction: column; }
+      .pop-body > .kindbar { flex-direction: row; flex-wrap: wrap; }
       .pop-map { flex: 0 0 40%; }
       .pop-side { flex: 1 1 auto; }
       /* Alone in there, the map takes the height it would have shared. */

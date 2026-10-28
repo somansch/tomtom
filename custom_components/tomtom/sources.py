@@ -34,6 +34,8 @@ from homeassistant.util import location as location_util
 from .api import PRODUCT_BLITZER, PRODUCT_LUFOP, TomTomUsage
 from .const import (
     CATEGORIES,
+    CATEGORY_ICONS,
+    TOMTOM_CATEGORIES,
     CONF_LUFOP_API_KEY,
     CONF_LUFOP_COUNTRY,
     CONF_SEARCH_MODE,
@@ -73,6 +75,11 @@ BLITZER_CLUSTER_DEPTH = 3
 BLITZER_CLUSTER_SHRINK = 4
 # blitzer.de's stamps are Berlin time, written "2026-10-18 09:25:30".
 BLITZER_TZ = "Europe/Berlin"
+# A report on blitzer.de's own map. Every marker carries a UUID of its own in
+# "key" beside its old "backend" id; the map's links name that key. Measured
+# stable over two days for every camera of a test circle; it cannot be worked
+# out from the backend id, so it is taken from the answer.
+BLITZER_POI_URL = "https://www.blitzer.de/karte/?poi={key}"
 
 # blitzer.de's type codes, each under the kind it belongs to here - by
 # what is measured, not by how it is mounted. The weight and height
@@ -257,9 +264,17 @@ def blitzer_item(poi: dict, language: str | None) -> dict | None:
     if confirmed_at.startswith("1970"):
         confirmed_at = ""
     category = CATEGORIES.get(key, 0)
+    poi_key = str(poi.get("key") or "").strip()
     return {
         "id": f"{SOURCE_BLITZER}-{backend}",
-        "short_id": backend.split("-")[-1],
+        # blitzer.de's own id for it, and the page that shows it there.
+        "blitzer_key": poi_key,
+        "url": BLITZER_POI_URL.format(key=poi_key) if poi_key else "",
+        # blitzer.de's id after its leading figure: "1-94657" files under
+        # 94657, as before, and "1-98878-T1" - a second camera at one spot
+        # - under 98878-T1. The last piece alone made every such camera
+        # "T1", and one entity of them all.
+        "short_id": backend.split("-", 1)[-1],
         "category": category,
         "lat": points[0][0],
         "lng": points[0][1],
@@ -610,13 +625,43 @@ def merge_sources(items: list[dict]) -> list[dict]:
     return kept
 
 
-def enabled_sources(hass: HomeAssistant, usage: TomTomUsage) -> list:
-    """The further sources switched on under TomTom Settings, ready to ask."""
+def _settings_options(hass: HomeAssistant) -> dict:
+    """What is saved under TomTom Settings -> Configure."""
     settings = next(
         (e for e in hass.config_entries.async_entries(DOMAIN) if e.data.get(CONF_SEARCH_MODE) == SEARCH_MODE_SETTINGS),
         None,
     )
-    options = dict(settings.options) if settings else {}
+    return dict(settings.options) if settings else {}
+
+
+def enabled_source_keys(hass: HomeAssistant) -> list[str]:
+    """The further sources that are asked, by key - the same test as
+    enabled_sources, for the card: Lufop counts only with its key."""
+    options = _settings_options(hass)
+    keys: list[str] = []
+    if options.get(CONF_SOURCE_BLITZER):
+        keys.append(SOURCE_BLITZER)
+    if options.get(CONF_SOURCE_LUFOP) and str(options.get(CONF_LUFOP_API_KEY) or "").strip():
+        keys.append(SOURCE_LUFOP)
+    return keys
+
+
+def active_kinds(hass: HomeAssistant) -> list[dict]:
+    """Every kind a report can have on this installation, in the entries'
+    own order, with its symbol: TomTom's always, a further source's while
+    it is asked. What the card's editor offers a symbol and a colour for."""
+    keys = enabled_source_keys(hass)
+    wanted = set(TOMTOM_CATEGORIES)
+    if SOURCE_BLITZER in keys:
+        wanted |= set(BLITZER_KIND_CODES)
+    if SOURCE_LUFOP in keys:
+        wanted |= set(LufopSource.KINDS)
+    return [{"key": key, "icon": CATEGORY_ICONS.get(key, "mdi:alert")} for key in CATEGORIES if key in wanted]
+
+
+def enabled_sources(hass: HomeAssistant, usage: TomTomUsage) -> list:
+    """The further sources switched on under TomTom Settings, ready to ask."""
+    options = _settings_options(hass)
     sources: list = []
     if options.get(CONF_SOURCE_BLITZER):
         sources.append(BlitzerSource(hass, usage))

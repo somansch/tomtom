@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "通報"
             },
+            "cameras": {
+                "name": "所有測速照相"
+            },
+            "cameras_new": {
+                "name": "新測速照相"
+            },
             "travel_time": {
                 "name": "行車時間"
             },
@@ -175,6 +181,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -209,6 +217,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -236,6 +246,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -364,6 +376,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -449,6 +463,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "從每月第八天起，會將目前為止的請求推算到月底。只計算這個整合發出的請求；若金鑰也用在其他地方，TomTom 那邊的數字會更高。",
                         "data": {
-                            "quota_warning": "免費額度撐不到月底時發出警告",
-                            "quota_threshold": "達到免費額度的此比例時警告"
+                            "quota_warning": "當本月請求所剩不多或將不足時發出警告",
+                            "quota_threshold": "自本月請求的此比例起警告"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % 會在將超過額度本身時警告，80 % 則在達到其五分之四時就警告。"
+                            "quota_threshold": "預測達到此比例時發出第一次警告；達到 100 % 時發出第二次。"
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -551,6 +569,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -671,6 +691,7 @@
                         "name": "選用設定",
                         "data": {
                             "only_certain": "只顯示 TomTom 確定的通報",
+                            "jam_min_delay": "延誤達此時間才算塞車（分鐘，0 = 所有塞車）",
                             "count": "通報數量",
                             "update_interval": "更新間隔（分鐘，0 = 僅手動）",
                             "new_minutes": "視為新通報的時間（分鐘，0 = 關閉）",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom 會為每則通報評等：certain、probable、risk_of 或 improbable。由行駛車輛測得的塞車是 certain，道路主管機關公告的施工是 probable，單一駕駛的回報則只是 risk。開啟時只保留前兩種；關閉時連不確定的也一併納入。",
+                            "jam_min_delay": "當 TomTom 為塞車標示的延誤達到此分鐘數時才回報。0 回報所有塞車，包括僅數秒的；5 只保留值得繞路的塞車。TomTom 未提供延誤的塞車視為 0。",
                             "roads": "只顯示 TomTom 歸在這些道路編號下的通報，例如 A8 或 B2——通勤路上的高速公路，不含沿途的每條小路。不分大小寫，空格可有可無。留空則包含所有道路。",
                             "blacklist": "要排除的通報，依 TomTom 的事件 ID 指定——即通報實體的 id 或 short_id 屬性，可在其詳細資料中看到。TomTom 自家的 App 不會顯示它。"
                         }
@@ -714,8 +736,12 @@
             "description": "TomTom 項目 **{name}** 已連續 {count} 次輪詢失敗，其實體因此無法使用。最後一次的原因：\n\n`{reason}`\n\n追蹤器沒有位置，或追蹤器實體已不存在，可在該項目的**設定**中修正；金鑰被拒絕，則在 TomTom 設定項目的**設定**中處理；若是 TomTom 本身無法連線，恢復後會自行解除。下一次輪詢成功後，這則修復提示就會消失。"
         },
         "quota_at_risk": {
+            "title": "本月的 {api} 請求所剩不多",
+            "description": "{days} 天內已使用 {tier} 次免費 **{api}** 請求中的 {used} 次；以此速度月底約達 **{projected}** 次，為額度的 {percent} % 或更多。\n\n減少查詢有幫助：更長的更新間隔、路線上更窄的時段、更少卡片顯示交通流量。\n\n當速度降到 TomTom 設定 → 設定 → 額度警告 → TomTom 中設定的比例以下，或進入新的月份時，此警告會消失。若速度達到整個額度，會出現第二次警告。"
+        },
+        "quota_over": {
             "title": "{api} 額度撐不到月底",
-            "description": "{days} 天內已使用 {tier} 次免費 **{api}** 請求中的 {used} 次；照這個速度，到月底約為 **{projected}** 次，超過額度的 {percent} %。\n\n減少輪詢會有幫助：拉長更新間隔、縮短路線的時段、減少顯示車流的卡片。\n\n當速度降到「TomTom 設定」→「設定」→「額度警告」→「TomTom」中設定的比例以下，或進入新的月份時，這則提示就會消失。"
+            "description": "{days} 天內已使用 {tier} 次免費 **{api}** 請求中的 {used} 次；以此速度月底約達 **{projected}** 次 - 達到或超過整個免費額度。\n\n減少查詢有幫助：更長的更新間隔、路線上更窄的時段、更少卡片顯示交通流量。\n\n當速度降到額度以下，或進入新的月份時，此警告會消失。"
         },
         "quota_day_at_risk": {
             "title": "今日的 {api} 請求即將用完",

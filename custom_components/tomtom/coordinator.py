@@ -51,6 +51,8 @@ from .const import (
     CONF_LIVE_UNTIL,
     CONF_NEW_MINUTES,
     CONF_ONLY_CERTAIN,
+    CONF_JAM_MIN_DELAY,
+    DEFAULT_JAM_MIN_DELAY,
     CONF_ROADS,
     CONF_ROUTE_DESTINATION,
     CONF_ROUTE_START,
@@ -97,6 +99,14 @@ MODELS = {
     SEARCH_MODE_TRACKER: "Tracker",
     SEARCH_MODE_ROUTE_LIVE: "Route",
 }
+
+
+def _seconds(value) -> float:
+    """TomTom's delay as a number of seconds - 0 where it sends none."""
+    try:
+        return float(value) if value is not None else 0.0
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def category_key(item: dict) -> str:
@@ -207,6 +217,9 @@ class TomTomCoordinator(DataUpdateCoordinator):
         self.roads = _comma_set(data.get(CONF_ROADS), upper=True)
         self.blacklist = _comma_set(data.get(CONF_BLACKLIST))
         self.only_certain = bool(data.get(CONF_ONLY_CERTAIN, True))
+        # Minutes of delay a jam has to cost before it is reported; 0 is
+        # every jam. Minutes here, seconds in TomTom's figure.
+        self.jam_min_delay = int(data.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY) or 0)
         self.update_minutes = int(data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL))
         self.new_minutes = int(data.get(CONF_NEW_MINUTES, DEFAULT_NEW_MINUTES))
 
@@ -639,6 +652,8 @@ class TomTomCoordinator(DataUpdateCoordinator):
             if not self.kinds.get(category_key(item), True):
                 continue
             if self.only_certain and item.get("probability") and item["probability"] not in CERTAIN_PROBABILITIES:
+                continue
+            if self.jam_min_delay and category_key(item) == "jam" and _seconds(item.get("delay")) < self.jam_min_delay * 60:
                 continue
             if self.roads:
                 roads = {r.upper().replace(" ", "") for r in item.get("roads") or []}

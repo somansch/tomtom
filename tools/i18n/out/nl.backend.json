@@ -43,6 +43,7 @@
     "name": "Optionele instellingen",
     "data": {
       "only_certain": "Alleen meldingen waar TomTom zeker van is",
+      "jam_min_delay": "File vanaf deze vertraging (minuten, 0 = elke file)",
       "count": "Aantal meldingen",
       "update_interval": "Update-interval (minuten, 0 = alleen handmatig)",
       "new_minutes": "Geldt als nieuw gedurende (minuten, 0 = uit)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom beoordeelt elke melding: certain, probable, risk_of of improbable. Een file gemeten uit rijdende auto's is certain, wegwerkzaamheden van een wegbeheerder probable, de losse melding van één bestuurder een risico. Aan houdt de eerste twee; uit komen de onzekere ook mee.",
+      "jam_min_delay": "Een file wordt gemeld zodra de vertraging die TomTom ervoor opgeeft zoveel minuten bereikt. 0 meldt elke file, ook een van enkele seconden; 5 houdt de files die een omweg waard zijn. Een file waarvoor TomTom geen vertraging stuurt telt als geen.",
       "roads": "Alleen meldingen die TomTom onder een van deze wegnummers plaatst, A8 of B2 - de snelwegen van een woon-werkrit zonder elke zijstraat erlangs. Hoofdletters en spaties maken niet uit. Leeg houdt elke weg.",
       "blacklist": "Meldingen om weg te laten, op TomToms incident-id - het attribuut id of short_id van de entiteit van een melding, te zien in zijn details. TomToms eigen apps tonen het niet."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Meldingen",
+      "cameras": "Alle flitsers",
+      "cameras_new": "Nieuwe flitsers",
       "travel_time": "Reistijd",
       "traffic_delay": "Verkeersvertraging",
       "route_length": "Routelengte",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Vanaf de achtste dag van de maand worden de aanvragen tot nu toe doorgerekend tot het einde van de maand. Geteld wordt wat deze integratie aanvraagt; een sleutel die ook elders wordt gebruikt, staat bij TomTom hoger.",
           "data": {
-            "quota_warning": "Waarschuwen als het gratis tegoed de maand niet haalt",
-            "quota_threshold": "Waarschuwen vanaf dit deel van het gratis tegoed"
+            "quota_warning": "Waarschuwen als de aanvragen van de maand opraken of niet toereikend zijn",
+            "quota_threshold": "Waarschuwen vanaf dit aandeel van de aanvragen van de maand"
           },
           "data_description": {
-            "quota_threshold": "100 % waarschuwt als het tegoed zelf wordt overschreden, 80 % al bij vier vijfde ervan."
+            "quota_threshold": "De eerste waarschuwing komt als de prognose dit aandeel bereikt; een tweede als ze 100 % bereikt."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "Het TomTom-item **{name}** is bij {count} opvragingen op rij mislukt, dus zijn entiteiten zijn niet beschikbaar. De laatste reden:\n\n`{reason}`\n\nEen tracker zonder positie, of een tracker-entiteit die niet meer bestaat, los je op onder **Configureren** van het item; een geweigerde sleutel onder **Configureren** op het item TomTom Instellingen; als TomTom zelf niet bereikbaar is, verdwijnt dit vanzelf zodra het weer kan. Deze reparatie verdwijnt bij de volgende opvraging die slaagt."
   },
   "quotaIssue": {
-    "title": "Het {api}-quotum haalt de maand niet",
-    "description": "{used} van {tier} gratis **{api}**-aanvragen na {days} dagen; in dit tempo ongeveer **{projected}** tegen het einde van de maand, meer dan {percent} % van het tegoed.\n\nMinder opvragingen helpen: een langer update-interval, kortere uren voor een route, de verkeersstroom op minder kaarten.\n\nDit verdwijnt zodra het tempo onder het deel zakt dat is ingesteld onder TomTom Instellingen → Configureren → Quotumwaarschuwing → TomTom, en met de nieuwe maand."
+    "title": "De {api}-aanvragen van de maand raken op",
+    "description": "{used} van {tier} gratis **{api}**-aanvragen na {days} dagen; in dit tempo ongeveer **{projected}** tegen het eind van de maand, {percent} % van het quotum of meer.\n\nMinder ophalen helpt: een langer update-interval, krappere uren op een route, de verkeersstroom op minder kaarten.\n\nDit verdwijnt zodra het tempo onder het aandeel zakt dat onder TomTom-instellingen → Configureren → Quotumwaarschuwing → TomTom is ingesteld, en met de nieuwe maand. Bereikt het tempo het hele quotum, dan volgt een tweede waarschuwing."
+  },
+  "quotaOverIssue": {
+    "title": "Het {api}-quotum is niet toereikend voor de maand",
+    "description": "{used} van {tier} gratis **{api}**-aanvragen na {days} dagen; in dit tempo ongeveer **{projected}** tegen het eind van de maand - het hele gratis quotum of meer.\n\nMinder ophalen helpt: een langer update-interval, krappere uren op een route, de verkeersstroom op minder kaarten.\n\nDit verdwijnt zodra het tempo onder het quotum zakt, en met de nieuwe maand."
   },
   "quotaDayIssue": {
     "title": "De {api}-aanvragen van de dag zijn bijna op",

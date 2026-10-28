@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Jelentések"
             },
+            "cameras": {
+                "name": "Összes traffipax"
+            },
+            "cameras_new": {
+                "name": "Új traffipaxok"
+            },
             "travel_time": {
                 "name": "Menetidő"
             },
@@ -175,6 +181,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -209,6 +217,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -236,6 +246,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -364,6 +376,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -449,6 +463,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "A hónap nyolcadik napjától az eddigi kéréseket a hónap végéig vetíti előre. Az számít, amit ez az integráció kér; egy máshol is használt kulcs a TomTomnál magasabban áll.",
                         "data": {
-                            "quota_warning": "Figyelmeztetés, ha az ingyenes keret nem elég a hónapra",
-                            "quota_threshold": "Figyelmeztetés az ingyenes keret ennyi részétől"
+                            "quota_warning": "Figyelmeztessen, ha a havi kérések fogytán vannak vagy nem lesznek elegendők",
+                            "quota_threshold": "Figyelmeztessen a havi kérések ekkora hányadától"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % akkor figyelmeztet, ha magát a keretet túllépi, 80 % már a négyötödénél."
+                            "quota_threshold": "Az első figyelmeztetés akkor jön, amikor az előrejelzés eléri ezt a hányadot; a második, amikor eléri a 100 %-ot."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -551,6 +569,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -671,6 +691,7 @@
                         "name": "Választható beállítások",
                         "data": {
                             "only_certain": "Csak a TomTom által biztosnak ítélt jelentések",
+                            "jam_min_delay": "Dugó ettől a késéstől (perc, 0 = minden dugó)",
                             "count": "Jelentések száma",
                             "update_interval": "Frissítési időköz (perc, 0 = csak kézi)",
                             "new_minutes": "Ennyi ideig számít újnak (perc, 0 = ki)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "A TomTom minden jelentést minősít: certain, probable, risk_of vagy improbable. A mozgó autókból mért dugó certain, az útkezelő útmunkája probable, egy sofőr egyedi bejelentése kockázat. Bekapcsolva az első kettő marad; kikapcsolva a bizonytalanok is jönnek.",
+                            "jam_min_delay": "A dugót akkor jelenti, ha a TomTom által hozzá rendelt késés eléri ennyi percet. A 0 minden dugót jelent, a néhány másodperceset is; az 5 azokat tartja meg, amelyekért érdemes kerülni. Az a dugó, amelyhez a TomTom nem küld késést, nullának számít.",
                             "roads": "Csak azok a jelentések, amelyeket a TomTom ezen útszámok egyike alatt tart nyilván, A8 vagy B2 - az ingázás autópályái a mellettük lévő mellékutcák nélkül. A kis- és nagybetű és a szóközök nem számítanak. Üresen minden utat megtart.",
                             "blacklist": "Kihagyandó jelentések a TomTom incidensazonosítója szerint - a jelentés entitásának id vagy short_id attribútuma, a részleteiben látható. A TomTom saját alkalmazásai nem mutatják."
                         }
@@ -714,8 +736,12 @@
             "description": "A(z) **{name}** TomTom-bejegyzés {count} lekérdezésnél bukott el egymás után, ezért az entitásai nem elérhetők. Az utolsó ok:\n\n`{reason}`\n\nA pozíció nélküli nyomkövető, vagy a már nem létező nyomkövető-entitás a bejegyzés **Konfigurálás** gombja alatt javítható; az elutasított kulcs a TomTom Beállítások bejegyzés **Konfigurálás** gombja alatt; ha maga a TomTom nem érhető el, ez magától megszűnik, amint újra elérhető. Ez a javítás a következő sikeres lekérdezéssel eltűnik."
         },
         "quota_at_risk": {
-            "title": "A(z) {api} kvóta nem lesz elég a hónapra",
-            "description": "{days} nap után {used} a(z) {tier} ingyenes **{api}** kérésből; ebben az ütemben a hónap végéig kb. **{projected}**, a keret több mint {percent} %-a.\n\nKevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, a forgalomáramlás kevesebb kártyán.\n\nEz eltűnik, amint az ütem a TomTom Beállítások → Konfigurálás → Kvótafigyelmeztetés → TomTom alatt beállított rész alá esik, valamint az új hónappal."
+            "title": "A havi {api} kérések fogytán vannak",
+            "description": "{used} / {tier} ingyenes **{api}** kérés {days} nap után; ebben az ütemben kb. **{projected}** a hónap végéig, a keret {percent} %-a vagy több.\n\nKevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, forgalom kevesebb kártyán.\n\nEltűnik, ha az ütem a TomTom beállítások → Konfigurálás → Keretfigyelmeztetés → TomTom alatt beállított hányad alá esik, és az új hónappal. Ha az ütem eléri a teljes keretet, második figyelmeztetés következik."
+        },
+        "quota_over": {
+            "title": "A(z) {api} keret nem lesz elég a hónapra",
+            "description": "{used} / {tier} ingyenes **{api}** kérés {days} nap után; ebben az ütemben kb. **{projected}** a hónap végéig - a teljes ingyenes keret vagy több.\n\nKevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, forgalom kevesebb kártyán.\n\nEltűnik, ha az ütem a keret alá esik, és az új hónappal."
         },
         "quota_day_at_risk": {
             "title": "A(z) {api} napi kérései majdnem elfogytak",

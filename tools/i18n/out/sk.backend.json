@@ -43,6 +43,7 @@
     "name": "Voliteľné nastavenia",
     "data": {
       "only_certain": "Len hlásenia, ktorými si je TomTom istý",
+      "jam_min_delay": "Kolóna od tohto zdržania (minúty, 0 = každá kolóna)",
       "count": "Počet hlásení",
       "update_interval": "Interval aktualizácie (minúty, 0 = len ručne)",
       "new_minutes": "Počíta sa ako nové (minúty, 0 = vypnuté)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom hodnotí každé hlásenie: certain, probable, risk_of alebo improbable. Zápcha nameraná z pohybujúcich sa áut je certain, práce na ceste od správcu cesty probable, jediné hlásenie vodiča riziko. Zapnuté ponechá prvé dve; vypnuté pribalí aj neisté.",
+      "jam_min_delay": "Kolóna sa hlási, len čo zdržanie, ktoré jej TomTom pripisuje, dosiahne toľko minút. 0 hlási každú kolónu, aj niekoľkosekundovú; 5 ponechá tie, pre ktoré sa oplatí obchádzka. Kolóna, ku ktorej TomTom zdržanie neposiela, sa počíta ako žiadne.",
       "roads": "Len hlásenia, ktoré TomTom vedie pod jedným z týchto čísel ciest, A8 alebo B2 - diaľnice cesty do práce bez každej bočnej ulice popri nich. Na veľkosti písmen a medzerách nezáleží. Prázdne ponechá každú cestu.",
       "blacklist": "Hlásenia, ktoré sa vynechajú, podľa ID udalosti TomTom - atribút id alebo short_id entity hlásenia, zobrazený v jej podrobnostiach. Vlastné aplikácie TomTom ho nezobrazujú."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Hlásenia",
+      "cameras": "Všetky radary",
+      "cameras_new": "Nové radary",
       "travel_time": "Čas jazdy",
       "traffic_delay": "Zdržanie v premávke",
       "route_length": "Dĺžka trasy",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Od ôsmeho dňa mesiaca sa doterajšie požiadavky premietnu na koniec mesiaca. Počíta sa to, na čo sa pýta táto integrácia; kľúč používaný aj inde je u TomTom vyššie.",
           "data": {
-            "quota_warning": "Upozorniť, keď bezplatná kvóta nevydrží celý mesiac",
-            "quota_threshold": "Upozorniť od tohto podielu bezplatnej kvóty"
+            "quota_warning": "Varovať, keď mesačné požiadavky dochádzajú alebo nevystačia",
+            "quota_threshold": "Varovať od tohto podielu mesačných požiadaviek"
           },
           "data_description": {
-            "quota_threshold": "100 % upozorní, keď bude prekročená samotná kvóta, 80 % už pri štyroch pätinách."
+            "quota_threshold": "Prvé varovanie príde, keď odhad dosiahne tento podiel; druhé, keď dosiahne 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "Záznam TomTom **{name}** zlyhal pri {count} dopytoch za sebou, takže jeho entity sú nedostupné. Posledný dôvod:\n\n`{reason}`\n\nSledovač bez polohy alebo entita sledovača, ktorá už neexistuje, sa opraví v **Konfigurovať** záznamu; odmietnutý kľúč v **Konfigurovať** na zázname TomTom Nastavenia; ak nie je dostupný samotný TomTom, vyrieši sa to samo, len čo bude. Táto oprava zmizne s ďalším úspešným dopytom."
   },
   "quotaIssue": {
-    "title": "Kvóta {api} nevydrží celý mesiac",
-    "description": "{used} z {tier} bezplatných požiadaviek **{api}** po {days} dňoch; týmto tempom približne **{projected}** do konca mesiaca, viac ako {percent} % kvóty.\n\nPomôže menej dopytov: dlhší interval aktualizácie, užšie hodiny pri trase, plynulosť premávky na menšom počte kariet.\n\nZmizne to, keď tempo klesne pod podiel nastavený v TomTom Nastavenia → Konfigurovať → Upozornenie na kvótu → TomTom, a s novým mesiacom."
+    "title": "Mesačné požiadavky {api} dochádzajú",
+    "description": "{used} z {tier} bezplatných požiadaviek **{api}** po {days} dňoch; týmto tempom asi **{projected}** do konca mesiaca, {percent} % kvóty alebo viac.\n\nPomôže menej dopytov: dlhší interval aktualizácie, užšie hodiny na trase, premávka na menej kartách.\n\nZmizne, len čo tempo klesne pod podiel nastavený v Nastavenia TomTom → Konfigurovať → Varovanie o kvóte → TomTom, a s novým mesiacom. Ak tempo dosiahne celú kvótu, nasleduje druhé varovanie."
+  },
+  "quotaOverIssue": {
+    "title": "Kvóta {api} na mesiac nevystačí",
+    "description": "{used} z {tier} bezplatných požiadaviek **{api}** po {days} dňoch; týmto tempom asi **{projected}** do konca mesiaca - celá bezplatná kvóta alebo viac.\n\nPomôže menej dopytov: dlhší interval aktualizácie, užšie hodiny na trase, premávka na menej kartách.\n\nZmizne, len čo tempo klesne pod kvótu, a s novým mesiacom."
   },
   "quotaDayIssue": {
     "title": "Denné požiadavky {api} sú takmer vyčerpané",

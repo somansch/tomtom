@@ -3,7 +3,7 @@ this month."""
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 
 from homeassistant.components.sensor import (
@@ -17,11 +17,19 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt as dt_util
 
 from .api import ENTRY_PRODUCTS, PRODUCTS, SIGNAL_USAGE, TomTomUsage, async_get_usage
-from .const import DOMAIN, FREE_TIER, FREE_TIER_DAY, SEARCH_MODE_SETTINGS
+from .const import (
+    DOMAIN,
+    FREE_TIER,
+    FREE_TIER_DAY,
+    SEARCH_MODE_SETTINGS,
+    SOURCE_BLITZER,
+    SOURCE_LUFOP,
+)
 from .coordinator import TomTomCoordinator, category_key
 from .geo_location import local_stamp, reported_at
 
@@ -37,8 +45,7 @@ def _minutes_since(iso, now) -> int | None:
 
 
 def _count_new(items, minutes, now) -> int:
-    """How many of these were reported inside the window - counted across
-    everything in range, not the capped slice the state reports."""
+    """How many of these were reported inside the window."""
     fresh = 0
     for item in items:
         age = _minutes_since(reported_at(item), now)
@@ -93,6 +100,10 @@ async def async_setup_entry(
 
     sensors = [
         SensorReportCount(coordinator),
+        # The speed cameras among them - blitzer.de's and Lufop's reports -
+        # all of them, and the ones reported inside the "new" window.
+        SensorSourceCount(coordinator, fresh=False),
+        SensorSourceCount(coordinator, fresh=True),
         # What this entry asked TomTom this month, under Diagnostics: all
         # of it, and each API this entry is charged with on its own.
         SensorRequests(coordinator, usage),
@@ -110,9 +121,11 @@ async def async_setup_entry(
 
 
 class SensorReportCount(CoordinatorEntity, SensorEntity):
-    """How many reports this entry currently has, capped the same way its
-    entities are - and the one entity the card reads the entry's settings
-    and a live route's figures from."""
+    """How many reports this entry delivers - capped the way its entities
+    are, and every attribute counted over those same reports, so that the
+    count, its parts, the card's badge and the camera sensors agree; what
+    lies in range beyond the cap is "in_range". The one entity the card
+    reads the entry's settings and a live route's figures from."""
 
     _attr_should_poll = False
     _attr_has_entity_name = True
@@ -130,21 +143,22 @@ class SensorReportCount(CoordinatorEntity, SensorEntity):
 
     @property
     def native_value(self):
-        return min(len(self.coordinator.data.reports), self.coordinator.count)
+        return len(delivered(self.coordinator))
 
     @property
     def extra_state_attributes(self):
         coordinator = self.coordinator
-        items = coordinator.data.reports
+        items = delivered(coordinator)
         attrs = {
             "state_class": SensorStateClass.MEASUREMENT,
             "last_update": _iso(coordinator.last_update),
             "search_mode": coordinator.search_mode,
             "new_minutes": coordinator.new_minutes,
+            "in_range": len(coordinator.data.reports),
         }
         if coordinator.new_minutes:
             attrs["new"] = _count_new(items, coordinator.new_minutes, dt_util.now())
-        # How many of each kind, across everything in range.
+        # How many of each kind.
         counts: dict[str, int] = {}
         for item in items:
             key = category_key(item)
@@ -163,6 +177,102 @@ class SensorReportCount(CoordinatorEntity, SensorEntity):
                 round(live["distance"] / 1000, 1) if live.get("distance") is not None else None
             )
             attrs["route_changed"] = _iso(coordinator.route_changed_at)
+        return attrs
+
+
+# The sources whose reports the camera counts take in: everything blitzer.de
+# and Lufop report, speed cameras, checks and police reports alike.
+SOURCE_KEYS = frozenset({SOURCE_BLITZER, SOURCE_LUFOP})
+
+
+def delivered(coordinator: TomTomCoordinator) -> list[dict]:
+    """The reports the entry delivers: the nearest, up to its count - the
+    ones its entities stand for and the card shows."""
+    return coordinator.data.reports[: coordinator.count]
+
+
+class SensorSourceCount(CoordinatorEntity, SensorEntity):
+    """How many of the reports the entry delivers come from blitzer.de or
+    Lufop: all of them, or those reported inside the "new" window -
+    counted over the same reports as Reports and the card's badge, so the
+    three agree; "in_range" says how many there are beyond the cap. A
+    camera both sources report counts once.
+
+    The new count ages on its own, once a minute: a poll can be an hour
+    apart, and the window is as long, so a count left from the poll would
+    stand at its peak the whole hour."""
+
+    _attr_should_poll = False
+    _attr_has_entity_name = True
+    _attr_state_class = SensorStateClass.MEASUREMENT
+
+    def __init__(self, coordinator: TomTomCoordinator, fresh: bool) -> None:
+        super().__init__(coordinator)
+        self._fresh = fresh
+        self._written = None
+        self._attr_device_info = coordinator.device_info
+        key = "cameras_new" if fresh else "cameras"
+        self._attr_translation_key = key
+        self._attr_icon = "mdi:new-box" if fresh else "mdi:cctv"
+        self._attr_unique_id = f"{DOMAIN}-{key}-{coordinator.entry_id}"
+
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        if self._fresh:
+            self.async_on_remove(
+                async_track_time_interval(self.hass, self._age, timedelta(minutes=1))
+            )
+
+    @callback
+    def _age(self, _now) -> None:
+        if sum(1 for _ in self._items()) != self._written:
+            self.async_write_ha_state()
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        self.async_write_ha_state()
+
+    def _items(self, everything: bool = False):
+        """The reports that count, each with the sources that report it -
+        the delivered ones, or everything in range."""
+        now = dt_util.now()
+        minutes = self.coordinator.new_minutes
+        pool = self.coordinator.data.reports if everything else delivered(self.coordinator)
+        for item in pool:
+            providers = set(item.get("providers") or [item.get("provider") or "tomtom"]) & SOURCE_KEYS
+            if not providers:
+                continue
+            if self._fresh:
+                if not minutes:
+                    continue
+                age = _minutes_since(reported_at(item), now)
+                if age is None or age >= minutes:
+                    continue
+            yield item, providers
+
+    @property
+    def native_value(self):
+        self._written = sum(1 for _ in self._items())
+        return self._written
+
+    @property
+    def extra_state_attributes(self):
+        coordinator = self.coordinator
+        per_source = {SOURCE_BLITZER: 0, SOURCE_LUFOP: 0}
+        per_kind: dict[str, int] = {}
+        for item, providers in self._items():
+            for provider in providers:
+                per_source[provider] += 1
+            key = category_key(item)
+            per_kind[key] = per_kind.get(key, 0) + 1
+        attrs = {
+            "last_update": _iso(coordinator.last_update),
+            "in_range": sum(1 for _ in self._items(everything=True)),
+        }
+        if self._fresh:
+            attrs["new_minutes"] = coordinator.new_minutes
+        attrs.update(per_source)
+        attrs.update(per_kind)
         return attrs
 
 

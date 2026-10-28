@@ -43,6 +43,7 @@
     "name": "Definições opcionais",
     "data": {
       "only_certain": "Só ocorrências de que a TomTom tem certeza",
+      "jam_min_delay": "Engarrafamento a partir deste atraso (minutos, 0 = todos)",
       "count": "Número de ocorrências",
       "update_interval": "Intervalo de atualização (minutos, 0 = só manual)",
       "new_minutes": "Conta como nova durante (minutos, 0 = desligado)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "A TomTom classifica cada ocorrência: certain, probable, risk_of ou improbable. Um engarrafamento medido a partir de carros em movimento é certain, obras comunicadas por uma autoridade rodoviária são probable, o relato isolado de um condutor é um risco. Ligado, ficam as duas primeiras; desligado, as incertas vêm também.",
+      "jam_min_delay": "Um engarrafamento é avisado assim que o atraso que a TomTom lhe atribui chega a estes minutos. 0 avisa de todos, até os de poucos segundos; 5 mantém os que valem um desvio. Um engarrafamento para o qual a TomTom não envia atraso conta como nenhum.",
       "roads": "Só ocorrências que a TomTom arquiva sob um destes números de estrada, A8 ou B2 - as autoestradas de um trajeto diário sem cada rua lateral ao longo dele. Maiúsculas e espaços não importam. Vazio mantém todas as estradas.",
       "blacklist": "Ocorrências a excluir, pelo id de incidente da TomTom - o atributo id ou short_id da entidade de uma ocorrência, visível nos seus detalhes. As apps da própria TomTom não o mostram."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Ocorrências",
+      "cameras": "Todos os radares",
+      "cameras_new": "Radares novos",
       "travel_time": "Tempo de viagem",
       "traffic_delay": "Atraso de trânsito",
       "route_length": "Comprimento da rota",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "A partir do oitavo dia do mês, os pedidos feitos até então são projetados até ao fim do mês. Conta-se o que esta integração pede; uma chave usada também noutro lado tem uma contagem mais alta na TomTom.",
           "data": {
-            "quota_warning": "Avisar quando o escalão gratuito não chegar para o mês",
-            "quota_threshold": "Avisar a partir desta parte do escalão gratuito"
+            "quota_warning": "Avisar quando os pedidos do mês escasseiam ou não vão chegar",
+            "quota_threshold": "Avisar a partir desta parte dos pedidos do mês"
           },
           "data_description": {
-            "quota_threshold": "100 % avisa quando o próprio escalão for ultrapassado, 80 % já aos quatro quintos dele."
+            "quota_threshold": "O primeiro aviso chega quando a projeção atinge esta parte; um segundo quando atinge 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "A entrada TomTom **{name}** falhou {count} consultas seguidas, pelo que as suas entidades estão indisponíveis. O último motivo:\n\n`{reason}`\n\nUm rastreador sem posição, ou uma entidade de rastreador que já não existe, corrige-se em **Configurar** da entrada; uma chave recusada em **Configurar** da entrada TomTom Definições; se a própria TomTom não estiver contactável, isto resolve-se sozinho assim que voltar a estar. Esta reparação desaparece com a próxima consulta bem-sucedida."
   },
   "quotaIssue": {
+    "title": "Os pedidos {api} do mês escasseiam",
+    "description": "{used} de {tier} pedidos **{api}** gratuitos após {days} dias; a este ritmo, cerca de **{projected}** até ao fim do mês, {percent} % da quota ou mais.\n\nMenos consultas ajudam: um intervalo de atualização mais longo, horas mais apertadas numa rota, o trânsito em menos cartões.\n\nDesaparece quando o ritmo desce abaixo da parte definida em Definições TomTom → Configurar → Aviso de quota → TomTom, e com o novo mês. Se o ritmo atingir toda a quota, segue um segundo aviso."
+  },
+  "quotaOverIssue": {
     "title": "A quota {api} não vai chegar para o mês",
-    "description": "{used} de {tier} pedidos **{api}** gratuitos após {days} dias; a este ritmo cerca de **{projected}** até ao fim do mês, mais de {percent} % do escalão.\n\nMenos consultas ajudam: um intervalo de atualização mais longo, horas mais apertadas numa rota, o fluxo de trânsito em menos cartões.\n\nIsto desaparece quando o ritmo descer abaixo da parte definida em TomTom Definições → Configurar → Aviso de quota → TomTom, e com o novo mês."
+    "description": "{used} de {tier} pedidos **{api}** gratuitos após {days} dias; a este ritmo, cerca de **{projected}** até ao fim do mês - toda a quota gratuita ou mais.\n\nMenos consultas ajudam: um intervalo de atualização mais longo, horas mais apertadas numa rota, o trânsito em menos cartões.\n\nDesaparece quando o ritmo desce abaixo da quota, e com o novo mês."
   },
   "quotaDayIssue": {
     "title": "Os pedidos {api} do dia estão quase esgotados",

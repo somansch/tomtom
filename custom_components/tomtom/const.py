@@ -168,6 +168,9 @@ CONF_BLACKLIST = "blacklist"
 # Only incidents TomTom is sure of - "certain" and "probable". Off, the
 # "risk_of" and "improbable" ones come along too.
 CONF_ONLY_CERTAIN = "only_certain"
+# A jam is reported from this many minutes of delay; 0 reports every jam.
+CONF_JAM_MIN_DELAY = "jam_min_delay"
+DEFAULT_JAM_MIN_DELAY = 0
 
 # Fired once per report that is newly reported for an entry - never for one
 # already known from an earlier poll, and never during the very first sync
@@ -219,7 +222,11 @@ CONF_DEFAULT_START = "default_start"
 # API's free tier will not last the month, and from what share of it.
 CONF_QUOTA_WARNING = "quota_warning"
 CONF_QUOTA_THRESHOLD = "quota_threshold"
-DEFAULT_QUOTA_THRESHOLD = 100
+# The first warning comes when the month's projection reaches this share of
+# a free tier, the second when it reaches all of it - as Lufop's day does.
+# 100 until 1.0.3; an installation from before keeps that (see the entry
+# migration in __init__.py), a new one starts here.
+DEFAULT_QUOTA_THRESHOLD = 80
 # Lufop's day, on its own: whether to warn, and from what share of the
 # day's requests the first warning comes - the second, when all are used,
 # comes with the switch alone.

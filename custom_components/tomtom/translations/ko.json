@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "교통 정보"
             },
+            "cameras": {
+                "name": "모든 과속 단속 카메라"
+            },
+            "cameras_new": {
+                "name": "새 과속 단속 카메라"
+            },
             "travel_time": {
                 "name": "소요 시간"
             },
@@ -175,6 +181,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -209,6 +217,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -236,6 +246,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -364,6 +376,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -449,6 +463,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "매월 8일부터 지금까지의 요청을 월말까지 추정합니다. 이 통합 구성요소가 보낸 요청만 집계되므로, 다른 곳에서도 쓰는 키는 TomTom에서 더 높게 나옵니다.",
                         "data": {
-                            "quota_warning": "무료 한도가 한 달을 못 버틸 때 경고",
-                            "quota_threshold": "무료 한도의 이 비율부터 경고"
+                            "quota_warning": "이달의 요청이 얼마 남지 않거나 모자랄 때 경고",
+                            "quota_threshold": "이달 요청의 이 비율부터 경고"
                         },
                         "data_description": {
-                            "quota_threshold": "100 %는 한도 자체를 넘을 때, 80 %는 이미 그 5분의 4에서 경고합니다."
+                            "quota_threshold": "예측이 이 비율에 이르면 첫 경고가, 100 %에 이르면 두 번째 경고가 옵니다."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -551,6 +569,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -671,6 +691,7 @@
                         "name": "선택 설정",
                         "data": {
                             "only_certain": "TomTom이 확실하다고 보는 정보만",
+                            "jam_min_delay": "이 지연부터 정체로 보고 (분, 0 = 모든 정체)",
                             "count": "정보 수",
                             "update_interval": "업데이트 간격 (분, 0 = 수동만)",
                             "new_minutes": "신규로 간주하는 시간 (분, 0 = 끔)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom은 모든 정보를 certain, probable, risk_of, improbable로 평가합니다. 주행 중인 차량에서 측정된 정체는 certain, 도로 관리 기관의 공사는 probable, 운전자 한 명의 제보는 risk입니다. 켜면 앞의 둘만 유지하고, 끄면 불확실한 것도 함께 옵니다.",
+                            "jam_min_delay": "TomTom이 정체에 매긴 지연이 이 분 수에 이르면 정체를 보고합니다. 0은 몇 초짜리까지 모든 정체를 보고하고, 5는 우회할 만한 정체만 남깁니다. TomTom이 지연을 보내지 않는 정체는 0으로 칩니다.",
                             "roads": "TomTom이 이 도로 번호 중 하나로 분류한 정보만, A8 또는 B2처럼. 출퇴근길의 고속도로만 보고 그 옆의 샛길은 뺄 때 씁니다. 대소문자와 공백은 무시합니다. 비우면 모든 도로를 포함합니다.",
                             "blacklist": "제외할 정보, TomTom의 사고 ID 기준. 정보 엔티티의 id 또는 short_id 속성이며 상세 보기에 표시됩니다. TomTom의 앱에는 표시되지 않습니다."
                         }
@@ -714,8 +736,12 @@
             "description": "TomTom 항목 **{name}**이(가) {count}번 연속 조회에 실패하여 엔티티를 사용할 수 없습니다. 마지막 원인:\n\n`{reason}`\n\n위치가 없는 추적기나 더 이상 없는 추적기 엔티티는 항목의 **구성**에서, 거부된 키는 TomTom 설정 항목의 **구성**에서 고칠 수 있습니다. TomTom 자체에 연결할 수 없는 경우라면 다시 연결되는 대로 저절로 해결됩니다. 이 수리 항목은 다음 조회가 성공하면 사라집니다."
         },
         "quota_at_risk": {
-            "title": "{api} 할당량이 이번 달을 버티지 못합니다",
-            "description": "{days}일 동안 무료 **{api}** 요청 {tier}건 중 {used}건을 사용했습니다. 이 속도라면 월말까지 약 **{projected}**건으로, 한도의 {percent} %를 넘습니다.\n\n조회를 줄이면 도움이 됩니다: 업데이트 간격을 늘리고, 경로의 시간대를 좁히고, 교통 흐름을 표시하는 카드를 줄이세요.\n\n속도가 TomTom 설정 → 구성 → 할당량 경고 → TomTom에서 설정한 비율 아래로 떨어지거나 새 달이 되면 사라집니다."
+            "title": "이달의 {api} 요청이 얼마 남지 않았습니다",
+            "description": "{days}일 동안 무료 **{api}** 요청 {tier}건 중 {used}건 사용. 이 속도면 월말까지 약 **{projected}**건으로, 한도의 {percent} % 이상입니다.\n\n조회를 줄이면 도움이 됩니다: 더 긴 업데이트 간격, 경로의 더 좁은 시간대, 더 적은 카드의 교통 흐름.\n\n속도가 TomTom 설정 → 구성 → 한도 경고 → TomTom에서 정한 비율 아래로 내려가거나 새 달이 되면 사라집니다. 속도가 한도 전체에 이르면 두 번째 경고가 옵니다."
+        },
+        "quota_over": {
+            "title": "{api} 한도가 이달을 버티지 못합니다",
+            "description": "{days}일 동안 무료 **{api}** 요청 {tier}건 중 {used}건 사용. 이 속도면 월말까지 약 **{projected}**건 - 무료 한도 전체 이상입니다.\n\n조회를 줄이면 도움이 됩니다: 더 긴 업데이트 간격, 경로의 더 좁은 시간대, 더 적은 카드의 교통 흐름.\n\n속도가 한도 아래로 내려가거나 새 달이 되면 사라집니다."
         },
         "quota_day_at_risk": {
             "title": "오늘의 {api} 요청이 거의 소진되었습니다",

@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Ziņojumi"
             },
+            "cameras": {
+                "name": "Visi ātruma radari"
+            },
+            "cameras_new": {
+                "name": "Jauni ātruma radari"
+            },
             "travel_time": {
                 "name": "Brauciena laiks"
             },
@@ -175,6 +181,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -209,6 +217,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -236,6 +246,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -364,6 +376,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -449,6 +463,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "No mēneša astotās dienas līdzšinējie pieprasījumi tiek prognozēti līdz mēneša beigām. Skaitīts tiek tas, ko pieprasa šī integrācija; ja atslēgu izmanto arī citur, pie TomTom skaitlis ir lielāks.",
                         "data": {
-                            "quota_warning": "Brīdināt, ja bezmaksas limits nepietiks visam mēnesim",
-                            "quota_threshold": "Brīdināt no šīs bezmaksas limita daļas"
+                            "quota_warning": "Brīdināt, kad mēneša pieprasījumi iet uz beigām vai nepietiks",
+                            "quota_threshold": "Brīdināt no šīs mēneša pieprasījumu daļas"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % brīdina, kad tiks pārsniegts pats limits, 80 % - jau pie četrām piektdaļām no tā."
+                            "quota_threshold": "Pirmais brīdinājums nāk, kad prognoze sasniedz šo daļu; otrs, kad tā sasniedz 100 %."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -551,6 +569,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -671,6 +691,7 @@
                         "name": "Papildu iestatījumi",
                         "data": {
                             "only_certain": "Tikai ziņojumi, par kuriem TomTom ir pārliecināts",
+                            "jam_min_delay": "Sastrēgums no šīs kavēšanās (minūtes, 0 = katrs sastrēgums)",
                             "count": "Ziņojumu skaits",
                             "update_interval": "Atjaunināšanas intervāls (minūtes, 0 = tikai manuāli)",
                             "new_minutes": "Skaitās jauns (minūtes, 0 = izslēgts)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom novērtē katru ziņojumu: certain, probable, risk_of vai improbable. No braucošām automašīnām izmērīts sastrēgums ir certain, ceļa pārvaldes ceļa darbi probable, viena vadītāja ziņojums ir risks. Ieslēgts: paliek pirmie divi; izslēgts: līdzi nāk arī nedrošie.",
+                            "jam_min_delay": "Par sastrēgumu ziņo, kad TomTom tam norādītā kavēšanās sasniedz tik minūšu. 0 ziņo par katru sastrēgumu, arī dažu sekunžu; 5 patur tos, kuru dēļ ir vērts braukt apkārt. Sastrēgums, kam TomTom kavēšanos nesūta, skaitās kā nulle.",
                             "roads": "Tikai ziņojumi, ko TomTom iekļauj zem kāda no šiem ceļu numuriem, A8 vai B2 - ikdienas ceļa šosejas bez katras blakusielas gar tām. Lielie/mazie burti un atstarpes nav svarīgas. Tukšs patur katru ceļu.",
                             "blacklist": "Ziņojumi, kurus izlaist, pēc TomTom negadījuma ID - ziņojuma entītijas atribūts id vai short_id, redzams tās detaļās. TomTom pašu lietotnes to nerāda."
                         }
@@ -714,8 +736,12 @@
             "description": "TomTom ieraksts **{name}** nav izdevies {count} vaicājumos pēc kārtas, tāpēc tā entītijas nav pieejamas. Pēdējais iemesls:\n\n`{reason}`\n\nIzsekotāju bez pozīcijas vai izsekotāja entītiju, kas vairs nepastāv, labo ieraksta sadaļā **Konfigurēt**; noraidītu atslēgu - sadaļā **Konfigurēt** pie ieraksta TomTom Iestatījumi; ja pats TomTom nav sasniedzams, tas pazūd pats, tiklīdz tas atkal ir. Šis labojums pazūd ar nākamo veiksmīgo vaicājumu."
         },
         "quota_at_risk": {
-            "title": "{api} kvota nepietiks visam mēnesim",
-            "description": "{used} no {tier} bezmaksas **{api}** pieprasījumiem pēc {days} d.; šādā tempā līdz mēneša beigām aptuveni **{projected}**, vairāk nekā {percent} % no limita.\n\nPalīdz mazāk vaicājumu: garāks atjaunināšanas intervāls, šaurākas stundas maršrutam, satiksmes plūsma mazākā kartīšu skaitā.\n\nTas pazūd, kad temps nokrītas zem daļas, kas iestatīta sadaļā TomTom Iestatījumi → Konfigurēt → Kvotas brīdinājums → TomTom, un ar jauno mēnesi."
+            "title": "Mēneša {api} pieprasījumi iet uz beigām",
+            "description": "{used} no {tier} bezmaksas **{api}** pieprasījumiem pēc {days} dienām; šādā tempā ap **{projected}** līdz mēneša beigām, {percent} % no kvotas vai vairāk.\n\nPalīdz retākas aptaujas: garāks atjaunināšanas intervāls, šaurākas stundas maršrutā, satiksmes plūsma mazāk kartītēs.\n\nTas pazūd, kad temps nokrīt zem daļas, kas iestatīta sadaļā TomTom iestatījumi → Konfigurēt → Kvotas brīdinājums → TomTom, un ar jauno mēnesi. Ja temps sasniedz visu kvotu, seko otrs brīdinājums."
+        },
+        "quota_over": {
+            "title": "{api} kvotas mēnesim nepietiks",
+            "description": "{used} no {tier} bezmaksas **{api}** pieprasījumiem pēc {days} dienām; šādā tempā ap **{projected}** līdz mēneša beigām - visa bezmaksas kvota vai vairāk.\n\nPalīdz retākas aptaujas: garāks atjaunināšanas intervāls, šaurākas stundas maršrutā, satiksmes plūsma mazāk kartītēs.\n\nTas pazūd, kad temps nokrīt zem kvotas, un ar jauno mēnesi."
         },
         "quota_day_at_risk": {
             "title": "{api} dienas pieprasījumi ir gandrīz izlietoti",

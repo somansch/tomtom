@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Meldinger"
             },
+            "cameras": {
+                "name": "Alle fotobokser"
+            },
+            "cameras_new": {
+                "name": "Nye fotobokser"
+            },
             "travel_time": {
                 "name": "Reisetid"
             },
@@ -175,6 +181,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -209,6 +217,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -236,6 +246,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -364,6 +376,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -449,6 +463,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "Fra den åttende dagen i måneden fremskrives forespørslene så langt til slutten av måneden. Det som telles, er det denne integrasjonen spør om; en nøkkel som også brukes andre steder, står høyere hos TomTom.",
                         "data": {
-                            "quota_warning": "Varsle når gratiskvoten ikke vil vare måneden ut",
-                            "quota_threshold": "Varsle fra denne andelen av gratiskvoten"
+                            "quota_warning": "Varsle når månedens forespørsler blir få eller ikke rekker",
+                            "quota_threshold": "Varsle fra denne andelen av månedens forespørsler"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % varsler når selve kvoten vil bli overskredet, 80 % allerede ved fire femtedeler av den."
+                            "quota_threshold": "Det første varselet kommer når framskrivingen når denne andelen; et nytt når den når 100 %."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -551,6 +569,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -671,6 +691,7 @@
                         "name": "Valgfrie innstillinger",
                         "data": {
                             "only_certain": "Bare meldinger TomTom er sikker på",
+                            "jam_min_delay": "Kø fra denne forsinkelsen (minutter, 0 = hver kø)",
                             "count": "Antall meldinger",
                             "update_interval": "Oppdateringsintervall (minutter, 0 = bare manuelt)",
                             "new_minutes": "Regnes som ny i (minutter, 0 = av)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom vurderer hver melding: certain, probable, risk_of eller improbable. En kø målt fra biler i bevegelse er certain, et veiarbeid fra en veimyndighet probable, en enkelt sjåførs melding en risiko. På beholdes de to første; av kommer de usikre med også.",
+                            "jam_min_delay": "En kø meldes når forsinkelsen TomTom oppgir for den når så mange minutter. 0 melder hver kø, også en på noen sekunder; 5 beholder dem som er verdt en omvei. En kø TomTom ikke sender forsinkelse for, teller som ingen.",
                             "roads": "Bare meldinger TomTom fører under ett av disse veinumrene, A8 eller B2 - motorveiene på en pendlerrute uten hver sidevei langs dem. Store/små bokstaver og mellomrom spiller ingen rolle. Tomt beholder alle veier.",
                             "blacklist": "Meldinger som skal utelates, etter TomToms hendelses-ID - attributtet id eller short_id på en meldings entitet, vist i detaljene. TomToms egne apper viser den ikke."
                         }
@@ -714,8 +736,12 @@
             "description": "TomTom-oppføringen **{name}** har mislyktes i {count} hentinger på rad, så entitetene dens er utilgjengelige. Siste årsak:\n\n`{reason}`\n\nEn sporer uten posisjon, eller en sporerentitet som ikke finnes lenger, rettes under oppføringens **Konfigurer**; en avvist nøkkel under **Konfigurer** på oppføringen TomTom Innstillinger; kan ikke TomTom selv nås, forsvinner dette av seg selv så snart det går igjen. Denne reparasjonen forsvinner med neste henting som lykkes."
         },
         "quota_at_risk": {
-            "title": "{api}-kvoten vil ikke vare måneden ut",
-            "description": "{used} av {tier} gratis **{api}**-forespørsler etter {days} dager; i dette tempoet omtrent **{projected}** ved slutten av måneden, mer enn {percent} % av kvoten.\n\nFærre hentinger hjelper: et lengre oppdateringsintervall, strammere timer på en rute, trafikkflyten på færre kort.\n\nDette forsvinner når tempoet faller under andelen som er satt under TomTom Innstillinger → Konfigurer → Kvotevarsel → TomTom, og med den nye måneden."
+            "title": "Månedens {api}-forespørsler blir få",
+            "description": "{used} av {tier} gratis **{api}**-forespørsler etter {days} dager; i dette tempoet omtrent **{projected}** ved månedens slutt, {percent} % av kvoten eller mer.\n\nFærre hentinger hjelper: et lengre oppdateringsintervall, strammere timer på en rute, trafikkflyten på færre kort.\n\nDette forsvinner når tempoet synker under andelen som er satt under TomTom-innstillinger → Konfigurer → Kvotevarsel → TomTom, og med den nye måneden. Når tempoet hele kvoten, følger et nytt varsel."
+        },
+        "quota_over": {
+            "title": "{api}-kvoten rekker ikke ut måneden",
+            "description": "{used} av {tier} gratis **{api}**-forespørsler etter {days} dager; i dette tempoet omtrent **{projected}** ved månedens slutt - hele den gratis kvoten eller mer.\n\nFærre hentinger hjelper: et lengre oppdateringsintervall, strammere timer på en rute, trafikkflyten på færre kort.\n\nDette forsvinner når tempoet synker under kvoten, og med den nye måneden."
         },
         "quota_day_at_risk": {
             "title": "Dagens {api}-forespørsler er nesten brukt opp",

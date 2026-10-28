@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Meldungen"
             },
+            "cameras": {
+                "name": "Alle Blitzer"
+            },
+            "cameras_new": {
+                "name": "Neue Blitzer"
+            },
             "travel_time": {
                 "name": "Fahrzeit"
             },
@@ -175,6 +181,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -209,6 +217,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -236,6 +246,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -364,6 +376,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -449,6 +463,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "Ab dem achten Tag des Monats werden die bisherigen Anfragen auf das Monatsende hochgerechnet. Gezählt wird, was diese Integration anfragt; ein auch anderswo genutzter Key steht bei TomTom höher.",
                         "data": {
-                            "quota_warning": "Warnen, wenn das freie Kontingent den Monat nicht reicht",
-                            "quota_threshold": "Warnen ab diesem Anteil des freien Kontingents"
+                            "quota_warning": "Warnen, wenn die Anfragen des Monats knapp werden oder nicht reichen",
+                            "quota_threshold": "Warnen ab diesem Anteil der Anfragen des Monats"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % warnt, wenn das Kontingent selbst überschritten wird, 80 % schon bei vier Fünfteln davon."
+                            "quota_threshold": "Die erste Warnung kommt, wenn die Hochrechnung diesen Anteil erreicht, eine zweite, wenn sie 100 % erreicht."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -551,6 +569,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -671,6 +691,7 @@
                         "name": "Optionale Einstellungen",
                         "data": {
                             "only_certain": "Nur Meldungen, bei denen TomTom sicher ist",
+                            "jam_min_delay": "Stau ab dieser Verzögerung (Minuten, 0 = jeder Stau)",
                             "count": "Anzahl Meldungen",
                             "update_interval": "Aktualisierungsintervall (Minuten, 0 = nur manuell)",
                             "new_minutes": "Gilt als neu für (Minuten, 0 = aus)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom bewertet jede Meldung: certain, probable, risk_of oder improbable. Ein aus fahrenden Autos gemessener Stau ist certain, eine Baustelle einer Straßenbehörde probable, die Einzelmeldung eines Fahrers ein Risiko. An bleiben die ersten beiden; aus kommen die unsicheren dazu.",
+                            "jam_min_delay": "Ein Stau wird gemeldet, sobald TomToms Angabe zur Verzögerung, die er kostet, so viele Minuten erreicht. 0 meldet jeden Stau, auch einen von wenigen Sekunden; 5 behält die, für die sich ein Umweg lohnt. Ein Stau, zu dem TomTom keine Verzögerung schickt, zählt als keine.",
                             "roads": "Nur Meldungen, die TomTom unter einer dieser Straßennummern führt, A8 oder B2 - die Autobahnen eines Arbeitswegs ohne jede Seitenstraße daran. Groß-/Kleinschreibung und Leerzeichen sind egal. Leer nimmt jede Straße.",
                             "blacklist": "Meldungen, die ausgelassen werden, nach TomToms Meldungs-ID - das Attribut id oder short_id der Entität einer Meldung, in deren Details zu sehen. TomToms eigene Apps zeigen sie nicht."
                         }
@@ -714,8 +736,12 @@
             "description": "Der TomTom-Eintrag **{name}** ist bei {count} Abfragen in Folge gescheitert, seine Entitäten sind nicht verfügbar. Der letzte Grund:\n\n`{reason}`\n\nEin Tracker ohne Position oder eine Tracker-Entität, die es nicht mehr gibt, wird unter **Konfigurieren** des Eintrags behoben; ein abgelehnter Key unter **Konfigurieren** am Eintrag TomTom Einstellungen; ist TomTom selbst nicht erreichbar, verschwindet das von allein, sobald es wieder geht. Diese Reparatur erledigt sich mit der nächsten erfolgreichen Abfrage."
         },
         "quota_at_risk": {
+            "title": "Die {api}-Anfragen des Monats werden knapp",
+            "description": "{used} von {tier} freien **{api}**-Anfragen nach {days} Tagen; in diesem Tempo etwa **{projected}** bis Monatsende, {percent} % des Kontingents oder mehr.\n\nWeniger Abfragen helfen: ein längeres Aktualisierungsintervall, engere Stunden einer Route, der Verkehrsfluss auf weniger Karten.\n\nDas verschwindet, sobald das Tempo unter den Anteil fällt, der unter TomTom Einstellungen → Konfigurieren → Kontingent-Warnung → TomTom eingestellt ist, und mit dem neuen Monat. Erreicht das Tempo das ganze Kontingent, folgt eine zweite Warnung."
+        },
+        "quota_over": {
             "title": "Das {api}-Kontingent reicht den Monat nicht",
-            "description": "{used} von {tier} freien **{api}**-Anfragen nach {days} Tagen; in diesem Tempo etwa **{projected}** bis Monatsende, mehr als {percent} % des Kontingents.\n\nWeniger Abfragen helfen: ein längeres Aktualisierungsintervall, engere Stunden einer Route, der Verkehrsfluss auf weniger Karten.\n\nDas verschwindet, sobald das Tempo unter den Anteil fällt, der unter TomTom Einstellungen → Konfigurieren → Kontingent-Warnung → TomTom eingestellt ist, und mit dem neuen Monat."
+            "description": "{used} von {tier} freien **{api}**-Anfragen nach {days} Tagen; in diesem Tempo etwa **{projected}** bis Monatsende - das ganze freie Kontingent oder mehr.\n\nWeniger Abfragen helfen: ein längeres Aktualisierungsintervall, engere Stunden einer Route, der Verkehrsfluss auf weniger Karten.\n\nDas verschwindet, sobald das Tempo unter das Kontingent fällt, und mit dem neuen Monat."
         },
         "quota_day_at_risk": {
             "title": "Die {api}-Anfragen des Tages sind fast aufgebraucht",

@@ -43,6 +43,7 @@
     "name": "Pengaturan opsional",
     "data": {
       "only_certain": "Hanya laporan yang diyakini TomTom",
+      "jam_min_delay": "Kemacetan mulai dari keterlambatan ini (menit, 0 = setiap kemacetan)",
       "count": "Jumlah laporan",
       "update_interval": "Interval pembaruan (menit, 0 = hanya manual)",
       "new_minutes": "Dianggap baru selama (menit, 0 = mati)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom menilai setiap laporan: certain, probable, risk_of atau improbable. Kemacetan yang diukur dari mobil yang bergerak adalah certain, pekerjaan jalan dari dinas jalan probable, laporan tunggal seorang pengemudi sebuah risiko. Aktif, dua yang pertama dipertahankan; mati, yang tidak pasti ikut juga.",
+      "jam_min_delay": "Kemacetan dilaporkan begitu keterlambatan yang diberikan TomTom untuknya mencapai sekian menit. 0 melaporkan setiap kemacetan, termasuk yang hanya beberapa detik; 5 mempertahankan yang layak dihindari lewat jalan lain. Kemacetan yang tidak diberi keterlambatan oleh TomTom dihitung sebagai nol.",
       "roads": "Hanya laporan yang dicatat TomTom di bawah salah satu nomor jalan ini, A8 atau B2 - jalan tol rute harian tanpa setiap jalan kecil di sepanjangnya. Huruf besar-kecil dan spasi tidak berpengaruh. Kosong mempertahankan setiap jalan.",
       "blacklist": "Laporan yang dikecualikan, berdasarkan id insiden TomTom - atribut id atau short_id dari entitas laporan, ditampilkan di detailnya. Aplikasi TomTom sendiri tidak menampilkannya."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Laporan",
+      "cameras": "Semua kamera kecepatan",
+      "cameras_new": "Kamera kecepatan baru",
       "travel_time": "Waktu tempuh",
       "traffic_delay": "Penundaan lalu lintas",
       "route_length": "Panjang rute",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Mulai hari kedelapan setiap bulan, permintaan sejauh ini diproyeksikan ke akhir bulan. Yang dihitung adalah permintaan integrasi ini; kunci yang juga dipakai di tempat lain tercatat lebih tinggi di TomTom.",
           "data": {
-            "quota_warning": "Peringatkan saat kuota gratis tidak cukup untuk sebulan",
-            "quota_threshold": "Peringatkan mulai porsi ini dari kuota gratis"
+            "quota_warning": "Peringatkan saat permintaan bulan ini menipis atau tidak akan cukup",
+            "quota_threshold": "Peringatkan mulai dari bagian permintaan bulan ini"
           },
           "data_description": {
-            "quota_threshold": "100 % memperingatkan saat kuota itu sendiri akan terlampaui, 80 % sudah pada empat perlimanya."
+            "quota_threshold": "Peringatan pertama datang saat proyeksi mencapai bagian ini; yang kedua saat mencapai 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "Entri TomTom **{name}** gagal {count} kali pengambilan data berturut-turut, sehingga entitasnya tidak tersedia. Alasan terakhir:\n\n`{reason}`\n\nPelacak tanpa posisi, atau entitas pelacak yang sudah tidak ada, diperbaiki di **Konfigurasikan** entri itu; kunci yang ditolak di **Konfigurasikan** pada entri TomTom Pengaturan; bila TomTom sendiri tidak dapat dihubungi, ini hilang sendiri begitu bisa dihubungi lagi. Perbaikan ini hilang pada pengambilan data berikutnya yang berhasil."
   },
   "quotaIssue": {
-    "title": "Kuota {api} tidak akan cukup untuk sebulan",
-    "description": "{used} dari {tier} permintaan **{api}** gratis setelah {days} hari; dengan laju ini sekitar **{projected}** pada akhir bulan, lebih dari {percent} % kuota.\n\nPengambilan data yang lebih sedikit membantu: interval pembaruan lebih panjang, jam yang lebih sempit pada rute, arus lalu lintas di lebih sedikit kartu.\n\nIni hilang saat laju turun di bawah porsi yang diatur di TomTom Pengaturan → Konfigurasikan → Peringatan kuota → TomTom, dan dengan bulan baru."
+    "title": "Permintaan {api} bulan ini menipis",
+    "description": "{used} dari {tier} permintaan **{api}** gratis setelah {days} hari; dengan laju ini sekitar **{projected}** pada akhir bulan, {percent} % dari kuota atau lebih.\n\nLebih sedikit pengambilan membantu: interval pembaruan lebih panjang, jam lebih sempit pada rute, arus lalu lintas pada lebih sedikit kartu.\n\nIni hilang saat laju turun di bawah bagian yang diatur di Pengaturan TomTom → Konfigurasi → Peringatan kuota → TomTom, dan dengan bulan baru. Jika laju mencapai seluruh kuota, peringatan kedua menyusul."
+  },
+  "quotaOverIssue": {
+    "title": "Kuota {api} tidak akan cukup untuk bulan ini",
+    "description": "{used} dari {tier} permintaan **{api}** gratis setelah {days} hari; dengan laju ini sekitar **{projected}** pada akhir bulan - seluruh kuota gratis atau lebih.\n\nLebih sedikit pengambilan membantu: interval pembaruan lebih panjang, jam lebih sempit pada rute, arus lalu lintas pada lebih sedikit kartu.\n\nIni hilang saat laju turun di bawah kuota, dan dengan bulan baru."
   },
   "quotaDayIssue": {
     "title": "Permintaan {api} hari ini hampir habis",

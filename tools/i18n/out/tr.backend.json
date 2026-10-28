@@ -43,6 +43,7 @@
     "name": "İsteğe bağlı ayarlar",
     "data": {
       "only_certain": "Yalnızca TomTom'un emin olduğu bildirimler",
+      "jam_min_delay": "Şu gecikmeden itibaren trafik sıkışıklığı (dakika, 0 = her sıkışıklık)",
       "count": "Bildirim sayısı",
       "update_interval": "Güncelleme aralığı (dakika, 0 = yalnızca elle)",
       "new_minutes": "Yeni sayılma süresi (dakika, 0 = kapalı)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom her bildirimi derecelendirir: certain, probable, risk_of veya improbable. Hareket eden araçlardan ölçülen bir sıkışıklık certain, bir yol idaresinden gelen yol çalışması probable, bir sürücünün tek başına bildirimi ise bir risktir. Açıkken ilk ikisi tutulur; kapalıyken belirsiz olanlar da gelir.",
+      "jam_min_delay": "TomTom'un bir sıkışıklığa biçtiği gecikme bu kadar dakikaya ulaşınca sıkışıklık bildirilir. 0 her sıkışıklığı bildirir, birkaç saniyelik olanı bile; 5 sapmaya değenleri tutar. TomTom'un gecikme göndermediği sıkışıklık sıfır sayılır.",
       "roads": "Yalnızca TomTom'un bu yol numaralarından birinin altına kaydettiği bildirimler, A8 veya B2: bir işe gidiş yolunun otoyolları, yanındaki her ara sokak olmadan. Büyük/küçük harf ve boşluklar önemsizdir. Boş bırakılırsa her yol kalır.",
       "blacklist": "TomTom'un olay kimliğine göre dışarıda bırakılacak bildirimler; bir bildirimin varlığının ayrıntılarında gösterilen id veya short_id özniteliği. TomTom'un kendi uygulamaları bunu göstermez."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Bildirimler",
+      "cameras": "Tüm hız kameraları",
+      "cameras_new": "Yeni hız kameraları",
       "travel_time": "Yolculuk süresi",
       "traffic_delay": "Trafik gecikmesi",
       "route_length": "Rota uzunluğu",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Ayın sekizinci gününden itibaren şimdiye kadarki istekler ay sonuna yansıtılır. Sayılan, bu entegrasyonun istedikleridir; başka yerde de kullanılan bir anahtar TomTom'da daha yüksekte durur.",
           "data": {
-            "quota_warning": "Ücretsiz kota ayı çıkarmayacaksa uyar",
-            "quota_threshold": "Ücretsiz kotanın bu payından itibaren uyar"
+            "quota_warning": "Ayın istekleri azalınca ya da yetmeyecekse uyar",
+            "quota_threshold": "Ayın isteklerinin şu payından itibaren uyar"
           },
           "data_description": {
-            "quota_threshold": "%100, kotanın kendisi aşılacağında uyarır; %80 daha beşte dördünde."
+            "quota_threshold": "İlk uyarı, tahmin bu paya ulaşınca gelir; ikincisi %100'e ulaşınca."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "TomTom girdisi **{name}** art arda {count} sorguda başarısız oldu, bu yüzden varlıkları kullanılamıyor. Son neden:\n\n`{reason}`\n\nKonumu olmayan bir takipçi ya da artık var olmayan bir takipçi varlığı, girdinin **Yapılandır** seçeneğinden düzeltilir; reddedilen bir anahtar, TomTom Ayarlar girdisindeki **Yapılandır** altında; TomTom'un kendisine ulaşılamıyorsa bu, yeniden ulaşılabildiği anda kendiliğinden kalkar. Bu onarım, başarılı olan bir sonraki sorguyla kaybolur."
   },
   "quotaIssue": {
+    "title": "Ayın {api} istekleri azalıyor",
+    "description": "{days} gün sonra {tier} ücretsiz **{api}** isteğinden {used} tanesi kullanıldı; bu hızla ay sonuna kadar yaklaşık **{projected}**, kotanın %{percent}'i ya da daha fazlası.\n\nDaha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler, daha az kartta trafik akışı.\n\nHız, TomTom Ayarları → Yapılandır → Kota uyarısı → TomTom altında ayarlanan payın altına düşünce ve yeni ayla birlikte kaybolur. Hız tüm kotaya ulaşırsa ikinci bir uyarı gelir."
+  },
+  "quotaOverIssue": {
     "title": "{api} kotası ayı çıkarmayacak",
-    "description": "{days} günde {tier} ücretsiz **{api}** isteğinden {used} tanesi kullanıldı; bu hızla ay sonuna kadar yaklaşık **{projected}**, kotanın %{percent} oranından fazlası.\n\nDaha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler, daha az kartta trafik akışı.\n\nBu, hız TomTom Ayarlar → Yapılandır → Kota uyarısı → TomTom altında ayarlanan payın altına düştüğünde ve yeni ayla birlikte kaybolur."
+    "description": "{days} gün sonra {tier} ücretsiz **{api}** isteğinden {used} tanesi kullanıldı; bu hızla ay sonuna kadar yaklaşık **{projected}** - ücretsiz kotanın tamamı ya da daha fazlası.\n\nDaha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler, daha az kartta trafik akışı.\n\nHız kotanın altına düşünce ve yeni ayla birlikte kaybolur."
   },
   "quotaDayIssue": {
     "title": "Günün {api} istekleri neredeyse tükendi",

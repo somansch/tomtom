@@ -43,6 +43,7 @@
     "name": "Papildomi nustatymai",
     "data": {
       "only_certain": "Tik pranešimai, kuriais TomTom tikras",
+      "jam_min_delay": "Spūstis nuo šio vėlavimo (minutės, 0 = kiekviena spūstis)",
       "count": "Pranešimų skaičius",
       "update_interval": "Atnaujinimo intervalas (minutės, 0 = tik rankiniu būdu)",
       "new_minutes": "Laikoma nauja (minutės, 0 = išjungta)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom įvertina kiekvieną pranešimą: certain, probable, risk_of arba improbable. Spūstis, išmatuota iš judančių automobilių, yra certain, kelių valdybos kelio darbai – probable, pavienis vairuotojo pranešimas – rizika. Įjungus paliekami pirmi du; išjungus ateina ir neužtikrinti.",
+      "jam_min_delay": "Apie spūstį pranešama, kai TomTom jai priskiriamas vėlavimas pasiekia tiek minučių. 0 praneša apie kiekvieną spūstį, net kelių sekundžių; 5 palieka tas, dėl kurių verta važiuoti aplinkui. Spūstis, kuriai TomTom nesiunčia vėlavimo, skaičiuojama kaip nulis.",
       "roads": "Tik pranešimai, kuriuos TomTom priskiria vienam iš šių kelių numerių, A8 ar B2 – kasdienio kelio automagistralės be kiekvienos šalutinės gatvės prie jų. Raidžių dydis ir tarpai nesvarbūs. Tuščia palieka visus kelius.",
       "blacklist": "Praleidžiami pranešimai pagal TomTom įvykio ID – pranešimo objekto atributas id arba short_id, matomas jo išsamioje informacijoje. Pačios TomTom programėlės jo nerodo."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Pranešimai",
+      "cameras": "Visi greičio matuokliai",
+      "cameras_new": "Nauji greičio matuokliai",
       "travel_time": "Kelionės laikas",
       "traffic_delay": "Eismo vėlavimas",
       "route_length": "Maršruto ilgis",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Nuo aštuntos mėnesio dienos iki šiol pateiktos užklausos projektuojamos iki mėnesio pabaigos. Skaičiuojama tai, ko prašo ši integracija; kitur irgi naudojamo rakto skaičius TomTom yra didesnis.",
           "data": {
-            "quota_warning": "Įspėti, kai nemokamo plano neužteks visam mėnesiui",
-            "quota_threshold": "Įspėti nuo šios nemokamo plano dalies"
+            "quota_warning": "Įspėti, kai mėnesio užklausos senka arba jų nepakaks",
+            "quota_threshold": "Įspėti nuo šios mėnesio užklausų dalies"
           },
           "data_description": {
-            "quota_threshold": "100 % įspėja, kai bus viršytas pats planas, 80 % – jau pasiekus keturis penktadalius."
+            "quota_threshold": "Pirmas įspėjimas ateina, kai prognozė pasiekia šią dalį; antras - kai pasiekia 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "TomTom įrašo **{name}** {count} užklausos iš eilės nepavyko, todėl jo objektai nepasiekiami. Paskutinė priežastis:\n\n`{reason}`\n\nSeklys be padėties arba nebeegzistuojantis seklio objektas taisomas įrašo skiltyje **Konfigūruoti**; atmestas raktas – TomTom Nustatymai įrašo skiltyje **Konfigūruoti**; jei nepasiekiamas pats TomTom, tai išnyksta savaime, kai tik jis vėl pasiekiamas. Šis taisymas dingsta su kita sėkminga užklausa."
   },
   "quotaIssue": {
-    "title": "{api} kvotos neužteks visam mėnesiui",
-    "description": "Po {days} d. panaudota {used} iš {tier} nemokamų **{api}** užklausų; tokiu tempu iki mėnesio pabaigos apie **{projected}**, daugiau nei {percent} % plano.\n\nPadeda mažiau užklausų: ilgesnis atnaujinimo intervalas, siauresnės maršruto valandos, eismo srautas mažiau kortelių.\n\nTai išnyksta, kai tempas nukrenta žemiau dalies, nustatytos skiltyje TomTom Nustatymai → Konfigūruoti → Kvotos įspėjimas → TomTom, ir prasidėjus naujam mėnesiui."
+    "title": "Mėnesio {api} užklausos senka",
+    "description": "{used} iš {tier} nemokamų **{api}** užklausų po {days} dienų; tokiu tempu apie **{projected}** iki mėnesio pabaigos, {percent} % kvotos ar daugiau.\n\nPadeda rečiau klausti: ilgesnis atnaujinimo intervalas, siauresnės valandos maršrute, eismo srautas mažiau kortelių.\n\nTai išnyksta, kai tempas nukrenta žemiau dalies, nustatytos TomTom nustatymai → Konfigūruoti → Kvotos įspėjimas → TomTom, ir su nauju mėnesiu. Jei tempas pasiekia visą kvotą, seka antras įspėjimas."
+  },
+  "quotaOverIssue": {
+    "title": "{api} kvotos mėnesiui nepakaks",
+    "description": "{used} iš {tier} nemokamų **{api}** užklausų po {days} dienų; tokiu tempu apie **{projected}** iki mėnesio pabaigos - visa nemokama kvota ar daugiau.\n\nPadeda rečiau klausti: ilgesnis atnaujinimo intervalas, siauresnės valandos maršrute, eismo srautas mažiau kortelių.\n\nTai išnyksta, kai tempas nukrenta žemiau kvotos, ir su nauju mėnesiu."
   },
   "quotaDayIssue": {
     "title": "{api} dienos užklausos beveik išnaudotos",

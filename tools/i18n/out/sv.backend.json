@@ -43,6 +43,7 @@
     "name": "Valfria inställningar",
     "data": {
       "only_certain": "Bara rapporter TomTom är säker på",
+      "jam_min_delay": "Kö från den här fördröjningen (minuter, 0 = varje kö)",
       "count": "Antal rapporter",
       "update_interval": "Uppdateringsintervall (minuter, 0 = bara manuellt)",
       "new_minutes": "Räknas som ny i (minuter, 0 = av)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom betygsätter varje rapport: certain, probable, risk_of eller improbable. En kö mätt från bilar i rörelse är certain, ett vägarbete från en vägmyndighet probable, en enskild förares rapport en risk. På behålls de två första; av kommer de osäkra med också.",
+      "jam_min_delay": "En kö rapporteras när den fördröjning TomTom anger för den når så många minuter. 0 rapporterar varje kö, även en på några sekunder; 5 behåller dem som är värda en omväg. En kö som TomTom inte skickar någon fördröjning för räknas som ingen.",
       "roads": "Bara rapporter TomTom för under något av dessa vägnummer, A8 eller B2 - pendlingens motorvägar utan varje sidogata längs dem. Skiftläge och mellanslag spelar ingen roll. Tomt behåller varje väg.",
       "blacklist": "Rapporter att utelämna, efter TomToms händelse-id - attributet id eller short_id på en rapports entitet, visat i dess detaljer. TomToms egna appar visar det inte."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Rapporter",
+      "cameras": "Alla fartkameror",
+      "cameras_new": "Nya fartkameror",
       "travel_time": "Restid",
       "traffic_delay": "Trafikfördröjning",
       "route_length": "Ruttlängd",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Från månadens åttonde dag räknas förfrågningarna hittills fram till månadens slut. Det som räknas är vad den här integrationen frågar efter; en nyckel som också används på annat håll står högre hos TomTom.",
           "data": {
-            "quota_warning": "Varna när den gratis kvoten inte räcker månaden ut",
-            "quota_threshold": "Varna från den här andelen av den gratis kvoten"
+            "quota_warning": "Varna när månadens anrop börjar ta slut eller inte räcker",
+            "quota_threshold": "Varna från den här andelen av månadens anrop"
           },
           "data_description": {
-            "quota_threshold": "100 % varnar när själva kvoten överskrids, 80 % redan vid fyra femtedelar av den."
+            "quota_threshold": "Den första varningen kommer när prognosen når den här andelen; en andra när den når 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "TomTom-posten **{name}** har misslyckats med {count} hämtningar i rad, så dess entiteter är otillgängliga. Senaste orsaken:\n\n`{reason}`\n\nEn spårare utan position, eller en spårarentitet som inte längre finns, åtgärdas under postens **Konfigurera**; en avvisad nyckel under **Konfigurera** på posten TomTom Inställningar; om TomTom självt inte kan nås försvinner det här av sig självt så snart det går igen. Den här reparationen försvinner med nästa hämtning som lyckas."
   },
   "quotaIssue": {
+    "title": "Månadens {api}-anrop börjar ta slut",
+    "description": "{used} av {tier} kostnadsfria **{api}**-anrop efter {days} dagar; i den här takten ungefär **{projected}** vid månadens slut, {percent} % av kvoten eller mer.\n\nFärre hämtningar hjälper: ett längre uppdateringsintervall, snävare timmar på en rutt, trafikflödet på färre kort.\n\nDet här försvinner när takten sjunker under andelen som är inställd under TomTom-inställningar → Konfigurera → Kvotvarning → TomTom, och med den nya månaden. Når takten hela kvoten följer en andra varning."
+  },
+  "quotaOverIssue": {
     "title": "{api}-kvoten räcker inte månaden ut",
-    "description": "{used} av {tier} gratis **{api}**-förfrågningar efter {days} dagar; i den här takten omkring **{projected}** vid månadens slut, mer än {percent} % av kvoten.\n\nFärre hämtningar hjälper: ett längre uppdateringsintervall, snävare timmar för en rutt, trafikflödet på färre kort.\n\nDet här försvinner när takten sjunker under andelen som är inställd under TomTom Inställningar → Konfigurera → Kvotvarning → TomTom, och med den nya månaden."
+    "description": "{used} av {tier} kostnadsfria **{api}**-anrop efter {days} dagar; i den här takten ungefär **{projected}** vid månadens slut - hela den kostnadsfria kvoten eller mer.\n\nFärre hämtningar hjälper: ett längre uppdateringsintervall, snävare timmar på en rutt, trafikflödet på färre kort.\n\nDet här försvinner när takten sjunker under kvoten, och med den nya månaden."
   },
   "quotaDayIssue": {
     "title": "Dagens {api}-förfrågningar är nästan förbrukade",

@@ -53,6 +53,8 @@ from .const import (
     CONF_LIVE_UNTIL,
     CONF_NEW_MINUTES,
     CONF_ONLY_CERTAIN,
+    CONF_JAM_MIN_DELAY,
+    DEFAULT_JAM_MIN_DELAY,
     CONF_RETURN_NAME,
     CONF_RETURN_ROUTE,
     CONF_ROADS,
@@ -158,6 +160,10 @@ def _optional_section(defaults: dict | None = None):
         vol.Schema(
             {
                 vol.Required(CONF_ONLY_CERTAIN, default=defaults.get(CONF_ONLY_CERTAIN, True)): bool,
+                # A jam below this delay is not reported; 0 reports every jam.
+                vol.Required(
+                    CONF_JAM_MIN_DELAY, default=defaults.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY)
+                ): vol.All(vol.Coerce(int), vol.Range(min=0, max=600)),
                 vol.Required(CONF_COUNT, default=defaults.get(CONF_COUNT, DEFAULT_COUNT)): vol.All(
                     vol.Coerce(int), vol.Range(min=1, max=500)
                 ),
@@ -193,6 +199,7 @@ def _optional_defaults(data: dict | None) -> dict:
     data = data or {}
     return {
         CONF_ONLY_CERTAIN: data.get(CONF_ONLY_CERTAIN, True),
+        CONF_JAM_MIN_DELAY: data.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY),
         CONF_COUNT: data.get(CONF_COUNT, DEFAULT_COUNT),
         CONF_UPDATE_INTERVAL: data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL),
         CONF_NEW_MINUTES: data.get(CONF_NEW_MINUTES, DEFAULT_NEW_MINUTES),
@@ -207,6 +214,7 @@ def _common_data(user_input: dict) -> dict:
     return {
         CONF_CATEGORIES: _as_flags(user_input.get(CONF_CATEGORIES), CATEGORY_DEFAULTS),
         CONF_ONLY_CERTAIN: optional.get(CONF_ONLY_CERTAIN, True),
+        CONF_JAM_MIN_DELAY: optional.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY),
         CONF_COUNT: optional.get(CONF_COUNT, DEFAULT_COUNT),
         CONF_UPDATE_INTERVAL: optional.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL),
         CONF_NEW_MINUTES: optional.get(CONF_NEW_MINUTES, DEFAULT_NEW_MINUTES),
@@ -737,6 +745,8 @@ class _LiveRouteSteps:
 
 class TomTomConfigFlow(_KeyStep, _LiveRouteSteps, ConfigFlow, domain=DOMAIN):
     VERSION = 1
+    # 2: the quota warning's default moved from 100 % to 80 %.
+    MINOR_VERSION = 2
     _offers_return = True
 
     def __init__(self) -> None:
@@ -1016,9 +1026,10 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
         )
 
     async def async_step_quota_warning(self, user_input=None):
-        """Two sections: TomTom's month on top - whether to warn when a free
-        tier will not last it, and from what share on - and Lufop's day
-        below, with a switch and a share of its own. The options stay flat."""
+        """Two sections, both folded until opened: TomTom's month on top -
+        whether to warn when a free tier will not last it, and from what
+        share on - and Lufop's day below, with a switch and a share of its
+        own. The options stay flat."""
         options = dict(self.config_entry.options)
         if user_input is not None:
             tomtom = user_input.get("tomtom") or {}
@@ -1039,13 +1050,16 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
                             vol.Required(
                                 CONF_QUOTA_WARNING, default=bool(options.get(CONF_QUOTA_WARNING, True))
                             ): bool,
-                            vol.Required(
+                            # Optional, with the share as its default: a slider is never
+                            # empty, and a required field gets Home Assistant's
+                            # asterisk - with no legend to say what it means.
+                            vol.Optional(
                                 CONF_QUOTA_THRESHOLD,
                                 default=int(options.get(CONF_QUOTA_THRESHOLD, DEFAULT_QUOTA_THRESHOLD)),
                             ): share,
                         }
                     ),
-                    {"collapsed": False},
+                    {"collapsed": True},
                 ),
                 vol.Required("lufop"): section(
                     vol.Schema(
@@ -1053,13 +1067,13 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
                             vol.Required(
                                 CONF_LUFOP_QUOTA_WARNING, default=bool(options.get(CONF_LUFOP_QUOTA_WARNING, True))
                             ): bool,
-                            vol.Required(
+                            vol.Optional(
                                 CONF_LUFOP_QUOTA_THRESHOLD,
                                 default=int(options.get(CONF_LUFOP_QUOTA_THRESHOLD, DEFAULT_LUFOP_QUOTA_THRESHOLD)),
                             ): share,
                         }
                     ),
-                    {"collapsed": False},
+                    {"collapsed": True},
                 ),
             }
         )

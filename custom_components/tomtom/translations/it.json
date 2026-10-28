@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Segnalazioni"
             },
+            "cameras": {
+                "name": "Tutti gli autovelox"
+            },
+            "cameras_new": {
+                "name": "Nuovi autovelox"
+            },
             "travel_time": {
                 "name": "Tempo di percorrenza"
             },
@@ -175,6 +181,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -209,6 +217,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -236,6 +246,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -364,6 +376,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -449,6 +463,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "Dall'ottavo giorno del mese, le richieste fatte finora vengono proiettate a fine mese. Si conta ciò che chiede questa integrazione; una chiave usata anche altrove risulta più alta presso TomTom.",
                         "data": {
-                            "quota_warning": "Avvisa quando la quota gratuita non basterà per il mese",
-                            "quota_threshold": "Avvisa a partire da questa percentuale della quota gratuita"
+                            "quota_warning": "Avvisa quando le richieste del mese scarseggiano o non basteranno",
+                            "quota_threshold": "Avvisa da questa quota delle richieste del mese"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % avvisa quando la quota stessa verrà superata, 80 % già ai quattro quinti."
+                            "quota_threshold": "Il primo avviso arriva quando la proiezione raggiunge questa quota; un secondo quando raggiunge il 100 %."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -551,6 +569,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -671,6 +691,7 @@
                         "name": "Impostazioni opzionali",
                         "data": {
                             "only_certain": "Solo segnalazioni di cui TomTom è sicuro",
+                            "jam_min_delay": "Coda da questo ritardo (minuti, 0 = ogni coda)",
                             "count": "Numero di segnalazioni",
                             "update_interval": "Intervallo di aggiornamento (minuti, 0 = solo manuale)",
                             "new_minutes": "Conta come nuova per (minuti, 0 = off)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valuta ogni segnalazione: certain, probable, risk_of o improbable. Una coda misurata dalle auto in movimento è certain, un cantiere di un ente stradale probable, la singola segnalazione di un automobilista un rischio. Acceso, restano le prime due; spento, arrivano anche quelle incerte.",
+                            "jam_min_delay": "Una coda viene segnalata quando il ritardo che TomTom le attribuisce raggiunge questi minuti. 0 segnala ogni coda, anche di pochi secondi; 5 tiene quelle per cui vale una deviazione. Una coda per cui TomTom non manda un ritardo conta come nessuno.",
                             "roads": "Solo segnalazioni che TomTom classifica sotto uno di questi numeri di strada, A8 o B2 - le autostrade di un tragitto pendolare senza ogni strada laterale lungo di esso. Maiuscole e spazi non contano. Vuoto mantiene ogni strada.",
                             "blacklist": "Segnalazioni da escludere, tramite l'id dell'incidente di TomTom - l'attributo id o short_id dell'entità di una segnalazione, mostrato nei suoi dettagli. Le app di TomTom non lo mostrano."
                         }
@@ -714,8 +736,12 @@
             "description": "La voce TomTom **{name}** ha fallito {count} interrogazioni di seguito, quindi le sue entità non sono disponibili. L'ultimo motivo:\n\n`{reason}`\n\nUn tracciatore senza posizione, o un'entità tracciatore che non esiste più, si corregge in **Configura** della voce; una chiave rifiutata in **Configura** sulla voce TomTom Impostazioni; se TomTom stesso non è raggiungibile, si risolve da solo appena lo è di nuovo. Questa riparazione sparisce con la prossima interrogazione riuscita."
         },
         "quota_at_risk": {
-            "title": "La quota {api} non basterà per il mese",
-            "description": "{used} di {tier} richieste **{api}** gratuite dopo {days} giorni; a questo ritmo circa **{projected}** entro fine mese, più del {percent} % della quota.\n\nMeno interrogazioni aiutano: un intervallo di aggiornamento più lungo, ore più ristrette su un percorso, il flusso del traffico su meno schede.\n\nQuesto scompare quando il ritmo scende sotto la percentuale impostata in TomTom Impostazioni → Configura → Avviso di quota → TomTom, e con il nuovo mese."
+            "title": "Le richieste {api} del mese scarseggiano",
+            "description": "{used} di {tier} richieste **{api}** gratuite dopo {days} giorni; a questo ritmo circa **{projected}** entro fine mese, il {percent} % del contingente o più.\n\nMeno interrogazioni aiutano: un intervallo di aggiornamento più lungo, orari più stretti su un percorso, il traffico su meno schede.\n\nSparisce quando il ritmo scende sotto la quota impostata in Impostazioni TomTom → Configura → Avviso contingente → TomTom, e con il nuovo mese. Se il ritmo raggiunge tutto il contingente, segue un secondo avviso."
+        },
+        "quota_over": {
+            "title": "Il contingente {api} non basterà per il mese",
+            "description": "{used} di {tier} richieste **{api}** gratuite dopo {days} giorni; a questo ritmo circa **{projected}** entro fine mese - tutto il contingente gratuito o più.\n\nMeno interrogazioni aiutano: un intervallo di aggiornamento più lungo, orari più stretti su un percorso, il traffico su meno schede.\n\nSparisce quando il ritmo scende sotto il contingente, e con il nuovo mese."
         },
         "quota_day_at_risk": {
             "title": "Le richieste {api} del giorno sono quasi esaurite",

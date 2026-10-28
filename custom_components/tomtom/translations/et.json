@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Teated"
             },
+            "cameras": {
+                "name": "Kõik kiiruskaamerad"
+            },
+            "cameras_new": {
+                "name": "Uued kiiruskaamerad"
+            },
             "travel_time": {
                 "name": "Sõiduaeg"
             },
@@ -175,6 +181,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -209,6 +217,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -236,6 +246,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -364,6 +376,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -449,6 +463,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "Alates kuu kaheksandast päevast arvestatakse senised päringud kuu lõpuni ette. Loetakse seda, mida see sidumine küsib; mujal ka kasutatava võtme näit on TomTomis suurem.",
                         "data": {
-                            "quota_warning": "Hoiata, kui tasuta kvoot kuu lõpuni ei jätku",
-                            "quota_threshold": "Hoiata alates sellest tasuta kvoodi osast"
+                            "quota_warning": "Hoiata, kui kuu päringud hakkavad otsa saama või ei jätku",
+                            "quota_threshold": "Hoiata alates sellest osast kuu päringutest"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % hoiatab, kui kvoot ise ületatakse, 80 % juba selle neljal viiendikul."
+                            "quota_threshold": "Esimene hoiatus tuleb, kui prognoos jõuab selle osani; teine, kui see jõuab 100 %-ni."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -551,6 +569,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -671,6 +691,7 @@
                         "name": "Valikulised seaded",
                         "data": {
                             "only_certain": "Ainult teated, milles TomTom on kindel",
+                            "jam_min_delay": "Ummik alates sellest viivitusest (minutit, 0 = iga ummik)",
                             "count": "Teadete arv",
                             "update_interval": "Uuendusintervall (minutit, 0 = ainult käsitsi)",
                             "new_minutes": "Loeb uuena (minutit, 0 = väljas)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom hindab iga teadet: certain, probable, risk_of või improbable. Liikuvatest autodest mõõdetud ummik on certain, teeameti teetööd probable, ühe juhi üksikteade risk. Sees jäävad alles kaks esimest; väljas tulevad kaasa ka ebakindlad.",
+                            "jam_min_delay": "Ummikust teatatakse, kui TomTomi antud viivitus jõuab nii mitme minutini. 0 teatab igast ummikust, ka mõnesekundilisest; 5 jätab alles need, mille pärast tasub ümber sõita. Ummik, millele TomTom viivitust ei saada, loeb nulliks.",
                             "roads": "Ainult teated, mille TomTom kannab ühe neist teenumbritest alla, A8 või B2 – tööteekonna kiirteed ilma iga kõrvaltänavata nende ääres. Suur- ja väiketähed ning tühikud ei loe. Tühi jätab iga tee.",
                             "blacklist": "Teated, mis jäetakse välja, TomTomi teate ID järgi – teate olemi atribuut id või short_id, näha selle üksikasjades. TomTomi enda rakendused seda ei näita."
                         }
@@ -714,8 +736,12 @@
             "description": "TomTomi kirje **{name}** on {count} uuendust järjest ebaõnnestunud, seega pole selle olemid saadaval. Viimane põhjus:\n\n`{reason}`\n\nAsukohata jälgija või jälgija olem, mida enam pole, parandatakse kirje **Seadista** all; tagasilükatud võti kirje TomTom Seaded **Seadista** all; kui TomTom ise pole kättesaadav, kaob see iseenesest, kui jälle on. See parandus kaob järgmise õnnestunud uuendusega."
         },
         "quota_at_risk": {
-            "title": "{api} kvoot ei jätku kuu lõpuni",
-            "description": "{days} päeva järel on kasutatud {used} tasuta **{api}** päringut {tier}-st; selles tempos umbes **{projected}** kuu lõpuks, üle {percent} % kvoodist.\n\nVähem uuendusi aitab: pikem uuendusintervall, kitsamad tunnid marsruudil, liiklusvoog vähematel kaartidel.\n\nSee kaob, kui tempo langeb alla osa, mis on määratud jaotises TomTom Seaded → Seadista → Kvoodihoiatus → TomTom, ning uue kuuga."
+            "title": "Kuu {api} päringud hakkavad otsa saama",
+            "description": "{used} / {tier} tasuta **{api}** päringut {days} päeva järel; sellise tempoga umbes **{projected}** kuu lõpuks, {percent} % kvoodist või rohkem.\n\nVähem päringuid aitab: pikem uuendusintervall, kitsamad tunnid marsruudil, liiklusvoog vähematel kaartidel.\n\nSee kaob, kui tempo langeb alla osa, mis on seatud jaotises TomTomi seaded → Seadista → Kvoodihoiatus → TomTom, ja uue kuuga. Kui tempo jõuab kogu kvoodini, järgneb teine hoiatus."
+        },
+        "quota_over": {
+            "title": "{api} kvoodist kuu lõpuni ei jätku",
+            "description": "{used} / {tier} tasuta **{api}** päringut {days} päeva järel; sellise tempoga umbes **{projected}** kuu lõpuks - kogu tasuta kvoot või rohkem.\n\nVähem päringuid aitab: pikem uuendusintervall, kitsamad tunnid marsruudil, liiklusvoog vähematel kaartidel.\n\nSee kaob, kui tempo langeb alla kvoodi, ja uue kuuga."
         },
         "quota_day_at_risk": {
             "title": "{api} päeva päringud on peaaegu otsas",

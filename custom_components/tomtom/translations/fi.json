@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Ilmoitukset"
             },
+            "cameras": {
+                "name": "Kaikki nopeuskamerat"
+            },
+            "cameras_new": {
+                "name": "Uudet nopeuskamerat"
+            },
             "travel_time": {
                 "name": "Matka-aika"
             },
@@ -175,6 +181,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -209,6 +217,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -236,6 +246,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -364,6 +376,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -449,6 +463,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "Kuukauden kahdeksannesta päivästä alkaen tähänastiset pyynnöt ennustetaan kuukauden loppuun. Lasketaan se, mitä tämä integraatio pyytää; muuallakin käytetyn avaimen lukema on TomTomilla suurempi.",
                         "data": {
-                            "quota_warning": "Varoita, kun ilmaiskiintiö ei riitä koko kuukaudeksi",
-                            "quota_threshold": "Varoita tästä ilmaiskiintiön osuudesta alkaen"
+                            "quota_warning": "Varoita, kun kuukauden pyynnöt käyvät vähiin tai eivät riitä",
+                            "quota_threshold": "Varoita tästä osuudesta kuukauden pyynnöistä alkaen"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % varoittaa, kun itse kiintiö ylittyy, 80 % jo neljän viidesosan kohdalla."
+                            "quota_threshold": "Ensimmäinen varoitus tulee, kun ennuste saavuttaa tämän osuuden; toinen, kun se saavuttaa 100 %."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -551,6 +569,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -671,6 +691,7 @@
                         "name": "Valinnaiset asetukset",
                         "data": {
                             "only_certain": "Vain ilmoitukset, joista TomTom on varma",
+                            "jam_min_delay": "Ruuhka tästä viiveestä alkaen (minuuttia, 0 = jokainen ruuhka)",
                             "count": "Ilmoitusten määrä",
                             "update_interval": "Päivitysväli (minuuttia, 0 = vain manuaalisesti)",
                             "new_minutes": "Lasketaan uudeksi (minuuttia, 0 = pois)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom arvioi jokaisen ilmoituksen: certain, probable, risk_of tai improbable. Liikkuvista autoista mitattu ruuhka on certain, tieviranomaisen tietyö probable, yksittäisen kuljettajan ilmoitus riski. Päällä pidetään kaksi ensimmäistä; pois päältä epävarmatkin tulevat mukaan.",
+                            "jam_min_delay": "Ruuhka ilmoitetaan, kun TomTomin sille antama viive saavuttaa näin monta minuuttia. 0 ilmoittaa jokaisen ruuhkan, myös muutaman sekunnin; 5 säilyttää ne, joiden takia kiertotie kannattaa. Ruuhka, jolle TomTom ei lähetä viivettä, lasketaan nollaksi.",
                             "roads": "Vain ilmoitukset, jotka TomTom kirjaa jollekin näistä tienumeroista, A8 tai B2 - työmatkan moottoritiet ilman jokaista sivukatua niiden varrella. Kirjainkoolla ja välilyönneillä ei ole väliä. Tyhjänä kaikki tiet pysyvät mukana.",
                             "blacklist": "Pois jätettävät ilmoitukset TomTomin ilmoitustunnuksen mukaan - ilmoituksen entiteetin attribuutti id tai short_id, näkyy sen tiedoissa. TomTomin omat sovellukset eivät näytä sitä."
                         }
@@ -714,8 +736,12 @@
             "description": "TomTom-merkinnän **{name}** haku on epäonnistunut {count} kertaa peräkkäin, joten sen entiteetit eivät ole käytettävissä. Viimeisin syy:\n\n`{reason}`\n\nSeurain ilman sijaintia tai seurainentiteetti, jota ei enää ole, korjataan merkinnän kohdassa **Määrittele**; hylätty avain TomTom Asetukset -merkinnän kohdassa **Määrittele**; jos TomTomiin itseensä ei saada yhteyttä, tämä poistuu itsestään, kun yhteys taas toimii. Tämä korjaus katoaa seuraavan onnistuneen haun myötä."
         },
         "quota_at_risk": {
-            "title": "{api}-kiintiö ei riitä koko kuukaudeksi",
-            "description": "{days} päivän jälkeen käytetty {used}/{tier} ilmaisesta **{api}**-pyynnöstä; tällä tahdilla noin **{projected}** kuun loppuun mennessä, yli {percent} % kiintiöstä.\n\nHarvemmat haut auttavat: pidempi päivitysväli, tiukemmat tunnit reitillä, liikennevirta harvemmilla korteilla.\n\nTämä poistuu, kun tahti laskee alle osuuden, joka on asetettu kohdassa TomTom Asetukset → Määrittele → Kiintiövaroitus → TomTom, sekä uuden kuukauden alkaessa."
+            "title": "Kuukauden {api}-pyynnöt käyvät vähiin",
+            "description": "{used} / {tier} ilmaista **{api}**-pyyntöä {days} päivän jälkeen; tällä tahdilla noin **{projected}** kuun loppuun mennessä, {percent} % kiintiöstä tai enemmän.\n\nHarvemmat haut auttavat: pidempi päivitysväli, tiukemmat tunnit reitillä, liikennevirta harvemmilla korteilla.\n\nTämä poistuu, kun tahti laskee alle osuuden, joka on asetettu kohdassa TomTom-asetukset → Määritä → Kiintiövaroitus → TomTom, ja uuden kuun myötä. Jos tahti saavuttaa koko kiintiön, seuraa toinen varoitus."
+        },
+        "quota_over": {
+            "title": "{api}-kiintiö ei riitä kuukaudeksi",
+            "description": "{used} / {tier} ilmaista **{api}**-pyyntöä {days} päivän jälkeen; tällä tahdilla noin **{projected}** kuun loppuun mennessä - koko ilmainen kiintiö tai enemmän.\n\nHarvemmat haut auttavat: pidempi päivitysväli, tiukemmat tunnit reitillä, liikennevirta harvemmilla korteilla.\n\nTämä poistuu, kun tahti laskee alle kiintiön, ja uuden kuun myötä."
         },
         "quota_day_at_risk": {
             "title": "Päivän {api}-pyynnöt ovat melkein lopussa",

@@ -43,6 +43,7 @@
     "name": "Configuració opcional",
     "data": {
       "only_certain": "Només incidències de què TomTom està segur",
+      "jam_min_delay": "Embús a partir d'aquest retard (minuts, 0 = tots els embussos)",
       "count": "Nombre d'incidències",
       "update_interval": "Interval d'actualització (minuts, 0 = només manual)",
       "new_minutes": "Compta com a nova durant (minuts, 0 = desactivat)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom valora cada incidència: certain, probable, risk_of o improbable. Un embús mesurat a partir de cotxes en moviment és certain, unes obres d'una administració de carreteres probable, l'avís aïllat d'un conductor un risc. Activat, es conserven les dues primeres; desactivat, també hi entren les incertes.",
+      "jam_min_delay": "Un embús s'avisa quan el retard que TomTom li calcula arriba a aquests minuts. 0 avisa de tots els embussos, també els d'uns segons; 5 conserva els que mereixen un desviament. Un embús per al qual TomTom no envia retard compta com cap.",
       "roads": "Només incidències que TomTom registra sota un d'aquests números de carretera, A8 o B2 - les autopistes d'un trajecte diari sense cap carrer lateral. Majúscules i espais no importen. Buit conserva totes les carreteres.",
       "blacklist": "Incidències a deixar fora, per l'id d'incident de TomTom - l'atribut id o short_id de l'entitat d'una incidència, visible als seus detalls. Les apps pròpies de TomTom no el mostren."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Incidències",
+      "cameras": "Tots els radars",
+      "cameras_new": "Radars nous",
       "travel_time": "Temps de viatge",
       "traffic_delay": "Retard per trànsit",
       "route_length": "Longitud de la ruta",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "A partir del vuitè dia del mes, les peticions fetes fins aleshores es projecten fins a final de mes. Es compta el que demana aquesta integració; una clau que també s'usa en altres llocs té un recompte més alt a TomTom.",
           "data": {
-            "quota_warning": "Avisa quan el nivell gratuït no arribi a final de mes",
-            "quota_threshold": "Avisa a partir d'aquesta part del nivell gratuït"
+            "quota_warning": "Avisa quan les sol·licituds del mes escassegin o no arribin",
+            "quota_threshold": "Avisa a partir d'aquesta part de les sol·licituds del mes"
           },
           "data_description": {
-            "quota_threshold": "100 % avisa quan se superarà el mateix nivell, 80 % ja als quatre cinquens."
+            "quota_threshold": "El primer avís arriba quan la projecció assoleix aquesta part; el segon quan assoleix el 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "L'entrada de TomTom **{name}** ha fallat {count} consultes seguides, de manera que les seves entitats no estan disponibles. El darrer motiu:\n\n`{reason}`\n\nUn rastrejador sense posició, o una entitat de rastrejador que ja no existeix, s'arregla a **Configura** de l'entrada; una clau rebutjada a **Configura** de l'entrada TomTom Configuració; si és TomTom mateix que no es pot contactar, això es resol sol quan torni a estar disponible. Aquesta reparació desapareix amb la propera consulta que tingui èxit."
   },
   "quotaIssue": {
-    "title": "La quota de {api} no arribarà a final de mes",
-    "description": "{used} de {tier} peticions gratuïtes de **{api}** després de {days} dies; a aquest ritme unes **{projected}** a final de mes, més del {percent} % del nivell.\n\nMenys consultes ajuden: un interval d'actualització més llarg, hores més ajustades en una ruta, el flux de trànsit en menys targetes.\n\nAixò desapareix quan el ritme baixa per sota de la part definida a TomTom Configuració → Configura → Avís de quota → TomTom, i amb el mes nou."
+    "title": "Les sol·licituds {api} del mes escassegen",
+    "description": "{used} de {tier} sol·licituds **{api}** gratuïtes després de {days} dies; a aquest ritme, unes **{projected}** a final de mes, el {percent} % de la quota o més.\n\nAjuda consultar menys: un interval d'actualització més llarg, hores més ajustades en una ruta, el trànsit en menys targetes.\n\nDesapareix quan el ritme baixa de la part fixada a Configuració de TomTom → Configura → Avís de quota → TomTom, i amb el mes nou. Si el ritme assoleix tota la quota, segueix un segon avís."
+  },
+  "quotaOverIssue": {
+    "title": "La quota {api} no arribarà per al mes",
+    "description": "{used} de {tier} sol·licituds **{api}** gratuïtes després de {days} dies; a aquest ritme, unes **{projected}** a final de mes - tota la quota gratuïta o més.\n\nAjuda consultar menys: un interval d'actualització més llarg, hores més ajustades en una ruta, el trànsit en menys targetes.\n\nDesapareix quan el ritme baixa de la quota, i amb el mes nou."
   },
   "quotaDayIssue": {
     "title": "Les peticions del dia de {api} gairebé s'han esgotat",

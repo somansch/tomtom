@@ -86,6 +86,12 @@
             "report_count": {
                 "name": "Incidencias"
             },
+            "cameras": {
+                "name": "Todos los radares"
+            },
+            "cameras_new": {
+                "name": "Radares nuevos"
+            },
             "travel_time": {
                 "name": "Tiempo de viaje"
             },
@@ -175,6 +181,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -183,6 +190,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -209,6 +217,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -217,6 +226,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -236,6 +246,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -244,6 +255,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -364,6 +376,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -372,6 +385,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -449,6 +463,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -457,6 +472,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -471,11 +487,11 @@
                         "name": "TomTom",
                         "description": "Desde el octavo día del mes, las peticiones hechas hasta entonces se proyectan al final del mes. Se cuenta lo que pide esta integración; una clave que también se usa en otro sitio marca más en TomTom.",
                         "data": {
-                            "quota_warning": "Avisar cuando la cuota gratuita no vaya a alcanzar para el mes",
-                            "quota_threshold": "Avisar a partir de esta parte de la cuota gratuita"
+                            "quota_warning": "Avisar cuando las solicitudes del mes escaseen o no vayan a alcanzar",
+                            "quota_threshold": "Avisar a partir de esta parte de las solicitudes del mes"
                         },
                         "data_description": {
-                            "quota_threshold": "100 % avisa cuando se vaya a superar la propia cuota, 80 % ya a los cuatro quintos."
+                            "quota_threshold": "El primer aviso llega cuando la proyección alcanza esta parte; el segundo cuando alcanza el 100 %."
                         }
                     },
                     "lufop": {
@@ -524,6 +540,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -532,6 +549,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -551,6 +569,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -559,6 +578,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -671,6 +691,7 @@
                         "name": "Ajustes opcionales",
                         "data": {
                             "only_certain": "Solo incidencias de las que TomTom está seguro",
+                            "jam_min_delay": "Atasco a partir de este retraso (minutos, 0 = todos los atascos)",
                             "count": "Número de incidencias",
                             "update_interval": "Intervalo de actualización (minutos, 0 = solo manual)",
                             "new_minutes": "Cuenta como nueva durante (minutos, 0 = desactivado)",
@@ -679,6 +700,7 @@
                         },
                         "data_description": {
                             "only_certain": "TomTom valora cada incidencia: certain, probable, risk_of o improbable. Un atasco medido a partir de coches en movimiento es certain; unas obras comunicadas por la autoridad de carreteras, probable; el aviso aislado de un conductor, un riesgo. Activado, se conservan las dos primeras; desactivado, también vienen las inciertas.",
+                            "jam_min_delay": "Un atasco se avisa en cuanto el retraso que TomTom le calcula llega a estos minutos. 0 avisa de todos los atascos, también los de unos segundos; 5 conserva los que merecen un desvío. Un atasco para el que TomTom no envía retraso cuenta como ninguno.",
                             "roads": "Solo incidencias que TomTom archiva bajo uno de estos números de carretera, A8 o B2: las autopistas de un trayecto diario sin todas las calles secundarias del camino. Mayúsculas y espacios no importan. Vacío conserva todas las carreteras.",
                             "blacklist": "Incidencias que se dejan fuera, por el id de incidencia de TomTom: el atributo id o short_id de la entidad de una incidencia, visible en sus detalles. Las propias aplicaciones de TomTom no lo muestran."
                         }
@@ -714,8 +736,12 @@
             "description": "La entrada de TomTom **{name}** ha fallado {count} consultas seguidas, así que sus entidades no están disponibles. El último motivo:\n\n`{reason}`\n\nUn rastreador sin posición, o una entidad de rastreador que ya no existe, se arregla en **Configurar** de la entrada; una clave rechazada, en **Configurar** de la entrada TomTom Ajustes; si es TomTom lo que no se puede alcanzar, esto se resuelve solo en cuanto vuelva a estar accesible. Esta reparación desaparece con la siguiente consulta que tenga éxito."
         },
         "quota_at_risk": {
-            "title": "La cuota de {api} no alcanzará para el mes",
-            "description": "{used} de {tier} peticiones gratuitas de **{api}** tras {days} días; a este ritmo, unas **{projected}** a final de mes, más del {percent} % de la cuota.\n\nMenos consultas ayudan: un intervalo de actualización más largo, horas más ajustadas en una ruta, el flujo de tráfico en menos tarjetas.\n\nEsto desaparece cuando el ritmo baja de la parte fijada en TomTom Ajustes → Configurar → Aviso de cuota → TomTom, y con el nuevo mes."
+            "title": "Las solicitudes {api} del mes escasean",
+            "description": "{used} de {tier} solicitudes **{api}** gratuitas tras {days} días; a este ritmo, unas **{projected}** a fin de mes, el {percent} % del cupo o más.\n\nAyuda consultar menos: un intervalo de actualización más largo, horas más ajustadas en una ruta, el tráfico en menos tarjetas.\n\nDesaparece cuando el ritmo baja de la parte fijada en Ajustes de TomTom → Configurar → Aviso de cupo → TomTom, y con el mes nuevo. Si el ritmo alcanza todo el cupo, sigue un segundo aviso."
+        },
+        "quota_over": {
+            "title": "El cupo {api} no alcanzará para el mes",
+            "description": "{used} de {tier} solicitudes **{api}** gratuitas tras {days} días; a este ritmo, unas **{projected}** a fin de mes: todo el cupo gratuito o más.\n\nAyuda consultar menos: un intervalo de actualización más largo, horas más ajustadas en una ruta, el tráfico en menos tarjetas.\n\nDesaparece cuando el ritmo baja del cupo, y con el mes nuevo."
         },
         "quota_day_at_risk": {
             "title": "Las peticiones de {api} del día están casi agotadas",

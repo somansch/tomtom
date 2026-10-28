@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import logging
 from datetime import datetime
-from math import ceil
+from math import atan, ceil, floor, log, log2, pi, radians, sinh, tan
 from typing import Any
 
 from homeassistant.components.geo_location import GeolocationEvent
@@ -84,6 +84,47 @@ DECIMAL_COMMA_LANGUAGES = {
 
 def _arrow(language: str | None) -> str:
     return "←" if str(language or "")[:2].lower() in RTL_LANGUAGES else "→"
+
+
+# TomTom's route planner has no page for a single report - a click on one
+# there opens a small panel and leaves the address as it was. What it does
+# take is a position: "?p=<lat>,<lon>,<zoom>z". The zoom counts as MapLibre
+# counts it, in tiles of 512 px - one step below the 256 px convention,
+# measured on its own scale bar (5.8 m a pixel at 52.5 degrees, zoom 13).
+# The stretch is fitted into 800 x 600 px with room around it, which keeps it
+# whole on a desktop window and on a phone alike. No language in the path: the
+# planner then takes the reader's browser language, or the one they last
+# chose there, and it does not know a dozen of the integration's thirty.
+TOMTOM_MAP_URL = "https://plan.tomtom.com/?p={lat:.5f},{lon:.5f},{zoom}z"
+_MAP_TILE = 512
+_MAP_FIT = (800 * 0.6, 600 * 0.6)
+_MAP_ZOOM = (5, 17)
+
+
+def _mercator(lat: float, lon: float) -> tuple[float, float]:
+    """A position on the Web Mercator square, both axes 0 to 1."""
+    return (lon + 180.0) / 360.0, (1.0 - log(tan(pi / 4 + radians(lat) / 2)) / pi) / 2.0
+
+
+def tomtom_map_url(points: list[tuple[float, float]]) -> str:
+    """plan.tomtom.com centred on the stretch, zoomed in as far as it still
+    fits - "" for a report without a usable position."""
+    usable = [
+        (float(lat), float(lon))
+        for lat, lon in points or []
+        if lat is not None and lon is not None and -85.0 < float(lat) < 85.0
+    ]
+    if not usable:
+        return ""
+    xs, ys = zip(*(_mercator(lat, lon) for lat, lon in usable))
+    width = (max(xs) - min(xs)) * _MAP_TILE
+    height = (max(ys) - min(ys)) * _MAP_TILE
+    fits = [log2(room / span) for room, span in zip(_MAP_FIT, (width, height)) if span > 0]
+    zoom = max(_MAP_ZOOM[0], min(_MAP_ZOOM[1], floor(min(fits)) if fits else _MAP_ZOOM[1]))
+    x = (max(xs) + min(xs)) / 2
+    y = (max(ys) + min(ys)) / 2
+    lat = atan(sinh(pi * (1 - 2 * y))) * 180 / pi
+    return TOMTOM_MAP_URL.format(lat=lat, lon=x * 360.0 - 180.0, zoom=zoom)
 
 
 def place_text(item: dict, language: str | None = None) -> str:
@@ -193,6 +234,17 @@ def describe_report(language: str, units, item: dict, area: str) -> tuple[str, s
         # list is one report, with blitzer.de's information.
         "providers": list(item.get("providers") or [item.get("provider") or "tomtom"]),
     }
+    if item.get("blitzer_key"):
+        # blitzer.de's own id for the report, and the link that opens it
+        # on blitzer.de's map - what the card's map opens on a click when
+        # asked to.
+        attrs["blitzer_key"] = item["blitzer_key"]
+        attrs["url"] = item.get("url") or ""
+    elif (item.get("provider") or "tomtom") == "tomtom":
+        # TomTom's own: the route planner at the spot, the stretch in view.
+        points = item.get("points") or [(item.get("lat"), item.get("lng")), (item.get("end_lat"), item.get("end_lng"))]
+        if url := tomtom_map_url(points):
+            attrs["url"] = url
     if item.get("speed_limit"):
         # A camera's limit, as blitzer.de states it: km/h.
         attrs["speed_limit"] = item["speed_limit"]

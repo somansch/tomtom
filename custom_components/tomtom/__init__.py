@@ -49,6 +49,7 @@ from .coordinator import TomTomCoordinator, TomTomData, category_key
 from .geo_location import delay_minutes, summary_text
 from .lovelace_resource import async_unregister as async_unregister_resource
 from .planner import async_register as async_register_planner, route_defaults
+from .sources import active_kinds, enabled_source_keys
 from .quota import QUOTA_DATA_KEY, QuotaWatch
 from .tiles import TILE_CACHE, TILE_CLIENT, TILE_TOKEN, FlowTileView
 
@@ -131,6 +132,12 @@ async def websocket_flow(
             "default_style": DEFAULT_FLOW_STYLE,
             # What the card's planner starts a new route from, by default.
             "default_start": route_defaults(hass)[CONF_DEFAULT_START],
+            # The further sources that are asked - what tells the editor
+            # whether every report has a page of its own to open.
+            "sources": enabled_source_keys(hass),
+            # And every kind a report can have with them, with its symbol -
+            # what the editor offers a symbol and a colour for.
+            "kinds": active_kinds(hass),
         },
     )
 
@@ -215,6 +222,23 @@ async def websocket_route(
             ),
         },
     )
+
+
+async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+    """Minor version 2: the quota warning's default share went from 100 %
+    to 80 %. A settings entry that never saved a share of its own warned at
+    100 % until now and keeps doing so; only a new installation starts at
+    80 %. Every other entry just takes the new number."""
+    if config_entry.version > 1:
+        return False
+    if config_entry.minor_version < 2:
+        from .const import CONF_QUOTA_THRESHOLD  # noqa: PLC0415 - only here
+
+        options = dict(config_entry.options)
+        if is_settings_entry(config_entry) and CONF_QUOTA_THRESHOLD not in options:
+            options[CONF_QUOTA_THRESHOLD] = 100
+        hass.config_entries.async_update_entry(config_entry, options=options, minor_version=2)
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:

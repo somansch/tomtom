@@ -43,6 +43,7 @@
     "name": "Paramètres facultatifs",
     "data": {
       "only_certain": "Seulement les signalements dont TomTom est sûr",
+      "jam_min_delay": "Embouteillage à partir de ce retard (minutes, 0 = chaque embouteillage)",
       "count": "Nombre de signalements",
       "update_interval": "Intervalle d'actualisation (minutes, 0 = manuel seulement)",
       "new_minutes": "Compte comme nouveau pendant (minutes, 0 = désactivé)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom note chaque signalement : certain, probable, risk_of ou improbable. Un bouchon mesuré à partir de voitures en mouvement est certain, des travaux déclarés par une autorité routière probable, le signalement isolé d'un conducteur un risque. Activé, les deux premiers sont gardés ; désactivé, les incertains viennent aussi.",
+      "jam_min_delay": "Un embouteillage est signalé dès que le retard que TomTom lui attribue atteint ce nombre de minutes. 0 signale chaque embouteillage, même de quelques secondes ; 5 garde ceux qui valent un détour. Un embouteillage sans retard envoyé par TomTom compte pour aucun.",
       "roads": "Seulement les signalements que TomTom classe sous l'un de ces numéros de route, A8 ou B2 - les autoroutes d'un trajet domicile-travail sans chaque rue adjacente. Casse et espaces sont sans importance. Vide garde toutes les routes.",
       "blacklist": "Signalements à laisser de côté, par identifiant d'incident TomTom - l'attribut id ou short_id de l'entité d'un signalement, visible dans ses détails. Les applications de TomTom ne l'affichent pas."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Signalements",
+      "cameras": "Tous les radars",
+      "cameras_new": "Nouveaux radars",
       "travel_time": "Temps de trajet",
       "traffic_delay": "Retard dû au trafic",
       "route_length": "Longueur de l'itinéraire",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "À partir du huitième jour du mois, les requêtes faites jusque-là sont extrapolées à la fin du mois. Seul ce que cette intégration demande est compté ; une clé utilisée aussi ailleurs affiche davantage chez TomTom.",
           "data": {
-            "quota_warning": "Avertir quand le quota gratuit ne tiendra pas le mois",
-            "quota_threshold": "Avertir à partir de cette part du quota gratuit"
+            "quota_warning": "Avertir quand les requêtes du mois se raréfient ou ne tiendront pas",
+            "quota_threshold": "Avertir à partir de cette part des requêtes du mois"
           },
           "data_description": {
-            "quota_threshold": "100 % avertit quand le quota lui-même sera dépassé, 80 % dès les quatre cinquièmes."
+            "quota_threshold": "Le premier avertissement vient quand la projection atteint cette part ; un second quand elle atteint 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "L'entrée TomTom **{name}** a échoué {count} interrogations d'affilée, ses entités sont donc indisponibles. La dernière raison :\n\n`{reason}`\n\nUn traqueur sans position, ou une entité de traqueur qui n'existe plus, se corrige sous **Configurer** de l'entrée ; une clé refusée sous **Configurer** de l'entrée TomTom Paramètres ; si TomTom lui-même est injoignable, cela se résout de soi-même dès qu'il l'est à nouveau. Cette réparation disparaît avec la prochaine interrogation réussie."
   },
   "quotaIssue": {
+    "title": "Les requêtes {api} du mois se raréfient",
+    "description": "{used} des {tier} requêtes **{api}** gratuites après {days} jours ; à ce rythme, environ **{projected}** d'ici la fin du mois, {percent} % du quota ou plus.\n\nMoins d'interrogations aident : un intervalle d'actualisation plus long, des heures plus serrées sur un itinéraire, le trafic sur moins de cartes.\n\nCeci disparaît quand le rythme repasse sous la part réglée dans Paramètres TomTom → Configurer → Avertissement de quota → TomTom, et avec le nouveau mois. Si le rythme atteint tout le quota, un second avertissement suit."
+  },
+  "quotaOverIssue": {
     "title": "Le quota {api} ne tiendra pas le mois",
-    "description": "{used} des {tier} requêtes **{api}** gratuites après {days} jours ; à ce rythme, environ **{projected}** d'ici la fin du mois, plus de {percent} % du quota.\n\nMoins d'interrogations aident : un intervalle d'actualisation plus long, des heures plus resserrées sur un itinéraire, le flux de trafic sur moins de cartes.\n\nCeci disparaît quand le rythme passe sous la part définie sous TomTom Paramètres → Configurer → Alerte de quota → TomTom, et avec le nouveau mois."
+    "description": "{used} des {tier} requêtes **{api}** gratuites après {days} jours ; à ce rythme, environ **{projected}** d'ici la fin du mois - tout le quota gratuit ou plus.\n\nMoins d'interrogations aident : un intervalle d'actualisation plus long, des heures plus serrées sur un itinéraire, le trafic sur moins de cartes.\n\nCeci disparaît quand le rythme repasse sous le quota, et avec le nouveau mois."
   },
   "quotaDayIssue": {
     "title": "Les requêtes {api} du jour sont presque épuisées",

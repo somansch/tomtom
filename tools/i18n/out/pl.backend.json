@@ -43,6 +43,7 @@
     "name": "Ustawienia opcjonalne",
     "data": {
       "only_certain": "Tylko zgłoszenia, których TomTom jest pewny",
+      "jam_min_delay": "Korek od tego opóźnienia (minuty, 0 = każdy korek)",
       "count": "Liczba zgłoszeń",
       "update_interval": "Interwał aktualizacji (minuty, 0 = tylko ręcznie)",
       "new_minutes": "Liczy się jako nowe przez (minuty, 0 = wył.)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom ocenia każde zgłoszenie: certain, probable, risk_of lub improbable. Korek zmierzony z jadących aut jest certain, roboty drogowe od zarządcy drogi probable, pojedyncze zgłoszenie kierowcy to ryzyko. Włączone: zostają dwa pierwsze; wyłączone: niepewne też przychodzą.",
+      "jam_min_delay": "Korek jest zgłaszany, gdy opóźnienie, które TomTom mu przypisuje, osiągnie tyle minut. 0 zgłasza każdy korek, nawet kilkusekundowy; 5 zachowuje te, dla których warto nadłożyć drogi. Korek, dla którego TomTom nie przesyła opóźnienia, liczy się jako brak.",
       "roads": "Tylko zgłoszenia, które TomTom prowadzi pod jednym z tych numerów dróg, A8 lub B2 - autostrady dojazdu do pracy bez każdej bocznej ulicy przy nich. Wielkość liter i spacje nie mają znaczenia. Puste zachowuje każdą drogę.",
       "blacklist": "Zgłoszenia do pominięcia, według identyfikatora zdarzenia TomTom - atrybut id lub short_id encji zgłoszenia, widoczny w jej szczegółach. Własne aplikacje TomTom go nie pokazują."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Zgłoszenia",
+      "cameras": "Wszystkie fotoradary",
+      "cameras_new": "Nowe fotoradary",
       "travel_time": "Czas przejazdu",
       "traffic_delay": "Opóźnienie przez ruch",
       "route_length": "Długość trasy",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Od ósmego dnia miesiąca dotychczasowe zapytania są przeliczane na koniec miesiąca. Liczone jest to, o co pyta ta integracja; klucz używany także gdzie indziej ma w TomTom więcej.",
           "data": {
-            "quota_warning": "Ostrzegaj, gdy darmowy limit nie wystarczy na miesiąc",
-            "quota_threshold": "Ostrzegaj od tej części darmowego limitu"
+            "quota_warning": "Ostrzegaj, gdy zapytania miesiąca się kończą lub nie wystarczą",
+            "quota_threshold": "Ostrzegaj od tego udziału zapytań miesiąca"
           },
           "data_description": {
-            "quota_threshold": "100 % ostrzega, gdy sam limit zostanie przekroczony, 80 % już przy czterech piątych."
+            "quota_threshold": "Pierwsze ostrzeżenie przychodzi, gdy prognoza osiągnie ten udział; drugie, gdy osiągnie 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "Wpis TomTom **{name}** nie powiódł się przy {count} pobraniach z rzędu, więc jego encje są niedostępne. Ostatni powód:\n\n`{reason}`\n\nLokalizator bez pozycji lub encja lokalizatora, która już nie istnieje, naprawia się w **Konfiguruj** tego wpisu; odrzucony klucz w **Konfiguruj** na wpisie TomTom Ustawienia; jeśli sam TomTom jest nieosiągalny, znika to samo, gdy znów będzie. Ta naprawa znika z następnym udanym pobraniem."
   },
   "quotaIssue": {
+    "title": "Zapytania {api} w tym miesiącu się kończą",
+    "description": "{used} z {tier} bezpłatnych zapytań **{api}** po {days} dniach; w tym tempie około **{projected}** do końca miesiąca, {percent} % limitu lub więcej.\n\nPomaga mniej odpytywań: dłuższy interwał aktualizacji, węższe godziny na trasie, ruch drogowy na mniejszej liczbie kart.\n\nZnika, gdy tempo spadnie poniżej udziału ustawionego w Ustawienia TomTom → Konfiguruj → Ostrzeżenie o limicie → TomTom, i z nowym miesiącem. Jeśli tempo osiągnie cały limit, następuje drugie ostrzeżenie."
+  },
+  "quotaOverIssue": {
     "title": "Limit {api} nie wystarczy na miesiąc",
-    "description": "{used} z {tier} darmowych zapytań **{api}** po {days} dniach; w tym tempie około **{projected}** do końca miesiąca, ponad {percent} % limitu.\n\nPomaga mniej pobrań: dłuższy interwał aktualizacji, węższe godziny trasy, natężenie ruchu na mniejszej liczbie kart.\n\nTo zniknie, gdy tempo spadnie poniżej części ustawionej w TomTom Ustawienia → Konfiguruj → Ostrzeżenie o limicie → TomTom, oraz z nowym miesiącem."
+    "description": "{used} z {tier} bezpłatnych zapytań **{api}** po {days} dniach; w tym tempie około **{projected}** do końca miesiąca - cały bezpłatny limit lub więcej.\n\nPomaga mniej odpytywań: dłuższy interwał aktualizacji, węższe godziny na trasie, ruch drogowy na mniejszej liczbie kart.\n\nZnika, gdy tempo spadnie poniżej limitu, i z nowym miesiącem."
   },
   "quotaDayIssue": {
     "title": "Dzienne zapytania {api} są prawie wyczerpane",

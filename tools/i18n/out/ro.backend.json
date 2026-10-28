@@ -43,6 +43,7 @@
     "name": "Setări opționale",
     "data": {
       "only_certain": "Doar rapoartele de care TomTom este sigur",
+      "jam_min_delay": "Ambuteiaj de la această întârziere (minute, 0 = orice ambuteiaj)",
       "count": "Numărul de rapoarte",
       "update_interval": "Interval de actualizare (minute, 0 = doar manual)",
       "new_minutes": "Contează ca nou timp de (minute, 0 = oprit)",
@@ -51,6 +52,7 @@
     },
     "description": {
       "only_certain": "TomTom evaluează fiecare raport: certain, probable, risk_of sau improbable. Un ambuteiaj măsurat din mașinile în mișcare este certain, lucrări anunțate de o administrație a drumurilor probable, raportul singular al unui șofer un risc. Pornit, primele două sunt păstrate; oprit, vin și cele nesigure.",
+      "jam_min_delay": "Un ambuteiaj este raportat când întârzierea pe care i-o atribuie TomTom ajunge la aceste minute. 0 raportează orice ambuteiaj, și de câteva secunde; 5 păstrează pe cele care merită un ocol. Un ambuteiaj pentru care TomTom nu trimite întârziere contează ca niciuna.",
       "roads": "Doar rapoartele pe care TomTom le înregistrează sub unul dintre aceste numere de drum, A8 sau B2 - autostrăzile unei navete fără fiecare stradă laterală de pe parcurs. Majusculele și spațiile nu contează. Gol păstrează fiecare drum.",
       "blacklist": "Rapoarte de lăsat deoparte, după id-ul de incident TomTom - atributul id sau short_id al entității unui raport, afișat în detaliile lui. Aplicațiile proprii TomTom nu îl afișează."
     }
@@ -60,6 +62,8 @@
   "entities": {
     "sensor": {
       "report_count": "Rapoarte",
+      "cameras": "Toate radarele",
+      "cameras_new": "Radare noi",
       "travel_time": "Timp de călătorie",
       "traffic_delay": "Întârziere din trafic",
       "route_length": "Lungimea rutei",
@@ -247,11 +251,11 @@
           "name": "TomTom",
           "description": "Din a opta zi a lunii, cererile de până atunci sunt proiectate până la sfârșitul lunii. Se numără ce cere această integrare; o cheie folosită și în altă parte are un număr mai mare la TomTom.",
           "data": {
-            "quota_warning": "Avertizează când nivelul gratuit nu ajunge pentru toată luna",
-            "quota_threshold": "Avertizează de la această parte a nivelului gratuit"
+            "quota_warning": "Avertizează când cererile lunii se împuținează sau nu vor ajunge",
+            "quota_threshold": "Avertizează de la această parte a cererilor lunii"
           },
           "data_description": {
-            "quota_threshold": "100 % avertizează când nivelul însuși va fi depășit, 80 % deja la patru cincimi din el."
+            "quota_threshold": "Prima avertizare vine când proiecția atinge această parte; a doua când atinge 100 %."
           }
         },
         "lufop": {
@@ -326,8 +330,12 @@
     "description": "Intrarea TomTom **{name}** a eșuat la {count} interogări la rând, așa că entitățile ei sunt indisponibile. Ultimul motiv:\n\n`{reason}`\n\nUn tracker fără poziție sau o entitate de tracker care nu mai există se rezolvă din **Configurare** pe intrare; o cheie refuzată din **Configurare** pe intrarea TomTom Setări; dacă TomTom însuși nu poate fi contactat, aceasta se rezolvă singură de îndată ce poate. Această reparație dispare la următoarea interogare reușită."
   },
   "quotaIssue": {
-    "title": "Cota {api} nu va ajunge pentru toată luna",
-    "description": "{used} din {tier} cereri **{api}** gratuite după {days} zile; în acest ritm aproximativ **{projected}** până la sfârșitul lunii, peste {percent} % din nivel.\n\nMai puține interogări ajută: un interval de actualizare mai lung, ore mai restrânse pe o rută, fluxul de trafic pe mai puține carduri.\n\nAceasta dispare când ritmul scade sub partea setată în TomTom Setări → Configurare → Avertizare de cotă → TomTom, și odată cu noua lună."
+    "title": "Cererile {api} ale lunii se împuținează",
+    "description": "{used} din {tier} cereri **{api}** gratuite după {days} zile; în acest ritm, circa **{projected}** până la sfârșitul lunii, {percent} % din cotă sau mai mult.\n\nMai puține interogări ajută: un interval de actualizare mai lung, ore mai strânse pe o rută, traficul pe mai puține carduri.\n\nDispare când ritmul scade sub partea setată în Setări TomTom → Configurare → Avertizare cotă → TomTom, și odată cu luna nouă. Dacă ritmul atinge toată cota, urmează a doua avertizare."
+  },
+  "quotaOverIssue": {
+    "title": "Cota {api} nu va ajunge pentru lună",
+    "description": "{used} din {tier} cereri **{api}** gratuite după {days} zile; în acest ritm, circa **{projected}** până la sfârșitul lunii - toată cota gratuită sau mai mult.\n\nMai puține interogări ajută: un interval de actualizare mai lung, ore mai strânse pe o rută, traficul pe mai puține carduri.\n\nDispare când ritmul scade sub cotă, și odată cu luna nouă."
   },
   "quotaDayIssue": {
     "title": "Cererile {api} ale zilei sunt aproape epuizate",
