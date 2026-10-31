@@ -12,7 +12,17 @@ function build(s) {
     ...(step.description ? { description: step.description + (step.description.endsWith(" ") ? budget : "") } : {}),
     data: { ...(step.data || {}), ...s.typeData },
     ...(step.data_description ? { data_description: step.data_description } : {}),
-    sections: { optional: { name: s.optional.name, data: s.optional.data, data_description: s.optional.description } },
+    sections: {
+      // One section per kind both sources answer: its name is the kind's,
+      // its two switches the sources'.
+      ...Object.fromEntries(
+        ["camera_fixed", "camera_mobile", "camera_redlight", "camera_section"].map((kind) => [
+          "kind_" + kind,
+          { name: s.categories[kind], data: { blitzer: s.sourceNames.blitzer, lufop: s.sourceNames.lufop } },
+        ])
+      ),
+      optional: { name: s.optional.name, data: s.optional.data, data_description: s.optional.description },
+    },
   });
   const plain = (step) => ({
     title: step.title,
@@ -111,7 +121,7 @@ function build(s) {
     config,
     services: { refresh: { name: s.service.name, description: s.service.description, fields: { config_entry_id: s.service.field } } },
     options,
-    issues: { entry_failing: s.issue, quota_at_risk: s.quotaIssue, quota_over: s.quotaOverIssue, quota_day_at_risk: s.quotaDayIssue, quota_day_used_up: s.quotaDayUsedUpIssue },
+    issues: { entry_failing: s.issue, source_failing: s.sourceIssue, quota_at_risk: s.quotaIssue, quota_over: s.quotaOverIssue, quota_day_at_risk: s.quotaDayIssue, quota_day_used_up: s.quotaDayUsedUpIssue },
   };
 }
 

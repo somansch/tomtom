@@ -47,6 +47,9 @@ CARD_RESOURCE_PATHS = (
     f"{CARD_URL_BASE}/{CARD_FILE}",
     f"{CARD_URL_BASE}/{CARD_LOADER_FILE}",
 )
+# Where the version the card is served under is kept, for the websocket
+# command the loader asks after every reconnect - see tomtom-card-loader.js.
+CARD_VERSION_KEY = "card_version"
 
 BLUEPRINT_DIR = "blueprints"
 # What was last put in place, per blueprint: the hash of the file as it
@@ -128,6 +131,7 @@ async def async_register_card(hass: HomeAssistant) -> None:
         return int(max(stamps))
 
     version = await hass.async_add_executor_job(_newest_mtime)
+    hass.data.setdefault(DOMAIN, {})[CARD_VERSION_KEY] = version
     name = CARD_LOADER_FILE if loader.is_file() else CARD_FILE
     url = f"{CARD_URL_BASE}/{name}?v={version}"
     add_extra_js_url(hass, url)

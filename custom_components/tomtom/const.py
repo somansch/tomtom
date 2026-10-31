@@ -51,9 +51,6 @@ CATEGORIES = {**TOMTOM_CATEGORIES, **SOURCE_CATEGORIES}
 # The same table the other way round, for deciding what an arriving
 # incident is.
 CATEGORY_KEYS = {code: key for key, code in CATEGORIES.items()}
-# On by default, all of them: an entry is about what is on the road, and
-# the form lets each one be switched off.
-CATEGORY_DEFAULTS = {key: True for key in CATEGORIES}
 
 # What each category is called, in the two languages the integration
 # speaks - the kind's name the sensors, the events and the card's rows use;
@@ -116,6 +113,31 @@ SOURCE_LUFOP = "lufop"
 CONF_SOURCE_LUFOP = "source_lufop"
 CONF_LUFOP_API_KEY = "lufop_api_key"
 CONF_LUFOP_COUNTRY = "lufop_country"
+
+# The kinds both further sources answer. Each carries a switch per source
+# below it in the form, so an entry can leave Lufop out of a kind while
+# blitzer.de still reports it - or the other way round.
+SHARED_SOURCE_KINDS = ("camera_fixed", "camera_mobile", "camera_redlight", "camera_section")
+
+
+def source_flag(kind: str, source: str) -> str:
+    """The switch of one source under one shared kind."""
+    return f"{kind}_{source}"
+
+
+# Every switch of the kinds list, in the form's order: the kind, and below
+# a shared one its two sources. On by default, all of them: an entry is
+# about what is on the road, and the form lets each one be switched off.
+CATEGORY_DEFAULTS: dict[str, bool] = {}
+for _kind in CATEGORIES:
+    CATEGORY_DEFAULTS[_kind] = True
+    if _kind in SHARED_SOURCE_KINDS:
+        CATEGORY_DEFAULTS[source_flag(_kind, SOURCE_BLITZER)] = True
+        CATEGORY_DEFAULTS[source_flag(_kind, SOURCE_LUFOP)] = True
+# The kinds list of the form: everything but the shared kinds, which sit
+# below it as a section each with a switch per source. A shared kind is on
+# when either of its sources is.
+LIST_KIND_DEFAULTS = {key: True for key in CATEGORIES if key not in SHARED_SOURCE_KINDS}
 LUFOP_COUNTRIES = [
     "ad", "au", "be", "bg", "ca", "cz", "fi", "fr", "de", "ie",
     "it", "lv", "lu", "ma", "nl", "nz", "no", "pl", "pt", "es",

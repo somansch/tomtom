@@ -23,6 +23,7 @@ Incident Details.
 from __future__ import annotations
 
 import asyncio
+from collections import deque
 from datetime import timedelta
 import logging
 from math import ceil, cos, radians
@@ -179,6 +180,11 @@ class TomTomError(Exception):
 
 class TomTomAuthError(TomTomError):
     """The key is missing, wrong, or not allowed to use this API."""
+
+
+class TomTomRateError(TomTomError):
+    """TomTom refused the request for the moment: more requests a second
+    than the key may make. Nothing about the month's quota."""
 
 
 class TomTomQuotaError(TomTomError):
@@ -468,6 +474,66 @@ def _error_code(body) -> str:
     return ""
 
 
+# What a free key may ask TomTom in one second is five requests, over
+# every API together. A restart starts every entry at once - six routes,
+# each with its routing and its incident details - and whichever request
+# crosses the line is answered 429, which used to send that entry into
+# Home Assistant's minutes-long retry loop. So every request of the
+# installation passes this gate: four in flight at most, four started per
+# second at most, one short of the limit for whatever else the key does.
+RATE_LIMIT_PER_SECOND = 4
+RATE_LIMIT_IN_FLIGHT = 4
+# How long to wait after a 429 before the one retry, when TomTom does not
+# say; and the most it may ask for.
+RATE_RETRY_SECONDS = 1.0
+RATE_RETRY_MAX_SECONDS = 5.0
+_RATE_GATE_KEY = "rate_gate"
+
+
+class _RateGate:
+    """Paces TomTom requests, installation-wide. Entered around each one."""
+
+    def __init__(self) -> None:
+        self._in_flight = asyncio.Semaphore(RATE_LIMIT_IN_FLIGHT)
+        self._starts: deque[float] = deque()
+        self._turn = asyncio.Lock()
+
+    async def __aenter__(self) -> None:
+        await self._in_flight.acquire()
+        # One at a time through the clock, so two waiters cannot both see
+        # the same free slot.
+        async with self._turn:
+            now = monotonic()
+            while self._starts and now - self._starts[0] >= 1.0:
+                self._starts.popleft()
+            if len(self._starts) >= RATE_LIMIT_PER_SECOND:
+                await asyncio.sleep(1.0 - (now - self._starts[0]) + 0.02)
+                now = monotonic()
+                while self._starts and now - self._starts[0] >= 1.0:
+                    self._starts.popleft()
+            self._starts.append(now)
+
+    async def __aexit__(self, *exc) -> None:
+        self._in_flight.release()
+
+
+def _rate_gate(hass: HomeAssistant) -> _RateGate:
+    domain = hass.data.setdefault(DOMAIN, {})
+    gate = domain.get(_RATE_GATE_KEY)
+    if gate is None:
+        gate = domain[_RATE_GATE_KEY] = _RateGate()
+    return gate
+
+
+def _retry_after(value: str | None) -> float:
+    """The pause TomTom asks for after a 429, within reason."""
+    try:
+        seconds = float(value) if value else RATE_RETRY_SECONDS
+    except ValueError:
+        seconds = RATE_RETRY_SECONDS
+    return max(0.0, min(seconds, RATE_RETRY_MAX_SECONDS))
+
+
 class TomTomClient:
     """The calls this integration makes, and nothing else."""
 
@@ -483,28 +549,40 @@ class TomTomClient:
         if not self._key:
             raise TomTomAuthError("no TomTom API key")
         usage = await async_get_usage(self._hass)
-        try:
-            async with self._session.get(
-                url, params={"key": self._key, **params}, timeout=30
-            ) as response:
-                # Answered, so TomTom has seen it: counted whatever it says.
-                usage.count(entry_id or self._entry_id, product)
-                status = response.status
-                if binary and status < 400:
-                    return await response.read()
-                try:
-                    body = await response.json(content_type=None)
-                except ValueError:
-                    body = None
-        except (ClientError, TimeoutError) as err:
-            raise TomTomError(f"TomTom could not be reached: {err}") from err
+        gate = _rate_gate(self._hass)
+        # A 429 is TomTom's "not so fast": one more try after the pause it
+        # asks for, since the gate above makes a second one unlikely.
+        for attempt in (1, 2):
+            try:
+                async with gate:
+                    async with self._session.get(
+                        url, params={"key": self._key, **params}, timeout=30
+                    ) as response:
+                        # Answered, so TomTom has seen it: counted whatever it says.
+                        usage.count(entry_id or self._entry_id, product)
+                        status = response.status
+                        if binary and status < 400:
+                            return await response.read()
+                        retry_after = response.headers.get("Retry-After")
+                        try:
+                            body = await response.json(content_type=None)
+                        except ValueError:
+                            body = None
+            except (ClientError, TimeoutError) as err:
+                raise TomTomError(f"TomTom could not be reached: {err}") from err
+            if status != 429:
+                break
+            if attempt == 1:
+                pause = _retry_after(retry_after)
+                _LOGGER.debug("TomTom answered 429 for %s, trying once more in %.1f s", product, pause)
+                await asyncio.sleep(pause)
 
         if status < 400:
             return body
         if status in (401, 403):
             raise TomTomAuthError("TomTom refused the API key")
         if status == 429:
-            raise TomTomQuotaError("TomTom quota used up")
+            raise TomTomRateError("TomTom refuses more requests right now: over its limit of requests a second")
         code = _error_code(body)
         if code in _ROUTING_ERRORS:
             raise _ERROR_CLASSES[_ROUTING_ERRORS[code]](f"TomTom: {code}")

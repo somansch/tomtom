@@ -15,6 +15,17 @@
   const CARD_TAG = "tomtom-card";
   const EDITOR_TAG = `${CARD_TAG}-editor`;
   const DOMAIN = "tomtom";
+  // Which build of this file is running: the "?v=" it was fetched under,
+  // which the integration sets to the files' modification time. The loader
+  // imports a newer file into a page that is already running one, and this
+  // number is how the two tell which of them is newer - see the end.
+  const BUILD = (() => {
+    try {
+      return Number(new URL(import.meta.url).searchParams.get("v")) || 0;
+    } catch (err) {
+      return 0;
+    }
+  })();
   // The dropdown value that is not an entry but the planner.
   const PLAN_VALUE = "__plan__";
   // Start, destination and the stops TomTom takes between them.
@@ -168,8 +179,8 @@
       edShowSubHelp: "The line under the title: the entry's name, how it searches, the last update. On a live route it stands under the travel time and starts with the traffic's share.",
       edShowTravelTimePop: "Show the travel time",
       edShowTravelTimePopHelp: "The live route's travel time, large in the pop-up, with the refresh button and the traffic's share. The line itself does not show it.",
-      edTrafficSwitch: "Show the Traffic flow button",
-      edTrafficSwitchHelp: "The Traffic flow button under the entry dropdown, which shows or hides the flow for the moment. Off, the flow is drawn without it.",
+      edTrafficSwitch: "Show the Traffic button",
+      edTrafficSwitchHelp: "The Traffic button beside the refresh button in the info line, which shows or hides the traffic flow for the moment. Off, the flow is drawn without it.",
       edShowTravelTime: "Show the travel time",
       edShowTravelTimeHelp: "The live route's travel time, large under the title, with the refresh button and the info line. Off, it stands in the info line as \"Route 38 min (+9)\".",
       edGroupContent: "Content",
@@ -235,11 +246,16 @@
       edAreaPickerBackgroundHelp: "A filled background behind the dropdown.",
       edAreaPickerBg: "Background color",
       edAreaPickerBgHelp: "Its background colour.",
-      edElSwitch: "Traffic flow button",
-      edElSwitchHelp: "The Traffic flow button under the dropdown.",
+      edElSwitch: "Traffic button",
+      edElSwitchHelp: "The Traffic button beside the refresh button.",
       edSwitchFontHelp: "Font of the button.",
-      edSwitchTrack: "Button color",
-      edSwitchTrackHelp: "Its fill while the flow is shown, its text while hidden. Empty takes the theme's colour.",
+      edSwitchIconHelp: "Any MDI icon. Empty draws none.",
+      edSwitchColorHelp: "Empty takes the button's text colour.",
+      edSwitchSizeHelp: "A font size; the symbol is as tall as its capital letters. Empty follows the button's text.",
+      edSwitchTextColorHelp: "Text colour while the flow is shown. Hidden, the text takes the background colour.",
+      edSwitchFrameHelp: "The pill behind the button: filled while the flow is shown, outlined while hidden. Off leaves symbol and word on the card - coloured while shown, grey while hidden.",
+      edSwitchTrack: "Background color",
+      edSwitchTrackHelp: "Its fill while the flow is shown, its outline and text while hidden. Empty takes the theme's colour.",
       edElPlanner: "New route: panel",
       edElPlannerHelp: "The box the planner is drawn in.",
       edPlannerBg: "Background color",
@@ -460,6 +476,9 @@
       edMapRouteHelp: "The route of a route entry, under the reports, fitted into view at first draw. Colour and width under Layout → Map.",
       edMapScale: "Show a scale bar",
       edMapScaleHelp: "A scale bar bottom left, in Home Assistant's unit. In the minimal format on the pop-up's map.",
+      edMapGoogle: "Show the Google Maps button",
+      edMapGoogleHelp: "A button top right on the map that opens the entry in Google Maps: a route with its start, stops and destination in the route planner, an area or a tracker at its centre. In the minimal format on the pop-up's map.",
+      googleOpen: "Open in Google Maps",
       edMapAlways: "Keep the map when nothing is reported",
       edMapAlwaysHelp: "Keeps the map while nothing is reported, fitted to the area or route. Off takes it down until something is reported.",
       liveTime: (minutes, delay) => (delay > 0 ? `${minutes} min (+${delay})` : `${minutes} min`),
@@ -479,7 +498,7 @@
       agoNow: "just now",
       agoMin: (n) => `${n} min ago`,
       agoHours: (n) => `${n} h ago`,
-      trafficLine: "Traffic flow",
+      trafficLine: "Traffic",
       trafficSwitch: "Show the traffic flow on the map",
       edMapTraffic: "Show the traffic flow",
       edMapTrafficHelp: "TomTom's traffic flow over the map, every road coloured by how traffic moves. Fetched through the integration with each poll, only while the card is on screen; counted as tiles on the requests sensor.",
@@ -745,7 +764,7 @@
     pop_new_background: true,
     pop_new_background_color: "",
     pop_new_font_size: "",
-    pop_new_bold: true,
+    pop_new_bold: false,
     pop_new_italic: false,
     pop_new_uppercase: true,
     pop_new_underline: false,
@@ -792,14 +811,18 @@
     area_select_letter_spacing: "",
     // The switch under the area dropdown - the traffic flow's: its label,
     // and the colour of one that is on.
+    switch_icon: "mdi:car-multiple",
+    switch_icon_color: "",
+    switch_icon_size: "",
     switch_color: "",
     switch_font_size: "",
-    switch_bold: true,
+    switch_bold: false,
     switch_italic: false,
     switch_uppercase: true,
     switch_underline: false,
     switch_letter_spacing: "",
     switch_track_color: "",
+    switch_background: true,
     // The planner - "+ New route" in the dropdown: its panel, its heading,
     // the labels in front of the fields, its buttons (capitals and weight
     // from here, as the badges'), the planned route's time and the facts
@@ -821,7 +844,7 @@
     plan_role_letter_spacing: "",
     plan_button_color: "",
     plan_button_font_size: "",
-    plan_button_bold: true,
+    plan_button_bold: false,
     plan_button_italic: false,
     plan_button_uppercase: true,
     plan_button_underline: false,
@@ -880,7 +903,7 @@
     refresh_font_size: "",
     refresh_bold: false,
     refresh_italic: false,
-    refresh_uppercase: false,
+    refresh_uppercase: true,
     refresh_underline: false,
     refresh_letter_spacing: "",
     refresh_background: true,
@@ -952,7 +975,7 @@
     new_font_size: "",
     // Both on: the marker is drawn bold and in capitals, and a switch that
     // reports a look has to start where that look actually is.
-    new_bold: true,
+    new_bold: false,
     new_italic: false,
     new_uppercase: true,
     new_underline: false,
@@ -964,7 +987,7 @@
     delay_background: true,
     delay_background_color: "",
     delay_font_size: "",
-    delay_bold: true,
+    delay_bold: false,
     delay_italic: false,
     delay_uppercase: true,
     delay_underline: false,
@@ -996,6 +1019,8 @@
     // A scale bar in the map's bottom left corner, drawn by the card itself
     // so that both map engines show the same one.
     map_scale: true,
+    // A button top right on the map that opens the entry in Google Maps.
+    map_google: false,
     map_traffic: true,
     // TomTom's flow tiles: which of its colourings, and how solid.
     traffic_style: "relative0",
@@ -1751,6 +1776,55 @@
 
   function removeRoute(drawn) {
     if (drawn) drawn.remove();
+  }
+
+  // A route the way the flow tiles colour the roads: green where traffic
+  // moves freely, and over that every stretch TomTom rates in the colour
+  // of how badly it moves there - yellow for a minor delay, orange for a
+  // moderate one, red for a major one, grey for a closed stretch. Drawn
+  // inside the route's own edge, so a planned route still reads as one.
+  const FLOW_FREE = "#43a047";
+  const FLOW_COLORS = { 1: "#fdd835", 2: "#fb8c00", 3: "#e53935", 4: "#616161" };
+  // A route with its traffic flow: the route's colour as the line's edge,
+  // and inside it the flow along the route - what a live route and a
+  // planned one both get. Without sections - a route that is not live -
+  // it is the plain line it always was.
+  function drawRouteWithFlow(h, points, color, vias, weight, sections) {
+    const width = Number.isFinite(Number(weight)) && Number(weight) > 0 ? Number(weight) : 4;
+    if (!Array.isArray(sections)) return { edge: drawRouteWith(h, points, color, vias, width), flow: null };
+    return {
+      edge: drawRouteWith(h, points, color, vias, width + 4),
+      flow: drawFlowOn(h, points, sections, width),
+    };
+  }
+
+  function drawFlowOn(h, points, sections, weight) {
+    const width = Number.isFinite(Number(weight)) && Number(weight) > 0 ? Number(weight) : 4;
+    const items = [];
+    const line = (pts, color) => {
+      try {
+        items.push(h.line(pts, { color, width, opacity: 1 }));
+      } catch (err) {
+        // Its map is already gone.
+      }
+    };
+    line(points, FLOW_FREE);
+    for (const section of Array.isArray(sections) ? sections : []) {
+      const color = FLOW_COLORS[Number(section.magnitude)];
+      const pts = (section.points || []).filter((p) => Array.isArray(p) && p.length >= 2);
+      if (color && pts.length > 1) line(pts, color);
+    }
+    return {
+      remove: () => {
+        for (const item of items) {
+          try {
+            item.remove();
+          } catch (err) {
+            // Already gone with the map.
+          }
+        }
+      },
+    };
   }
 
   // Since 2026.9 the streets under ha-map are a MapLibre GL layer, and it
@@ -2535,7 +2609,7 @@
     // box and its tail, where the disc's used to land, and the count's
     // colour and font on the "+N". Every fallback is again the map's own.
     ".cluster-bubble, .cluster-bubble-tail {",
-    "  background: var(--tomtom-cluster-background, var(--card-background-color, #fff)) !important;",
+    "  background: var(--tomtom-cluster-background, var(--tomtom-map-bg, #fff)) !important;",
     "}",
     // The bubble on its point too. The map sizes the element as the box
     // plus the 7px of tail under it and anchors it 9px under that, at the
@@ -2545,7 +2619,7 @@
     ".cluster-marker:not(.tomtom-disc) .cluster-bubble { transform: translateY(calc(50% + 16px)); }",
     ".cluster-marker:not(.tomtom-disc) .cluster-bubble-tail { visibility: hidden; }",
     ".cluster-bubble .more {",
-    "  color: var(--tomtom-cluster-color, var(--primary-text-color, #212121)) !important;",
+    "  color: var(--tomtom-cluster-color, var(--tomtom-map-ink, #212121)) !important;",
     "  font-size: var(--tomtom-cluster-font-size, var(--ha-font-size-s)) !important;",
     "  font-weight: var(--tomtom-cluster-font-weight, var(--ha-font-weight-medium)) !important;",
     "  font-style: var(--tomtom-cluster-font-style, normal) !important;",
@@ -2889,6 +2963,9 @@
       else hidden.add(kind);
       this._storage(this._hiddenKindsKey(), JSON.stringify([...hidden]));
       this._render();
+      // A planned route's symbols are the card's own, not the map card's:
+      // drawn again so the bar's choice reaches them.
+      if (this._planner && this._planner.route) this._paintPlan();
       if (this._popEl && this._popEl.open) this._fillPop(t(this._hass));
     }
 
@@ -3299,6 +3376,8 @@
         return;
       }
       this._syncScale("main");
+      this._applyMapTheme("main");
+      this._syncGoogle("main");
       this._renderHead(str, areas, area, areaId);
       this._renderPlanner(str, areas);
       this._renderList(str);
@@ -3676,6 +3755,8 @@
         this._popHandles = h;
         this._popHaMap = haMap;
         this._syncScale("pop");
+        this._applyMapTheme("pop");
+        this._syncGoogle("pop");
         this._paintPopRoute();
         this._paintArea(h, this._popRowsCache, "_popAreaDrawn", "_popAreaSettle");
         this._paintLines(h, this._popRowsCache, "_popLinesDrawn");
@@ -3840,6 +3921,9 @@
             )
           : "";
       const updatedPart = showUpdated && !refreshHtml ? updated : "";
+      // The traffic flow's button, after the refresh - or where the refresh
+      // would be, when that is switched off.
+      const tailHtml = refreshHtml + this._trafficCells(str, "main").join("");
       let lineHtml = "";
       if (bigLive) {
         const parts = showSub
@@ -3849,7 +3933,7 @@
               updatedPart,
             ]
           : [];
-        lineHtml = this._liveHtml(str, attrs, refreshHtml, parts);
+        lineHtml = this._liveHtml(str, attrs, tailHtml, parts);
       } else {
         // Each part on its own switch; with all of them off and no button
         // the line goes too, rather than leaving an empty row under the
@@ -3865,15 +3949,13 @@
               .filter(Boolean)
               .join(" · ")
           : "";
-        lineHtml = subText || refreshHtml
+        lineHtml = subText || tailHtml
           ? `<div class="sub" style="${escapeHtml(elementStyle(this._config, "sub"))}">${
               subText ? leadIconHtml(this._config, "sub") : ""
-            }<span>${escapeHtml(subText)}</span>${refreshHtml}</div>`
+            }<span>${escapeHtml(subText)}</span>${tailHtml}</div>`
           : "";
       }
 
-      // Under the area dropdown: the traffic flow's switch.
-      const toggles = [...this._trafficCells(str, "main")];
       this._headEl.innerHTML = `
         <div class="head-left">
           <div class="title">
@@ -3885,14 +3967,14 @@
                     aria-pressed="${this._onlyNew ? "true" : "false"}"
                     title="${escapeHtml(this._onlyNew ? str.newFilterOff : str.newFilterOn)}"
                     style="${escapeHtml(elementStyle(this._config, "new"))}"
-                 >${escapeHtml(str.newCount(this._newRows.size))}</button>`
+                 ><span class="pill-text">${escapeHtml(str.newCount(this._newRows.size))}</span></button>`
               : ""}
             ${this._delayTotal
               ? `<button type="button" class="badge delay" data-what="delay-filter"
                     aria-pressed="${this._onlyDelay ? "true" : "false"}"
                     title="${escapeHtml(this._onlyDelay ? str.delayFilterOff : str.delayFilterOn)}"
                     style="${escapeHtml(elementStyle(this._config, "delay"))}"
-                 >${escapeHtml(str.delaySum(this._delayTotal))}</button>`
+                 ><span class="pill-text">${escapeHtml(str.delaySum(this._delayTotal))}</span></button>`
               : ""}
           </div>
           ${lineHtml}
@@ -3902,7 +3984,6 @@
             ? selectHtml("area", this._areaOptions(areas, str), areaId,
                 elementStyle(this._config, "area_select"))
             : ""}
-          ${toggles.length ? `<div class="toggles">${toggles.join("")}</div>` : ""}
         </div>`;
 
       const refreshButton = this._headEl.querySelector('[data-what="refresh"]');
@@ -4057,15 +4138,31 @@
     // fetching the shape - it resolves the name asynchronously.
     _fitIcons(attempt = 0) {
       const icons = this._root ? [...this._root.querySelectorAll("ha-icon.fit-icon")] : [];
-      if (!icons.length) return;
+      // The bar of kinds keeps its symbols at their own size; only their
+      // drawing is centred in the pill, like every other pill symbol.
+      const chipIcons = this._root ? [...this._root.querySelectorAll(".kind-chip ha-icon")] : [];
+      if (!icons.length && !chipIcons.length) return;
       let waiting = false;
       for (const icon of icons) if (!this._fitOneIcon(icon)) waiting = true;
+      for (const icon of chipIcons) if (!this._centreOneIcon(icon)) waiting = true;
       if (waiting && attempt < 20) {
         // The first few looks are a frame apart, so the one time this really
         // has to wait is not a visible jump either. After that the ratio is
         // cached and the whole thing runs straight through.
         window.setTimeout(() => this._fitIcons(attempt + 1), attempt < 6 ? 16 : 150);
       }
+    }
+
+    // Centres a symbol's drawing in its own box, the box left at the size the
+    // stylesheet gives it. True once done; false while the shape is not in.
+    _centreOneIcon(icon) {
+      const ink = iconInk(icon);
+      if (!ink) return false;
+      const box = icon.getBoundingClientRect().height;
+      if (!(box > 0)) return false;
+      const above = 1 - ink.fill - ink.below;
+      icon.style.transform = `translateY(${((ink.below - above) / 2) * box}px)`;
+      return true;
     }
 
     // True once this icon has been fitted; false while something it needs is
@@ -4084,6 +4181,14 @@
       icon.style.setProperty("--mdc-icon-size", `${box}px`);
       icon.style.width = `${box}px`;
       icon.style.height = `${box}px`;
+      if (icon.closest(".refresh.pill, .traffic-btn, .badge, .plan-btn, .new-tag, .chip, .kind-chip")) {
+        // In a pill the box is centred by the pill itself; what is left is
+        // the drawing sitting off-centre inside its box by the difference of
+        // the empty strips above and below it.
+        const above = 1 - ink.fill - ink.below;
+        icon.style.transform = `translateY(${((ink.below - above) / 2) * box}px)`;
+        return true;
+      }
       // The box's bottom edge rides the baseline; push it down by the empty
       // strip under the drawing so the drawing itself lands there instead.
       icon.style.transform = `translateY(${ink.below * box}px)`;
@@ -4338,14 +4443,14 @@
           ".tomtom-scale {",
           "  position: absolute; left: 18px; bottom: 13px; z-index: 900; pointer-events: none;",
           "  font: 500 8px/1.1 var(--paper-font-body1_-_font-family, var(--ha-font-family-body, Roboto, sans-serif));",
-          "  color: var(--primary-text-color);",
+          "  color: var(--tomtom-map-ink, var(--primary-text-color));",
           "}",
           "#map.maplibregl-map .tomtom-scale { z-index: 2; }",
           ".tomtom-scale-line {",
           "  box-sizing: border-box; border: 1.5px solid currentColor; border-top: none;",
           "  padding: 1px 3px 1px; white-space: nowrap; overflow: hidden; text-align: center;",
           "  background: rgba(255, 255, 255, 0.55);",
-          "  background: color-mix(in srgb, var(--card-background-color) 60%, transparent);",
+          "  background: color-mix(in srgb, var(--tomtom-map-bg, var(--card-background-color)) 60%, transparent);",
           "}",
           // Collapsed: the whole line at font-size 0, which takes the links
           // with it, and an "i" drawn in its place.
@@ -4619,6 +4724,8 @@
         this._handles = h;
         this._haMap = haMap;
         this._syncScale("main");
+        this._applyMapTheme("main");
+        this._syncGoogle("main");
         this._paintRoute();
         this._paintArea();
         this._paintLines();
@@ -4720,11 +4827,13 @@
             (answer) => {
               // What an area entry searches instead of a route: its circle,
               // or the tracker it follows - for a map with nothing on it.
+              this._routeAnswer = answer || null;
               this._areaShape = answer && !routeSig(answer) && answer.radius ? answer : null;
               return answer && routeSig(answer) ? answer : null;
             },
             // An older integration without the command, or no connection.
             () => {
+              this._routeAnswer = null;
               this._areaShape = null;
               return null;
             }
@@ -4815,6 +4924,86 @@
           this._hass.config.unit_system.length === "mi";
         this[bar] = scaleBar(h, imperial);
       }
+    }
+
+    // The Google Maps button on one of the maps, as the option says: top
+    // right, over the map, drawn once the map is there and taken away with
+    // the option. What it opens is worked out when it is pressed.
+    // Which colours the overlays take: see .mapwrap[data-map-theme].
+    _applyMapTheme(slot = "main") {
+      const wrap = slot === "pop" ? this._popEl && this._popEl.querySelector(".pop-map") : this._mapEl;
+      if (!wrap) return;
+      const theme = this._config.map_theme;
+      if (theme === "light" || theme === "dark") wrap.dataset.mapTheme = theme;
+      else delete wrap.dataset.mapTheme;
+    }
+
+    _syncGoogle(slot = "main") {
+      const handles = slot === "pop" ? "_popHandles" : "_handles";
+      const key = slot === "pop" ? "_popGoogle" : "_google";
+      const wrap = slot === "pop" ? this._popEl && this._popEl.querySelector(".pop-map") : this._mapEl;
+      const wanted = !!this[handles] && !!wrap && this._config.map_google === true;
+      if (this[key] && (!wanted || !this[key].isConnected)) {
+        this[key].remove();
+        this[key] = undefined;
+      }
+      if (wanted && !this[key]) {
+        const str = t(this._hass);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "map-google";
+        btn.title = str.googleOpen;
+        btn.setAttribute("aria-label", str.googleOpen);
+        btn.innerHTML = `<img src="${escapeHtml(new URL("brand/google-maps.png", SELF_URL).href)}" alt="">`;
+        btn.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          const url = this._googleUrl();
+          if (url) window.open(url, "_blank", "noopener");
+        });
+        wrap.appendChild(btn);
+        this[key] = btn;
+      }
+    }
+
+    // Where the button goes: a route into Google Maps' route planner with
+    // its start, stops and destination; an area or a tracker to its centre,
+    // zoomed so that the circle fills the view. Nothing while the entry's
+    // shape has not arrived yet.
+    _googleUrl() {
+      const answer = this._routeAnswer;
+      const point = (p) => {
+        if (!p) return null;
+        const lat = Array.isArray(p) ? Number(p[0]) : Number(p.latitude);
+        const lon = Array.isArray(p) ? Number(p[1]) : Number(p.longitude);
+        return Number.isFinite(lat) && Number.isFinite(lon) ? `${lat},${lon}` : null;
+      };
+      if (answer && routeSig(answer)) {
+        const origin = point(answer.start) || point(answer.points[0]);
+        const destination = point(answer.destination) || point(answer.points[answer.points.length - 1]);
+        if (!origin || !destination) return null;
+        const vias = (answer.vias || []).map(point).filter(Boolean);
+        let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=driving`;
+        if (vias.length) url += `&waypoints=${encodeURIComponent(vias.join("|"))}`;
+        return url;
+      }
+      const shape = this._areaShape;
+      if (!shape) return null;
+      let lat;
+      let lon;
+      if (shape.tracker) {
+        const state = this._hass && this._hass.states && this._hass.states[shape.tracker];
+        lat = state && Number(state.attributes.latitude);
+        lon = state && Number(state.attributes.longitude);
+      } else if (Array.isArray(shape.center)) {
+        lat = Number(shape.center[0]);
+        lon = Number(shape.center[1]);
+      }
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      // The zoom at which the circle's diameter spans about 400 pixels:
+      // Web Mercator's metres per pixel at the equator, scaled by latitude.
+      const radius = Number(shape.radius) > 0 ? Number(shape.radius) : 1000;
+      const zoom = Math.max(3, Math.min(18, Math.round(Math.log2((156543.03 * Math.cos((lat * Math.PI) / 180) * 400) / (radius * 2)))));
+      return `https://www.google.com/maps/@${lat},${lon},${zoom}z`;
     }
 
     _trafficSlot(slot) {
@@ -5074,11 +5263,11 @@
         </div>
         ${rows}
         <div class="plan-actions">
-          <button type="button" class="plan-btn ghost" data-plan="add"${plan.rows.length >= PLAN_MAX_PLACES ? " disabled" : ""}>${escapeHtml(str.planAddStop)}</button>
-          <button type="button" class="plan-btn" data-plan="calc"${plan.busy ? " disabled" : ""}>${escapeHtml(plan.busy ? str.planBusy : str.planCalculate)}</button>
+          <button type="button" class="plan-btn ghost" data-plan="add"${plan.rows.length >= PLAN_MAX_PLACES ? " disabled" : ""}><span class="pill-text">${escapeHtml(str.planAddStop)}</span></button>
+          <button type="button" class="plan-btn" data-plan="calc"${plan.busy ? " disabled" : ""}><span class="pill-text">${escapeHtml(plan.busy ? str.planBusy : str.planCalculate)}</span></button>
         </div>
         ${preview}
-        ${route ? `<div class="plan-actions">${canSave ? `<button type="button" class="plan-btn" data-plan="save"${plan.busy ? " disabled" : ""}>${escapeHtml(str.planSave)}</button>` : ""}<button type="button" class="plan-btn ghost" data-plan="discard">${escapeHtml(str.planDiscard)}</button></div>` : ""}
+        ${route ? `<div class="plan-actions">${canSave ? `<button type="button" class="plan-btn" data-plan="save"${plan.busy ? " disabled" : ""}><span class="pill-text">${escapeHtml(str.planSave)}</span></button>` : ""}<button type="button" class="plan-btn ghost" data-plan="discard"><span class="pill-text">${escapeHtml(str.planDiscard)}</span></button></div>` : ""}
         ${plan.error ? `<div class="plan-error">${escapeHtml(plan.error)}</div>` : ""}
         ${plan.notice ? `<div class="plan-notice">${escapeHtml(plan.notice)}</div>` : ""}`;
       this._dressPlanner(el);
@@ -5119,7 +5308,7 @@
               .join("")}</select>`
           : `<span class="plan-val muted">${escapeHtml(str.planNoEntity)}</span>`;
       } else if (place.kind === "map") {
-        input = `<button type="button" class="plan-btn ghost" data-plan="centre" data-row="${i}">${escapeHtml(str.planUseCentre)}</button>
+        input = `<button type="button" class="plan-btn ghost" data-plan="centre" data-row="${i}"><span class="pill-text">${escapeHtml(str.planUseCentre)}</span></button>
                  <span class="plan-val${place.label ? "" : " muted"}">${escapeHtml(place.label || str.planCentreHint)}</span>`;
       } else {
         const sugg = place.suggestions.length
@@ -5353,6 +5542,8 @@
     _paintPlan() {
       removeRoute(this._planDrawn);
       this._planDrawn = undefined;
+      removeRoute(this._planFlow);
+      this._planFlow = undefined;
       for (const marker of this._planMarkers || []) marker.remove();
       this._planMarkers = [];
       const plan = this._planner;
@@ -5360,15 +5551,23 @@
       if (!plan || !plan.route || !h || !plan.route.points || plan.route.points.length < 2) return;
       const points = plan.route.points;
       const vias = plan.rows.slice(1, -1).filter((p) => Number.isFinite(p.lat)).map((p) => [p.lat, p.lon]);
-      this._planDrawn = drawRouteWith(h, points, PLAN_COLOR, vias, this._config.route_width);
+      // The plan's orange as the line's edge, and inside it the traffic
+      // flow along the route, the way the flow tiles colour the roads.
+      const width = this._config.route_width;
+      const drawn = drawRouteWithFlow(h, points, PLAN_COLOR, vias, width, plan.route.traffic || []);
+      this._planDrawn = drawn.edge;
+      this._planFlow = drawn.flow;
       // Its reports, drawn the way the entry's markers are styled: the bare
       // symbol in the kind's colour, on its point. No entity stands behind
       // them, so the map card cannot draw them itself.
+      // What the bar of kinds has switched off stays off the map here too.
+      const hidden = this._config.show_kind_bar === true ? this._hiddenKinds() : null;
       if (typeof h.marker === "function") {
         for (const r of plan.route.reports || []) {
           const lat = Number(r.latitude);
           const lon = Number(r.longitude);
           if (!Number.isFinite(lat) || !Number.isFinite(lon) || !r.icon) continue;
+          if (hidden && hidden.size && hidden.has((r.attributes || {}).type)) continue;
           const attrs = { ...(r.attributes || {}), icon: r.icon };
           const html =
             `<ha-icon class="tomtom-plan-marker" icon="${escapeHtml(reportIcon(attrs, this._config))}" ` +
@@ -5422,13 +5621,20 @@
     _paintRoute() {
       removeRoute(this._routeDrawn);
       this._routeDrawn = undefined;
+      removeRoute(this._routeFlow);
+      this._routeFlow = undefined;
       const route = this._route;
       const h = this._handles;
       this._paintPlan();
       if (!route || !h) return;
-      this._routeDrawn = drawRouteWith(
-        h, route.points, routeColor(this, this._config.route_color), route.vias, this._config.route_width
+      // A live route carries the traffic on it, section by section; it is
+      // drawn with its flow inside its own colour's edge, like a plan.
+      const drawn = drawRouteWithFlow(
+        h, route.points, routeColor(this, this._config.route_color), route.vias, this._config.route_width,
+        route.live && Array.isArray(route.live.sections) ? route.live.sections : null
       );
+      this._routeDrawn = drawn.edge;
+      this._routeFlow = drawn.flow;
       // Fitted once per route, not on every redraw - a pan the person made
       // stays where they put it.
       const sig = routeSig(route);
@@ -5563,9 +5769,13 @@
       const route = this._config.map_route === false ? null : await this._routeFor(this._areaId());
       if (!route || !h || this._popHandles !== h) return;
       removeRoute(this._popRouteDrawn);
-      this._popRouteDrawn = drawRouteWith(
-        h, route.points, routeColor(this, this._config.route_color), route.vias, this._config.route_width
+      removeRoute(this._popRouteFlow);
+      const drawn = drawRouteWithFlow(
+        h, route.points, routeColor(this, this._config.route_color), route.vias, this._config.route_width,
+        route.live && Array.isArray(route.live.sections) ? route.live.sections : null
       );
+      this._popRouteDrawn = drawn.edge;
+      this._popRouteFlow = drawn.flow;
       this._endRouteWatch("_popRouteSettle");
       this._popRouteSettle = fitRouteSettled(h, route.points);
     }
@@ -6128,9 +6338,22 @@
     switch: {
       label: "edElSwitch",
       help: "edElSwitchHelp",
-      noColor: true,
+      colorHelp: "edSwitchTextColorHelp",
       fontHelp: "edSwitchFontHelp",
-      fallback: "var(--primary-color)",
+      fallback: "var(--text-primary-color, #fff)",
+      icon: {
+        key: "switch_icon",
+        label: "edSubIcon",
+        help: "edSwitchIconHelp",
+        color: {
+          key: "switch_icon_color",
+          label: "edRefreshColor",
+          help: "edSwitchColorHelp",
+          fallback: "var(--text-primary-color, #fff)",
+        },
+        size: { key: "switch_icon_size", label: "edRefreshSize", help: "edSwitchSizeHelp" },
+      },
+      bgToggle: { key: "switch_background", label: "edRefreshFrame", help: "edSwitchFrameHelp" },
       extra: {
         key: "switch_track_color",
         label: "edSwitchTrack",
@@ -7393,6 +7616,10 @@
         scaleRow.classList.add("sub-field-row", "sub-toggle-row");
         scaleRow.dataset.withMap = "";
         body.appendChild(scaleRow);
+        const googleRow = this._toggleRow("map_google", str.edMapGoogle, str.edMapGoogleHelp);
+        googleRow.classList.add("sub-field-row", "sub-toggle-row");
+        googleRow.dataset.withMap = "";
+        body.appendChild(googleRow);
         // Whether a route entry's route is drawn on it - indented under the
         // map switch, since without a map there is nothing to draw it on.
         // Its looks are under Layout -> Map.
@@ -7853,17 +8080,27 @@
       // shrink to the visible part of a pinch-zoomed page.
       const root = document.documentElement;
       const box = { top: 0, bottom: root.clientHeight, left: 0, right: root.clientWidth };
-      let fixedTo = !fixed;
-      for (let node = nextUp(from || this); node && node !== document.documentElement; node = nextUp(node)) {
+      // A box that sits in the viewport rather than in its parents is not
+      // clipped by them, whatever their overflow: a fixed box, until an
+      // ancestor holds it - and everything above a fixed ancestor, which is
+      // the edit dialog. The page under the dialog can be scrolled away
+      // (Bubble Card's pop-up editor does that) while the dialog stays in
+      // view; <body> is then an overflow-hidden box far above the window,
+      // and it must not count, or every tooltip in the dialog is hidden
+      // for lying outside it.
+      let loose = fixed;
+      for (let node = nextUp(from || this); node && node !== root; node = nextUp(node)) {
         const style = getComputedStyle(node);
-        if (!fixedTo && holdsFixed(style)) fixedTo = true;
-        if (!fixedTo) continue;
-        if (style.overflowX === "visible" && style.overflowY === "visible") continue;
-        const r = node.getBoundingClientRect();
-        box.top = Math.max(box.top, r.top);
-        box.bottom = Math.min(box.bottom, r.bottom);
-        box.left = Math.max(box.left, r.left);
-        box.right = Math.min(box.right, r.right);
+        if (loose && !holdsFixed(style)) continue;
+        loose = false;
+        if (style.overflowX !== "visible" || style.overflowY !== "visible") {
+          const r = node.getBoundingClientRect();
+          box.top = Math.max(box.top, r.top);
+          box.bottom = Math.min(box.bottom, r.bottom);
+          box.left = Math.max(box.left, r.left);
+          box.right = Math.min(box.right, r.right);
+        }
+        if (style.position === "fixed") loose = true;
       }
       return box;
     }
@@ -8685,8 +8922,13 @@
     const colour = config.switch_track_color
       ? `--tomtom-switch-on: ${config.switch_track_color}; `
       : "";
-    return `<button type="button" class="plan-btn traffic-btn" data-what="${what}" aria-pressed="${on ? "true" : "false"}"
-        title="${escapeHtml(title || label)}" style="${escapeHtml(colour + elementStyle(config, "switch"))}">${escapeHtml(label)}</button>`;
+    // The text colour is for the filled state; hidden, the word takes the
+    // track colour like the outline, whatever the Layout says.
+    let style = elementStyle(config, "switch");
+    if (!on) style = style.replace(/(^|; )color: [^;]+/, "$1").replace(/^; /, "");
+    const bare = config.switch_background === false ? " bare" : "";
+    return `<button type="button" class="plan-btn traffic-btn${bare}" data-what="${what}" aria-pressed="${on ? "true" : "false"}"
+        title="${escapeHtml(title || label)}" style="${escapeHtml(colour + style)}">${leadIconHtml(config, "switch")}<span class="pill-text">${escapeHtml(label)}</span></button>`;
   }
 
   // A refresh: its symbol, then what is inside it - the time of the last
@@ -8783,7 +9025,7 @@
                 "line1",
                 `<b dir="auto">${escapeHtml(distance)}</b>${distance ? " · " : ""}${escapeHtml(what)}${
                   isNew
-                    ? `<span class="new-tag" style="${escapeHtml(elementStyle(config, newPrefix))}">${escapeHtml(str.newLabel)}</span>`
+                    ? `<span class="new-tag" style="${escapeHtml(elementStyle(config, newPrefix))}"><span class="pill-text">${escapeHtml(str.newLabel)}</span></span>`
                     : ""
                 }`
               )}
@@ -8793,7 +9035,7 @@
             ? `<div class="chips">${chips
                 .map(
                   (c) =>
-                    `<span class="chip" style="${escapeHtml(elementStyle(config, "chip"))}">${escapeHtml(c)}</span>`
+                    `<span class="chip" style="${escapeHtml(elementStyle(config, "chip"))}"><span class="pill-text">${escapeHtml(c)}</span></span>`
                 )
                 .join("")}${stars}</div>`
             : ""}
@@ -8834,7 +9076,7 @@
     delay: { name: "delay", selector: ".badge.delay" },
     travel_time: { name: "travel-time", selector: ".travel-time" },
     area_select: { name: "area-select", selector: 'select[data-what="area"]' },
-    switch: { name: "switch", selector: ".traffic-btn" },
+    switch: { name: "switch", selector: ".traffic-btn", icon: ".traffic-btn .fit-icon" },
     planner: { name: "planner", selector: ".planner" },
     plan_title: { name: "plan-title", selector: ".plan-title" },
     plan_role: { name: "plan-role", selector: ".plan-role" },
@@ -8969,7 +9211,7 @@
     ha-card[data-layout="landscape"] .mapwrap:not(:empty) { margin-top: 0; }
     /* The map fills the half; the planner's crosshair over it keeps its
        own size. */
-    ha-card[data-layout="landscape"] .mapwrap > :not(.plan-cross) { height: 100%; }
+    ha-card[data-layout="landscape"] .mapwrap > :not(.plan-cross):not(.map-google) { height: 100%; }
     ha-card[data-layout="landscape"] .mapwrap ha-card { height: 100%; }
     /* One line, and the line is the button. */
     ha-card[data-layout="minimal"] { padding: 0; }
@@ -9187,7 +9429,7 @@
                 flex: 1 1 auto; min-height: 0; overflow: hidden; }
     .pop-map { flex: 1 1 0; min-width: 0; position: relative;
                border-radius: var(--ha-card-border-radius, 12px); overflow: hidden; }
-    .pop-map > * { height: 100%; }
+    .pop-map > :not(.map-google) { height: 100%; }
     /* Right of the map: a live route's travel time over the list, the list
        scrolling under it while the time stays. Without a list the time
        keeps only the room it needs, and the map takes the rest. */
@@ -9226,13 +9468,28 @@
        baseline - inline-block, not flex, for the same reason as the line
        above - then how long ago. Without its frame it keeps the padding, so
        switching the frame off moves nothing. */
-    .refresh.pill { display: inline-block; padding: 3px 10px; border-radius: 999px; border: none;
+    .refresh.pill { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle;
+                    padding: 3px 10px; border-radius: 999px; border: none;
                     background: var(--secondary-background-color);
-                    font-size: .8rem; line-height: 1.4;
+                    font-size: .8rem; line-height: 1.4; min-height: 1.4em; box-sizing: content-box;
                     color: var(--secondary-text-color); white-space: nowrap; }
     .refresh.pill.bare { background: none; }
-    .refresh.pill .fit-icon { margin: 0 6px 0 0; }
-    .refresh.pill .fit-icon:last-child { margin-inline-end: 0; }
+    .refresh.pill .fit-icon { margin: 0; }
+    /* Symbol and word on the pill's middle, whatever their sizes: the pill is
+       a flex row centred on its cross axis, the symbol's drawing is centred in
+       its box (see _fitOneIcon), and the word's box is trimmed to its capitals
+       where the browser can - without that it is the line box that is
+       centred, and capitals sit a hair high. */
+    .refresh.pill .ago, .traffic-btn .pill-text { text-box: trim-both cap alphabetic; }
+    /* Every other pill the same way: the badges, the planner's buttons, the
+       NEW tag, the chips and the bar of kinds. One line tall at least, so a
+       trimmed word does not shrink the pill; a bigger word or symbol grows
+       it both ways. */
+    .badge, .plan-btn, .new-tag, .chip { display: inline-flex; align-items: center; justify-content: center;
+                                          gap: 6px; vertical-align: middle; min-height: 1lh; box-sizing: content-box; }
+    .badge .pill-text, .plan-btn .pill-text, .new-tag .pill-text, .chip .pill-text,
+    .kind-chip .kind-count { text-box: trim-both cap alphabetic; }
+    .kind-chip { min-height: 1lh; box-sizing: content-box; }
     .refresh.pill.off { cursor: default; color: var(--disabled-text-color, var(--secondary-text-color)); }
     .sub .refresh.pill { margin-inline-start: 8px; }
     .refresh:hover { color: var(--primary-text-color); }
@@ -9255,7 +9512,8 @@
              font-size: 1.25rem; font-weight: 500; color: var(--primary-text-color); }
     .title-text { display: inline-flex; align-items: center; gap: 8px; min-width: 0;
                   overflow-wrap: anywhere; }
-    .badge { font-size: .75rem; font-weight: 500; padding: 2px 8px; border-radius: 12px;
+    /* The weight is the Layout switch's alone, like every other pill's. */
+    .badge { font-size: .75rem; font-weight: normal; padding: 2px 8px; border-radius: 12px;
              text-align: center;
              background: var(--secondary-background-color);
              color: var(--secondary-text-color); }
@@ -9290,7 +9548,8 @@
     /* The head badge is a button - clicking it narrows the card to what is
        new - so it has to shed the browser's own button look and say, both to
        the eye and to a screen reader, whether that narrowing is on. */
-    button.badge { font: inherit; font-size: .75rem; border: none; cursor: pointer; }
+    /* "font: inherit" would carry the title's medium weight into the badge. */
+    button.badge { font: inherit; font-size: .75rem; font-weight: normal; border: none; cursor: pointer; }
     button.badge[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--primary-text-color); }
     /* Icon and words are one run of text, so the icon takes the line's own
        colour and grows with its font size instead of staying at a fixed 24px
@@ -9388,7 +9647,14 @@
        switches and the button must never disagree - so the shared button
        rule's own are undone here. */
     .traffic-btn { background: var(--tomtom-switch-on, var(--primary-color));
-                   text-transform: none; font-weight: normal; letter-spacing: normal; }
+                   text-transform: none; font-weight: normal; letter-spacing: normal;
+                   display: inline-flex; align-items: center; gap: 6px; vertical-align: middle;
+                   padding: 3px 10px; border-radius: 999px;
+                   font-size: .8rem; line-height: 1.4; min-height: 1.4em; box-sizing: content-box; }
+    .traffic-btn .fit-icon { margin: 0; }
+    .traffic-btn.bare { background: transparent; color: var(--tomtom-switch-on, var(--primary-color)); }
+    .traffic-btn.bare[aria-pressed="false"] { box-shadow: none; color: var(--secondary-text-color); }
+    .sub .traffic-btn, .live-line .traffic-btn { margin-inline-start: 8px; }
     .traffic-btn[aria-pressed="false"] { background: transparent; color: var(--tomtom-switch-on, var(--primary-color));
                                          box-shadow: inset 0 0 0 1px var(--divider-color); }
     .traffic-btn:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
@@ -9400,6 +9666,22 @@
     .plan-error { color: var(--error-color, #db4437); font-size: .85rem; }
     .plan-notice { color: var(--secondary-text-color); font-size: .85rem; }
     .mapwrap { position: relative; }
+    /* What the card draws over a map takes the map's colours, not the
+       dashboard's: the card's own while the map follows the theme, Home
+       Assistant's light or dark pair while Layout → Map forces one - a white
+       tile on a light map over a dark dashboard, and the other way round. */
+    .mapwrap, .pop-map { --tomtom-map-bg: var(--card-background-color, #fff); --tomtom-map-ink: var(--primary-text-color, #212121); }
+    .mapwrap[data-map-theme="light"], .pop-map[data-map-theme="light"] { --tomtom-map-bg: #fff; --tomtom-map-ink: #212121; }
+    .mapwrap[data-map-theme="dark"], .pop-map[data-map-theme="dark"] { --tomtom-map-bg: #1c1c1c; --tomtom-map-ink: #e1e1e1; }
+    /* The Google Maps button, top right over the map, the logo on a small
+       card-coloured tile like the map's own controls. */
+    .map-google { position: absolute; top: 10px; right: 10px; z-index: 5; width: 30px; height: 30px;
+                  padding: 0; border: none; border-radius: 6px; cursor: pointer;
+                  background: var(--tomtom-map-bg, #fff); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+                  display: inline-flex; align-items: center; justify-content: center; }
+    .map-google img { height: 22px; width: auto; display: block; }
+    .map-google:hover { filter: brightness(1.08); }
+    .map-google:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
     .plan-cross { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; transform: translate(-50%, -50%);
                   pointer-events: none; z-index: 950; border: 2px solid #ffa726; border-radius: 50%;
                   box-shadow: 0 0 0 2px rgba(0,0,0,.45); }
@@ -9481,13 +9763,77 @@
     [CARD_TAG, TomTomCard],
     [EDITOR_TAG, TomTomCardEditor],
   ];
+  for (const [, cls] of TAGS) cls.build = BUILD;
   const WATCHING = "__tomtomCardRegistryWatch";
   const WARNED = "__tomtomCardDefineWarned";
 
+  // A tag can be defined once per registry, and this file runs again in a
+  // page that already runs it: the loader imports a newer version after
+  // Home Assistant restarted, so that nobody has to reload the page. The
+  // class that is registered stays - the browser will not take another -
+  // but everything it does is on its prototype, and that is what is handed
+  // over: every method, getter and setter of the new class, and its static
+  // side (getConfigElement, getStubConfig). Neither class has a constructor
+  // or a field of its own; a card holds all its state from setConfig on,
+  // which is also why a redraw afterwards is a setConfig with what the
+  // card has, and its hass again.
+  const adopt = (into, from) => {
+    for (const key of Reflect.ownKeys(from.prototype)) {
+      if (key === "constructor") continue;
+      Object.defineProperty(into.prototype, key, Object.getOwnPropertyDescriptor(from.prototype, key));
+    }
+    for (const key of Reflect.ownKeys(from)) {
+      if (key === "length" || key === "name" || key === "prototype") continue;
+      Object.defineProperty(into, key, Object.getOwnPropertyDescriptor(from, key));
+    }
+  };
+
+  // Every card and editor on the page, in the document and in every shadow
+  // root of it - the dashboard's, a dialog's, an editor's preview.
+  const liveElements = (tags) => {
+    const out = [];
+    const walk = (node) => {
+      if (!node) return;
+      if (node.localName && tags.includes(node.localName)) out.push(node);
+      if (node.shadowRoot) walk(node.shadowRoot);
+      for (const child of node.children || []) walk(child);
+    };
+    walk(document.documentElement);
+    return out;
+  };
+
+  const redraw = () => {
+    for (const el of liveElements([CARD_TAG, EDITOR_TAG])) {
+      try {
+        if (!el._config) continue;
+        // An editor's form is built once and then only has values pushed
+        // into it; a new version means building it again.
+        if (el.localName === EDITOR_TAG && el.shadowRoot) el.shadowRoot.innerHTML = "";
+        el.setConfig(el._config);
+        if (el._hass) el.hass = el._hass;
+      } catch (err) {
+        console.warn(`${CARD_TAG}: could not redraw with the new version`, err);
+      }
+    }
+    const entry = (window.customCards || []).find((c) => c.type === CARD_TAG);
+    if (entry && window.customCards.__tomtomLatest) Object.assign(entry, window.customCards.__tomtomLatest);
+  };
+
   const defineAll = () => {
     const registry = window.customElements;
+    let adopted = false;
     for (const [tag, cls] of TAGS) {
-      if (registry.get(tag)) continue;
+      const existing = registry.get(tag);
+      if (existing === cls) continue;
+      if (existing) {
+        // Only ever forward. The build of a file from before this mechanism
+        // is 0, and such a class is taken over by any versioned one.
+        if ((Number(existing.build) || 0) < BUILD) {
+          adopt(existing, cls);
+          adopted = true;
+        }
+        continue;
+      }
       try {
         registry.define(tag, cls);
       } catch (err) {
@@ -9501,6 +9847,7 @@
         }
       }
     }
+    if (adopted) redraw();
     return registry;
   };
 
@@ -9531,8 +9878,10 @@
   window.customCards = window.customCards || [];
   watchFlowDialogs();
 
-  if (!window.customCards.some((c) => c.type === CARD_TAG)) {
-    window.customCards.push({
+  // What the card picker shows. Pushed by the first version to run in the
+  // page; a newer version keeps the entry and updates its words through
+  // redraw() above, which is why they are kept aside here too.
+  const pickerEntry = {
       type: CARD_TAG,
       name: "TomTom",
       description: "TomTom's traffic reports and a live route's travel time, for one configured area, route or tracker.",
@@ -9569,6 +9918,9 @@
           },
         };
       },
-    });
-  }
+  };
+  window.customCards.__tomtomLatest = pickerEntry;
+  const listed = window.customCards.find((c) => c.type === CARD_TAG);
+  if (listed) Object.assign(listed, pickerEntry);
+  else window.customCards.push(pickerEntry);
 })();

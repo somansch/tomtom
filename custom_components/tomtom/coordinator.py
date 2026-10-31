@@ -38,7 +38,10 @@ from .api import (
 )
 from .const import (
     CATEGORIES,
+    SOURCE_BLITZER,
     SOURCE_CATEGORIES,
+    SOURCE_LUFOP,
+    source_flag,
     TOMTOM_CATEGORIES,
     CATEGORY_KEYS,
     CATEGORY_LABELS,
@@ -87,6 +90,15 @@ _LOGGER = logging.getLogger(__name__)
 # whose entity is gone, a key that stopped working, or a TomTom that is
 # down, is not.
 FAILURES_FOR_REPAIR = 3
+# A further source that has not answered this many polls in a row: what it
+# last brought is dropped rather than shown as current, and a repair says
+# so - one per source, whichever entry gets there first.
+SOURCE_FAILURES_FOR_REPAIR = 3
+SOURCE_NAMES = {SOURCE_BLITZER: "blitzer.de", SOURCE_LUFOP: "Lufop"}
+
+
+def source_issue_id(key: str) -> str:
+    return f"source_failing_{key}"
 
 # The coordinator's timer can fire a fraction of a second early. Without a
 # little slack, a fetch landing at 3599.98 s would be judged "not due".
@@ -231,6 +243,7 @@ class TomTomCoordinator(DataUpdateCoordinator):
         # with its reachability.
         self._source_items: dict[str, list[dict]] = {}
         self._source_failed: set[str] = set()
+        self._source_failures: dict[str, int] = {}
         # What TomTom's last poll brought, and what the sources last brought
         # after this entry's filters - the two halves of the data, joined
         # whenever either changes. The sources are asked in a task of their
@@ -540,10 +553,27 @@ class TomTomCoordinator(DataUpdateCoordinator):
 
     # --- further sources ------------------------------------------------
 
+    @property
+    def sources_ok(self) -> bool:
+        """Whether every further source answered its last ask."""
+        return not self._source_failed
+
+    def kinds_for(self, source: str) -> dict[str, bool]:
+        """The kinds one source is asked for: each kind's own switch, and
+        under a kind both sources answer, the switch for this source."""
+        return {
+            kind: bool(self.kinds.get(kind)) and self.kinds.get(source_flag(kind, source), True)
+            for kind in CATEGORIES
+        }
+
     def _wants_source(self) -> bool:
         """Whether a kind is on that a further source answers - one of the
-        seven that are theirs."""
-        return any(self.kinds.get(kind) for kind in SOURCE_CATEGORIES)
+        eight that are theirs, for at least one source."""
+        return any(
+            self.kinds_for(source).get(kind)
+            for source in (SOURCE_BLITZER, SOURCE_LUFOP)
+            for kind in SOURCE_CATEGORIES
+        )
 
     def _source_on(self) -> bool:
         """Whether a further source is switched on under TomTom Settings,
@@ -568,27 +598,50 @@ class TomTomCoordinator(DataUpdateCoordinator):
         for source in sources:
             try:
                 if self.is_live:
-                    items = await source.fetch_route(self.entry_id, self._route_points, self.kinds, language)
+                    items = await source.fetch_route(self.entry_id, self._route_points, self.kinds_for(source.key), language)
                 elif self.location:
                     items = await source.fetch_area(
                         self.entry_id,
                         float(self.location["latitude"]),
                         float(self.location["longitude"]),
                         float(self.location.get("radius") or 1000),
-                        self.kinds,
+                        self.kinds_for(source.key),
                         language,
                     )
                 else:
                     items = []
             except SourceError as err:
+                failures = self._source_failures.get(source.key, 0) + 1
+                self._source_failures[source.key] = failures
                 if source.key not in self._source_failed:
                     _LOGGER.warning("%s: %s - keeping what it last brought", self.displayname, err)
                 self._source_failed.add(source.key)
-                found.extend(self._source_items.get(source.key, []))
+                if failures < SOURCE_FAILURES_FOR_REPAIR:
+                    found.extend(self._source_items.get(source.key, []))
+                    continue
+                # Three in a row: what it last brought is no longer shown as
+                # current, and a repair names the source.
+                if self._source_items.pop(source.key, None) is not None or failures == SOURCE_FAILURES_FOR_REPAIR:
+                    _LOGGER.warning("%s: %s failed %d polls in a row - its reports are dropped", self.displayname, source.key, failures)
+                ir.async_create_issue(
+                    self.hass,
+                    DOMAIN,
+                    source_issue_id(source.key),
+                    is_fixable=False,
+                    severity=ir.IssueSeverity.WARNING,
+                    translation_key="source_failing",
+                    translation_placeholders={
+                        "source": SOURCE_NAMES.get(source.key, source.key),
+                        "count": str(failures),
+                        "reason": str(err),
+                    },
+                )
                 continue
             if source.key in self._source_failed:
                 _LOGGER.info("%s: %s answers again", self.displayname, source.key)
                 self._source_failed.discard(source.key)
+            if self._source_failures.pop(source.key, 0) >= SOURCE_FAILURES_FOR_REPAIR:
+                ir.async_delete_issue(self.hass, DOMAIN, source_issue_id(source.key))
             self.item_count += len(items)
             self._source_items[source.key] = items
             found.extend(items)

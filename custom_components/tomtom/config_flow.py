@@ -26,6 +26,7 @@ from .api import (
     TomTomNoRoute,
     TomTomPointNotRoutable,
     TomTomQuotaError,
+    TomTomRateError,
     async_load_key,
     async_save_key,
 )
@@ -75,6 +76,11 @@ from .const import (
     DOMAIN,
     CATEGORY_DEFAULTS,
     CONF_CATEGORIES,
+    LIST_KIND_DEFAULTS,
+    SHARED_SOURCE_KINDS,
+    SOURCE_BLITZER,
+    SOURCE_LUFOP,
+    source_flag,
     DEFAULT_COUNT,
     LIVE_DAYS,
     MAX_AREA_RADIUS_M,
@@ -101,6 +107,7 @@ _LOGGER = logging.getLogger(__name__)
 _ERRORS = (
     (TomTomAuthError, "invalid_api_key"),
     (TomTomQuotaError, "quota_exceeded"),
+    (TomTomRateError, "rate_limited"),
     (TomTomAddressNotFound, "address_not_found"),
     (TomTomPointNotRoutable, "point_not_routable"),
     (TomTomNoRoute, "no_route"),
@@ -187,10 +194,29 @@ def _optional_section(defaults: dict | None = None):
     )
 
 
+def _kind_section(kind: str, flags: dict) -> section:
+    """A kind both sources answer: a section named after the kind, open,
+    with one switch per source - no switch for the kind itself. An entry
+    from before the switches existed shows both as the kind was: a kind
+    switched off stays off until somebody switches a source on."""
+    was = bool(flags.get(kind, True))
+    return section(
+        vol.Schema(
+            {
+                vol.Required(SOURCE_BLITZER, default=bool(flags.get(source_flag(kind, SOURCE_BLITZER), was))): bool,
+                vol.Required(SOURCE_LUFOP, default=bool(flags.get(source_flag(kind, SOURCE_LUFOP), was))): bool,
+            }
+        ),
+        {"collapsed": False},
+    )
+
+
 def _type_fields(data: dict | None) -> dict:
     data = data or {}
+    flags = data.get(CONF_CATEGORIES) or {}
     return {
-        **_flags_field(CONF_CATEGORIES, data.get(CONF_CATEGORIES), CATEGORY_DEFAULTS, "category"),
+        **_flags_field(CONF_CATEGORIES, flags, LIST_KIND_DEFAULTS, "category"),
+        **{vol.Required(f"kind_{kind}"): _kind_section(kind, flags) for kind in SHARED_SOURCE_KINDS},
         vol.Required("optional"): _optional_section(_optional_defaults(data)),
     }
 
@@ -211,8 +237,16 @@ def _optional_defaults(data: dict | None) -> dict:
 def _common_data(user_input: dict) -> dict:
     """Everything below the search geometry, out of a submitted form."""
     optional = user_input.get("optional", {})
+    flags = _as_flags(user_input.get(CONF_CATEGORIES), LIST_KIND_DEFAULTS)
+    for kind in SHARED_SOURCE_KINDS:
+        chosen = user_input.get(f"kind_{kind}") or {}
+        blitzer = bool(chosen.get(SOURCE_BLITZER, True))
+        lufop = bool(chosen.get(SOURCE_LUFOP, True))
+        flags[source_flag(kind, SOURCE_BLITZER)] = blitzer
+        flags[source_flag(kind, SOURCE_LUFOP)] = lufop
+        flags[kind] = blitzer or lufop
     return {
-        CONF_CATEGORIES: _as_flags(user_input.get(CONF_CATEGORIES), CATEGORY_DEFAULTS),
+        CONF_CATEGORIES: flags,
         CONF_ONLY_CERTAIN: optional.get(CONF_ONLY_CERTAIN, True),
         CONF_JAM_MIN_DELAY: optional.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY),
         CONF_COUNT: optional.get(CONF_COUNT, DEFAULT_COUNT),

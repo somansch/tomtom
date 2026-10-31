@@ -450,7 +450,7 @@ async def async_check_lufop_key(hass: HomeAssistant, api_key: str) -> dict:
                 raise LufopKeyError("lufop_cannot_connect", f"Lufop answered HTTP {response.status} to the key check")
             data = await response.json(content_type=None)
     except (ClientError, asyncio.TimeoutError, ValueError) as err:
-        raise LufopKeyError("lufop_cannot_connect", f"Lufop did not answer: {err}") from err
+        raise LufopKeyError("lufop_cannot_connect", f"Lufop did not answer: {str(err) or type(err).__name__}") from err
     if not isinstance(data, dict):
         raise LufopKeyError("lufop_cannot_connect", "Lufop said nothing about the key")
     return data
@@ -473,7 +473,7 @@ async def async_lufop_usage(hass: HomeAssistant, api_key: str) -> dict:
                 raise SourceError(f"Lufop answered HTTP {response.status} to the key document")
             data = await response.json(content_type=None)
     except (ClientError, asyncio.TimeoutError, ValueError) as err:
-        raise SourceError(f"Lufop did not answer: {err}") from err
+        raise SourceError(f"Lufop did not answer: {str(err) or type(err).__name__}") from err
     if not isinstance(data, dict):
         raise SourceError("Lufop said nothing about the key")
     usage = data.get("usage") if isinstance(data.get("usage"), dict) else {}
@@ -545,7 +545,7 @@ class LufopSource:
                     raise SourceError(f"Lufop answered HTTP {response.status}")
                 data = await response.json(content_type=None)
         except (ClientError, asyncio.TimeoutError, ValueError) as err:
-            raise SourceError(f"Lufop did not answer: {err}") from err
+            raise SourceError(f"Lufop did not answer: {str(err) or type(err).__name__}") from err
         # Nothing in range comes back as a bare null; an error as an object.
         if data is None:
             return []
@@ -704,7 +704,7 @@ class BlitzerSource:
                 response.raise_for_status()
                 body = await response.json(content_type=None)
         except (ClientError, asyncio.TimeoutError, ValueError) as err:
-            raise SourceError(f"blitzer.de did not answer: {err}") from err
+            raise SourceError(f"blitzer.de did not answer: {str(err) or type(err).__name__}") from err
         pois = (body or {}).get("pois") if isinstance(body, dict) else None
         return [p for p in pois or [] if isinstance(p, dict)]
 

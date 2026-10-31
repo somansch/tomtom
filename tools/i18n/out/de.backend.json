@@ -13,14 +13,18 @@
     "wind": "Wind",
     "flooding": "Überflutung",
     "unknown": "Unbekannt",
-    "camera_fixed": "Fester Blitzer (blitzer.de, Lufop)",
-    "camera_mobile": "Mobiler Blitzer (blitzer.de, Lufop)",
+    "camera_fixed": "Fester Blitzer",
+    "camera_mobile": "Mobiler Blitzer",
     "camera_trailer": "Anhängerblitzer (blitzer.de)",
-    "camera_redlight": "Ampelblitzer (blitzer.de, Lufop)",
-    "camera_section": "Abschnittskontrolle (blitzer.de, Lufop)",
+    "camera_redlight": "Ampelblitzer",
+    "camera_section": "Abschnittskontrolle",
     "check_distance": "Abstandskontrolle (blitzer.de)",
     "check_police": "Polizeikontrolle (blitzer.de)",
     "police_report": "Polizeimeldung (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Montag",
@@ -303,6 +307,7 @@
     "radius_too_large": "Der Radius darf höchstens 50 km sein - die größte Box, die TomTom in einer Anfrage beantwortet.",
     "invalid_api_key": "TomTom hat den API-Key nicht angenommen.",
     "quota_exceeded": "Das Kontingent dieses Keys bei TomTom ist vorerst aufgebraucht. Versuche es später noch einmal.",
+    "rate_limited": "TomTom lehnt gerade weitere Anfragen ab: mehr als seine Grenze an Anfragen pro Sekunde. Gleich noch einmal versuchen.",
     "address_not_found": "Zu dieser Adresse wurde kein Ort gefunden.",
     "point_not_routable": "Einer der Punkte liegt zu weit von einer Straße entfernt. Rücke ihn näher an eine heran.",
     "no_route": "TomTom hat keine Straße gefunden, die diese Punkte verbindet.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} liefert nicht",
     "description": "Der TomTom-Eintrag **{name}** ist bei {count} Abfragen in Folge gescheitert, seine Entitäten sind nicht verfügbar. Der letzte Grund:\n\n`{reason}`\n\nEin Tracker ohne Position oder eine Tracker-Entität, die es nicht mehr gibt, wird unter **Konfigurieren** des Eintrags behoben; ein abgelehnter Key unter **Konfigurieren** am Eintrag TomTom Einstellungen; ist TomTom selbst nicht erreichbar, verschwindet das von allein, sobald es wieder geht. Diese Reparatur erledigt sich mit der nächsten erfolgreichen Abfrage."
+  },
+  "sourceIssue": {
+    "title": "{source} antwortet nicht",
+    "description": "**{source}** ist bei {count} Abfragen in Folge gescheitert. Seine Meldungen gelten nicht mehr als aktuell: Sie fehlen auf den Karten, in den Entitäten und in den Blitzer-Zählern, bis es wieder antwortet, und `sources_ok` an den Sensoren **Alle Blitzer** und **Neue Blitzer** steht solange auf false. Der letzte Grund:\n\n`{reason}`\n\nblitzer.de sperrt außerdem eine Adresse, die zu oft fragt - mehrere Home-Assistant-Instanzen hinter einer Adresse zählen zusammen. Diese Reparatur erledigt sich mit der nächsten Abfrage, die es beantwortet."
   },
   "quotaIssue": {
     "title": "Die {api}-Anfragen des Monats werden knapp",

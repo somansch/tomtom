@@ -34,11 +34,11 @@
                 "wind": "Wind",
                 "flooding": "Überflutung",
                 "unknown": "Unbekannt",
-                "camera_fixed": "Fester Blitzer (blitzer.de, Lufop)",
-                "camera_mobile": "Mobiler Blitzer (blitzer.de, Lufop)",
+                "camera_fixed": "Fester Blitzer",
+                "camera_mobile": "Mobiler Blitzer",
                 "camera_trailer": "Anhängerblitzer (blitzer.de)",
-                "camera_redlight": "Ampelblitzer (blitzer.de, Lufop)",
-                "camera_section": "Abschnittskontrolle (blitzer.de, Lufop)",
+                "camera_redlight": "Ampelblitzer",
+                "camera_section": "Abschnittskontrolle",
                 "check_distance": "Abstandskontrolle (blitzer.de)",
                 "check_police": "Polizeikontrolle (blitzer.de)",
                 "police_report": "Polizeimeldung (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Meldungen"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Meldungen"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Nur wenn der Rückweg angelegt wird. Vorbelegt mit dem Namen dieses Eintrags und „Rückweg“; tippe einen anderen, um ihn anders zu nennen - „Heim“ und „Arbeit“ etwa."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Der Radius darf höchstens 50 km sein - die größte Box, die TomTom in einer Anfrage beantwortet.",
             "invalid_api_key": "TomTom hat den API-Key nicht angenommen.",
             "quota_exceeded": "Das Kontingent dieses Keys bei TomTom ist vorerst aufgebraucht. Versuche es später noch einmal.",
+            "rate_limited": "TomTom lehnt gerade weitere Anfragen ab: mehr als seine Grenze an Anfragen pro Sekunde. Gleich noch einmal versuchen.",
             "address_not_found": "Zu dieser Adresse wurde kein Ort gefunden.",
             "point_not_routable": "Einer der Punkte liegt zu weit von einer Straße entfernt. Rücke ihn näher an eine heran.",
             "no_route": "TomTom hat keine Straße gefunden, die diese Punkte verbindet.",
@@ -459,6 +572,34 @@
                     "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Meldungen"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Meldungen"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Meldungen"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fester Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiler Blitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Ampelblitzer",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Abschnittskontrolle",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optionale Einstellungen",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Der Radius darf höchstens 50 km sein - die größte Box, die TomTom in einer Anfrage beantwortet.",
             "invalid_api_key": "TomTom hat den API-Key nicht angenommen.",
             "quota_exceeded": "Das Kontingent dieses Keys bei TomTom ist vorerst aufgebraucht. Versuche es später noch einmal.",
+            "rate_limited": "TomTom lehnt gerade weitere Anfragen ab: mehr als seine Grenze an Anfragen pro Sekunde. Gleich noch einmal versuchen.",
             "address_not_found": "Zu dieser Adresse wurde kein Ort gefunden.",
             "point_not_routable": "Einer der Punkte liegt zu weit von einer Straße entfernt. Rücke ihn näher an eine heran.",
             "no_route": "TomTom hat keine Straße gefunden, die diese Punkte verbindet.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} liefert nicht",
             "description": "Der TomTom-Eintrag **{name}** ist bei {count} Abfragen in Folge gescheitert, seine Entitäten sind nicht verfügbar. Der letzte Grund:\n\n`{reason}`\n\nEin Tracker ohne Position oder eine Tracker-Entität, die es nicht mehr gibt, wird unter **Konfigurieren** des Eintrags behoben; ein abgelehnter Key unter **Konfigurieren** am Eintrag TomTom Einstellungen; ist TomTom selbst nicht erreichbar, verschwindet das von allein, sobald es wieder geht. Diese Reparatur erledigt sich mit der nächsten erfolgreichen Abfrage."
+        },
+        "source_failing": {
+            "title": "{source} antwortet nicht",
+            "description": "**{source}** ist bei {count} Abfragen in Folge gescheitert. Seine Meldungen gelten nicht mehr als aktuell: Sie fehlen auf den Karten, in den Entitäten und in den Blitzer-Zählern, bis es wieder antwortet, und `sources_ok` an den Sensoren **Alle Blitzer** und **Neue Blitzer** steht solange auf false. Der letzte Grund:\n\n`{reason}`\n\nblitzer.de sperrt außerdem eine Adresse, die zu oft fragt - mehrere Home-Assistant-Instanzen hinter einer Adresse zählen zusammen. Diese Reparatur erledigt sich mit der nächsten Abfrage, die es beantwortet."
         },
         "quota_at_risk": {
             "title": "Die {api}-Anfragen des Monats werden knapp",

@@ -34,11 +34,11 @@
                 "wind": "Wind",
                 "flooding": "Flooding",
                 "unknown": "Unknown",
-                "camera_fixed": "Fixed speed camera (blitzer.de, Lufop)",
-                "camera_mobile": "Mobile speed camera (blitzer.de, Lufop)",
+                "camera_fixed": "Fixed speed camera",
+                "camera_mobile": "Mobile speed camera",
                 "camera_trailer": "Speed camera trailer (blitzer.de)",
-                "camera_redlight": "Red-light camera (blitzer.de, Lufop)",
-                "camera_section": "Section control (blitzer.de, Lufop)",
+                "camera_redlight": "Red-light camera",
+                "camera_section": "Section control",
                 "check_distance": "Distance check (blitzer.de)",
                 "check_police": "Police check (blitzer.de)",
                 "police_report": "Police report (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "A second entry, destination to start - on a motorway the way back is the other carriageway, and a jam on one is not one on the other. Named after this entry, with \"return\" added."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Reports"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Reports"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Only used when the way back is created. Filled with this entry's name and \"return\" added; type another to call it something else - \"Home\" and \"Work\", say."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "The radius may be at most 50 km - the largest box TomTom answers in one request.",
             "invalid_api_key": "TomTom did not accept the API key.",
             "quota_exceeded": "The key's quota at TomTom is used up for now. Try again later.",
+            "rate_limited": "TomTom refuses more requests right now: more than its limit of requests a second. Try again in a moment.",
             "address_not_found": "No place was found for this address.",
             "point_not_routable": "One of the points is too far from a road. Move it closer to one.",
             "no_route": "TomTom found no road connecting these points.",
@@ -459,6 +572,34 @@
                     "return_route": "A second entry, destination to start - on a motorway the way back is the other carriageway, and a jam on one is not one on the other. Named after this entry, with \"return\" added."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Reports"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Reports"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Reports"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fixed speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobile speed camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Red-light camera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Section control",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Optional settings",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "The radius may be at most 50 km - the largest box TomTom answers in one request.",
             "invalid_api_key": "TomTom did not accept the API key.",
             "quota_exceeded": "The key's quota at TomTom is used up for now. Try again later.",
+            "rate_limited": "TomTom refuses more requests right now: more than its limit of requests a second. Try again in a moment.",
             "address_not_found": "No place was found for this address.",
             "point_not_routable": "One of the points is too far from a road. Move it closer to one.",
             "no_route": "TomTom found no road connecting these points.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} is not delivering",
             "description": "The TomTom entry **{name}** has failed {count} polls in a row, so its entities are unavailable. The last reason:\n\n`{reason}`\n\nA tracker without a position, or a tracker entity that no longer exists, is fixed under the entry's **Configure**; a refused key under **Configure** on the TomTom Settings entry; if TomTom itself cannot be reached, this clears on its own once it can. This repair goes away with the next poll that succeeds."
+        },
+        "source_failing": {
+            "title": "{source} is not answering",
+            "description": "**{source}** has failed {count} polls in a row. Its reports are no longer shown as current: they are gone from the cards, the entities and the speed camera counts until it answers again, and `sources_ok` on the **All speed cameras** and **New speed cameras** sensors reads false meanwhile. The last reason:\n\n`{reason}`\n\nblitzer.de also blocks an address that asks too often - several Home Assistant instances behind one address add up. This repair goes away with the next poll it answers."
         },
         "quota_at_risk": {
             "title": "The {api} requests of the month run low",

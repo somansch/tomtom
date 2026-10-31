@@ -268,6 +268,9 @@ class SensorSourceCount(CoordinatorEntity, SensorEntity):
         attrs = {
             "last_update": _iso(coordinator.last_update),
             "in_range": sum(1 for _ in self._items(everything=True)),
+            # False while a source does not answer; after three such
+            # polls its reports are gone from the count as well.
+            "sources_ok": coordinator.sources_ok,
         }
         if self._fresh:
             attrs["new_minutes"] = coordinator.new_minutes

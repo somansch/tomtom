@@ -13,7 +13,7 @@ import voluptuous as vol
 from homeassistant.components import websocket_api
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import CONF_LOCATION, Platform
-from homeassistant.core import HomeAssistant, ServiceCall, ServiceResponse, SupportsResponse
+from homeassistant.core import HomeAssistant, callback, ServiceCall, ServiceResponse, SupportsResponse
 from homeassistant.exceptions import ConfigEntryNotReady, ServiceValidationError
 from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.typing import ConfigType
@@ -21,7 +21,12 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 import homeassistant.helpers.config_validation as cv
 
 from .api import async_forget_key, async_get_usage
-from .bundle import CARD_RESOURCE_PATHS, async_install_blueprints, async_register_card
+from .bundle import (
+    CARD_RESOURCE_PATHS,
+    CARD_VERSION_KEY,
+    async_install_blueprints,
+    async_register_card,
+)
 from .const import (
     CONF_DEFAULT_START,
     ATTR_CONFIG_ENTRY_ID,
@@ -109,9 +114,23 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     await async_install_blueprints(hass)
     websocket_api.async_register_command(hass, websocket_route)
     websocket_api.async_register_command(hass, websocket_flow)
+    websocket_api.async_register_command(hass, websocket_card_version)
     async_register_planner(hass)
     hass.http.register_view(FlowTileView(hass))
     return True
+
+
+@websocket_api.websocket_command({vol.Required("type"): f"{DOMAIN}/card_version"})
+@callback
+def websocket_card_version(
+    hass: HomeAssistant, connection: websocket_api.ActiveConnection, msg: dict
+) -> None:
+    """The version the card is served under right now - what the loader in
+    an open page asks after Home Assistant has restarted, to fetch a newer
+    card into that page without anyone reloading it."""
+    connection.send_result(
+        msg["id"], {"version": (hass.data.get(DOMAIN) or {}).get(CARD_VERSION_KEY) or 0}
+    )
 
 
 @websocket_api.websocket_command({vol.Required("type"): f"{DOMAIN}/flow"})

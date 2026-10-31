@@ -18,6 +18,7 @@ from homeassistant.util import slugify
 
 from .api import (
     TomTomAuthError,
+    async_get_usage,
     TomTomClient,
     TomTomError,
     async_get_details_cache,
@@ -29,7 +30,9 @@ from .api import (
 )
 from .geo_location import describe_report
 from .route_match import RouteLine
+from .sources import SourceError, enabled_sources, merge_sources
 from .const import (
+    CATEGORIES,
     CATEGORY_DEFAULTS,
     CONF_BLACKLIST,
     CONF_CATEGORIES,
@@ -52,6 +55,7 @@ from .const import (
     LIVE_DAYS,
     MAX_ROUTE_VIAS,
     SEARCH_MODE_SETTINGS,
+    source_flag,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -183,6 +187,10 @@ async def websocket_plan(hass: HomeAssistant, connection: websocket_api.ActiveCo
     except TomTomError as err:
         _error(connection, msg, err)
         return
+    # The further sources' reports along the route - the cameras and checks
+    # a saved route would get - after TomTom's, which decide the preview.
+    reports += await _plan_source_reports(hass, route)
+    reports.sort(key=lambda r: r.get("distance") if r.get("distance") is not None else float("inf"))
     connection.send_result(msg["id"], {**_preview(route), "reports": reports})
 
 
@@ -193,6 +201,18 @@ def _preview(route: dict) -> dict:
         "duration": route.get("duration"),
         "duration_no_traffic": route.get("duration_no_traffic"),
         "delay": route.get("delay"),
+        # The traffic on the route, section by section with TomTom's
+        # magnitude of delay: what the card colours the line with.
+        "traffic": [
+            {
+                "points": [[round(lat, 6), round(lon, 6)] for lat, lon in s.get("points") or []],
+                "magnitude": s.get("magnitude"),
+                "delay": s.get("delay"),
+                "category": s.get("category"),
+            }
+            for s in route.get("sections") or []
+            if len(s.get("points") or []) > 1
+        ],
     }
 
 
@@ -250,27 +270,72 @@ async def _plan_reports(hass: HomeAssistant, client: TomTomClient, route: dict) 
             pending = [i for i in pending if i["short_id"] not in by_tail]
         for item in pending:
             cache.put(item["short_id"], None, now_iso, lang)
-    units = hass.config.units
     out: list[dict] = []
     for item in items:
         details = cache.details(item["short_id"])
         merged = merge_details(item, details) if details else item
         merged["first_seen"] = item["first_seen"]
-        name, icon, attrs = describe_report(language, units, merged, "")
-        metres = along(merged)
-        out.append(
-            {
-                "id": merged["id"],
-                "name": name,
-                "icon": icon,
-                "latitude": merged["lat"],
-                "longitude": merged["lng"],
-                "distance": units.length(metres, UnitOfLength.METERS) if line else None,
-                "unit": units.length_unit,
-                "attributes": attrs,
-            }
-        )
+        out.append(_plan_report_out(hass, merged, line))
     return out
+
+
+def _plan_report_out(hass: HomeAssistant, item: dict, line: RouteLine | None) -> dict:
+    """One report of the preview, worded like an entity's, with the way
+    along the route from its start."""
+    units = hass.config.units
+    name, icon, attrs = describe_report(hass.config.language, units, item, "")
+    metres = line.nearest((item["lat"], item["lng"]))[1] if line else 0.0
+    return {
+        "id": item["id"],
+        "name": name,
+        "icon": icon,
+        "latitude": item["lat"],
+        "longitude": item["lng"],
+        "distance": units.length(metres, UnitOfLength.METERS) if line else None,
+        "unit": units.length_unit,
+        "attributes": attrs,
+    }
+
+
+def _source_kinds(flags: dict, source: str) -> dict[str, bool]:
+    """The kinds one source is asked for, by the defaults for new routes:
+    the kind's switch, and under a kind both sources answer the switch for
+    this source - what the route gets once it is saved."""
+    return {
+        kind: bool(flags.get(kind, True)) and bool(flags.get(source_flag(kind, source), True))
+        for kind in CATEGORIES
+    }
+
+
+async def _plan_source_reports(hass: HomeAssistant, route: dict) -> list[dict]:
+    """The further sources' reports along the planned route - blitzer.de's
+    and Lufop's cameras and checks, where those are switched on - asked the
+    way a saved route asks for them, and counted on the settings entry. A
+    source that does not answer leaves the preview to TomTom's reports."""
+    points = [(float(lat), float(lon)) for lat, lon in route.get("points") or []]
+    if len(points) < 2:
+        return []
+    try:
+        sources = enabled_sources(hass, await async_get_usage(hass))
+    except Exception as err:  # noqa: BLE001 - the preview must not fall over a source
+        _LOGGER.debug("plan: sources not available: %s", err)
+        return []
+    if not sources:
+        return []
+    flags = route_defaults(hass)[CONF_CATEGORIES]
+    settings = settings_entry(hass)
+    entry_id = settings.entry_id if settings else None
+    language = hass.config.language
+    found: list[dict] = []
+    for source in sources:
+        try:
+            found.extend(await source.fetch_route(entry_id, points, _source_kinds(flags, source.key), language))
+        except SourceError as err:
+            _LOGGER.debug("plan: %s did not answer: %s", source.key, err)
+    if not found:
+        return []
+    line = RouteLine(points)
+    return [_plan_report_out(hass, item, line) for item in merge_sources(found)]
 
 
 @websocket_api.websocket_command(
