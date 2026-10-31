@@ -34,11 +34,11 @@
                 "wind": "Vent",
                 "flooding": "Inondation",
                 "unknown": "Inconnu",
-                "camera_fixed": "Radar fixe (blitzer.de, Lufop)",
-                "camera_mobile": "Radar mobile (blitzer.de, Lufop)",
+                "camera_fixed": "Radar fixe",
+                "camera_mobile": "Radar mobile",
                 "camera_trailer": "Remorque radar (blitzer.de)",
-                "camera_redlight": "Radar feu rouge (blitzer.de, Lufop)",
-                "camera_section": "Radar tronçon (blitzer.de, Lufop)",
+                "camera_redlight": "Radar feu rouge",
+                "camera_section": "Radar tronçon",
                 "check_distance": "Contrôle de distance (blitzer.de)",
                 "check_police": "Contrôle de police (blitzer.de)",
                 "police_report": "Message de la police (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Une seconde entrée, de la destination au départ - sur autoroute, le retour est l'autre chaussée, et un bouchon sur l'une n'en est pas un sur l'autre. Nommée comme cette entrée, avec « retour » ajouté."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Signalements"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Signalements"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Utilisé seulement si le retour est créé. Prérempli avec le nom de cette entrée et « retour » ajouté ; tapez-en un autre pour l'appeler autrement - « Maison » et « Travail », par exemple."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Le rayon ne peut pas dépasser 50 km - la plus grande boîte à laquelle TomTom répond en une seule requête.",
             "invalid_api_key": "TomTom n'a pas accepté la clé API.",
             "quota_exceeded": "Le quota de cette clé chez TomTom est épuisé pour l'instant. Réessayez plus tard.",
+            "rate_limited": "TomTom refuse d'autres requêtes pour l'instant : plus que sa limite de requêtes par seconde. Réessayez dans un instant.",
             "address_not_found": "Aucun lieu trouvé pour cette adresse.",
             "point_not_routable": "L'un des points est trop loin d'une route. Rapprochez-le d'une route.",
             "no_route": "TomTom n'a trouvé aucune route reliant ces points.",
@@ -459,6 +572,34 @@
                     "return_route": "Une seconde entrée, de la destination au départ - sur autoroute, le retour est l'autre chaussée, et un bouchon sur l'une n'en est pas un sur l'autre. Nommée comme cette entrée, avec « retour » ajouté."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Signalements"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Signalements"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Signalements"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fixe",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar feu rouge",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar tronçon",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Paramètres facultatifs",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Le rayon ne peut pas dépasser 50 km - la plus grande boîte à laquelle TomTom répond en une seule requête.",
             "invalid_api_key": "TomTom n'a pas accepté la clé API.",
             "quota_exceeded": "Le quota de cette clé chez TomTom est épuisé pour l'instant. Réessayez plus tard.",
+            "rate_limited": "TomTom refuse d'autres requêtes pour l'instant : plus que sa limite de requêtes par seconde. Réessayez dans un instant.",
             "address_not_found": "Aucun lieu trouvé pour cette adresse.",
             "point_not_routable": "L'un des points est trop loin d'une route. Rapprochez-le d'une route.",
             "no_route": "TomTom n'a trouvé aucune route reliant ces points.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} ne livre plus",
             "description": "L'entrée TomTom **{name}** a échoué {count} interrogations d'affilée, ses entités sont donc indisponibles. La dernière raison :\n\n`{reason}`\n\nUn traqueur sans position, ou une entité de traqueur qui n'existe plus, se corrige sous **Configurer** de l'entrée ; une clé refusée sous **Configurer** de l'entrée TomTom Paramètres ; si TomTom lui-même est injoignable, cela se résout de soi-même dès qu'il l'est à nouveau. Cette réparation disparaît avec la prochaine interrogation réussie."
+        },
+        "source_failing": {
+            "title": "{source} ne répond pas",
+            "description": "**{source}** a échoué {count} interrogations d'affilée. Ses signalements ne sont plus affichés comme actuels : ils disparaissent des cartes, des entités et des comptes de radars jusqu'à ce qu'elle réponde à nouveau, et `sources_ok` sur les capteurs **Tous les radars** et **Nouveaux radars** vaut false entre-temps. La dernière raison :\n\n`{reason}`\n\nblitzer.de bloque aussi une adresse qui demande trop souvent - plusieurs instances Home Assistant derrière une même adresse s'additionnent. Cette réparation disparaît avec la prochaine interrogation à laquelle elle répond."
         },
         "quota_at_risk": {
             "title": "Les requêtes {api} du mois se raréfient",

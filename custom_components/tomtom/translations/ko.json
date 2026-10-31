@@ -34,11 +34,11 @@
                 "wind": "강풍",
                 "flooding": "침수",
                 "unknown": "알 수 없음",
-                "camera_fixed": "고정식 과속 단속 카메라 (blitzer.de, Lufop)",
-                "camera_mobile": "이동식 과속 단속 카메라 (blitzer.de, Lufop)",
+                "camera_fixed": "고정식 과속 단속 카메라",
+                "camera_mobile": "이동식 과속 단속 카메라",
                 "camera_trailer": "트레일러형 과속 단속 카메라 (blitzer.de)",
-                "camera_redlight": "신호 위반 단속 카메라 (blitzer.de, Lufop)",
-                "camera_section": "구간 단속 (blitzer.de, Lufop)",
+                "camera_redlight": "신호 위반 단속 카메라",
+                "camera_section": "구간 단속",
                 "check_distance": "차간 거리 단속 (blitzer.de)",
                 "check_police": "경찰 검문 (blitzer.de)",
                 "police_report": "경찰 교통 정보 (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "목적지에서 출발지로 가는 두 번째 항목. 고속도로에서 돌아오는 길은 반대편 차도이며, 한쪽의 정체가 다른 쪽의 정체는 아닙니다. 이 항목의 이름 뒤에 \"복귀\"를 붙여 이름 짓습니다."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "교통 정보"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "교통 정보"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "돌아오는 경로를 만들 때만 사용됩니다. 이 항목의 이름에 \"복귀\"를 붙여 채워집니다. 다른 이름을 입력하면 그 이름으로 부릅니다. 예를 들어 \"집\"과 \"회사\"."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "반경은 최대 50 km입니다. TomTom이 한 번의 요청에 답하는 가장 큰 범위입니다.",
             "invalid_api_key": "TomTom이 API 키를 받아들이지 않았습니다.",
             "quota_exceeded": "이 키의 TomTom 할당량이 지금은 소진되었습니다. 나중에 다시 시도하세요.",
+            "rate_limited": "TomTom이 지금은 추가 요청을 거부합니다: 초당 요청 한도를 넘었습니다. 잠시 후 다시 시도하세요.",
             "address_not_found": "이 주소로 찾은 위치가 없습니다.",
             "point_not_routable": "지점 중 하나가 도로에서 너무 멉니다. 도로 가까이로 옮기세요.",
             "no_route": "TomTom이 이 지점들을 잇는 도로를 찾지 못했습니다.",
@@ -459,6 +572,34 @@
                     "return_route": "목적지에서 출발지로 가는 두 번째 항목. 고속도로에서 돌아오는 길은 반대편 차도이며, 한쪽의 정체가 다른 쪽의 정체는 아닙니다. 이 항목의 이름 뒤에 \"복귀\"를 붙여 이름 짓습니다."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "교통 정보"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "교통 정보"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "교통 정보"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "고정식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "이동식 과속 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "신호 위반 단속 카메라",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "구간 단속",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "선택 설정",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "반경은 최대 50 km입니다. TomTom이 한 번의 요청에 답하는 가장 큰 범위입니다.",
             "invalid_api_key": "TomTom이 API 키를 받아들이지 않았습니다.",
             "quota_exceeded": "이 키의 TomTom 할당량이 지금은 소진되었습니다. 나중에 다시 시도하세요.",
+            "rate_limited": "TomTom이 지금은 추가 요청을 거부합니다: 초당 요청 한도를 넘었습니다. 잠시 후 다시 시도하세요.",
             "address_not_found": "이 주소로 찾은 위치가 없습니다.",
             "point_not_routable": "지점 중 하나가 도로에서 너무 멉니다. 도로 가까이로 옮기세요.",
             "no_route": "TomTom이 이 지점들을 잇는 도로를 찾지 못했습니다.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name}이(가) 응답하지 않음",
             "description": "TomTom 항목 **{name}**이(가) {count}번 연속 조회에 실패하여 엔티티를 사용할 수 없습니다. 마지막 원인:\n\n`{reason}`\n\n위치가 없는 추적기나 더 이상 없는 추적기 엔티티는 항목의 **구성**에서, 거부된 키는 TomTom 설정 항목의 **구성**에서 고칠 수 있습니다. TomTom 자체에 연결할 수 없는 경우라면 다시 연결되는 대로 저절로 해결됩니다. 이 수리 항목은 다음 조회가 성공하면 사라집니다."
+        },
+        "source_failing": {
+            "title": "{source}이(가) 응답하지 않음",
+            "description": "**{source}**이(가) {count}번 연속 조회에 실패했습니다. 그 제보는 더 이상 최신으로 표시되지 않습니다: 다시 응답할 때까지 카드, 엔티티, 과속 단속 카메라 집계에서 빠지며, 그동안 **모든 과속 단속 카메라**와 **새 과속 단속 카메라** 센서의 `sources_ok`는 false입니다. 마지막 원인:\n\n`{reason}`\n\nblitzer.de는 또한 너무 자주 묻는 주소를 차단합니다 - 한 주소 뒤의 여러 Home Assistant 인스턴스는 합산됩니다. 이 수리 항목은 응답하는 다음 조회가 있으면 사라집니다."
         },
         "quota_at_risk": {
             "title": "이달의 {api} 요청이 얼마 남지 않았습니다",

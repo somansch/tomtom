@@ -34,11 +34,11 @@
                 "wind": "Vento",
                 "flooding": "Allagamento",
                 "unknown": "Sconosciuto",
-                "camera_fixed": "Autovelox fisso (blitzer.de, Lufop)",
-                "camera_mobile": "Autovelox mobile (blitzer.de, Lufop)",
+                "camera_fixed": "Autovelox fisso",
+                "camera_mobile": "Autovelox mobile",
                 "camera_trailer": "Autovelox su rimorchio (blitzer.de)",
-                "camera_redlight": "Telecamera semaforica (blitzer.de, Lufop)",
-                "camera_section": "Controllo velocità media (blitzer.de, Lufop)",
+                "camera_redlight": "Telecamera semaforica",
+                "camera_section": "Controllo velocità media",
                 "check_distance": "Controllo distanza (blitzer.de)",
                 "check_police": "Controllo di polizia (blitzer.de)",
                 "police_report": "Comunicato della polizia (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Una seconda voce, da destinazione a partenza - in autostrada il ritorno è l'altra carreggiata, e una coda su una non lo è sull'altra. Chiamata come questa voce, con \"ritorno\" aggiunto."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Segnalazioni"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Segnalazioni"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Usato solo quando viene creato il ritorno. Precompilato con il nome di questa voce e \"ritorno\" aggiunto; scrivine un altro per chiamarlo diversamente - \"Casa\" e \"Lavoro\", per esempio."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Il raggio può essere al massimo 50 km - il riquadro più grande a cui TomTom risponde in una sola richiesta.",
             "invalid_api_key": "TomTom non ha accettato la chiave API.",
             "quota_exceeded": "La quota della chiave presso TomTom è esaurita per ora. Riprova più tardi.",
+            "rate_limited": "TomTom rifiuta altre richieste in questo momento: più del suo limite di richieste al secondo. Riprova tra un attimo.",
             "address_not_found": "Nessun luogo trovato per questo indirizzo.",
             "point_not_routable": "Uno dei punti è troppo lontano da una strada. Avvicinalo a una.",
             "no_route": "TomTom non ha trovato una strada che colleghi questi punti.",
@@ -459,6 +572,34 @@
                     "return_route": "Una seconda voce, da destinazione a partenza - in autostrada il ritorno è l'altra carreggiata, e una coda su una non lo è sull'altra. Chiamata come questa voce, con \"ritorno\" aggiunto."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Segnalazioni"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Segnalazioni"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Segnalazioni"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Autovelox fisso",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Autovelox mobile",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Telecamera semaforica",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Controllo velocità media",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Impostazioni opzionali",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Il raggio può essere al massimo 50 km - il riquadro più grande a cui TomTom risponde in una sola richiesta.",
             "invalid_api_key": "TomTom non ha accettato la chiave API.",
             "quota_exceeded": "La quota della chiave presso TomTom è esaurita per ora. Riprova più tardi.",
+            "rate_limited": "TomTom rifiuta altre richieste in questo momento: più del suo limite di richieste al secondo. Riprova tra un attimo.",
             "address_not_found": "Nessun luogo trovato per questo indirizzo.",
             "point_not_routable": "Uno dei punti è troppo lontano da una strada. Avvicinalo a una.",
             "no_route": "TomTom non ha trovato una strada che colleghi questi punti.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} non fornisce dati",
             "description": "La voce TomTom **{name}** ha fallito {count} interrogazioni di seguito, quindi le sue entità non sono disponibili. L'ultimo motivo:\n\n`{reason}`\n\nUn tracciatore senza posizione, o un'entità tracciatore che non esiste più, si corregge in **Configura** della voce; una chiave rifiutata in **Configura** sulla voce TomTom Impostazioni; se TomTom stesso non è raggiungibile, si risolve da solo appena lo è di nuovo. Questa riparazione sparisce con la prossima interrogazione riuscita."
+        },
+        "source_failing": {
+            "title": "{source} non risponde",
+            "description": "**{source}** ha fallito {count} interrogazioni di seguito. Le sue segnalazioni non sono più mostrate come attuali: spariscono dalle schede, dalle entità e dai conteggi degli autovelox finché non risponde di nuovo, e `sources_ok` sui sensori **Tutti gli autovelox** e **Nuovi autovelox** nel frattempo vale false. L'ultimo motivo:\n\n`{reason}`\n\nblitzer.de blocca inoltre un indirizzo che chiede troppo spesso - più istanze di Home Assistant dietro un solo indirizzo si sommano. Questa riparazione sparisce con la prossima interrogazione a cui risponde."
         },
         "quota_at_risk": {
             "title": "Le richieste {api} del mese scarseggiano",

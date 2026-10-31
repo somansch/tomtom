@@ -34,11 +34,11 @@
                 "wind": "Szél",
                 "flooding": "Áradás",
                 "unknown": "Ismeretlen",
-                "camera_fixed": "Fix traffipax (blitzer.de, Lufop)",
-                "camera_mobile": "Mobil traffipax (blitzer.de, Lufop)",
+                "camera_fixed": "Fix traffipax",
+                "camera_mobile": "Mobil traffipax",
                 "camera_trailer": "Utánfutós traffipax (blitzer.de)",
-                "camera_redlight": "Piroslámpa-kamera (blitzer.de, Lufop)",
-                "camera_section": "Szakaszos sebességmérés (blitzer.de, Lufop)",
+                "camera_redlight": "Piroslámpa-kamera",
+                "camera_section": "Szakaszos sebességmérés",
                 "check_distance": "Követési távolság ellenőrzése (blitzer.de)",
                 "check_police": "Rendőri ellenőrzés (blitzer.de)",
                 "police_report": "Rendőrségi közlemény (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Egy második bejegyzés, a céltól az indulásig - autópályán a visszaút a másik pálya, és az egyiken lévő dugó nem dugó a másikon. E bejegyzés nevét kapja, „vissza” hozzáfűzve."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Jelentések"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Jelentések"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Csak akkor használt, ha a visszaút létrejön. E bejegyzés nevével és a hozzáfűzött „vissza” szóval van kitöltve; írj másikat, hogy máshogy hívd - például „Otthon” és „Munka”."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "A sugár legfeljebb 50 km lehet - ez a legnagyobb doboz, amelyre a TomTom egy kéréssel válaszol.",
             "invalid_api_key": "A TomTom nem fogadta el az API-kulcsot.",
             "quota_exceeded": "A kulcs TomTom-kvótája egyelőre elfogyott. Próbáld újra később.",
+            "rate_limited": "A TomTom most elutasítja a további kéréseket: több a másodpercenkénti kéréskorlátjánál. Próbáld újra egy pillanat múlva.",
             "address_not_found": "Ehhez a címhez nem található hely.",
             "point_not_routable": "Az egyik pont túl messze van az úttól. Vidd közelebb egy úthoz.",
             "no_route": "A TomTom nem talált utat, amely összeköti ezeket a pontokat.",
@@ -459,6 +572,34 @@
                     "return_route": "Egy második bejegyzés, a céltól az indulásig - autópályán a visszaút a másik pálya, és az egyiken lévő dugó nem dugó a másikon. E bejegyzés nevét kapja, „vissza” hozzáfűzve."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Jelentések"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Jelentések"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Jelentések"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fix traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil traffipax",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Piroslámpa-kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Szakaszos sebességmérés",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Választható beállítások",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "A sugár legfeljebb 50 km lehet - ez a legnagyobb doboz, amelyre a TomTom egy kéréssel válaszol.",
             "invalid_api_key": "A TomTom nem fogadta el az API-kulcsot.",
             "quota_exceeded": "A kulcs TomTom-kvótája egyelőre elfogyott. Próbáld újra később.",
+            "rate_limited": "A TomTom most elutasítja a további kéréseket: több a másodpercenkénti kéréskorlátjánál. Próbáld újra egy pillanat múlva.",
             "address_not_found": "Ehhez a címhez nem található hely.",
             "point_not_routable": "Az egyik pont túl messze van az úttól. Vidd közelebb egy úthoz.",
             "no_route": "A TomTom nem talált utat, amely összeköti ezeket a pontokat.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} nem szolgáltat",
             "description": "A(z) **{name}** TomTom-bejegyzés {count} lekérdezésnél bukott el egymás után, ezért az entitásai nem elérhetők. Az utolsó ok:\n\n`{reason}`\n\nA pozíció nélküli nyomkövető, vagy a már nem létező nyomkövető-entitás a bejegyzés **Konfigurálás** gombja alatt javítható; az elutasított kulcs a TomTom Beállítások bejegyzés **Konfigurálás** gombja alatt; ha maga a TomTom nem érhető el, ez magától megszűnik, amint újra elérhető. Ez a javítás a következő sikeres lekérdezéssel eltűnik."
+        },
+        "source_failing": {
+            "title": "{source} nem válaszol",
+            "description": "A(z) **{source}** {count} lekérdezésnél bukott el egymás után. A jelentései már nem számítanak aktuálisnak: hiányoznak a kártyákról, az entitásokból és a traffipax-számlálókból, amíg újra nem válaszol, és a `sources_ok` az **Összes traffipax** és az **Új traffipaxok** szenzorokon addig false. Az utolsó ok:\n\n`{reason}`\n\nA blitzer.de ráadásul letiltja azt a címet, amely túl gyakran kérdez - több Home Assistant-példány egy cím mögött összeadódik. Ez a javítás a következő lekérdezéssel eltűnik, amelyre válaszol."
         },
         "quota_at_risk": {
             "title": "A havi {api} kérések fogytán vannak",

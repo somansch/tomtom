@@ -13,14 +13,18 @@
     "wind": "רוח",
     "flooding": "הצפה",
     "unknown": "לא ידוע",
-    "camera_fixed": "מצלמת מהירות קבועה (blitzer.de, Lufop)",
-    "camera_mobile": "מצלמת מהירות ניידת (blitzer.de, Lufop)",
+    "camera_fixed": "מצלמת מהירות קבועה",
+    "camera_mobile": "מצלמת מהירות ניידת",
     "camera_trailer": "נגרר מצלמת מהירות (blitzer.de)",
-    "camera_redlight": "מצלמת רמזור (blitzer.de, Lufop)",
-    "camera_section": "אכיפת מהירות ממוצעת (blitzer.de, Lufop)",
+    "camera_redlight": "מצלמת רמזור",
+    "camera_section": "אכיפת מהירות ממוצעת",
     "check_distance": "אכיפת שמירת מרחק (blitzer.de)",
     "check_police": "ביקורת משטרה (blitzer.de)",
     "police_report": "הודעת משטרה (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "יום שני",
@@ -303,6 +307,7 @@
     "radius_too_large": "הרדיוס יכול להיות לכל היותר 50 ק״מ - התיבה הגדולה ביותר ש-TomTom עונה עליה בבקשה אחת.",
     "invalid_api_key": "TomTom לא קיבלה את מפתח ה-API.",
     "quota_exceeded": "מכסת המפתח ב-TomTom נוצלה לעת עתה. נסה שוב מאוחר יותר.",
+    "rate_limited": "TomTom מסרבת כרגע לבקשות נוספות: יותר ממגבלת הבקשות לשנייה שלה. נסה שוב בעוד רגע.",
     "address_not_found": "לא נמצא מקום לכתובת זו.",
     "point_not_routable": "אחת הנקודות רחוקה מדי מכביש. קרב אותה לאחד.",
     "no_route": "TomTom לא מצאה כביש שמחבר בין הנקודות האלה.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} לא מספק נתונים",
     "description": "רשומת TomTom **{name}** נכשלה ב-{count} תשאולים ברצף, ולכן הישויות שלה אינן זמינות. הסיבה האחרונה:\n\n`{reason}`\n\nגשש בלי מיקום, או ישות גשש שכבר לא קיימת, מתוקנים תחת **הגדרה** של הרשומה; מפתח שנדחה תחת **הגדרה** ברשומת TomTom הגדרות; אם אי אפשר להגיע ל-TomTom עצמה, זה מתנקה מעצמו ברגע שאפשר. התיקון הזה נעלם עם התשאול הבא שמצליח."
+  },
+  "sourceIssue": {
+    "title": "{source} לא עונה",
+    "description": "**{source}** נכשל ב-{count} תשאולים ברצף. הדיווחים שלו כבר לא מוצגים כעדכניים: הם נעלמים מהכרטיסים, מהישויות ומהמונים של מצלמות המהירות עד שהוא עונה שוב, ו-`sources_ok` בחיישנים **כל מצלמות המהירות** ו**מצלמות מהירות חדשות** עומד בינתיים על false. הסיבה האחרונה:\n\n`{reason}`\n\nblitzer.de גם חוסם כתובת ששואלת לעיתים קרובות מדי - כמה מופעי Home Assistant מאחורי כתובת אחת מצטברים. התיקון הזה נעלם עם התשאול הבא שהוא עונה עליו."
   },
   "quotaIssue": {
     "title": "בקשות {api} של החודש אוזלות",

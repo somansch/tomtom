@@ -13,14 +13,18 @@
     "wind": "Vânt",
     "flooding": "Inundație",
     "unknown": "Necunoscut",
-    "camera_fixed": "Radar fix (blitzer.de, Lufop)",
-    "camera_mobile": "Radar mobil (blitzer.de, Lufop)",
+    "camera_fixed": "Radar fix",
+    "camera_mobile": "Radar mobil",
     "camera_trailer": "Radar pe remorcă (blitzer.de)",
-    "camera_redlight": "Cameră de semafor (blitzer.de, Lufop)",
-    "camera_section": "Control de viteză medie (blitzer.de, Lufop)",
+    "camera_redlight": "Cameră de semafor",
+    "camera_section": "Control de viteză medie",
     "check_distance": "Control de distanță (blitzer.de)",
     "check_police": "Control polițienesc (blitzer.de)",
     "police_report": "Anunț al poliției (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Luni",
@@ -303,6 +307,7 @@
     "radius_too_large": "Raza poate fi de cel mult 50 km - cea mai mare suprafață la care TomTom răspunde într-o singură cerere.",
     "invalid_api_key": "TomTom nu a acceptat cheia API.",
     "quota_exceeded": "Cota cheii la TomTom este epuizată deocamdată. Încearcă din nou mai târziu.",
+    "rate_limited": "TomTom refuză deocamdată alte cereri: mai multe decât limita sa de cereri pe secundă. Încearcă din nou peste o clipă.",
     "address_not_found": "Nu s-a găsit niciun loc pentru această adresă.",
     "point_not_routable": "Unul dintre puncte este prea departe de un drum. Mută-l mai aproape de unul.",
     "no_route": "TomTom nu a găsit niciun drum care să lege aceste puncte.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} nu livrează",
     "description": "Intrarea TomTom **{name}** a eșuat la {count} interogări la rând, așa că entitățile ei sunt indisponibile. Ultimul motiv:\n\n`{reason}`\n\nUn tracker fără poziție sau o entitate de tracker care nu mai există se rezolvă din **Configurare** pe intrare; o cheie refuzată din **Configurare** pe intrarea TomTom Setări; dacă TomTom însuși nu poate fi contactat, aceasta se rezolvă singură de îndată ce poate. Această reparație dispare la următoarea interogare reușită."
+  },
+  "sourceIssue": {
+    "title": "{source} nu răspunde",
+    "description": "**{source}** a eșuat la {count} interogări la rând. Rapoartele sale nu mai sunt afișate ca actuale: lipsesc de pe carduri, din entități și din numărul de radare până când răspunde din nou, iar `sources_ok` de pe senzorii **Toate radarele** și **Radare noi** arată între timp false. Ultimul motiv:\n\n`{reason}`\n\nblitzer.de blochează și o adresă care întreabă prea des - mai multe instanțe Home Assistant din spatele aceleiași adrese se adună. Această reparație dispare la următoarea interogare la care răspunde."
   },
   "quotaIssue": {
     "title": "Cererile {api} ale lunii se împuținează",

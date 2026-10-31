@@ -479,8 +479,6 @@
       edMapGoogle: "Show the Google Maps button",
       edMapGoogleHelp: "A button top right on the map that opens the entry in Google Maps: a route with its start, stops and destination in the route planner, an area or a tracker at its centre. In the minimal format on the pop-up's map.",
       googleOpen: "Open in Google Maps",
-      edTestSwitch: "Test switch (beta)",
-      edTestSwitchHelp: "Only here to show that an update reaches a page that is already open: it does nothing and goes away with the release.",
       edMapAlways: "Keep the map when nothing is reported",
       edMapAlwaysHelp: "Keeps the map while nothing is reported, fitted to the area or route. Off takes it down until something is reported.",
       liveTime: (minutes, delay) => (delay > 0 ? `${minutes} min (+${delay})` : `${minutes} min`),
@@ -553,7 +551,8 @@
       planSave: "Save as route",
       planDiscard: "Discard",
       planName: "Name of the route",
-      planReports: (n) => `${n} reports`,
+      planReports: (n) => (n === 1 ? `${n} report` : `${n} reports`),
+      planReportsOne: (n) => `${n} report`,
       planBusy: "Asking TomTom …",
       planNeedPlaces: "Pick a start and a destination first.",
       planNameTaken: "An entry of that name exists already.",
@@ -595,7 +594,7 @@
   // A language file is plain strings: the few that the English table keeps
   // as functions are templates there, filled in here, and the time
   // formatters are built from the file's two unit words.
-  function wrap(flat) {
+  function wrap(flat, code) {
     const table = { ...flat };
     const fill = (tpl, vars) => String(tpl).replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
     for (const key of [
@@ -612,6 +611,17 @@
     table.travelTimeShort = (n) =>
       n < 60 ? `${n} ${min}` : `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")} ${hour}`;
     table.liveTime = (minutes, delay) => (delay > 0 ? `${minutes} ${min} (+${delay})` : `${minutes} ${min}`);
+    // A count with a singular of its own: the language's plural rule says
+    // when it applies - for one in English, for nought and one in French.
+    let plural = null;
+    try {
+      plural = new Intl.PluralRules(code);
+    } catch (err) {
+      plural = null;
+    }
+    const one = (n) => (plural ? plural.select(n) === "one" : n === 1);
+    table.planReportsOne = (n) => fill(flat.planReportsOne || flat.planReports, { n });
+    table.planReports = (n) => fill(one(n) && flat.planReportsOne ? flat.planReportsOne : flat.planReports, { n });
     // Anything the file lacks falls back to English rather than to a hole.
     for (const [key, value] of Object.entries(STRINGS.en)) {
       if (!(key in table)) table[key] = value;
@@ -644,7 +654,7 @@
       .then((response) => (response.ok ? response.json() : null))
       .then((flat) => {
         if (flat && typeof flat === "object") {
-          LOADED[code] = wrap(flat);
+          LOADED[code] = wrap(flat, code);
           // Every card and editor on the page redraws in the new words.
           window.dispatchEvent(new Event(LANGUAGE_EVENT));
         }
@@ -1023,8 +1033,6 @@
     map_scale: true,
     // A button top right on the map that opens the entry in Google Maps.
     map_google: false,
-    // The beta's test switch: in the editor to be seen, nowhere else.
-    test_switch: false,
     map_traffic: true,
     // TomTom's flow tiles: which of its colourings, and how solid.
     traffic_style: "relative0",
@@ -7514,10 +7522,6 @@
               { value: "minimal", label: str.layoutMinimal },
             ]))
         );
-        // The beta's test switch, right under the format so that it is the
-        // first thing to notice: it exists to show that an update reaches
-        // a page that is already open, and does nothing.
-        body.appendChild(this._toggleRow("test_switch", str.edTestSwitch, str.edTestSwitchHelp));
         // "Hide" sits on the title's own label line rather than on a row of
         // its own: it is not a second setting but the same one, saying that
         // whatever the field below holds is not to be drawn.

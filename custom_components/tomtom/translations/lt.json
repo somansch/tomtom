@@ -34,11 +34,11 @@
                 "wind": "Vėjas",
                 "flooding": "Potvynis",
                 "unknown": "Nežinoma",
-                "camera_fixed": "Stacionarus greičio matuoklis (blitzer.de, Lufop)",
-                "camera_mobile": "Mobilusis greičio matuoklis (blitzer.de, Lufop)",
+                "camera_fixed": "Stacionarus greičio matuoklis",
+                "camera_mobile": "Mobilusis greičio matuoklis",
                 "camera_trailer": "Greičio matuoklio priekaba (blitzer.de)",
-                "camera_redlight": "Raudonos šviesos kamera (blitzer.de, Lufop)",
-                "camera_section": "Vidutinio greičio matavimas (blitzer.de, Lufop)",
+                "camera_redlight": "Raudonos šviesos kamera",
+                "camera_section": "Vidutinio greičio matavimas",
                 "check_distance": "Atstumo patikra (blitzer.de)",
                 "check_police": "Policijos patikra (blitzer.de)",
                 "police_report": "Policijos pranešimas (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Antras įrašas, nuo tikslo iki pradžios – automagistralėje kelias atgal yra kita važiuojamoji dalis, o spūstis vienoje nėra spūstis kitoje. Pavadintas kaip šis įrašas, pridėjus „atgal“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Pranešimai"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Pranešimai"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Naudojamas tik tada, kai kuriamas kelias atgal. Užpildytas šio įrašo pavadinimu ir pridėtu „atgal“; įveskite kitą, kad pavadintumėte kitaip – pavyzdžiui, „Namo“ ir „Į darbą“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Spindulys gali būti ne didesnis kaip 50 km – didžiausias stačiakampis, į kurį TomTom atsako viena užklausa.",
             "invalid_api_key": "TomTom nepriėmė API rakto.",
             "quota_exceeded": "Šio rakto kvota TomTom kol kas išnaudota. Pabandykite vėliau.",
+            "rate_limited": "TomTom šiuo metu atmeta tolesnes užklausas: viršyta jo užklausų per sekundę riba. Pabandykite po akimirkos.",
             "address_not_found": "Šiuo adresu vietos nerasta.",
             "point_not_routable": "Vienas iš taškų per toli nuo kelio. Perkelkite jį arčiau.",
             "no_route": "TomTom nerado kelio, jungiančio šiuos taškus.",
@@ -459,6 +572,34 @@
                     "return_route": "Antras įrašas, nuo tikslo iki pradžios – automagistralėje kelias atgal yra kita važiuojamoji dalis, o spūstis vienoje nėra spūstis kitoje. Pavadintas kaip šis įrašas, pridėjus „atgal“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Pranešimai"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Pranešimai"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Pranešimai"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionarus greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilusis greičio matuoklis",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Raudonos šviesos kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidutinio greičio matavimas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildomi nustatymai",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Spindulys gali būti ne didesnis kaip 50 km – didžiausias stačiakampis, į kurį TomTom atsako viena užklausa.",
             "invalid_api_key": "TomTom nepriėmė API rakto.",
             "quota_exceeded": "Šio rakto kvota TomTom kol kas išnaudota. Pabandykite vėliau.",
+            "rate_limited": "TomTom šiuo metu atmeta tolesnes užklausas: viršyta jo užklausų per sekundę riba. Pabandykite po akimirkos.",
             "address_not_found": "Šiuo adresu vietos nerasta.",
             "point_not_routable": "Vienas iš taškų per toli nuo kelio. Perkelkite jį arčiau.",
             "no_route": "TomTom nerado kelio, jungiančio šiuos taškus.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} nebeteikia duomenų",
             "description": "TomTom įrašo **{name}** {count} užklausos iš eilės nepavyko, todėl jo objektai nepasiekiami. Paskutinė priežastis:\n\n`{reason}`\n\nSeklys be padėties arba nebeegzistuojantis seklio objektas taisomas įrašo skiltyje **Konfigūruoti**; atmestas raktas – TomTom Nustatymai įrašo skiltyje **Konfigūruoti**; jei nepasiekiamas pats TomTom, tai išnyksta savaime, kai tik jis vėl pasiekiamas. Šis taisymas dingsta su kita sėkminga užklausa."
+        },
+        "source_failing": {
+            "title": "{source} neatsako",
+            "description": "**{source}** {count} užklausos iš eilės nepavyko. Jo pranešimai nebelaikomi aktualiais: jų nėra kortelėse, objektuose ir greičio matuoklių skaičiuose, kol jis vėl atsakys, o jutiklių **Visi greičio matuokliai** ir **Nauji greičio matuokliai** `sources_ok` tuo metu rodo false. Paskutinė priežastis:\n\n`{reason}`\n\nblitzer.de taip pat blokuoja adresą, kuris klausia per dažnai – kelios Home Assistant instancijos už vieno adreso sumuojasi. Šis taisymas dingsta su kita užklausa, į kurią jis atsako."
         },
         "quota_at_risk": {
             "title": "Mėnesio {api} užklausos senka",

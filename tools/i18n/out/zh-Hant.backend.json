@@ -13,14 +13,18 @@
     "wind": "強風",
     "flooding": "淹水",
     "unknown": "不明",
-    "camera_fixed": "固定式測速照相（blitzer.de、Lufop）",
-    "camera_mobile": "移動式測速照相（blitzer.de、Lufop）",
+    "camera_fixed": "固定式測速照相",
+    "camera_mobile": "移動式測速照相",
     "camera_trailer": "拖車式測速照相（blitzer.de）",
-    "camera_redlight": "闖紅燈照相（blitzer.de、Lufop）",
-    "camera_section": "區間測速（blitzer.de、Lufop）",
+    "camera_redlight": "闖紅燈照相",
+    "camera_section": "區間測速",
     "check_distance": "車距檢查（blitzer.de）",
     "check_police": "警察臨檢（blitzer.de）",
     "police_report": "警方通報 (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "星期一",
@@ -303,6 +307,7 @@
     "radius_too_large": "半徑最多 50 km——這是 TomTom 單次請求能回應的最大範圍。",
     "invalid_api_key": "TomTom 不接受這組 API 金鑰。",
     "quota_exceeded": "這組金鑰在 TomTom 的額度暫時用完了。請稍後再試。",
+    "rate_limited": "TomTom 目前拒絕更多請求：超過其每秒請求次數上限。請稍待片刻再試。",
     "address_not_found": "找不到這個地址對應的地點。",
     "point_not_routable": "其中一個點離道路太遠。請把它移近道路。",
     "no_route": "TomTom 找不到連接這些點的道路。",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} 沒有資料",
     "description": "TomTom 項目 **{name}** 已連續 {count} 次輪詢失敗，其實體因此無法使用。最後一次的原因：\n\n`{reason}`\n\n追蹤器沒有位置，或追蹤器實體已不存在，可在該項目的**設定**中修正；金鑰被拒絕，則在 TomTom 設定項目的**設定**中處理；若是 TomTom 本身無法連線，恢復後會自行解除。下一次輪詢成功後，這則修復提示就會消失。"
+  },
+  "sourceIssue": {
+    "title": "{source} 沒有回應",
+    "description": "**{source}** 已連續 {count} 次輪詢失敗。其通報不再視為最新：在它恢復回應之前，這些通報會從卡片、實體與測速照相數量中消失，期間**所有測速照相**與**新測速照相**感測器上的 `sources_ok` 為 false。最後一次的原因：\n\n`{reason}`\n\nblitzer.de 也會封鎖查詢過於頻繁的位址 - 同一位址後方的多個 Home Assistant 實例會合併計算。它回應下一次輪詢後，這則修復提示就會消失。"
   },
   "quotaIssue": {
     "title": "本月的 {api} 請求所剩不多",

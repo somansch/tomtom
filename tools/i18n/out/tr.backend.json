@@ -13,14 +13,18 @@
     "wind": "Rüzgar",
     "flooding": "Su baskını",
     "unknown": "Bilinmiyor",
-    "camera_fixed": "Sabit hız kamerası (blitzer.de, Lufop)",
-    "camera_mobile": "Mobil hız kamerası (blitzer.de, Lufop)",
+    "camera_fixed": "Sabit hız kamerası",
+    "camera_mobile": "Mobil hız kamerası",
     "camera_trailer": "Römork hız kamerası (blitzer.de)",
-    "camera_redlight": "Kırmızı ışık kamerası (blitzer.de, Lufop)",
-    "camera_section": "Ortalama hız denetimi (blitzer.de, Lufop)",
+    "camera_redlight": "Kırmızı ışık kamerası",
+    "camera_section": "Ortalama hız denetimi",
     "check_distance": "Takip mesafesi denetimi (blitzer.de)",
     "check_police": "Polis denetimi (blitzer.de)",
     "police_report": "Polis duyurusu (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Pazartesi",
@@ -303,6 +307,7 @@
     "radius_too_large": "Yarıçap en fazla 50 km olabilir; TomTom'un tek istekte yanıtladığı en büyük kutu.",
     "invalid_api_key": "TomTom API anahtarını kabul etmedi.",
     "quota_exceeded": "Anahtarın TomTom'daki kotası şimdilik tükendi. Daha sonra yeniden deneyin.",
+    "rate_limited": "TomTom şu an daha fazla istek kabul etmiyor: saniyedeki istek sınırı aşıldı. Biraz sonra yeniden deneyin.",
     "address_not_found": "Bu adres için yer bulunamadı.",
     "point_not_routable": "Noktalardan biri bir yoldan fazla uzakta. Bir yola daha yakın taşıyın.",
     "no_route": "TomTom bu noktaları birbirine bağlayan bir yol bulamadı.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} veri sağlamıyor",
     "description": "TomTom girdisi **{name}** art arda {count} sorguda başarısız oldu, bu yüzden varlıkları kullanılamıyor. Son neden:\n\n`{reason}`\n\nKonumu olmayan bir takipçi ya da artık var olmayan bir takipçi varlığı, girdinin **Yapılandır** seçeneğinden düzeltilir; reddedilen bir anahtar, TomTom Ayarlar girdisindeki **Yapılandır** altında; TomTom'un kendisine ulaşılamıyorsa bu, yeniden ulaşılabildiği anda kendiliğinden kalkar. Bu onarım, başarılı olan bir sonraki sorguyla kaybolur."
+  },
+  "sourceIssue": {
+    "title": "{source} yanıt vermiyor",
+    "description": "**{source}** art arda {count} sorguda başarısız oldu. Bildirimleri artık güncel olarak gösterilmiyor: yeniden yanıt verene kadar kartlardan, varlıklardan ve hız kamerası sayılarından kalkar, bu sırada **Tüm hız kameraları** ve **Yeni hız kameraları** sensörlerindeki `sources_ok` false olur. Son neden:\n\n`{reason}`\n\nblitzer.de ayrıca çok sık soran bir adresi engeller - tek bir adresin arkasındaki birden çok Home Assistant örneği toplanır. Bu onarım, yanıtladığı bir sonraki sorguyla kaybolur."
   },
   "quotaIssue": {
     "title": "Ayın {api} istekleri azalıyor",

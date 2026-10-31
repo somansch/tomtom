@@ -9,7 +9,7 @@
 
 **Available languages:** English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Čeština, Dansk, Eesti, Suomi, Ελληνικά, Magyar, Bahasa Indonesia, 日本語, 한국어, Lietuvių, Latviešu, Norsk bokmål, Română, Русский, Slovenčina, Svenska, ไทย, Türkçe, Català, 繁體中文, العربية, עברית - AI-translated apart from English and German; corrections are welcome as pull requests.
 
-<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-overview.png" alt="The TomTom card in its three formats on a route in Atlanta: portrait and landscape with the travel time, the traffic delay, the traffic flow on the map and the jams and roadworks along the way, and the one-line minimal format" width="100%">
+<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-overview.png" alt="The TomTom card in its three formats on a route from Marietta into Downtown Atlanta: portrait and landscape with the travel time, the traffic delay, the traffic flow on the map and along the route, the accident and the jams on the way, the bar of kinds and the Google Maps button, and the one-line minimal format" width="100%">
 
 ## Overview
 
@@ -135,11 +135,11 @@ TomTom files every report under one category. The thirteen it has, and the key e
 | `wind` | Wind |
 | `flooding` | Flooding |
 | `unknown` | Unknown |
-| `camera_fixed` | Fixed speed camera - from [blitzer.de and Lufop](#data-sources) only |
-| `camera_mobile` | Mobile speed camera - from [blitzer.de and Lufop](#data-sources) only |
+| `camera_fixed` | Fixed speed camera - from [blitzer.de and Lufop](#data-sources) only, as a section of its own below the list with a switch per source |
+| `camera_mobile` | Mobile speed camera - from [blitzer.de and Lufop](#data-sources) only, as a section of its own below the list with a switch per source |
 | `camera_trailer` | Speed camera trailer - from [blitzer.de](#data-sources) only |
-| `camera_redlight` | Red-light camera - from [blitzer.de and Lufop](#data-sources) only |
-| `camera_section` | Section control - from [blitzer.de and Lufop](#data-sources) only |
+| `camera_redlight` | Red-light camera - from [blitzer.de and Lufop](#data-sources) only, as a section of its own below the list with a switch per source |
+| `camera_section` | Section control - from [blitzer.de and Lufop](#data-sources) only, as a section of its own below the list with a switch per source |
 | `check_distance` | Distance check - from [blitzer.de](#data-sources) only |
 | `check_police` | Police check - from [blitzer.de](#data-sources) only |
 | `police_report` | Police report - a traffic control centre's bulletin, from [blitzer.de](#data-sources) only |
@@ -158,7 +158,7 @@ TomTom is the one source every entry has. Further ones are switched on for every
 
 A word on where it comes from: blitzer.de has not published an API. The integration reads what the site's own map reads, as the Blitzer integration has for years - which can change or close at blitzer.de's discretion, and is why the source is off until you switch it on.
 
-<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-berlin.png" alt="The card in German on a route into Berlin: a lane closure from TomTom with its description, a mobile speed camera from blitzer.de confirmed by the community with three stars, and roadworks" width="70%">
+<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-berlin.png" alt="The card in German on a route into Berlin: the route with its traffic flow, the bar of kinds beside the map, a lane closure from TomTom with its description, and a mobile speed camera from blitzer.de confirmed by the community with three stars" width="70%">
 
 ### Device tracker (radius)
 
@@ -231,7 +231,7 @@ The 2,500 is the one to plan around: that is about three polls an hour across ev
 
 A request that TomTom refuses - a key that stopped working, a quota used up - fails the poll; three in a row raise a repair under **Settings → System → Repairs** naming the reason.
 
-Before it comes to that, the integration says so: from the eighth day of the month on, every API's count is projected to the month's end at the pace so far - with the month's own length - and it warns in two stages, the way Lufop's day does: a first repair when the projection reaches a share of the free tier - 80 % unless set otherwise - and a second when it reaches the whole tier ("14200 of 20000 Routing requests used 18 days in; about 24500 by the month's end"). Each names the API and the numbers, and the **Quota at risk** sensor on TomTom General is on through both, for an automation that sends it on. **TomTom Settings → Configure → Quota warning** has two sections, both folded until opened. **TomTom** switches this off or moves the first stage; at 100 % the two are one. An installation from before 1.0.3 keeps the 100 % it had. **Lufop** does the same for Lufop's day, below. The projection is on every per-API sensor as `projected_month` too. It counts what this integration asks for: a key used elsewhere as well stands higher at TomTom.
+Before it comes to that, the integration says so: from the eighth day of the month on, every API's count is projected to the month's end at the pace so far - with the month's own length - and it warns in two stages, the way Lufop's day does: a first repair when the projection reaches a share of the free tier - 80 % unless set otherwise - and a second when it reaches the whole tier ("14200 of 20000 Routing requests used 18 days in; about 24500 by the month's end"). Each names the API and the numbers, and the **Quota at risk** sensor on TomTom General is on through both, for an automation that sends it on. **TomTom Settings → Configure → Quota warning** has two sections, both folded until opened. **TomTom** switches this off or moves the first stage; at 100 % the two are one. An installation from before 1.0.3 keeps the 100 % it had. **Lufop** does the same for Lufop's day, below. The projection is on every per-API sensor as `projected_month` too. It counts what this integration asks for: a key used elsewhere as well stands higher at TomTom. TomTom also caps a free key at five requests a second, over every API: the integration keeps every request of the installation behind one gate, four a second and four in flight at most, so a restart that starts every entry at once stays inside it.
 
 <img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-quota-check.png" alt="The diagnostic sensors of TomTom General: all requests this month, one counter per API with blitzer.de and the flow tiles, Lufop today, and Quota at risk reading OK" width="40%">
 
@@ -244,7 +244,7 @@ Each entry produces the entities below. The sensors are named in your Home Assis
 | Count sensor: **Reports** | `sensor.<entry>_reports` | How many reports the entry delivers - the nearest, capped at **Number of reports**; `in_range` says how many there are in all. Its attributes break the count down per kind, carry `last_update` and `new` - counted over the same delivered reports, so they agree with the card's badge - and are the one place the entry's settings and a live route's figures can be read: `search_mode`, `new_minutes`, and on a live route `travel_time_minutes`, `traffic_delay_minutes`, `route_distance_km` and `route_changed`. |
 | One `geo_location` entity per report | `geo_location.<entry>_road_closed_a8` | Created and removed as reports appear and disappear. There is no fixed pool of entities. Named after the kind and the road, or the place the stretch starts. |
 | Number: **New for** | `number.<entry>_new_for` | How many minutes a report counts as new. The same setting as in the options form, put where the sensor it governs is listed. Changing it is the one change that does **not** rebuild the entry. |
-| Count sensors: **All speed cameras**, **New speed cameras** | `sensor.<entry>_all_speed_cameras`, `sensor.<entry>_new_speed_cameras` | How many of the delivered reports come from blitzer.de or Lufop, and how many of those were reported inside the entry's "new" window - the same reports **Reports** counts and the card shows, so the new count is the card's badge. The new count ages on its own, once a minute, between polls. The count per source (`blitzer`, `lufop`) and per kind as attributes, and `in_range` for the number beyond the cap; a camera both sources report counts once, under both. |
+| Count sensors: **All speed cameras**, **New speed cameras** | `sensor.<entry>_all_speed_cameras`, `sensor.<entry>_new_speed_cameras` | How many of the delivered reports come from blitzer.de or Lufop, and how many of those were reported inside the entry's "new" window - the same reports **Reports** counts and the card shows, so the new count is the card's badge. The new count ages on its own, once a minute, between polls. The count per source (`blitzer`, `lufop`) and per kind as attributes, `in_range` for the number beyond the cap, and `sources_ok`: false while blitzer.de or Lufop does not answer, and after three such polls their reports are gone from the count until it does. A camera both sources report counts once, under both. |
 | Diagnostic sensor: **TomTom requests this month** | `sensor.<entry>_tomtom_requests_this_month` | Every request this entry sent to TomTom this calendar month, with the count per API and last month's total as attributes. Starts at nought with the month. One more sensor per API beside it, **blitzer.de this month** among them once that source is on. |
 | Diagnostic sensors: **Incident Details this month**, **Routing this month**, **Geocoding this month**, **Flow tiles this month** | `sensor.<entry>_incident_details_this_month`, `..._routing_this_month`, `..._geocoding_this_month`, `..._flow_tiles_this_month` | The same, one per API this entry is charged with, each against its own free tier - the flow tiles being the ones a card fetched while it showed this entry. |
 
@@ -457,21 +457,24 @@ Everything it draws is already in the frontend's own state: the reports are `geo
 - **A click on a report opens its page.** **Map click opens the report**, under the map's settings, makes a click on a symbol open a blitzer.de report on blitzer.de's map and a TomTom report in TomTom's route planner, zoomed to its stretch. Lufop has no page for a radar.
 - **Keep the map when nothing is reported**, fitted to the circle the entry searches or to its route.
 - **A map theme of its own.** **Map theme** under **Layout → Map** draws the map light or dark whatever the dashboard's theme - a light map on a dark dashboard, say; **Automatic** follows Home Assistant's theme.
+- **Open the entry in Google Maps.** **Show the Google Maps button** under **Settings → Map** puts Google's pin top right on the map, and on the minimal format's pop-up map. A click opens a route with its start, stops and destination in Google's route planner, and an area or a tracker at its centre, in a new tab. Off by default.
 - **Show the traffic flow.** TomTom's own colouring of the roads, laid over the map while the card is visible. Its own section: [Traffic flow](#traffic-flow).
 - **The list follows the map.** The map shows every report of the entry; the list, the ones inside the part of it in view - pan or zoom, and the list follows. **List follows the map** under **Content** switches it off, and the list shows them all. Every report's symbol stands on its point, and so does a group's bubble - not on a tail under it - so where a report is can be read off the map.
-- **Plan a route on the card.** **+ New route** at the end of the entry dropdown opens a planner under it: start, as many stops as you like and the destination, each an entity's position, a zone, the map's centre or an address with suggestions while you type - from anywhere, not just your own country, and never biased by your home's position. Swap the ends, add or remove stops, then **Calculate**: TomTom's route of the moment is drawn in orange with its travel time and its delay, and the reports on it take the place of the entry's own - on the map, as symbols along the route, and in the list, with their distance along it from the start. **Discard**, or closing the planner, brings the entry's own route or circle and its reports back. **Save as route** makes a route entry of it, with the defaults under TomTom Settings, and the card switches to it as soon as its first poll is in - for administrators, who are the ones Home Assistant lets make an entry; everyone else gets the route and its figures without the button. In the landscape format the planner stands beside the map, above the list.
+- **Plan a route on the card.** **+ New route** at the end of the entry dropdown opens a planner under it: start, as many stops as you like and the destination, each an entity's position, a zone, the map's centre or an address with suggestions while you type - from anywhere, not just your own country, and never biased by your home's position. Swap the ends, add or remove stops, then **Calculate**: TomTom's route of the moment is drawn with its traffic flow - green where traffic moves freely, yellow, orange or red where TomTom rates a delay, grey where closed - inside an orange edge, with its travel time and its delay, and the reports on it take the place of the entry's own - on the map, as symbols along the route, and in the list, with their distance along it from the start. With blitzer.de or Lufop switched on, their cameras and checks along the route are among them, asked with the kinds the defaults for new routes switch on for each source. **Discard**, or closing the planner, brings the entry's own route or circle and its reports back. **Save as route** makes a route entry of it, with the defaults under TomTom Settings, and the card switches to it as soon as its first poll is in - for administrators, who are the ones Home Assistant lets make an entry; everyone else gets the route and its figures without the button. In the landscape format the planner stands beside the map, above the list.
 - **Sort by distance, newest or oldest.** **Measure distance from the entry's centre, from the map, or from a person or zone.**
 - **Mark what is new**, by the entry's own windows, with a badge that narrows the card to the new reports.
 - **Say what the jams cost**: a red badge beside the NEW one adds up the delay of every report that carries one, and narrows the card to those reports when clicked.
 - **Fold a long list**, **refresh on demand** with a button that also says how long ago the entry was last fetched, and **a tap action in the minimal format**.
 
-<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-new-route.png" alt="The planner's place picker: an entity's position, a zone, the map's centre or an address" width="35%"> <img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-new-route-FL.png" alt="A planned route from Beverly Hills, Florida to Key West drawn in orange on the map, with its travel time, length and reports, ready to be saved as a route entry" width="60%">
+<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-new-route.png" alt="The planner's place picker: an entity's position, a zone, the map's centre or an address" width="35%"> <img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-new-route-FL.png" alt="A planned route from Sweetwater to the Port of Miami, Florida, drawn with its traffic flow inside an orange edge, with its travel time, delay, length and two reports, a jam and roadworks, ready to be saved as a route entry" width="60%">
+
+<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-google-maps.png" alt="The Google Maps button top right on the map of a route from Elizabeth past Newark and Clifton to Paterson, New Jersey, its tooltip reading Open in Google Maps" width="50%">
 
 ### Traffic flow
 
 **Show the traffic flow** under the map switch - on by default - lays TomTom's flow tiles over the map: every road coloured by how traffic is moving on it, from green through yellow and red to dark red. The tiles are served through the integration - the key never reaches the browser - and fetched by the map for the view it shows, again whenever the entry's poll comes in, so the flow is as old as the reports beside it; not at all while nobody looks. The integration keeps a tile for two minutes, so two cards on one view share a fetch. Each tile counts on the entry the card was showing - its **Flow tiles this month** sensor - and on TomTom General; a free key has 200,000 of them a month, and a dashboard that is open all day uses a few hundred.
 
-**Layout → Map** picks the colouring - TomTom's default shows congestion where traffic moves at all; the others add the free roads in green, show absolute speed, or the delay - and how solid the tiles are drawn. With the option on, a **Traffic flow** button under the entry dropdown - and one under the title of the minimal format's pop-up - shows or hides the flow for the moment, filled while the flow is shown; **Show the Traffic flow button** under **General** takes it away and leaves the flow drawn, and **Layout → Traffic flow button** sets its colour and font. Works on both of Home Assistant's map engines.
+**Layout → Map** picks the colouring - TomTom's default shows congestion where traffic moves at all; the others add the free roads in green, show absolute speed, or the delay - and how solid the tiles are drawn. With the option on, a **Traffic** button beside the refresh button - and one under the title of the minimal format's pop-up - shows or hides the flow for the moment, filled while the flow is shown; **Show the Traffic button** under **General** takes it away and leaves the flow drawn, and **Layout → Traffic button** sets its symbol, its colours, its background and its font, as the refresh button's does. Works on both of Home Assistant's map engines.
 
 ### Settings
 
@@ -520,7 +523,8 @@ The options that decide what the card *is*, rather than how it is drawn:
 | `map_aspect_ratio` | `16:9` | The map's shape. |
 | `map_always` | `true` | Keep the map while nothing is reported, fitted to the circle or the route. |
 | `map_scale` | `true` | A scale bar in the map's bottom left corner. |
-| `map_route` | `true` | Draw a route entry's route on the map. `route_color` and `route_width` dress it. |
+| `map_google` | `false` | A button top right on the map that opens the entry in Google Maps: a route with its start, stops and destination in the route planner, an area or a tracker at its centre. |
+| `map_route` | `true` | Draw a route entry's route on the map. `route_color` and `route_width` dress it. On a live route the colour is the line's edge; inside it the traffic flow is drawn - green where traffic moves freely, yellow, orange or red where TomTom rates a delay, grey where closed. |
 | `map_lines` | `true` | Draw every report's stretch of road as a band on the map. |
 | `map_traffic` | `true` | Lay TomTom's traffic flow over the map - see [Traffic flow](#traffic-flow). |
 | `traffic_style` / `traffic_opacity` | `relative0` / `70` | The flow's colouring - `relative0`, `relative`, `absolute` or `relative-delay` - and how solid it is drawn, in percent. |
@@ -532,7 +536,7 @@ The options that decide what the card *is*, rather than how it is drawn:
 | `show_area_picker` | `true` | The entry dropdown. |
 | `show_planner` | `true` | **+ New route** at the end of the dropdown, and the planner it opens. |
 | `follow_map` | `true` | The list follows the map: it lists the reports inside the part of the map in view, and the map keeps showing them all. |
-| `show_traffic_switch` | `true` | The **Traffic flow** button under the dropdown, which shows or hides the flow for the moment. |
+| `show_traffic_switch` | `true` | The **Traffic** button beside the refresh button, which shows or hides the flow for the moment. |
 | `show_row_provider` | `false` | The logo of who reported it under an entry's symbol - TomTom, blitzer.de or Lufop. |
 | `show_travel_time` | `true` | A live route's travel time, large under the title - in the minimal format, in the pop-up. |
 | `mini_show_travel` | `true` | Minimal format: the line's fourth part, the live route's travel time. |
@@ -577,7 +581,7 @@ The elements, and which suffixes each takes - `-color`; `-font-size`, `-font-wei
 | `--tomtom-no-reports-` | Text without reports | ✓ | ✓ | | | |
 | `--tomtom-travel-time-` | A live route's travel time | ✓ | ✓ | | | |
 | `--tomtom-area-select-` | Entry dropdown | ✓ | ✓ | ✓ | | |
-| `--tomtom-switch-` | The Traffic flow button | ✓ | ✓ | | | |
+| `--tomtom-switch-` | The Traffic button | ✓ | ✓ | | | |
 | `--tomtom-planner-` | The planner's panel | | | ✓ | | |
 | `--tomtom-plan-title-` | The planner's heading | ✓ | ✓ | | | |
 | `--tomtom-plan-role-` | The planner's labels | ✓ | ✓ | | | |
@@ -622,6 +626,7 @@ Three things, in one download:
 
 - The **integration** itself.
 - The **[TomTom card](#tomtom-card)**. Served by the integration and handed to every dashboard, so there is no file to copy into `www` and no resource to register.
+  After the first installation, load the dashboard page once - a page that is already open holds nothing of the card yet. From then on an update reaches every open page by itself: after Home Assistant restarts, the card checks which version is served and takes the new one over in place, with no reload and no cache to clear.
 - The **[Report Alerts blueprint](#blueprint-report-alerts)**, put into `config/blueprints/automation/tomtom/` on start.
 
 ### HACS

@@ -34,11 +34,11 @@
                 "wind": "強風",
                 "flooding": "冠水",
                 "unknown": "不明",
-                "camera_fixed": "固定式速度取締機（blitzer.de、Lufop）",
-                "camera_mobile": "移動式速度取締機（blitzer.de、Lufop）",
+                "camera_fixed": "固定式速度取締機",
+                "camera_mobile": "移動式速度取締機",
                 "camera_trailer": "トレーラー型速度取締機（blitzer.de）",
-                "camera_redlight": "信号無視取締機（blitzer.de、Lufop）",
-                "camera_section": "区間速度取締（blitzer.de、Lufop）",
+                "camera_redlight": "信号無視取締機",
+                "camera_section": "区間速度取締",
                 "check_distance": "車間距離取締り（blitzer.de）",
                 "check_police": "警察の検問（blitzer.de）",
                 "police_report": "警察の交通情報 (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "目的地から出発地への2つ目のエントリ。高速道路では帰路は反対側の車線で、片側の渋滞はもう片側の渋滞ではありません。このエントリの名前に「帰路」を付けた名前になります。"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "報告"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "報告"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "帰路を作成する場合のみ使われます。このエントリの名前に「帰路」を付けて入力されています。別の名前にするには入力し直してください（例:「自宅」と「職場」）。"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "半径は最大50 kmです。TomTomが1回のリクエストで応答する最大の範囲です。",
             "invalid_api_key": "TomTomがAPIキーを受け付けませんでした。",
             "quota_exceeded": "このキーのTomTomでの割り当ては現在使い切っています。後でもう一度お試しください。",
+            "rate_limited": "TomTomは現在、これ以上のリクエストを拒否しています: 1秒あたりのリクエスト上限を超えています。少し待ってからもう一度お試しください。",
             "address_not_found": "この住所に該当する場所が見つかりませんでした。",
             "point_not_routable": "地点の1つが道路から離れすぎています。道路の近くに移動してください。",
             "no_route": "TomTomはこれらの地点を結ぶ道路を見つけられませんでした。",
@@ -459,6 +572,34 @@
                     "return_route": "目的地から出発地への2つ目のエントリ。高速道路では帰路は反対側の車線で、片側の渋滞はもう片側の渋滞ではありません。このエントリの名前に「帰路」を付けた名前になります。"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "報告"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "報告"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "報告"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "固定式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "移動式速度取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "信号無視取締機",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "区間速度取締",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "オプション設定",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "半径は最大50 kmです。TomTomが1回のリクエストで応答する最大の範囲です。",
             "invalid_api_key": "TomTomがAPIキーを受け付けませんでした。",
             "quota_exceeded": "このキーのTomTomでの割り当ては現在使い切っています。後でもう一度お試しください。",
+            "rate_limited": "TomTomは現在、これ以上のリクエストを拒否しています: 1秒あたりのリクエスト上限を超えています。少し待ってからもう一度お試しください。",
             "address_not_found": "この住所に該当する場所が見つかりませんでした。",
             "point_not_routable": "地点の1つが道路から離れすぎています。道路の近くに移動してください。",
             "no_route": "TomTomはこれらの地点を結ぶ道路を見つけられませんでした。",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} が取得できません",
             "description": "TomTomのエントリ **{name}** は {count} 回連続で取得に失敗したため、エンティティが利用不可になっています。最後の理由:\n\n`{reason}`\n\n位置のないトラッカーや存在しなくなったトラッカーエンティティは、エントリの **設定** で修正します。拒否されたキーは「TomTom 設定」エントリの **設定** で修正します。TomTom自体に接続できない場合は、接続が回復すれば自動的に解消します。この修復は次の取得が成功すると消えます。"
+        },
+        "source_failing": {
+            "title": "{source} が応答しません",
+            "description": "**{source}** は {count} 回連続で取得に失敗しました。その報告は最新のものとして表示されなくなります: 再び応答するまでカード、エンティティ、速度取締カメラの件数から除かれ、その間 **すべての速度取締カメラ** と **新しい速度取締カメラ** センサーの `sources_ok` は false になります。最後の理由:\n\n`{reason}`\n\nblitzer.de はまた、問い合わせが多すぎるアドレスをブロックします - 1つのアドレスの背後にある複数のHome Assistantインスタンスは合算されます。この修復は、次に応答した取得で消えます。"
         },
         "quota_at_risk": {
             "title": "今月の {api} リクエストが残り少なくなっています",

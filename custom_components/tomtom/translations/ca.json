@@ -34,11 +34,11 @@
                 "wind": "Vent",
                 "flooding": "Inundació",
                 "unknown": "Desconegut",
-                "camera_fixed": "Radar fix (blitzer.de, Lufop)",
-                "camera_mobile": "Radar mòbil (blitzer.de, Lufop)",
+                "camera_fixed": "Radar fix",
+                "camera_mobile": "Radar mòbil",
                 "camera_trailer": "Radar en remolc (blitzer.de)",
-                "camera_redlight": "Radar de semàfor (blitzer.de, Lufop)",
-                "camera_section": "Radar de tram (blitzer.de, Lufop)",
+                "camera_redlight": "Radar de semàfor",
+                "camera_section": "Radar de tram",
                 "check_distance": "Control de distància (blitzer.de)",
                 "check_police": "Control policial (blitzer.de)",
                 "police_report": "Avís de la policia (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Una segona entrada, de destinació a origen - en una autopista el camí de tornada és l'altra calçada, i un embús en una no ho és a l'altra. Amb el nom d'aquesta entrada i \"tornada\" afegit."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Incidències"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Incidències"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Només s'usa quan es crea el camí de tornada. S'omple amb el nom d'aquesta entrada i \"tornada\" afegit; escriu-ne un altre per anomenar-lo diferent - \"Casa\" i \"Feina\", per exemple."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "El radi pot ser com a màxim de 50 km - la caixa més gran que TomTom respon en una sola petició.",
             "invalid_api_key": "TomTom no ha acceptat la clau d'API.",
             "quota_exceeded": "La quota d'aquesta clau a TomTom s'ha esgotat de moment. Torna-ho a provar més tard.",
+            "rate_limited": "TomTom rebutja ara mateix més peticions: més que el seu límit de peticions per segon. Torna-ho a provar d'aquí a un moment.",
             "address_not_found": "No s'ha trobat cap lloc per a aquesta adreça.",
             "point_not_routable": "Un dels punts és massa lluny d'una carretera. Acosta'l a alguna.",
             "no_route": "TomTom no ha trobat cap carretera que connecti aquests punts.",
@@ -459,6 +572,34 @@
                     "return_route": "Una segona entrada, de destinació a origen - en una autopista el camí de tornada és l'altra calçada, i un embús en una no ho és a l'altra. Amb el nom d'aquesta entrada i \"tornada\" afegit."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Incidències"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Incidències"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Incidències"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fix",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar mòbil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Radar de semàfor",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tram",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Configuració opcional",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "El radi pot ser com a màxim de 50 km - la caixa més gran que TomTom respon en una sola petició.",
             "invalid_api_key": "TomTom no ha acceptat la clau d'API.",
             "quota_exceeded": "La quota d'aquesta clau a TomTom s'ha esgotat de moment. Torna-ho a provar més tard.",
+            "rate_limited": "TomTom rebutja ara mateix més peticions: més que el seu límit de peticions per segon. Torna-ho a provar d'aquí a un moment.",
             "address_not_found": "No s'ha trobat cap lloc per a aquesta adreça.",
             "point_not_routable": "Un dels punts és massa lluny d'una carretera. Acosta'l a alguna.",
             "no_route": "TomTom no ha trobat cap carretera que connecti aquests punts.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} no respon",
             "description": "L'entrada de TomTom **{name}** ha fallat {count} consultes seguides, de manera que les seves entitats no estan disponibles. El darrer motiu:\n\n`{reason}`\n\nUn rastrejador sense posició, o una entitat de rastrejador que ja no existeix, s'arregla a **Configura** de l'entrada; una clau rebutjada a **Configura** de l'entrada TomTom Configuració; si és TomTom mateix que no es pot contactar, això es resol sol quan torni a estar disponible. Aquesta reparació desapareix amb la propera consulta que tingui èxit."
+        },
+        "source_failing": {
+            "title": "{source} no respon",
+            "description": "**{source}** ha fallat {count} consultes seguides. Les seves incidències ja no es mostren com a actuals: desapareixen de les targetes, de les entitats i dels recomptes de radars fins que torni a respondre, i mentrestant `sources_ok` als sensors **Tots els radars** i **Radars nous** val false. El darrer motiu:\n\n`{reason}`\n\nblitzer.de també bloqueja una adreça que pregunta massa sovint - diverses instàncies de Home Assistant darrere d'una mateixa adreça se sumen. Aquesta reparació desapareix amb la propera consulta que respongui."
         },
         "quota_at_risk": {
             "title": "Les sol·licituds {api} del mes escassegen",

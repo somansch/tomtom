@@ -13,14 +13,18 @@
     "wind": "Vítr",
     "flooding": "Záplavy",
     "unknown": "Neznámé",
-    "camera_fixed": "Pevný radar (blitzer.de, Lufop)",
-    "camera_mobile": "Mobilní radar (blitzer.de, Lufop)",
+    "camera_fixed": "Pevný radar",
+    "camera_mobile": "Mobilní radar",
     "camera_trailer": "Radar na přívěsu (blitzer.de)",
-    "camera_redlight": "Kamera na červenou (blitzer.de, Lufop)",
-    "camera_section": "Úsekové měření rychlosti (blitzer.de, Lufop)",
+    "camera_redlight": "Kamera na červenou",
+    "camera_section": "Úsekové měření rychlosti",
     "check_distance": "Kontrola odstupu (blitzer.de)",
     "check_police": "Policejní kontrola (blitzer.de)",
     "police_report": "Policejní hlášení (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Pondělí",
@@ -303,6 +307,7 @@
     "radius_too_large": "Okruh smí být nejvýše 50 km - největší výřez, který TomTom zodpoví jedním požadavkem.",
     "invalid_api_key": "TomTom API klíč nepřijal.",
     "quota_exceeded": "Kvóta tohoto klíče u TomTomu je prozatím vyčerpána. Zkuste to později.",
+    "rate_limited": "TomTom teď další požadavky odmítá: víc než jeho limit požadavků za sekundu. Zkuste to za chvíli znovu.",
     "address_not_found": "Pro tuto adresu nebylo nalezeno žádné místo.",
     "point_not_routable": "Jeden z bodů je příliš daleko od silnice. Posuňte ho blíž k některé.",
     "no_route": "TomTom nenašel silnici, která by tyto body spojovala.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} nedodává data",
     "description": "Záznam TomTom **{name}** selhal u {count} dotazů za sebou, takže jeho entity jsou nedostupné. Poslední důvod:\n\n`{reason}`\n\nSledovač bez polohy nebo entita sledovače, která už neexistuje, se opraví pod **Nastavit** u záznamu; odmítnutý klíč pod **Nastavit** u záznamu TomTom Nastavení; pokud není dostupný sám TomTom, vyřeší se to samo, jakmile zase bude. Tato oprava zmizí s dalším úspěšným dotazem."
+  },
+  "sourceIssue": {
+    "title": "{source} neodpovídá",
+    "description": "**{source}** selhal u {count} dotazů za sebou. Jeho hlášení už neplatí za aktuální: chybí na kartách, v entitách a v počtech radarů, dokud zase neodpoví, a `sources_ok` na senzorech **Všechny radary** a **Nové radary** je zatím false. Poslední důvod:\n\n`{reason}`\n\nblitzer.de navíc blokuje adresu, která se ptá příliš často - několik instancí Home Assistant za jednou adresou se sčítá. Tato oprava zmizí s dalším dotazem, na který odpoví."
   },
   "quotaIssue": {
     "title": "Měsíční požadavky {api} docházejí",

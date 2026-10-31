@@ -13,14 +13,18 @@
     "wind": "Vento",
     "flooding": "Inundação",
     "unknown": "Desconhecido",
-    "camera_fixed": "Radar fixo (blitzer.de, Lufop)",
-    "camera_mobile": "Radar móvel (blitzer.de, Lufop)",
+    "camera_fixed": "Radar fixo",
+    "camera_mobile": "Radar móvel",
     "camera_trailer": "Radar em reboque (blitzer.de)",
-    "camera_redlight": "Radar de semáforo (blitzer.de, Lufop)",
-    "camera_section": "Controlo de velocidade média (blitzer.de, Lufop)",
+    "camera_redlight": "Radar de semáforo",
+    "camera_section": "Controlo de velocidade média",
     "check_distance": "Controlo de distância (blitzer.de)",
     "check_police": "Controlo policial (blitzer.de)",
     "police_report": "Aviso da polícia (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Segunda-feira",
@@ -303,6 +307,7 @@
     "radius_too_large": "O raio pode ter no máximo 50 km - a maior caixa que a TomTom responde num único pedido.",
     "invalid_api_key": "A TomTom não aceitou a chave de API.",
     "quota_exceeded": "A quota desta chave na TomTom está esgotada por agora. Tente mais tarde.",
+    "rate_limited": "A TomTom recusa mais pedidos neste momento: mais do que o seu limite de pedidos por segundo. Tente de novo daqui a instantes.",
     "address_not_found": "Não foi encontrado nenhum lugar para esta morada.",
     "point_not_routable": "Um dos pontos está demasiado longe de uma estrada. Aproxime-o de uma.",
     "no_route": "A TomTom não encontrou nenhuma estrada que ligue estes pontos.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} não está a entregar",
     "description": "A entrada TomTom **{name}** falhou {count} consultas seguidas, pelo que as suas entidades estão indisponíveis. O último motivo:\n\n`{reason}`\n\nUm rastreador sem posição, ou uma entidade de rastreador que já não existe, corrige-se em **Configurar** da entrada; uma chave recusada em **Configurar** da entrada TomTom Definições; se a própria TomTom não estiver contactável, isto resolve-se sozinho assim que voltar a estar. Esta reparação desaparece com a próxima consulta bem-sucedida."
+  },
+  "sourceIssue": {
+    "title": "{source} não responde",
+    "description": "**{source}** falhou {count} consultas seguidas. As suas ocorrências já não são mostradas como atuais: desaparecem dos cartões, das entidades e das contagens de radares até voltar a responder, e `sources_ok` nos sensores **Todos os radares** e **Radares novos** fica entretanto a false. O último motivo:\n\n`{reason}`\n\nA blitzer.de bloqueia além disso um endereço que pergunta demasiadas vezes - várias instâncias do Home Assistant atrás de um só endereço somam-se. Esta reparação desaparece com a próxima consulta a que responder."
   },
   "quotaIssue": {
     "title": "Os pedidos {api} do mês escasseiam",

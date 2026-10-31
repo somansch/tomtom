@@ -13,14 +13,18 @@
     "wind": "Tuuli",
     "flooding": "Tulva",
     "unknown": "Tuntematon",
-    "camera_fixed": "Kiinteä nopeusvalvontakamera (blitzer.de, Lufop)",
-    "camera_mobile": "Liikkuva nopeusvalvontakamera (blitzer.de, Lufop)",
+    "camera_fixed": "Kiinteä nopeusvalvontakamera",
+    "camera_mobile": "Liikkuva nopeusvalvontakamera",
     "camera_trailer": "Nopeusvalvontakamera perävaunussa (blitzer.de)",
-    "camera_redlight": "Punaisen valon valvontakamera (blitzer.de, Lufop)",
-    "camera_section": "Keskinopeusvalvonta (blitzer.de, Lufop)",
+    "camera_redlight": "Punaisen valon valvontakamera",
+    "camera_section": "Keskinopeusvalvonta",
     "check_distance": "Turvavälivalvonta (blitzer.de)",
     "check_police": "Poliisitarkastus (blitzer.de)",
     "police_report": "Poliisin tiedote (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Maanantai",
@@ -303,6 +307,7 @@
     "radius_too_large": "Säde saa olla enintään 50 km - suurin laatikko, johon TomTom vastaa yhdellä pyynnöllä.",
     "invalid_api_key": "TomTom ei hyväksynyt API-avainta.",
     "quota_exceeded": "Avaimen kiintiö TomTomilla on toistaiseksi käytetty. Yritä myöhemmin uudelleen.",
+    "rate_limited": "TomTom hylkää juuri nyt lisäpyynnöt: enemmän kuin sen raja pyyntöjä sekunnissa. Yritä hetken kuluttua uudelleen.",
     "address_not_found": "Tälle osoitteelle ei löytynyt paikkaa.",
     "point_not_routable": "Yksi pisteistä on liian kaukana tiestä. Siirrä se lähemmäs tietä.",
     "no_route": "TomTom ei löytänyt tietä, joka yhdistäisi nämä pisteet.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} ei toimita",
     "description": "TomTom-merkinnän **{name}** haku on epäonnistunut {count} kertaa peräkkäin, joten sen entiteetit eivät ole käytettävissä. Viimeisin syy:\n\n`{reason}`\n\nSeurain ilman sijaintia tai seurainentiteetti, jota ei enää ole, korjataan merkinnän kohdassa **Määrittele**; hylätty avain TomTom Asetukset -merkinnän kohdassa **Määrittele**; jos TomTomiin itseensä ei saada yhteyttä, tämä poistuu itsestään, kun yhteys taas toimii. Tämä korjaus katoaa seuraavan onnistuneen haun myötä."
+  },
+  "sourceIssue": {
+    "title": "{source} ei vastaa",
+    "description": "**{source}** on epäonnistunut {count} hakua peräkkäin. Sen ilmoituksia ei enää näytetä ajantasaisina: ne puuttuvat korteilta, entiteeteistä ja nopeuskameroiden laskureista, kunnes se taas vastaa, ja `sources_ok` antureilla **Kaikki nopeuskamerat** ja **Uudet nopeuskamerat** on sillä välin false. Viimeisin syy:\n\n`{reason}`\n\nblitzer.de myös estää osoitteen, joka kysyy liian usein - useat Home Assistant -instanssit saman osoitteen takana lasketaan yhteen. Tämä korjaus katoaa seuraavan haun myötä, johon se vastaa."
   },
   "quotaIssue": {
     "title": "Kuukauden {api}-pyynnöt käyvät vähiin",

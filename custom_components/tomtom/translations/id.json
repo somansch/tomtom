@@ -34,11 +34,11 @@
                 "wind": "Angin kencang",
                 "flooding": "Banjir",
                 "unknown": "Tidak diketahui",
-                "camera_fixed": "Kamera kecepatan tetap (blitzer.de, Lufop)",
-                "camera_mobile": "Kamera kecepatan bergerak (blitzer.de, Lufop)",
+                "camera_fixed": "Kamera kecepatan tetap",
+                "camera_mobile": "Kamera kecepatan bergerak",
                 "camera_trailer": "Trailer kamera kecepatan (blitzer.de)",
-                "camera_redlight": "Kamera lampu merah (blitzer.de, Lufop)",
-                "camera_section": "Kontrol kecepatan ruas (blitzer.de, Lufop)",
+                "camera_redlight": "Kamera lampu merah",
+                "camera_section": "Kontrol kecepatan ruas",
                 "check_distance": "Pemeriksaan jarak (blitzer.de)",
                 "check_police": "Razia polisi (blitzer.de)",
                 "police_report": "Laporan polisi (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Entri kedua, dari tujuan ke awal - di jalan tol rute pulang adalah jalur lawan arah, dan kemacetan di satu sisi bukan kemacetan di sisi lain. Dinamai seperti entri ini, dengan tambahan \"pulang\"."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Laporan"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Laporan"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Hanya dipakai bila rute pulang dibuat. Diisi dengan nama entri ini dan tambahan \"pulang\"; ketik nama lain untuk menyebutnya berbeda - misalnya \"Rumah\" dan \"Kantor\"."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Radius paling besar 50 km - kotak terbesar yang dijawab TomTom dalam satu permintaan.",
             "invalid_api_key": "TomTom tidak menerima kunci API ini.",
             "quota_exceeded": "Kuota kunci di TomTom sudah habis untuk saat ini. Coba lagi nanti.",
+            "rate_limited": "TomTom menolak permintaan lebih lanjut saat ini: melebihi batas permintaan per detiknya. Coba lagi sebentar lagi.",
             "address_not_found": "Tidak ada tempat yang ditemukan untuk alamat ini.",
             "point_not_routable": "Salah satu titik terlalu jauh dari jalan. Geser lebih dekat ke jalan.",
             "no_route": "TomTom tidak menemukan jalan yang menghubungkan titik-titik ini.",
@@ -459,6 +572,34 @@
                     "return_route": "Entri kedua, dari tujuan ke awal - di jalan tol rute pulang adalah jalur lawan arah, dan kemacetan di satu sisi bukan kemacetan di sisi lain. Dinamai seperti entri ini, dengan tambahan \"pulang\"."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Laporan"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Laporan"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Laporan"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Kamera kecepatan tetap",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Kamera kecepatan bergerak",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera lampu merah",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Kontrol kecepatan ruas",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Pengaturan opsional",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Radius paling besar 50 km - kotak terbesar yang dijawab TomTom dalam satu permintaan.",
             "invalid_api_key": "TomTom tidak menerima kunci API ini.",
             "quota_exceeded": "Kuota kunci di TomTom sudah habis untuk saat ini. Coba lagi nanti.",
+            "rate_limited": "TomTom menolak permintaan lebih lanjut saat ini: melebihi batas permintaan per detiknya. Coba lagi sebentar lagi.",
             "address_not_found": "Tidak ada tempat yang ditemukan untuk alamat ini.",
             "point_not_routable": "Salah satu titik terlalu jauh dari jalan. Geser lebih dekat ke jalan.",
             "no_route": "TomTom tidak menemukan jalan yang menghubungkan titik-titik ini.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} tidak mengirim data",
             "description": "Entri TomTom **{name}** gagal {count} kali pengambilan data berturut-turut, sehingga entitasnya tidak tersedia. Alasan terakhir:\n\n`{reason}`\n\nPelacak tanpa posisi, atau entitas pelacak yang sudah tidak ada, diperbaiki di **Konfigurasikan** entri itu; kunci yang ditolak di **Konfigurasikan** pada entri TomTom Pengaturan; bila TomTom sendiri tidak dapat dihubungi, ini hilang sendiri begitu bisa dihubungi lagi. Perbaikan ini hilang pada pengambilan data berikutnya yang berhasil."
+        },
+        "source_failing": {
+            "title": "{source} tidak menjawab",
+            "description": "**{source}** gagal {count} kali pengambilan data berturut-turut. Laporannya tidak lagi ditampilkan sebagai terkini: laporan itu hilang dari kartu, entitas dan hitungan kamera kecepatan sampai ia menjawab lagi, dan `sources_ok` pada sensor **Semua kamera kecepatan** dan **Kamera kecepatan baru** sementara itu bernilai false. Alasan terakhir:\n\n`{reason}`\n\nblitzer.de juga memblokir alamat yang bertanya terlalu sering - beberapa instans Home Assistant di balik satu alamat dihitung bersama. Perbaikan ini hilang pada pengambilan data berikutnya yang dijawabnya."
         },
         "quota_at_risk": {
             "title": "Permintaan {api} bulan ini menipis",

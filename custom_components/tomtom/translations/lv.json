@@ -34,11 +34,11 @@
                 "wind": "Vējš",
                 "flooding": "Plūdi",
                 "unknown": "Nezināms",
-                "camera_fixed": "Stacionārs ātruma radars (blitzer.de, Lufop)",
-                "camera_mobile": "Mobilais ātruma radars (blitzer.de, Lufop)",
+                "camera_fixed": "Stacionārs ātruma radars",
+                "camera_mobile": "Mobilais ātruma radars",
                 "camera_trailer": "Ātruma radara piekabe (blitzer.de)",
-                "camera_redlight": "Sarkanās gaismas kamera (blitzer.de, Lufop)",
-                "camera_section": "Vidējā ātruma kontrole (blitzer.de, Lufop)",
+                "camera_redlight": "Sarkanās gaismas kamera",
+                "camera_section": "Vidējā ātruma kontrole",
                 "check_distance": "Distances pārbaude (blitzer.de)",
                 "check_police": "Policijas pārbaude (blitzer.de)",
                 "police_report": "Policijas paziņojums (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\"."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Ziņojumi"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Ziņojumi"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Izmantots tikai tad, ja tiek izveidots atpakaļceļš. Aizpildīts ar šī ieraksta nosaukumu un pievienotu \"atpakaļ\"; ieraksti citu, lai to nosauktu citādi - piemēram, \"Mājas\" un \"Darbs\"."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Rādiuss drīkst būt lielākais 50 km - lielākais lauks, ko TomTom atbild vienā pieprasījumā.",
             "invalid_api_key": "TomTom nepieņēma API atslēgu.",
             "quota_exceeded": "Atslēgas kvota pie TomTom pagaidām ir izsmelta. Mēģini vēlāk vēlreiz.",
+            "rate_limited": "TomTom šobrīd noraida turpmākus pieprasījumus: pārsniegts tā pieprasījumu limits sekundē. Mēģini pēc brīža vēlreiz.",
             "address_not_found": "Šai adresei netika atrasta neviena vieta.",
             "point_not_routable": "Viens no punktiem ir pārāk tālu no ceļa. Pārvieto to tuvāk kādam.",
             "no_route": "TomTom neatrada ceļu, kas savieno šos punktus.",
@@ -459,6 +572,34 @@
                     "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\"."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Ziņojumi"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Ziņojumi"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Ziņojumi"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Stacionārs ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilais ātruma radars",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Sarkanās gaismas kamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Vidējā ātruma kontrole",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Papildu iestatījumi",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Rādiuss drīkst būt lielākais 50 km - lielākais lauks, ko TomTom atbild vienā pieprasījumā.",
             "invalid_api_key": "TomTom nepieņēma API atslēgu.",
             "quota_exceeded": "Atslēgas kvota pie TomTom pagaidām ir izsmelta. Mēģini vēlāk vēlreiz.",
+            "rate_limited": "TomTom šobrīd noraida turpmākus pieprasījumus: pārsniegts tā pieprasījumu limits sekundē. Mēģini pēc brīža vēlreiz.",
             "address_not_found": "Šai adresei netika atrasta neviena vieta.",
             "point_not_routable": "Viens no punktiem ir pārāk tālu no ceļa. Pārvieto to tuvāk kādam.",
             "no_route": "TomTom neatrada ceļu, kas savieno šos punktus.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} nepiegādā datus",
             "description": "TomTom ieraksts **{name}** nav izdevies {count} vaicājumos pēc kārtas, tāpēc tā entītijas nav pieejamas. Pēdējais iemesls:\n\n`{reason}`\n\nIzsekotāju bez pozīcijas vai izsekotāja entītiju, kas vairs nepastāv, labo ieraksta sadaļā **Konfigurēt**; noraidītu atslēgu - sadaļā **Konfigurēt** pie ieraksta TomTom Iestatījumi; ja pats TomTom nav sasniedzams, tas pazūd pats, tiklīdz tas atkal ir. Šis labojums pazūd ar nākamo veiksmīgo vaicājumu."
+        },
+        "source_failing": {
+            "title": "{source} neatbild",
+            "description": "**{source}** nav izdevies {count} vaicājumos pēc kārtas. Tā ziņojumi vairs netiek rādīti kā aktuāli: tie pazūd no kartītēm, entītijām un ātruma radaru skaitiem, līdz tas atkal atbild, un sensoru **Visi ātruma radari** un **Jauni ātruma radari** `sources_ok` pa to laiku rāda false. Pēdējais iemesls:\n\n`{reason}`\n\nblitzer.de turklāt bloķē adresi, kas vaicā pārāk bieži - vairākas Home Assistant instances aiz vienas adreses summējas. Šis labojums pazūd ar nākamo vaicājumu, uz kuru tas atbild."
         },
         "quota_at_risk": {
             "title": "Mēneša {api} pieprasījumi iet uz beigām",

@@ -13,14 +13,18 @@
     "wind": "Wiatr",
     "flooding": "Podtopienie",
     "unknown": "Nieznane",
-    "camera_fixed": "Fotoradar stacjonarny (blitzer.de, Lufop)",
-    "camera_mobile": "Fotoradar mobilny (blitzer.de, Lufop)",
+    "camera_fixed": "Fotoradar stacjonarny",
+    "camera_mobile": "Fotoradar mobilny",
     "camera_trailer": "Fotoradar na przyczepie (blitzer.de)",
-    "camera_redlight": "Kamera na czerwone światło (blitzer.de, Lufop)",
-    "camera_section": "Odcinkowy pomiar prędkości (blitzer.de, Lufop)",
+    "camera_redlight": "Kamera na czerwone światło",
+    "camera_section": "Odcinkowy pomiar prędkości",
     "check_distance": "Kontrola odstępu (blitzer.de)",
     "check_police": "Kontrola policyjna (blitzer.de)",
     "police_report": "Komunikat policji (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Poniedziałek",
@@ -303,6 +307,7 @@
     "radius_too_large": "Promień może wynosić najwyżej 50 km - największe pole, na które TomTom odpowiada jednym zapytaniem.",
     "invalid_api_key": "TomTom nie przyjął klucza API.",
     "quota_exceeded": "Limit klucza w TomTom jest na razie wyczerpany. Spróbuj później.",
+    "rate_limited": "TomTom odrzuca teraz kolejne zapytania: przekroczono jego limit zapytań na sekundę. Spróbuj za chwilę.",
     "address_not_found": "Nie znaleziono miejsca dla tego adresu.",
     "point_not_routable": "Jeden z punktów leży zbyt daleko od drogi. Przesuń go bliżej.",
     "no_route": "TomTom nie znalazł drogi łączącej te punkty.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} nie dostarcza danych",
     "description": "Wpis TomTom **{name}** nie powiódł się przy {count} pobraniach z rzędu, więc jego encje są niedostępne. Ostatni powód:\n\n`{reason}`\n\nLokalizator bez pozycji lub encja lokalizatora, która już nie istnieje, naprawia się w **Konfiguruj** tego wpisu; odrzucony klucz w **Konfiguruj** na wpisie TomTom Ustawienia; jeśli sam TomTom jest nieosiągalny, znika to samo, gdy znów będzie. Ta naprawa znika z następnym udanym pobraniem."
+  },
+  "sourceIssue": {
+    "title": "{source} nie odpowiada",
+    "description": "Źródło **{source}** nie odpowiedziało przy {count} pobraniach z rzędu. Jego zgłoszenia nie są już pokazywane jako aktualne: znikają z kart, encji i liczników fotoradarów, aż znów odpowie, a `sources_ok` na sensorach **Wszystkie fotoradary** i **Nowe fotoradary** pokazuje w tym czasie false. Ostatni powód:\n\n`{reason}`\n\nblitzer.de blokuje też adres, który pyta zbyt często - kilka instancji Home Assistant za jednym adresem sumuje się. Ta naprawa znika z następnym pobraniem, na które odpowie."
   },
   "quotaIssue": {
     "title": "Zapytania {api} w tym miesiącu się kończą",

@@ -34,11 +34,11 @@
                 "wind": "Vind",
                 "flooding": "Översvämning",
                 "unknown": "Okänt",
-                "camera_fixed": "Fast fartkamera (blitzer.de, Lufop)",
-                "camera_mobile": "Mobil fartkamera (blitzer.de, Lufop)",
+                "camera_fixed": "Fast fartkamera",
+                "camera_mobile": "Mobil fartkamera",
                 "camera_trailer": "Fartkamera på släp (blitzer.de)",
-                "camera_redlight": "Rödljuskamera (blitzer.de, Lufop)",
-                "camera_section": "Sträckmätning (blitzer.de, Lufop)",
+                "camera_redlight": "Rödljuskamera",
+                "camera_section": "Sträckmätning",
                 "check_distance": "Avståndskontroll (blitzer.de)",
                 "check_police": "Poliskontroll (blitzer.de)",
                 "police_report": "Polismeddelande (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Rapporter"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Rapporter"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Används bara när vägen tillbaka skapas. Fylls i med den här postens namn och \"retur\" tillagt; skriv ett annat för att kalla den något annat - \"Hem\" och \"Jobbet\", till exempel."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Radien får vara högst 50 km - den största ruta TomTom svarar på i en förfrågan.",
             "invalid_api_key": "TomTom godtog inte API-nyckeln.",
             "quota_exceeded": "Nyckelns kvot hos TomTom är förbrukad för tillfället. Försök igen senare.",
+            "rate_limited": "TomTom avvisar fler förfrågningar just nu: fler än dess gräns för förfrågningar per sekund. Försök igen om en liten stund.",
             "address_not_found": "Ingen plats hittades för den här adressen.",
             "point_not_routable": "En av punkterna ligger för långt från en väg. Flytta den närmare en.",
             "no_route": "TomTom hittade ingen väg som förbinder de här punkterna.",
@@ -459,6 +572,34 @@
                     "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Rapporter"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Rapporter"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Rapporter"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobil fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rödljuskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Sträckmätning",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valfria inställningar",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Radien får vara högst 50 km - den största ruta TomTom svarar på i en förfrågan.",
             "invalid_api_key": "TomTom godtog inte API-nyckeln.",
             "quota_exceeded": "Nyckelns kvot hos TomTom är förbrukad för tillfället. Försök igen senare.",
+            "rate_limited": "TomTom avvisar fler förfrågningar just nu: fler än dess gräns för förfrågningar per sekund. Försök igen om en liten stund.",
             "address_not_found": "Ingen plats hittades för den här adressen.",
             "point_not_routable": "En av punkterna ligger för långt från en väg. Flytta den närmare en.",
             "no_route": "TomTom hittade ingen väg som förbinder de här punkterna.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} levererar inte",
             "description": "TomTom-posten **{name}** har misslyckats med {count} hämtningar i rad, så dess entiteter är otillgängliga. Senaste orsaken:\n\n`{reason}`\n\nEn spårare utan position, eller en spårarentitet som inte längre finns, åtgärdas under postens **Konfigurera**; en avvisad nyckel under **Konfigurera** på posten TomTom Inställningar; om TomTom självt inte kan nås försvinner det här av sig självt så snart det går igen. Den här reparationen försvinner med nästa hämtning som lyckas."
+        },
+        "source_failing": {
+            "title": "{source} svarar inte",
+            "description": "**{source}** har misslyckats med {count} hämtningar i rad. Dess rapporter visas inte längre som aktuella: de är borta från korten, entiteterna och fartkameraräkningarna tills den svarar igen, och `sources_ok` på sensorerna **Alla fartkameror** och **Nya fartkameror** är false under tiden. Senaste orsaken:\n\n`{reason}`\n\nblitzer.de blockerar dessutom en adress som frågar för ofta - flera Home Assistant-instanser bakom samma adress räknas ihop. Den här reparationen försvinner med nästa hämtning som den svarar på."
         },
         "quota_at_risk": {
             "title": "Månadens {api}-anrop börjar ta slut",

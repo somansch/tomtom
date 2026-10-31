@@ -13,14 +13,18 @@
     "wind": "Vent",
     "flooding": "Inondation",
     "unknown": "Inconnu",
-    "camera_fixed": "Radar fixe (blitzer.de, Lufop)",
-    "camera_mobile": "Radar mobile (blitzer.de, Lufop)",
+    "camera_fixed": "Radar fixe",
+    "camera_mobile": "Radar mobile",
     "camera_trailer": "Remorque radar (blitzer.de)",
-    "camera_redlight": "Radar feu rouge (blitzer.de, Lufop)",
-    "camera_section": "Radar tronçon (blitzer.de, Lufop)",
+    "camera_redlight": "Radar feu rouge",
+    "camera_section": "Radar tronçon",
     "check_distance": "Contrôle de distance (blitzer.de)",
     "check_police": "Contrôle de police (blitzer.de)",
     "police_report": "Message de la police (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Lundi",
@@ -303,6 +307,7 @@
     "radius_too_large": "Le rayon ne peut pas dépasser 50 km - la plus grande boîte à laquelle TomTom répond en une seule requête.",
     "invalid_api_key": "TomTom n'a pas accepté la clé API.",
     "quota_exceeded": "Le quota de cette clé chez TomTom est épuisé pour l'instant. Réessayez plus tard.",
+    "rate_limited": "TomTom refuse d'autres requêtes pour l'instant : plus que sa limite de requêtes par seconde. Réessayez dans un instant.",
     "address_not_found": "Aucun lieu trouvé pour cette adresse.",
     "point_not_routable": "L'un des points est trop loin d'une route. Rapprochez-le d'une route.",
     "no_route": "TomTom n'a trouvé aucune route reliant ces points.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} ne livre plus",
     "description": "L'entrée TomTom **{name}** a échoué {count} interrogations d'affilée, ses entités sont donc indisponibles. La dernière raison :\n\n`{reason}`\n\nUn traqueur sans position, ou une entité de traqueur qui n'existe plus, se corrige sous **Configurer** de l'entrée ; une clé refusée sous **Configurer** de l'entrée TomTom Paramètres ; si TomTom lui-même est injoignable, cela se résout de soi-même dès qu'il l'est à nouveau. Cette réparation disparaît avec la prochaine interrogation réussie."
+  },
+  "sourceIssue": {
+    "title": "{source} ne répond pas",
+    "description": "**{source}** a échoué {count} interrogations d'affilée. Ses signalements ne sont plus affichés comme actuels : ils disparaissent des cartes, des entités et des comptes de radars jusqu'à ce qu'elle réponde à nouveau, et `sources_ok` sur les capteurs **Tous les radars** et **Nouveaux radars** vaut false entre-temps. La dernière raison :\n\n`{reason}`\n\nblitzer.de bloque aussi une adresse qui demande trop souvent - plusieurs instances Home Assistant derrière une même adresse s'additionnent. Cette réparation disparaît avec la prochaine interrogation à laquelle elle répond."
   },
   "quotaIssue": {
     "title": "Les requêtes {api} du mois se raréfient",

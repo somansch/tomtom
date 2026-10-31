@@ -34,11 +34,11 @@
                 "wind": "Tuul",
                 "flooding": "Üleujutus",
                 "unknown": "Teadmata",
-                "camera_fixed": "Statsionaarne kiiruskaamera (blitzer.de, Lufop)",
-                "camera_mobile": "Mobiilne kiiruskaamera (blitzer.de, Lufop)",
+                "camera_fixed": "Statsionaarne kiiruskaamera",
+                "camera_mobile": "Mobiilne kiiruskaamera",
                 "camera_trailer": "Kiiruskaamera haagisel (blitzer.de)",
-                "camera_redlight": "Punase tule kaamera (blitzer.de, Lufop)",
-                "camera_section": "Keskmise kiiruse mõõtmine (blitzer.de, Lufop)",
+                "camera_redlight": "Punase tule kaamera",
+                "camera_section": "Keskmise kiiruse mõõtmine",
                 "check_distance": "Pikivahe kontroll (blitzer.de)",
                 "check_police": "Politseikontroll (blitzer.de)",
                 "police_report": "Politsei teade (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Teated"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Teated"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Kasutatakse ainult siis, kui tagasitee luuakse. Täidetud selle kirje nimega ja lisatud „tagasi“; kirjuta teine, et seda teisiti nimetada – näiteks „Kodu“ ja „Töö“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Raadius võib olla kuni 50 km – suurim kast, millele TomTom ühe päringuga vastab.",
             "invalid_api_key": "TomTom ei võtnud API võtit vastu.",
             "quota_exceeded": "Võtme kvoot TomTomis on praeguseks ammendatud. Proovi hiljem uuesti.",
+            "rate_limited": "TomTom keeldub praegu rohkematest päringutest: üle tema piirangu päringuid sekundis. Proovi hetke pärast uuesti.",
             "address_not_found": "Sellele aadressile ei leitud kohta.",
             "point_not_routable": "Üks punktidest on teest liiga kaugel. Liiguta see teele lähemale.",
             "no_route": "TomTom ei leidnud teed, mis neid punkte ühendaks.",
@@ -459,6 +572,34 @@
                     "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Teated"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Teated"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Teated"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Statsionaarne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobiilne kiiruskaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Punase tule kaamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Keskmise kiiruse mõõtmine",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valikulised seaded",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Raadius võib olla kuni 50 km – suurim kast, millele TomTom ühe päringuga vastab.",
             "invalid_api_key": "TomTom ei võtnud API võtit vastu.",
             "quota_exceeded": "Võtme kvoot TomTomis on praeguseks ammendatud. Proovi hiljem uuesti.",
+            "rate_limited": "TomTom keeldub praegu rohkematest päringutest: üle tema piirangu päringuid sekundis. Proovi hetke pärast uuesti.",
             "address_not_found": "Sellele aadressile ei leitud kohta.",
             "point_not_routable": "Üks punktidest on teest liiga kaugel. Liiguta see teele lähemale.",
             "no_route": "TomTom ei leidnud teed, mis neid punkte ühendaks.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} ei anna andmeid",
             "description": "TomTomi kirje **{name}** on {count} uuendust järjest ebaõnnestunud, seega pole selle olemid saadaval. Viimane põhjus:\n\n`{reason}`\n\nAsukohata jälgija või jälgija olem, mida enam pole, parandatakse kirje **Seadista** all; tagasilükatud võti kirje TomTom Seaded **Seadista** all; kui TomTom ise pole kättesaadav, kaob see iseenesest, kui jälle on. See parandus kaob järgmise õnnestunud uuendusega."
+        },
+        "source_failing": {
+            "title": "{source} ei vasta",
+            "description": "**{source}** on {count} uuendust järjest ebaõnnestunud. Tema teateid ei näidata enam ajakohastena: need puuduvad kaartidelt, olemitest ja kiiruskaamerate arvudest, kuni see jälle vastab, ja `sources_ok` anduritel **Kõik kiiruskaamerad** ja **Uued kiiruskaamerad** on seni false. Viimane põhjus:\n\n`{reason}`\n\nblitzer.de blokeerib ka aadressi, mis küsib liiga tihti – mitu Home Assistanti eksemplari ühe aadressi taga liidetakse kokku. See parandus kaob järgmise uuendusega, millele see vastab."
         },
         "quota_at_risk": {
             "title": "Kuu {api} päringud hakkavad otsa saama",

@@ -13,14 +13,18 @@
     "wind": "Wind",
     "flooding": "Wateroverlast",
     "unknown": "Onbekend",
-    "camera_fixed": "Vaste flitser (blitzer.de, Lufop)",
-    "camera_mobile": "Mobiele flitser (blitzer.de, Lufop)",
+    "camera_fixed": "Vaste flitser",
+    "camera_mobile": "Mobiele flitser",
     "camera_trailer": "Flitsaanhanger (blitzer.de)",
-    "camera_redlight": "Roodlichtcamera (blitzer.de, Lufop)",
-    "camera_section": "Trajectcontrole (blitzer.de, Lufop)",
+    "camera_redlight": "Roodlichtcamera",
+    "camera_section": "Trajectcontrole",
     "check_distance": "Afstandscontrole (blitzer.de)",
     "check_police": "Politiecontrole (blitzer.de)",
     "police_report": "Politiebericht (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Maandag",
@@ -303,6 +307,7 @@
     "radius_too_large": "De straal mag hoogstens 50 km zijn - het grootste vak dat TomTom in één aanvraag beantwoordt.",
     "invalid_api_key": "TomTom heeft de API-sleutel niet geaccepteerd.",
     "quota_exceeded": "Het quotum van de sleutel bij TomTom is voorlopig op. Probeer het later opnieuw.",
+    "rate_limited": "TomTom weigert op dit moment verdere aanvragen: meer dan zijn limiet aan aanvragen per seconde. Probeer het zo meteen opnieuw.",
     "address_not_found": "Voor dit adres is geen plaats gevonden.",
     "point_not_routable": "Een van de punten ligt te ver van een weg. Schuif hem dichter naar een weg toe.",
     "no_route": "TomTom heeft geen weg gevonden die deze punten verbindt.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} levert niet",
     "description": "Het TomTom-item **{name}** is bij {count} opvragingen op rij mislukt, dus zijn entiteiten zijn niet beschikbaar. De laatste reden:\n\n`{reason}`\n\nEen tracker zonder positie, of een tracker-entiteit die niet meer bestaat, los je op onder **Configureren** van het item; een geweigerde sleutel onder **Configureren** op het item TomTom Instellingen; als TomTom zelf niet bereikbaar is, verdwijnt dit vanzelf zodra het weer kan. Deze reparatie verdwijnt bij de volgende opvraging die slaagt."
+  },
+  "sourceIssue": {
+    "title": "{source} antwoordt niet",
+    "description": "**{source}** is bij {count} opvragingen op rij mislukt. Zijn meldingen gelden niet meer als actueel: ze ontbreken op de kaarten, in de entiteiten en in de flitsertellingen tot het weer antwoordt, en `sources_ok` op de sensoren **Alle flitsers** en **Nieuwe flitsers** staat zolang op false. De laatste reden:\n\n`{reason}`\n\nblitzer.de blokkeert bovendien een adres dat te vaak vraagt - meerdere Home Assistant-instanties achter één adres tellen samen. Deze reparatie verdwijnt bij de volgende opvraging die het beantwoordt."
   },
   "quotaIssue": {
     "title": "De {api}-aanvragen van de maand raken op",

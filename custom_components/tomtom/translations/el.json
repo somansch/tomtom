@@ -34,11 +34,11 @@
                 "wind": "Άνεμος",
                 "flooding": "Πλημμύρα",
                 "unknown": "Άγνωστο",
-                "camera_fixed": "Σταθερή κάμερα ταχύτητας (blitzer.de, Lufop)",
-                "camera_mobile": "Κινητή κάμερα ταχύτητας (blitzer.de, Lufop)",
+                "camera_fixed": "Σταθερή κάμερα ταχύτητας",
+                "camera_mobile": "Κινητή κάμερα ταχύτητας",
                 "camera_trailer": "Ρυμουλκούμενη κάμερα ταχύτητας (blitzer.de)",
-                "camera_redlight": "Κάμερα κόκκινου σηματοδότη (blitzer.de, Lufop)",
-                "camera_section": "Έλεγχος μέσης ταχύτητας (blitzer.de, Lufop)",
+                "camera_redlight": "Κάμερα κόκκινου σηματοδότη",
+                "camera_section": "Έλεγχος μέσης ταχύτητας",
                 "check_distance": "Έλεγχος απόστασης (blitzer.de)",
                 "check_police": "Αστυνομικός έλεγχος (blitzer.de)",
                 "police_report": "Ανακοίνωση αστυνομίας (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Μια δεύτερη καταχώριση, από προορισμό σε αφετηρία - σε αυτοκινητόδρομο η επιστροφή είναι το άλλο ρεύμα, και ένα μποτιλιάρισμα στο ένα δεν είναι μποτιλιάρισμα στο άλλο. Παίρνει το όνομα αυτής της καταχώρισης με την προσθήκη «επιστροφή»."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Αναφορές"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Αναφορές"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Χρησιμοποιείται μόνο όταν δημιουργείται η επιστροφή. Συμπληρώνεται με το όνομα αυτής της καταχώρισης και την προσθήκη «επιστροφή»· γράψτε άλλο για να την ονομάσετε αλλιώς - «Σπίτι» και «Δουλειά», ας πούμε."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Η ακτίνα μπορεί να είναι το πολύ 50 km - το μεγαλύτερο πλαίσιο που απαντά η TomTom σε ένα αίτημα.",
             "invalid_api_key": "Η TomTom δεν δέχτηκε το κλειδί API.",
             "quota_exceeded": "Το όριο του κλειδιού στην TomTom έχει εξαντληθεί προς το παρόν. Δοκιμάστε ξανά αργότερα.",
+            "rate_limited": "Η TomTom απορρίπτει αυτή τη στιγμή περισσότερα αιτήματα: πάνω από το όριό της σε αιτήματα το δευτερόλεπτο. Δοκιμάστε ξανά σε λίγο.",
             "address_not_found": "Δεν βρέθηκε μέρος για αυτή τη διεύθυνση.",
             "point_not_routable": "Ένα από τα σημεία είναι πολύ μακριά από δρόμο. Μετακινήστε το πιο κοντά σε έναν.",
             "no_route": "Η TomTom δεν βρήκε δρόμο που να συνδέει αυτά τα σημεία.",
@@ -459,6 +572,34 @@
                     "return_route": "Μια δεύτερη καταχώριση, από προορισμό σε αφετηρία - σε αυτοκινητόδρομο η επιστροφή είναι το άλλο ρεύμα, και ένα μποτιλιάρισμα στο ένα δεν είναι μποτιλιάρισμα στο άλλο. Παίρνει το όνομα αυτής της καταχώρισης με την προσθήκη «επιστροφή»."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Αναφορές"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Αναφορές"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Αναφορές"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Σταθερή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Κινητή κάμερα ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Κάμερα κόκκινου σηματοδότη",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Έλεγχος μέσης ταχύτητας",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Προαιρετικές ρυθμίσεις",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Η ακτίνα μπορεί να είναι το πολύ 50 km - το μεγαλύτερο πλαίσιο που απαντά η TomTom σε ένα αίτημα.",
             "invalid_api_key": "Η TomTom δεν δέχτηκε το κλειδί API.",
             "quota_exceeded": "Το όριο του κλειδιού στην TomTom έχει εξαντληθεί προς το παρόν. Δοκιμάστε ξανά αργότερα.",
+            "rate_limited": "Η TomTom απορρίπτει αυτή τη στιγμή περισσότερα αιτήματα: πάνω από το όριό της σε αιτήματα το δευτερόλεπτο. Δοκιμάστε ξανά σε λίγο.",
             "address_not_found": "Δεν βρέθηκε μέρος για αυτή τη διεύθυνση.",
             "point_not_routable": "Ένα από τα σημεία είναι πολύ μακριά από δρόμο. Μετακινήστε το πιο κοντά σε έναν.",
             "no_route": "Η TomTom δεν βρήκε δρόμο που να συνδέει αυτά τα σημεία.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "Το {name} δεν παραδίδει δεδομένα",
             "description": "Η καταχώριση TomTom **{name}** απέτυχε σε {count} ανακτήσεις στη σειρά, οπότε οι οντότητές της δεν είναι διαθέσιμες. Ο τελευταίος λόγος:\n\n`{reason}`\n\nΈνας ιχνηλάτης χωρίς θέση, ή μια οντότητα ιχνηλάτη που δεν υπάρχει πια, διορθώνεται στο **Διαμόρφωση** της καταχώρισης· ένα απορριφθέν κλειδί στο **Διαμόρφωση** της καταχώρισης TomTom Ρυθμίσεις· αν δεν είναι προσβάσιμη η ίδια η TomTom, αυτό καθαρίζει μόνο του μόλις γίνει ξανά. Αυτή η επισκευή φεύγει με την επόμενη ανάκτηση που πετυχαίνει."
+        },
+        "source_failing": {
+            "title": "Το {source} δεν απαντά",
+            "description": "Το **{source}** απέτυχε σε {count} ανακτήσεις στη σειρά. Οι αναφορές του δεν εμφανίζονται πια ως τρέχουσες: λείπουν από τις κάρτες, τις οντότητες και τους αριθμούς καμερών ταχύτητας μέχρι να απαντήσει ξανά, και το `sources_ok` στους αισθητήρες **Όλες οι κάμερες ταχύτητας** και **Νέες κάμερες ταχύτητας** είναι στο μεταξύ false. Ο τελευταίος λόγος:\n\n`{reason}`\n\nΤο blitzer.de αποκλείει επίσης μια διεύθυνση που ρωτά πολύ συχνά - πολλές εγκαταστάσεις Home Assistant πίσω από μία διεύθυνση αθροίζονται. Αυτή η επισκευή φεύγει με την επόμενη ανάκτηση που απαντά."
         },
         "quota_at_risk": {
             "title": "Τα αιτήματα {api} του μήνα λιγοστεύουν",

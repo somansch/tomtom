@@ -34,11 +34,11 @@
                 "wind": "رياح",
                 "flooding": "فيضان",
                 "unknown": "غير معروف",
-                "camera_fixed": "كاميرا سرعة ثابتة (blitzer.de، Lufop)",
-                "camera_mobile": "كاميرا سرعة متنقلة (blitzer.de، Lufop)",
+                "camera_fixed": "كاميرا سرعة ثابتة",
+                "camera_mobile": "كاميرا سرعة متنقلة",
                 "camera_trailer": "مقطورة كاميرا سرعة (blitzer.de)",
-                "camera_redlight": "كاميرا الإشارة الحمراء (blitzer.de، Lufop)",
-                "camera_section": "مراقبة السرعة على مقطع (blitzer.de، Lufop)",
+                "camera_redlight": "كاميرا الإشارة الحمراء",
+                "camera_section": "مراقبة السرعة على مقطع",
                 "check_distance": "مراقبة مسافة الأمان (blitzer.de)",
                 "check_police": "تفتيش شرطة (blitzer.de)",
                 "police_report": "بلاغ شرطة (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "إدخال ثانٍ، من الوجهة إلى البداية - على الطريق السريع طريق العودة هو الاتجاه الآخر، وازدحام على أحدهما ليس ازدحامًا على الآخر. يُسمّى باسم هذا الإدخال مع إضافة «عودة»."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "البلاغات"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "البلاغات"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "يُستخدم فقط عند إنشاء طريق العودة. يُملأ باسم هذا الإدخال مع إضافة «عودة»؛ اكتب غيره لتسميته باسم آخر - «المنزل» و«العمل» مثلًا."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "نصف القطر 50 كم على الأكثر - أكبر صندوق يجيب عنه TomTom في طلب واحد.",
             "invalid_api_key": "لم يقبل TomTom مفتاح API.",
             "quota_exceeded": "حصة هذا المفتاح لدى TomTom مستنفدة حاليًا. حاول لاحقًا.",
+            "rate_limited": "يرفض TomTom مزيدًا من الطلبات الآن: أكثر من حدّه من الطلبات في الثانية. حاول بعد لحظة.",
             "address_not_found": "لم يُعثر على مكان لهذا العنوان.",
             "point_not_routable": "إحدى النقاط بعيدة جدًا عن أي طريق. قرّبها من طريق.",
             "no_route": "لم يجد TomTom طريقًا يصل بين هذه النقاط.",
@@ -459,6 +572,34 @@
                     "return_route": "إدخال ثانٍ، من الوجهة إلى البداية - على الطريق السريع طريق العودة هو الاتجاه الآخر، وازدحام على أحدهما ليس ازدحامًا على الآخر. يُسمّى باسم هذا الإدخال مع إضافة «عودة»."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "البلاغات"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "البلاغات"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "البلاغات"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "كاميرا سرعة ثابتة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "كاميرا سرعة متنقلة",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "كاميرا الإشارة الحمراء",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "مراقبة السرعة على مقطع",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "إعدادات اختيارية",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "نصف القطر 50 كم على الأكثر - أكبر صندوق يجيب عنه TomTom في طلب واحد.",
             "invalid_api_key": "لم يقبل TomTom مفتاح API.",
             "quota_exceeded": "حصة هذا المفتاح لدى TomTom مستنفدة حاليًا. حاول لاحقًا.",
+            "rate_limited": "يرفض TomTom مزيدًا من الطلبات الآن: أكثر من حدّه من الطلبات في الثانية. حاول بعد لحظة.",
             "address_not_found": "لم يُعثر على مكان لهذا العنوان.",
             "point_not_routable": "إحدى النقاط بعيدة جدًا عن أي طريق. قرّبها من طريق.",
             "no_route": "لم يجد TomTom طريقًا يصل بين هذه النقاط.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} لا يُسلّم",
             "description": "فشل إدخال TomTom **{name}** في {count} استعلامات متتالية، فكياناته غير متاحة. السبب الأخير:\n\n`{reason}`\n\nمتتبع بلا موقع، أو كيان متتبع لم يعد موجودًا، يُصلح تحت **تهيئة** الإدخال؛ ومفتاح مرفوض تحت **تهيئة** على إدخال TomTom الإعدادات؛ وإن تعذّر الوصول إلى TomTom نفسه، يزول هذا من تلقاء نفسه حين يعود. يختفي هذا الإصلاح مع أول استعلام ينجح."
+        },
+        "source_failing": {
+            "title": "{source} لا يجيب",
+            "description": "فشل **{source}** في {count} استعلامات متتالية. لم تعد بلاغاته تُعدّ حديثة: فهي غائبة عن البطاقات والكيانات وأعداد كاميرات السرعة حتى يجيب مجددًا، ويبقى `sources_ok` على مستشعري **كل كاميرات السرعة** و**كاميرات السرعة الجديدة** على false في هذه الأثناء. السبب الأخير:\n\n`{reason}`\n\nيحظر blitzer.de أيضًا أي عنوان يسأل كثيرًا - وعدة نسخ من Home Assistant خلف عنوان واحد تُحتسب معًا. يختفي هذا الإصلاح مع أول استعلام يجيب عنه."
         },
         "quota_at_risk": {
             "title": "طلبات {api} لهذا الشهر تشحّ",

@@ -13,14 +13,18 @@
     "wind": "Vėjas",
     "flooding": "Potvynis",
     "unknown": "Nežinoma",
-    "camera_fixed": "Stacionarus greičio matuoklis (blitzer.de, Lufop)",
-    "camera_mobile": "Mobilusis greičio matuoklis (blitzer.de, Lufop)",
+    "camera_fixed": "Stacionarus greičio matuoklis",
+    "camera_mobile": "Mobilusis greičio matuoklis",
     "camera_trailer": "Greičio matuoklio priekaba (blitzer.de)",
-    "camera_redlight": "Raudonos šviesos kamera (blitzer.de, Lufop)",
-    "camera_section": "Vidutinio greičio matavimas (blitzer.de, Lufop)",
+    "camera_redlight": "Raudonos šviesos kamera",
+    "camera_section": "Vidutinio greičio matavimas",
     "check_distance": "Atstumo patikra (blitzer.de)",
     "check_police": "Policijos patikra (blitzer.de)",
     "police_report": "Policijos pranešimas (blitzer.de)"
+  },
+  "sourceNames": {
+    "blitzer": "blitzer.de",
+    "lufop": "Lufop"
   },
   "days": {
     "mon": "Pirmadienis",
@@ -303,6 +307,7 @@
     "radius_too_large": "Spindulys gali būti ne didesnis kaip 50 km – didžiausias stačiakampis, į kurį TomTom atsako viena užklausa.",
     "invalid_api_key": "TomTom nepriėmė API rakto.",
     "quota_exceeded": "Šio rakto kvota TomTom kol kas išnaudota. Pabandykite vėliau.",
+    "rate_limited": "TomTom šiuo metu atmeta tolesnes užklausas: viršyta jo užklausų per sekundę riba. Pabandykite po akimirkos.",
     "address_not_found": "Šiuo adresu vietos nerasta.",
     "point_not_routable": "Vienas iš taškų per toli nuo kelio. Perkelkite jį arčiau.",
     "no_route": "TomTom nerado kelio, jungiančio šiuos taškus.",
@@ -328,6 +333,10 @@
   "issue": {
     "title": "{name} nebeteikia duomenų",
     "description": "TomTom įrašo **{name}** {count} užklausos iš eilės nepavyko, todėl jo objektai nepasiekiami. Paskutinė priežastis:\n\n`{reason}`\n\nSeklys be padėties arba nebeegzistuojantis seklio objektas taisomas įrašo skiltyje **Konfigūruoti**; atmestas raktas – TomTom Nustatymai įrašo skiltyje **Konfigūruoti**; jei nepasiekiamas pats TomTom, tai išnyksta savaime, kai tik jis vėl pasiekiamas. Šis taisymas dingsta su kita sėkminga užklausa."
+  },
+  "sourceIssue": {
+    "title": "{source} neatsako",
+    "description": "**{source}** {count} užklausos iš eilės nepavyko. Jo pranešimai nebelaikomi aktualiais: jų nėra kortelėse, objektuose ir greičio matuoklių skaičiuose, kol jis vėl atsakys, o jutiklių **Visi greičio matuokliai** ir **Nauji greičio matuokliai** `sources_ok` tuo metu rodo false. Paskutinė priežastis:\n\n`{reason}`\n\nblitzer.de taip pat blokuoja adresą, kuris klausia per dažnai – kelios Home Assistant instancijos už vieno adreso sumuojasi. Šis taisymas dingsta su kita užklausa, į kurią jis atsako."
   },
   "quotaIssue": {
     "title": "Mėnesio {api} užklausos senka",

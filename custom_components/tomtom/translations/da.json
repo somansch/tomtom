@@ -34,11 +34,11 @@
                 "wind": "Vind",
                 "flooding": "Oversvømmelse",
                 "unknown": "Ukendt",
-                "camera_fixed": "Fast fartkamera (blitzer.de, Lufop)",
-                "camera_mobile": "Mobilt fartkamera (blitzer.de, Lufop)",
+                "camera_fixed": "Fast fartkamera",
+                "camera_mobile": "Mobilt fartkamera",
                 "camera_trailer": "Fartkameraanhænger (blitzer.de)",
-                "camera_redlight": "Rødlyskamera (blitzer.de, Lufop)",
-                "camera_section": "Strækningskontrol (blitzer.de, Lufop)",
+                "camera_redlight": "Rødlyskamera",
+                "camera_section": "Strækningskontrol",
                 "check_distance": "Afstandskontrol (blitzer.de)",
                 "check_police": "Politikontrol (blitzer.de)",
                 "police_report": "Politimelding (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Meldinger"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Meldinger"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Bruges kun, når vejen tilbage oprettes. Udfyldt med denne posts navn og \"retur\" tilføjet; skriv et andet for at kalde den noget andet - \"Hjem\" og \"Arbejde\", f.eks."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Radius må højst være 50 km - den største boks, TomTom svarer på i én anmodning.",
             "invalid_api_key": "TomTom accepterede ikke API-nøglen.",
             "quota_exceeded": "Nøglens kvote hos TomTom er brugt op for nu. Prøv igen senere.",
+            "rate_limited": "TomTom afviser lige nu flere anmodninger: mere end dets grænse for anmodninger i sekundet. Prøv igen om et øjeblik.",
             "address_not_found": "Der blev ikke fundet noget sted for denne adresse.",
             "point_not_routable": "Et af punkterne ligger for langt fra en vej. Flyt det tættere på en.",
             "no_route": "TomTom fandt ingen vej, der forbinder disse punkter.",
@@ -459,6 +572,34 @@
                     "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Meldinger"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Meldinger"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Meldinger"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Fast fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilt fartkamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Rødlyskamera",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Strækningskontrol",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Valgfrie indstillinger",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Radius må højst være 50 km - den største boks, TomTom svarer på i én anmodning.",
             "invalid_api_key": "TomTom accepterede ikke API-nøglen.",
             "quota_exceeded": "Nøglens kvote hos TomTom er brugt op for nu. Prøv igen senere.",
+            "rate_limited": "TomTom afviser lige nu flere anmodninger: mere end dets grænse for anmodninger i sekundet. Prøv igen om et øjeblik.",
             "address_not_found": "Der blev ikke fundet noget sted for denne adresse.",
             "point_not_routable": "Et af punkterne ligger for langt fra en vej. Flyt det tættere på en.",
             "no_route": "TomTom fandt ingen vej, der forbinder disse punkter.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} leverer ikke",
             "description": "TomTom-posten **{name}** har fejlet {count} forespørgsler i træk, så dens entiteter er utilgængelige. Den seneste årsag:\n\n`{reason}`\n\nEn tracker uden position, eller en sporingsentitet, der ikke længere findes, rettes under postens **Konfigurér**; en afvist nøgle under **Konfigurér** på posten TomTom Indstillinger; hvis TomTom selv ikke kan nås, forsvinder dette af sig selv, når det kan igen. Denne reparation forsvinder med den næste forespørgsel, der lykkes."
+        },
+        "source_failing": {
+            "title": "{source} svarer ikke",
+            "description": "**{source}** har fejlet {count} forespørgsler i træk. Dets meldinger regnes ikke længere som aktuelle: de er væk fra kortene, entiteterne og fartkameratallene, indtil det svarer igen, og `sources_ok` på sensorerne **Alle fartkameraer** og **Nye fartkameraer** står imens på false. Den seneste årsag:\n\n`{reason}`\n\nblitzer.de blokerer desuden en adresse, der spørger for ofte - flere Home Assistant-instanser bag én adresse tæller sammen. Denne reparation forsvinder med den næste forespørgsel, det svarer på."
         },
         "quota_at_risk": {
             "title": "Månedens {api}-forespørgsler bliver knappe",

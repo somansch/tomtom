@@ -34,11 +34,11 @@
                 "wind": "Vietor",
                 "flooding": "Záplava",
                 "unknown": "Neznáme",
-                "camera_fixed": "Pevný radar (blitzer.de, Lufop)",
-                "camera_mobile": "Mobilný radar (blitzer.de, Lufop)",
+                "camera_fixed": "Pevný radar",
+                "camera_mobile": "Mobilný radar",
                 "camera_trailer": "Radar na prívese (blitzer.de)",
-                "camera_redlight": "Kamera na červenú (blitzer.de, Lufop)",
-                "camera_section": "Úsekové meranie rýchlosti (blitzer.de, Lufop)",
+                "camera_redlight": "Kamera na červenú",
+                "camera_section": "Úsekové meranie rýchlosti",
                 "check_distance": "Kontrola odstupu (blitzer.de)",
                 "check_police": "Policajná kontrola (blitzer.de)",
                 "police_report": "Policajné hlásenie (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Druhý záznam, z cieľa na štart - na diaľnici je cesta späť druhá vozovka a zápcha na jednej nie je zápchou na druhej. Pomenovaný podľa tohto záznamu s pridaným „späť“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Hlásenia"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Hlásenia"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Použije sa len pri vytvorení cesty späť. Predvyplnené názvom tohto záznamu s pridaným „späť“; napíšte iný, ak ho chcete nazvať inak - napríklad „Domov“ a „Práca“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "Polomer môže byť najviac 50 km - najväčšia oblasť, ktorú TomTom odpovie v jednej požiadavke.",
             "invalid_api_key": "TomTom API kľúč neprijal.",
             "quota_exceeded": "Kvóta kľúča u TomTom je nateraz vyčerpaná. Skúste to neskôr.",
+            "rate_limited": "TomTom práve odmieta ďalšie požiadavky: viac, než je jeho limit požiadaviek za sekundu. Skúste to o chvíľu.",
             "address_not_found": "Pre túto adresu sa nenašlo žiadne miesto.",
             "point_not_routable": "Jeden z bodov je príliš ďaleko od cesty. Posuňte ho bližšie k nej.",
             "no_route": "TomTom nenašiel cestu spájajúcu tieto body.",
@@ -459,6 +572,34 @@
                     "return_route": "Druhý záznam, z cieľa na štart - na diaľnici je cesta späť druhá vozovka a zápcha na jednej nie je zápchou na druhej. Pomenovaný podľa tohto záznamu s pridaným „späť“."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Hlásenia"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Hlásenia"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Hlásenia"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Pevný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Mobilný radar",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Kamera na červenú",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Úsekové meranie rýchlosti",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Voliteľné nastavenia",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "Polomer môže byť najviac 50 km - najväčšia oblasť, ktorú TomTom odpovie v jednej požiadavke.",
             "invalid_api_key": "TomTom API kľúč neprijal.",
             "quota_exceeded": "Kvóta kľúča u TomTom je nateraz vyčerpaná. Skúste to neskôr.",
+            "rate_limited": "TomTom práve odmieta ďalšie požiadavky: viac, než je jeho limit požiadaviek za sekundu. Skúste to o chvíľu.",
             "address_not_found": "Pre túto adresu sa nenašlo žiadne miesto.",
             "point_not_routable": "Jeden z bodov je príliš ďaleko od cesty. Posuňte ho bližšie k nej.",
             "no_route": "TomTom nenašiel cestu spájajúcu tieto body.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} nedodáva dáta",
             "description": "Záznam TomTom **{name}** zlyhal pri {count} dopytoch za sebou, takže jeho entity sú nedostupné. Posledný dôvod:\n\n`{reason}`\n\nSledovač bez polohy alebo entita sledovača, ktorá už neexistuje, sa opraví v **Konfigurovať** záznamu; odmietnutý kľúč v **Konfigurovať** na zázname TomTom Nastavenia; ak nie je dostupný samotný TomTom, vyrieši sa to samo, len čo bude. Táto oprava zmizne s ďalším úspešným dopytom."
+        },
+        "source_failing": {
+            "title": "{source} neodpovedá",
+            "description": "**{source}** zlyhal pri {count} dopytoch za sebou. Jeho hlásenia sa už nezobrazujú ako aktuálne: chýbajú na kartách, v entitách a v počtoch radarov, kým znova neodpovie, a `sources_ok` na senzoroch **Všetky radary** a **Nové radary** je zatiaľ false. Posledný dôvod:\n\n`{reason}`\n\nblitzer.de navyše blokuje adresu, ktorá sa pýta príliš často - viacero inštancií Home Assistant za jednou adresou sa sčíta. Táto oprava zmizne s ďalším dopytom, na ktorý odpovie."
         },
         "quota_at_risk": {
             "title": "Mesačné požiadavky {api} dochádzajú",

@@ -34,11 +34,11 @@
                 "wind": "Viento",
                 "flooding": "Inundación",
                 "unknown": "Desconocido",
-                "camera_fixed": "Radar fijo (blitzer.de, Lufop)",
-                "camera_mobile": "Radar móvil (blitzer.de, Lufop)",
+                "camera_fixed": "Radar fijo",
+                "camera_mobile": "Radar móvil",
                 "camera_trailer": "Radar en remolque (blitzer.de)",
-                "camera_redlight": "Cámara de semáforo (blitzer.de, Lufop)",
-                "camera_section": "Radar de tramo (blitzer.de, Lufop)",
+                "camera_redlight": "Cámara de semáforo",
+                "camera_section": "Radar de tramo",
                 "check_distance": "Control de distancia (blitzer.de)",
                 "check_police": "Control policial (blitzer.de)",
                 "police_report": "Aviso policial (blitzer.de)"
@@ -177,6 +177,34 @@
                     "return_route": "Una segunda entrada, de destino a inicio: en una autopista el camino de vuelta es la otra calzada, y un atasco en una no lo es en la otra. Se llama como esta entrada, con \"vuelta\" añadido."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -213,6 +241,34 @@
                     "categories": "Incidencias"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -242,6 +298,34 @@
                     "categories": "Incidencias"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -372,6 +456,34 @@
                     "return_name": "Solo se usa cuando se crea el camino de vuelta. Se rellena con el nombre de esta entrada y \"vuelta\" añadido; escribe otro para llamarlo de otra forma, \"Casa\" y \"Trabajo\", por ejemplo."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -402,6 +514,7 @@
             "radius_too_large": "El radio puede ser como máximo de 50 km, el recuadro más grande que TomTom responde en una sola petición.",
             "invalid_api_key": "TomTom no ha aceptado la clave de API.",
             "quota_exceeded": "La cuota de la clave en TomTom está agotada por ahora. Inténtalo más tarde.",
+            "rate_limited": "TomTom rechaza ahora mismo más peticiones: más que su límite de peticiones por segundo. Inténtalo de nuevo en un momento.",
             "address_not_found": "No se ha encontrado ningún lugar para esta dirección.",
             "point_not_routable": "Uno de los puntos está demasiado lejos de una carretera. Acércalo a una.",
             "no_route": "TomTom no ha encontrado ninguna carretera que conecte estos puntos.",
@@ -459,6 +572,34 @@
                     "return_route": "Una segunda entrada, de destino a inicio: en una autopista el camino de vuelta es la otra calzada, y un atasco en una no lo es en la otra. Se llama como esta entrada, con \"vuelta\" añadido."
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -536,6 +677,34 @@
                     "categories": "Incidencias"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -565,6 +734,34 @@
                     "categories": "Incidencias"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -687,6 +884,34 @@
                     "categories": "Incidencias"
                 },
                 "sections": {
+                    "kind_camera_fixed": {
+                        "name": "Radar fijo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_mobile": {
+                        "name": "Radar móvil",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_redlight": {
+                        "name": "Cámara de semáforo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
+                    "kind_camera_section": {
+                        "name": "Radar de tramo",
+                        "data": {
+                            "blitzer": "blitzer.de",
+                            "lufop": "Lufop"
+                        }
+                    },
                     "optional": {
                         "name": "Ajustes opcionales",
                         "data": {
@@ -712,6 +937,7 @@
             "radius_too_large": "El radio puede ser como máximo de 50 km, el recuadro más grande que TomTom responde en una sola petición.",
             "invalid_api_key": "TomTom no ha aceptado la clave de API.",
             "quota_exceeded": "La cuota de la clave en TomTom está agotada por ahora. Inténtalo más tarde.",
+            "rate_limited": "TomTom rechaza ahora mismo más peticiones: más que su límite de peticiones por segundo. Inténtalo de nuevo en un momento.",
             "address_not_found": "No se ha encontrado ningún lugar para esta dirección.",
             "point_not_routable": "Uno de los puntos está demasiado lejos de una carretera. Acércalo a una.",
             "no_route": "TomTom no ha encontrado ninguna carretera que conecte estos puntos.",
@@ -734,6 +960,10 @@
         "entry_failing": {
             "title": "{name} no entrega datos",
             "description": "La entrada de TomTom **{name}** ha fallado {count} consultas seguidas, así que sus entidades no están disponibles. El último motivo:\n\n`{reason}`\n\nUn rastreador sin posición, o una entidad de rastreador que ya no existe, se arregla en **Configurar** de la entrada; una clave rechazada, en **Configurar** de la entrada TomTom Ajustes; si es TomTom lo que no se puede alcanzar, esto se resuelve solo en cuanto vuelva a estar accesible. Esta reparación desaparece con la siguiente consulta que tenga éxito."
+        },
+        "source_failing": {
+            "title": "{source} no responde",
+            "description": "**{source}** ha fallado {count} consultas seguidas. Sus incidencias ya no se muestran como actuales: desaparecen de las tarjetas, de las entidades y de los recuentos de radares hasta que vuelva a responder, y mientras tanto `sources_ok` en los sensores **Todos los radares** y **Radares nuevos** vale false. El último motivo:\n\n`{reason}`\n\nblitzer.de también bloquea una dirección que pregunta demasiado a menudo: varias instancias de Home Assistant detrás de una misma dirección se suman. Esta reparación desaparece con la siguiente consulta que responda."
         },
         "quota_at_risk": {
             "title": "Las solicitudes {api} del mes escasean",
