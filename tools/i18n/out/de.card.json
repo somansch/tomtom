@@ -409,6 +409,8 @@
   "edMapScaleHelp": "Ein Maßstab unten links, in der Einheit von Home Assistant. Im Minimalformat auf der Pop-up-Karte.",
   "edMapGoogle": "Google-Maps-Knopf anzeigen",
   "edMapGoogleHelp": "Ein Knopf oben rechts auf der Karte, der den Eintrag in Google Maps öffnet: eine Route mit Start, Zwischenzielen und Ziel im Routenplaner, eine Fläche oder einen Tracker an ihrem Mittelpunkt. Im Minimalformat auf der Pop-up-Karte.",
+  "edTestSwitch": "Testschalter (Beta)",
+  "edTestSwitchHelp": "Nur da, um zu zeigen, dass ein Update eine bereits offene Seite erreicht: er tut nichts und verschwindet mit dem Release.",
   "googleOpen": "In Google Maps öffnen",
   "edMapAlways": "Karte auch ohne Meldungen zeigen",
   "edMapAlwaysHelp": "Behält die Karte, während nichts gemeldet ist, eingepasst auf Gebiet oder Route. Aus nimmt sie weg, bis wieder etwas gemeldet wird.",

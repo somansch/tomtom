@@ -479,6 +479,8 @@
       edMapGoogle: "Show the Google Maps button",
       edMapGoogleHelp: "A button top right on the map that opens the entry in Google Maps: a route with its start, stops and destination in the route planner, an area or a tracker at its centre. In the minimal format on the pop-up's map.",
       googleOpen: "Open in Google Maps",
+      edTestSwitch: "Test switch (beta)",
+      edTestSwitchHelp: "Only here to show that an update reaches a page that is already open: it does nothing and goes away with the release.",
       edMapAlways: "Keep the map when nothing is reported",
       edMapAlwaysHelp: "Keeps the map while nothing is reported, fitted to the area or route. Off takes it down until something is reported.",
       liveTime: (minutes, delay) => (delay > 0 ? `${minutes} min (+${delay})` : `${minutes} min`),
@@ -1021,6 +1023,8 @@
     map_scale: true,
     // A button top right on the map that opens the entry in Google Maps.
     map_google: false,
+    // The beta's test switch: in the editor to be seen, nowhere else.
+    test_switch: false,
     map_traffic: true,
     // TomTom's flow tiles: which of its colourings, and how solid.
     traffic_style: "relative0",
@@ -6658,9 +6662,15 @@
           panel.dataset.super === key && !panel.classList.contains("open")
         );
       });
+      // Remembered on the element, not only in the DOM: the form is built
+      // again by a new language arriving and by a new version of this file
+      // taking the element over, and both put it back the way it was.
+      const open = this.shadowRoot.querySelector(".super-panel.open");
+      this._openSuper = open ? open.dataset.super : null;
     }
 
     _selectTab(superKey, groupKey) {
+      this._activeTabs = { ...(this._activeTabs || {}), [superKey]: groupKey };
       const panel = this.shadowRoot.querySelector(`.super-panel[data-super="${superKey}"]`);
       if (!panel) return;
       panel.querySelectorAll(".tab").forEach((tab) => {
@@ -7504,6 +7514,10 @@
               { value: "minimal", label: str.layoutMinimal },
             ]))
         );
+        // The beta's test switch, right under the format so that it is the
+        // first thing to notice: it exists to show that an update reaches
+        // a page that is already open, and does nothing.
+        body.appendChild(this._toggleRow("test_switch", str.edTestSwitch, str.edTestSwitchHelp));
         // "Hide" sits on the title's own label line rather than on a row of
         // its own: it is not a second setting but the same one, saying that
         // whatever the field below holds is not to be drawn.
@@ -7878,6 +7892,9 @@
       if (!this.shadowRoot) this.attachShadow({ mode: "open" });
 
       if (!this.shadowRoot.querySelector(".super-panel")) {
+        // What was open before, if this is a rebuild: see _toggleSuper.
+        const openSuper = this._openSuper || null;
+        const activeTabs = { ...(this._activeTabs || {}) };
         this.shadowRoot.innerHTML = `<style>${EDITOR_STYLE}</style>`;
         for (const superGroup of SUPER_GROUPS) {
           const panel = document.createElement("div");
@@ -7920,6 +7937,12 @@
           }
           this.shadowRoot.appendChild(panel);
           this._selectTab(superGroup.key, superGroup.groups[0]);
+        }
+        for (const [superKey, groupKey] of Object.entries(activeTabs)) this._selectTab(superKey, groupKey);
+        if (openSuper) {
+          const panel = this.shadowRoot.querySelector(`.super-panel[data-super="${openSuper}"]`);
+          if (panel) panel.classList.add("open");
+          this._openSuper = openSuper;
         }
       }
 
@@ -9807,8 +9830,21 @@
       try {
         if (!el._config) continue;
         // An editor's form is built once and then only has values pushed
-        // into it; a new version means building it again.
-        if (el.localName === EDITOR_TAG && el.shadowRoot) el.shadowRoot.innerHTML = "";
+        // into it; a new version means building it again - with the panel
+        // and the tabs the person had open, so that the swap is not seen
+        // as the form folding up.
+        if (el.localName === EDITOR_TAG && el.shadowRoot) {
+          // An element from before these fields existed: read what it has
+          // open off the DOM, so that _render puts it back.
+          const open = el.shadowRoot.querySelector(".super-panel.open");
+          el._openSuper = open ? open.dataset.super : null;
+          el._activeTabs = {};
+          for (const tab of el.shadowRoot.querySelectorAll(".super-panel .tab.active")) {
+            const panel = tab.closest(".super-panel");
+            if (panel) el._activeTabs[panel.dataset.super] = tab.dataset.key;
+          }
+          el.shadowRoot.innerHTML = "";
+        }
         el.setConfig(el._config);
         if (el._hass) el.hass = el._hass;
       } catch (err) {

@@ -409,6 +409,8 @@
   "edMapScaleHelp": "A scale bar bottom left, in Home Assistant's unit. In the minimal format on the pop-up's map.",
   "edMapGoogle": "Show the Google Maps button",
   "edMapGoogleHelp": "A button top right on the map that opens the entry in Google Maps: a route with its start, stops and destination in the route planner, an area or a tracker at its centre. In the minimal format on the pop-up's map.",
+  "edTestSwitch": "Test switch (beta)",
+  "edTestSwitchHelp": "Only here to show that an update reaches a page that is already open: it does nothing and goes away with the release.",
   "googleOpen": "Open in Google Maps",
   "edMapAlways": "Keep the map when nothing is reported",
   "edMapAlwaysHelp": "Keeps the map while nothing is reported, fitted to the area or route. Off takes it down until something is reported.",
