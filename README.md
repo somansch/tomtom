@@ -1,6 +1,7 @@
 # <img src="https://raw.githubusercontent.com/somansch/tomtom/main/custom_components/tomtom/brand/icon.png" width="40" height="40" align="top"> TomTom Integration for Home Assistant - traffic reports and your commute's travel time on your map
 
 [![GitHub release](https://img.shields.io/github/v/release/somansch/tomtom)](https://github.com/somansch/tomtom/releases/latest)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/default)
 [![License](https://img.shields.io/github/license/somansch/tomtom)](https://github.com/somansch/tomtom/blob/main/LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/somansch/tomtom/total)](https://github.com/somansch/tomtom/releases)
 [![Downloads@latest](https://img.shields.io/github/downloads/somansch/tomtom/latest/total)](https://github.com/somansch/tomtom/releases/latest)
@@ -36,7 +37,7 @@ One more thing lives on the card alone, not in an entity: the [traffic flow](#tr
 
 ## Quick start
 
-1. **Install** via [HACS](#hacs) or [manually](#manual), then restart Home Assistant.
+1. **Install** via [HACS](#hacs-recommended) or [manually](#manual), then restart Home Assistant.
 2. Get a free TomTom API key - the first entry's setup tells you how, and it takes a minute: sign up at [developer.tomtom.com](https://developer.tomtom.com/), and the key is waiting in the dashboard. No payment method.
 3. Go to **Settings → Devices & Services → Add Integration** and search for "TomTom". Paste the key, set the defaults every new route starts with - or leave them as they are - and either finish or go straight on to your first entry: name it and pick a search mode ([Adding an area, tracker or route](#adding-an-area-tracker-or-route)).
 4. Choose what to report: the thirteen [kinds of report](#kinds-of-report). All on by default.
@@ -629,12 +630,14 @@ Three things, in one download:
   After the first installation, load the dashboard page once - a page that is already open holds nothing of the card yet. From then on an update reaches every open page by itself: after Home Assistant restarts, the card checks which version is served and takes the new one over in place, with no reload and no cache to clear.
 - The **[Report Alerts blueprint](#blueprint-report-alerts)**, put into `config/blueprints/automation/tomtom/` on start.
 
-### HACS
+### HACS (recommended)
 
-1. Open HACS in Home Assistant, and under its menu pick **Custom repositories**
-2. Add `https://github.com/somansch/tomtom` as an **Integration**
-3. Search for "TomTom", click **Download**
-4. Restart Home Assistant
+TomTom is part of the default HACS integration list:
+
+1. Open HACS in Home Assistant
+2. Search for "TomTom"
+3. Click the "Download" button
+4. Restart HA
 
 ### Manual
 
