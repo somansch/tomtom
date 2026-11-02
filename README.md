@@ -304,6 +304,10 @@ A ready-to-use automation [blueprint](custom_components/tomtom/blueprints/automa
 
 **It comes with the integration.** After a restart it is waiting under **Settings → Automations & Scenes → Blueprints**, and **Create automation** is the whole of what is left to do. A release that changes the blueprint brings the new version with it, as long as your copy is unchanged. A copy you edited is left alone; delete it and restart to get the new one.
 
+[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2Fsomansch%2Ftomtom%2Fmain%2Fcustom_components%2Ftomtom%2Fblueprints%2Fautomation%2Ftomtom%2Freport_alerts.yaml)
+
+The button imports the blueprint straight from GitHub instead. With the integration installed you do not need it: its copy lands in `config/blueprints/automation/somansch/`, shows up a second time in the list, and is not kept up to date by the integration.
+
 - **Live alerts** - only what is new. One notification per newly reported incident, the moment it shows up. Never for one already known, and never right after a restart. A time window keeps it quiet at night.
 - **Digest** - everything currently reported. One message listing what is standing right now, nearest first, capped at a length you choose. Trigger it at a time of day, when someone leaves a zone, from any entity changing state, or on demand via `automation.trigger`.
 - **One set of filters for both.** Which entries, which kinds of report, and a minimum delay so a jam of a minute stays quiet.
