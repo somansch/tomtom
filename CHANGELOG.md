@@ -2,6 +2,11 @@
 
 All notable changes to this integration are documented here.
 
+## v1.2.1
+
+### Fixed
+- **The colour menus in the card editor stay in view.** The menu beside every colour field opens towards the side with more room and is capped to it. Which room that was, the card measured against the first scrolling box above the editor - and in some dialogs that is not the box that actually clips the menu. Opened upwards near the top of a block, the menu then ran off the top of the dialog, with its first entries out of reach. It now measures against every box that really clips it, and keeps at least room for about three entries.
+
 ## v1.2.0
 
 ### Added
