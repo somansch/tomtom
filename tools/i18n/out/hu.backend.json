@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Minden lekérdezés egy Incident Details kérés (a keresés minden 10 000 km²-e után eggyel több), és egy ingyenes kulcsnak havi 2500 jár belőle: az alapértelmezett óránkénti ütemmel egy terület körülbelül 720-at használ el.",
-  "budgetRoute": "Az óráin belül minden lekérdezés egy Routing kérés a havi 20 000 ingyenesből; az útvonalon lévő jelentések vele jönnek, az Incident Details pedig új jelentésenként egyszer kérdezi le a többi tudnivalót.",
+  "budgetRoute": "Az óráin belül minden lekérdezés egy Routing kérés a havi 20 000 ingyenesből; az útvonalon lévő jelentések vele jönnek, az újakhoz pedig az Incident Details adja a többi tudnivalót - öt jelentés egy kérésben.",
   "entities": {
     "sensor": {
       "report_count": "Jelentések",
@@ -218,11 +218,15 @@
         "live_from": "Ettől",
         "live_until": "Eddig",
         "live_back_from": "Ettől (visszaút)",
-        "live_back_until": "Eddig (visszaút)"
+        "live_back_until": "Eddig (visszaút)",
+        "details": "A jelentések részleteinek lekérése",
+        "details_interval": "Percek a részletek lekérései között (üres = minden lekérdezéskor)"
       },
       "data_description": {
         "return_route": "Egy második bejegyzés, a céltól az indulásig - autópályán a visszaút a másik pálya, és az egyiken lévő dugó nem dugó a másikon. E bejegyzés nevét kapja, „vissza” hozzáfűzve.",
-        "return_name": "Csak akkor használt, ha a visszaút létrejön. E bejegyzés nevével és a hozzáfűzött „vissza” szóval van kitöltve; írj másikat, hogy máshogy hívd - például „Otthon” és „Munka”."
+        "return_name": "Csak akkor használt, ha a visszaút létrejön. E bejegyzés nevével és a hozzáfűzött „vissza” szóval van kitöltve; írj másikat, hogy máshogy hívd - például „Otthon” és „Munka”.",
+        "details": "Az útvonal megnevezi, amin áthalad - fajta, hely és késés. Ha ez be van kapcsolva, egy új jelentés többi adatát az Incident Details adja meg: a teljes szakaszt, a kezdetét és a végét, az útszámokat, a TomTom szövegezését és az időpontokat - öt új jelentésenként egy kérés a havi 2500 ingyenesből. Csak azokat a jelentéseket kéri le, amelyeket ez a bejegyzés meg is jelenít. Kikapcsolva az útvonal egyetlen Incident Details kérésbe sem kerül.",
+        "details_interval": "Milyen gyakran kéri le a részleteket, függetlenül attól, hogy magát az útvonalat milyen gyakran kérdezi le. 30-nál egy új jelentés azonnal megjelenik úgy, ahogy az útvonal megnevezi, a részletei pedig fél órán belül követik - több jelentés egy kérésben, és egy sem olyan dugóért, amely időközben megszűnt."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "A hónap nyolcadik napjától az eddigi kéréseket a hónap végéig vetíti előre. Az számít, amit ez az integráció kér; egy máshol is használt kulcs a TomTomnál magasabban áll.",
           "data": {
             "quota_warning": "Figyelmeztessen, ha a havi kérések fogytán vannak vagy nem lesznek elegendők",
-            "quota_threshold": "Figyelmeztessen a havi kérések ekkora hányadától"
+            "quota_threshold": "Figyelmeztessen a havi kérések ekkora hányadától",
+            "incident_day_limit": "Legfeljebb ennyi Incident Details kérés naponta (0 = nincs korlát)"
           },
           "data_description": {
-            "quota_threshold": "Az első figyelmeztetés akkor jön, amikor az előrejelzés eléri ezt a hányadot; a második, amikor eléri a 100 %-ot."
+            "quota_threshold": "Az első figyelmeztetés akkor jön, amikor az előrejelzés eléri ezt a hányadot; a második, amikor eléri a 100 %-ot.",
+            "incident_day_limit": "Az összes bejegyzés együtt, UTC szerint éjféltől éjfélig számolva. A napi korlát elérése után másnapig nem megy ki több kérés: a területek és a nyomkövetők addig nem mutatnak TomTom-jelentéseket, az útvonalak új jelentései pedig részletek nélkül érkeznek. Napi 80-nal a 2500 ingyenes kérés kitart egész hónapra."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "A havi {api} kérések fogytán vannak",
-    "description": "{used} / {tier} ingyenes **{api}** kérés {days} nap után; ebben az ütemben kb. **{projected}** a hónap végéig, a keret {percent} %-a vagy több.\n\nKevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, forgalom kevesebb kártyán.\n\nEltűnik, ha az ütem a TomTom beállítások → Konfigurálás → Keretfigyelmeztetés → TomTom alatt beállított hányad alá esik, és az új hónappal. Ha az ütem eléri a teljes keretet, második figyelmeztetés következik."
+    "description": "{used} / {tier} ingyenes **{api}** kérés {days} nap után; ebben az ütemben kb. **{projected}** a hónap végéig, a keret {percent} %-a vagy több.\n\nKevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, forgalom kevesebb kártyán.\n\nEltűnik, ha az ütem a TomTom Beállítások → Konfigurálás → Kvótafigyelmeztetés → TomTom alatt beállított hányad alá esik, és az új hónappal. Ha az ütem eléri a teljes keretet, második figyelmeztetés következik."
   },
   "quotaOverIssue": {
     "title": "A(z) {api} keret nem lesz elég a hónapra",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "A(z) {api} napi kérései elfogytak",
     "description": "A(z) **{api}** csomag mind a napi {tier} kérése elhasználva - a Lufop mindent beleszámol, ami ugyanazt a kulcsot használja. További kéréseket UTC szerint éjfélig utasít el - ez itt {reset}.\n\nHolnap kevesebb lekérdezés segít: hosszabb frissítési időköz, szűkebb órák egy útvonalon, vagy a Lufop kikapcsolása az országán kívüli bejegyzéseknél."
+  },
+  "quotaUsedUpIssue": {
+    "title": "A TomTomnál nincs több szabad {api} kérés",
+    "description": "A TomTom elutasítja a további **{api}** kéréseket: a kulcsnak nem maradt több - a TomTom szavával *insufficient funds*. Maga a kulcs rendben van, és minden más API továbbra is válaszol. A TomTom mindent beleszámol, ami a kulcsot használja; ez a telepítés ebben a hónapban a {tier} ingyenes kérésből {used} darabot küldött el.\n\nIncident Details nélkül egy terület vagy nyomkövető nem mutat TomTom-jelentéseket, az útvonalak új jelentései pedig úgy érkeznek, ahogy maga az útvonal megnevezi őket: fajta, hely és késés, a teljes szakasz, annak kezdete és vége, az útszámok, a TomTom szövegezése és az időpontok nélkül. Az útvonalakat, a menetidőket, a forgalomáramlást és a további források traffipaxait ez nem érinti. Routing nélkül az útvonal nem számítható ki, és a bejegyzése leáll.\n\nÚjra próbálkozik az ehhez az API-hoz tartozó következő kéréssel, leghamarabb egy órával az utolsó elutasítás után, és ez a javítás az első válasszal eltűnik."
+  },
+  "incidentDayLimitIssue": {
+    "title": "A napi Incident Details kérések elfogytak",
+    "description": "Ma {used} Incident Details kérés ment ki, a TomTom Beállítások → Konfigurálás → Kvótafigyelmeztetés → TomTom alatt beállított korlát pedig {limit}. UTC szerint éjfélig - ez itt {reset} - nem megy ki több.\n\nAddig egy terület vagy nyomkövető nem mutat TomTom-jelentéseket, az útvonalak új jelentései pedig úgy érkeznek, ahogy maga az útvonal megnevezi őket: fajta, hely és késés, részletek nélkül. Az útvonalakat, a menetidőket, a forgalomáramlást és a további források traffipaxait ez nem érinti.\n\nKevesebb kérés segít: hosszabb frissítési időköz, az útvonalak részleteinek ritkább lekérése vagy elhagyása, vagy magasabb korlát - napi 80-nal a 2500 ingyenes kérés kitart egész hónapra."
   },
   "device": {
     "general": "TomTom Általános",

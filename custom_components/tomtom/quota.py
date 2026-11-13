@@ -15,9 +15,11 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect, async_dis
 from homeassistant.helpers.event import async_track_time_interval, async_track_utc_time_change
 from homeassistant.util import dt as dt_util
 
-from .api import PRODUCT_LABELS, PRODUCT_LUFOP, SIGNAL_USAGE, TomTomUsage
+from .api import PRODUCT_INCIDENTS, PRODUCT_LABELS, PRODUCT_LUFOP, SIGNAL_USAGE, TomTomUsage
 from .const import (
+    CONF_INCIDENT_DAY_LIMIT,
     CONF_LUFOP_API_KEY,
+    DEFAULT_INCIDENT_DAY_LIMIT,
     CONF_LUFOP_QUOTA_THRESHOLD,
     CONF_LUFOP_QUOTA_WARNING,
     CONF_QUOTA_THRESHOLD,
@@ -50,6 +52,15 @@ def issue_id(product: str) -> str:
 def over_issue_id(product: str) -> str:
     """The second stage: the projection reaches the whole free tier."""
     return f"quota_{product}_over"
+
+
+def used_up_issue_id(product: str) -> str:
+    """The repair for an API TomTom itself said is used up."""
+    return f"quota_used_up_{product}"
+
+
+# The repair for the day's own limit on Incident Details being reached.
+DAY_LIMIT_ISSUE_ID = "incident_day_limit"
 
 
 def day_issue_id(product: str) -> str:
@@ -87,6 +98,14 @@ class QuotaWatch:
         # its day's plan - no projection there: the day is short, and what
         # is used is used.
         self.day_at_risk: dict[str, dict] = {}
+        # product -> {"used", "tier"} for every API TomTom itself said the
+        # key has no requests left for. Its word, whatever the count here
+        # says - and said whether or not the warning above is switched on:
+        # this is not a forecast.
+        self.used_up: dict[str, dict] = {}
+        # {"used", "limit"} while the day's own limit on Incident Details is
+        # reached (see incident_day_limit), else empty.
+        self.day_limit_reached: dict = {}
         # What Lufop itself last said about the key's day - which covers
         # whatever else uses the key - stamped with the day it is for.
         self.lufop: dict = {}
@@ -103,6 +122,15 @@ class QuotaWatch:
             return int(self._entry.options.get(CONF_QUOTA_THRESHOLD, DEFAULT_QUOTA_THRESHOLD))
         except (TypeError, ValueError):
             return DEFAULT_QUOTA_THRESHOLD
+
+    @property
+    def incident_day_limit(self) -> int:
+        """The most Incident Details requests a day, 0 for no limit - see
+        CONF_INCIDENT_DAY_LIMIT."""
+        try:
+            return max(0, int(self._entry.options.get(CONF_INCIDENT_DAY_LIMIT, DEFAULT_INCIDENT_DAY_LIMIT)))
+        except (TypeError, ValueError):
+            return DEFAULT_INCIDENT_DAY_LIMIT
 
     @property
     def day_enabled(self) -> bool:
@@ -182,10 +210,33 @@ class QuotaWatch:
         enabled = self.enabled
         threshold = self.threshold
         counts = self._usage.breakdown(None)
+        # What TomTom said is used up, first: there the month's pace has
+        # nothing left to forecast, and one repair says what is the case.
+        used_up: dict[str, dict] = {}
+        for product, tier in FREE_TIER.items():
+            if product in self._usage.used_up:
+                used_up[product] = {"used": counts.get(product, 0), "tier": tier}
+                if product not in self.used_up:
+                    ir.async_create_issue(
+                        self._hass,
+                        DOMAIN,
+                        used_up_issue_id(product),
+                        is_fixable=False,
+                        severity=ir.IssueSeverity.WARNING,
+                        translation_key="quota_used_up",
+                        translation_placeholders={
+                            "api": PRODUCT_LABELS.get(product, product),
+                            "used": str(counts.get(product, 0)),
+                            "tier": str(tier),
+                        },
+                    )
+            else:
+                ir.async_delete_issue(self._hass, DOMAIN, used_up_issue_id(product))
+
         risk: dict[str, dict] = {}
         for product, tier in FREE_TIER.items():
             projected = self._usage.projection(product, now)
-            if not enabled or projected is None:
+            if not enabled or projected is None or product in used_up:
                 continue
             # Two stages, as for Lufop's day: the share reached, then the
             # whole tier. A share of 100 % makes them one, the second.
@@ -233,6 +284,31 @@ class QuotaWatch:
 
         self._ask_lufop(now)
         day_counts = self._usage.breakdown_day(None)
+
+        # The day's own limit on Incident Details: handed to the count, which
+        # is what holds a request back (see TomTomUsage.over_day_limit), and
+        # said in a repair once it is reached - an area without TomTom
+        # reports in the afternoon wants an explanation.
+        limit = self.incident_day_limit
+        self._usage.day_limits = {PRODUCT_INCIDENTS: limit}
+        sent = day_counts.get(PRODUCT_INCIDENTS, 0)
+        day_limit = {"used": sent, "limit": limit} if limit and sent >= limit else {}
+        if day_limit and not self.day_limit_reached:
+            ir.async_create_issue(
+                self._hass,
+                DOMAIN,
+                DAY_LIMIT_ISSUE_ID,
+                is_fixable=False,
+                severity=ir.IssueSeverity.WARNING,
+                translation_key="incident_day_limit",
+                translation_placeholders={
+                    "used": str(sent),
+                    "limit": str(limit),
+                    "reset": _next_utc_midnight_local(),
+                },
+            )
+        elif not day_limit:
+            ir.async_delete_issue(self._hass, DOMAIN, DAY_LIMIT_ISSUE_ID)
         day_risk: dict[str, dict] = {}
         for product, tier in FREE_TIER_DAY.items():
             used = day_counts.get(product, 0)
@@ -274,7 +350,14 @@ class QuotaWatch:
                 ir.async_delete_issue(self._hass, DOMAIN, day_issue_id(product))
                 ir.async_delete_issue(self._hass, DOMAIN, used_up_id)
 
-        if risk != self.at_risk or day_risk != self.day_at_risk:
+        if (
+            risk != self.at_risk
+            or day_risk != self.day_at_risk
+            or used_up != self.used_up
+            or bool(day_limit) != bool(self.day_limit_reached)
+        ):
             self.at_risk = risk
             self.day_at_risk = day_risk
+            self.used_up = used_up
+            self.day_limit_reached = day_limit
             async_dispatcher_send(self._hass, SIGNAL_QUOTA)

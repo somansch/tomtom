@@ -1,7 +1,7 @@
 # <img src="https://raw.githubusercontent.com/somansch/tomtom/main/custom_components/tomtom/brand/icon.png" width="40" height="40" align="top"> TomTom Integration for Home Assistant - traffic reports and your commute's travel time on your map
 
 [![Marketplace (HACS)](https://img.shields.io/badge/Marketplace%20%28HACS%29-Default-41BDF5?style=for-the-badge&logo=homeassistantcommunitystore&logoColor=white)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=somansch&repository=tomtom&category=Integration)
-[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.7%2B-41BDF5?style=for-the-badge&logo=homeassistant&logoColor=white)](https://www.home-assistant.io/)
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.12%2B-41BDF5?style=for-the-badge&logo=homeassistant&logoColor=white)](https://www.home-assistant.io/)
 [![License](https://img.shields.io/github/license/somansch/tomtom?style=for-the-badge)](https://github.com/somansch/tomtom/blob/main/LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/somansch/tomtom/total?style=for-the-badge&label=Downloads)](https://github.com/somansch/tomtom/releases)
 [![Downloads latest](https://img.shields.io/github/downloads/somansch/tomtom/latest/total?style=for-the-badge&label=Downloads%20latest)](https://github.com/somansch/tomtom/releases/latest)
@@ -61,7 +61,12 @@ That is the whole setup. Everything below covers the individual options in more 
   - [Device tracker (radius)](#device-tracker-radius) - a circle that follows a phone or a car
   - [Route (start/destination)](#route-startdestination) - the route the traffic makes fastest right now, its travel time and its delay
 - [Around the world](#around-the-world) - which countries TomTom, blitzer.de and Lufop report in
-- [The key, and what a poll costs](#the-key-and-what-a-poll-costs) - TomTom's free monthly quotas, and how to stay inside them
+- [The API key](#the-api-key) - free, and what TomTom gets to see with it
+- [Quota](#quota) - TomTom's free monthly quotas, and how to stay inside them
+  - [What a poll costs](#what-a-poll-costs) - the free requests per API
+  - [The day's limit on Incident Details](#the-days-limit-on-incident-details)
+  - [When a quota is used up](#when-a-quota-is-used-up) - what an entry still shows
+  - [Quota settings](#quota-settings) - every field of the quota warning
 
 **How reports behave**
 
@@ -90,7 +95,7 @@ That is the whole setup. Everything below covers the individual options in more 
 
 ## Adding an area, tracker or route
 
-Go to **Settings → Devices & Services**. Use **Add Integration** at the bottom right and search for "TomTom". The first time, that is the setup itself: the [API key](#the-key-and-what-a-poll-costs), then the [defaults for new routes](#created-entities) - the days and hours, the way back, the kinds of report and the optional settings every route starts with, all changeable later under **TomTom Settings → Configure** - and then the choice: **Finish setup**, or **Add the first area, tracker or route now**.
+Go to **Settings → Devices & Services**. Use **Add Integration** at the bottom right and search for "TomTom". The first time, that is the setup itself: the [API key](#the-api-key), then the [defaults for new routes](#created-entities) - the days and hours, the way back, the kinds of report and the optional settings every route starts with, all changeable later under **TomTom Settings → Configure** - and then the choice: **Finish setup**, or **Add the first area, tracker or route now**.
 
 The integration is added only once. To watch places - say both "Home" and "Commute" - open the "TomTom" tile and use its own **Add entry**. One entry per area or route, each with its own entities.
 
@@ -114,7 +119,7 @@ Every field can be changed later. Open **Settings → Devices & Services**, find
 | **Only reports TomTom is sure of** | TomTom rates each report `certain`, `probable`, `risk_of` or `improbable`: a jam measured from moving cars is certain, a roadwork from a road authority probable, a driver's single report a risk. On - the default - the first two are kept. Off, the uncertain ones come along too. |
 | **Jam from this delay** | A jam is reported once the delay TomTom measures for it reaches this many minutes. Default **0**: every jam, a few seconds' as well; 5 keeps the ones worth a detour. A jam TomTom sends no delay for counts as none. |
 | **Number of reports** | Upper limit on how many reports are tracked as entities at once, nearest first. Default 20. A city centre has hundreds of small closures; the limit keeps the entity list readable. |
-| **Update interval** | Minutes between polls. Default **60**, and the number to watch: every poll is one request to TomTom's Incident Details, which has 2,500 free a month - see [what a poll costs](#the-key-and-what-a-poll-costs). **0** switches automatic polling off; the entry then refreshes only through the `tomtom.refresh` action. Whatever it says, a new entry fetches once right away, and so does every entry after a restart. |
+| **Update interval** | Minutes between polls. Default **60**, and the number to watch: every poll is one request to TomTom's Incident Details, which has 2,500 free a month - see [what a poll costs](#what-a-poll-costs). **0** switches automatic polling off; the entry then refreshes only through the `tomtom.refresh` action. Whatever it says, a new entry fetches once right away, and so does every entry after a restart. |
 | **Counts as new for** | How many minutes a report counts as new, for the `new` attribute on the count sensor and the NEW badge on the card. Default 60. **0** switches the marking off. Also on the entry's device page, as a number entity. |
 | **Only these roads** | Comma-separated road numbers, `A8, A99, B2`. Only reports TomTom files under one of them are kept - the motorways of a commute, say, without every side street along it. Compared without case or spaces. Empty keeps every road. |
 | **Blacklist** | Comma-separated incident ids to leave out. TomTom's own apps never show an id; it is the `id` attribute of a report's entity - or `short_id`, its tail after the last dash - in the entity's details. |
@@ -182,6 +187,8 @@ A route TomTom works out from a start, a destination and optional via points - a
 |---|---|
 | **Also create the way back** | A second entry, destination to start, worked out in that direction - on a motorway the way back is the other carriageway, and a jam on one is not one on the other. **Name of the way back** names it; "Home" and "Work", say. Only offered while a route is being set up. |
 | **Days the route is kept up to date**, **From**, **Until** | When the route polls at all. Outside those hours nothing is fetched - neither the route nor the reports - until the `tomtom.refresh` action asks. Every day and the same time at both ends means always; a span past midnight wraps. The way back has hours of its own on the same form, since it is driven at another time of day. |
+| **Look up the reports' details** | Whether Incident Details is asked for the rest of a new report: the whole stretch, where it starts and ends, the road numbers, TomTom's wording and its times - one request per five new reports. On by default. Off, the route costs no Incident Details request at all, and its reports show what the route itself names: kind, place and delay. |
+| **Minutes between detail lookups** | How often the details are asked for, apart from how often the route is polled. Empty - the default - is with every poll. With 30, a new report shows at once as the route names it and its details follow within half an hour: several reports to a request, and none for a jam that has gone again meanwhile. |
 
 The route itself is thinned out to a few hundred points and stored with the entry, and replaced by the route of the moment on every poll. When the fastest way becomes a different one, the entry fires a `tomtom_route_changed` event.
 
@@ -190,7 +197,7 @@ What a live route adds:
 - Three more sensors: **Travel time**, **Traffic delay** and **Route length**, in minutes and kilometres, with the time without traffic, the typical time for the hour and the moment they were computed as attributes.
 - The **delay** is the travel time less the time on a free road - whatever stands in the road. TomTom's own `trafficDelayInSeconds` counts jams only, and roadworks at a crawl cost minutes it does not count.
 - On the [card](#tomtom-card): the travel time large under the title, the line under it saying how much is traffic in green, yellow or red, and the stretches of the route that traffic is slowing, coloured along the line.
-- The reports themselves come with every route, at no extra request: the Routing API names what the route runs through - a jam, roadworks, a closure, an accident - as sections of it, each with TomTom's id. Once per new report, Incident Details is asked for the rest - TomTom's wording, the road, where the stretch starts and ends, since when and until when - and the answer is kept, so a jam that stands for an hour costs one of the 2,500 and not one per poll. Until its lookup has come round, a report shows what the section says.
+- The reports themselves come with every route, at no extra request: the Routing API names what the route runs through - a jam, roadworks, a closure, an accident - as sections of it, each with TomTom's id. For the new ones Incident Details is asked for the rest - TomTom's wording, the road, where the stretch starts and ends, since when and until when - five reports to a request, and the answer is kept, so a jam that stands for an hour is looked up once and not with every poll. Until its lookup has come round, a report shows what the section says. Only reports the entry shows are looked up - a kind switched off, a jam below **Jam from this delay** or a blacklisted report costs none - and **Look up the reports' details** switches the lookups off or spaces them out.
 
 A commute's recommended setup: one route there and the way back, each with its own hours - 06:00 to 09:00 on weekdays for the way to work, 15:00 to 19:00 for the way home - polled every 15 minutes. Inside those hours every poll is one Routing request, plus one Incident Details request per five reports that are new; outside them none at all.
 
@@ -210,7 +217,7 @@ A route in Japan therefore shows its travel time and length, and an empty list. 
 
 Know a source with a public API for a country these three leave empty? Suggestions are welcome as a [feature request](https://github.com/somansch/tomtom/issues).
 
-## The key, and what a poll costs
+## The API key
 
 Everything here comes from TomTom, which needs an API key. It is free, and there is no payment method to enter:
 
@@ -220,7 +227,11 @@ Everything here comes from TomTom, which needs an API key. It is free, and there
 
 What TomTom gets to see is what an entry is about and nothing else: the box an area or a tracker searches, a route's start, destination and via points, and an address as you typed it. Your Home Assistant's home position is never sent - the key check asks about a fixed point in Amsterdam, and an address is looked up without a bias towards your home, so a street that exists in two towns wants its town typed.
 
-TomTom's free tier is a number of requests per API per month:
+## Quota
+
+TomTom's free tier is a number of requests per API per month. The integration counts every request it sends, warns before a month's requests run out, can cap what a day spends, and keeps every entry running when an API has none left.
+
+### What a poll costs
 
 | API | Used for | Free per month |
 |---|---|---|
@@ -230,13 +241,72 @@ TomTom's free tier is a number of requests per API per month:
 | Search API | the suggestions while an address is typed on the card's planner: one request per pause (from three letters on) | **2,500** |
 | Traffic Flow raster tiles | the flow on the card's map: a few per view, fetched again with every poll of the entry while someone looks | 200,000 |
 
-The 2,500 is the one to plan around: that is about three polls an hour across every entry of the installation. At the default hour an area spends about 720 a month; a live route only what its new reports cost, since the reports themselves come with the Routing request. The forms say so, and every entry carries a **TomTom requests this month** sensor - with the count per API as attributes - and there is one more for all entries together, so the month's spend is on the device page and in the history. What TomTom charges beyond the free tier is on its [pricing page](https://developer.tomtom.com/pricing).
+Incident Details' 2,500 is the one to plan around: that is about three polls an hour across every entry of the installation. At the default hour an area spends about 720 a month; a live route only what its new reports cost, since the reports themselves come with the Routing request. Every form says what its entry costs. What TomTom charges beyond the free tier is on its [pricing page](https://developer.tomtom.com/pricing).
 
-A request that TomTom refuses - a key that stopped working, a quota used up - fails the poll; three in a row raise a repair under **Settings → System → Repairs** naming the reason.
+What keeps the count down:
 
-Before it comes to that, the integration says so: from the eighth day of the month on, every API's count is projected to the month's end at the pace so far - with the month's own length - and it warns in two stages, the way Lufop's day does: a first repair when the projection reaches a share of the free tier - 80 % unless set otherwise - and a second when it reaches the whole tier ("14200 of 20000 Routing requests used 18 days in; about 24500 by the month's end"). Each names the API and the numbers, and the **Quota at risk** sensor on TomTom General is on through both, for an automation that sends it on. **TomTom Settings → Configure → Quota warning** has two sections, both folded until opened. **TomTom** switches this off or moves the first stage; at 100 % the two are one. An installation from before 1.0.3 keeps the 100 % it had. **Lufop** does the same for Lufop's day, below. The projection is on every per-API sensor as `projected_month` too. It counts what this integration asks for: a key used elsewhere as well stands higher at TomTom. TomTom also caps a free key at five requests a second, over every API: the integration keeps every request of the installation behind one gate, four a second and four in flight at most, so a restart that starts every entry at once stays inside it.
+- **A longer update interval** on an area or a tracker: every poll is one Incident Details request. With **0** the entry is fetched only when the `tomtom.refresh` action asks.
+- **Days and hours on a route**: outside them nothing is fetched.
+- **Look up the reports' details** off on a route, or **Minutes between detail lookups** under it - see [Route (start/destination)](#route-startdestination).
+- **The traffic flow on fewer cards**: its tiles have a quota of their own.
+
+### Keeping count
+
+Every entry carries a **TomTom requests this month** sensor, with the count per API as attributes, and one sensor per API beside it. The device **TomTom General** has the same for every entry together, so the month's spend is on the device page and in the history - see [Created entities](#created-entities). They count what this integration asks for: a key used elsewhere as well stands higher at TomTom.
 
 <img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-quota-check.png" alt="The diagnostic sensors of TomTom General: all requests this month, one counter per API with blitzer.de and the flow tiles, Lufop today, and Quota at risk reading OK" width="40%">
+
+### The warning before a month runs out
+
+From the eighth day of the month on, every API's count is projected to the month's end at the pace so far, with the month's own length. The warning comes in two stages, each as a repair under **Settings → System → Repairs** naming the API and the numbers - "14200 of 20000 Routing requests used 18 days in; about 24500 by the month's end":
+
+| Stage | When | Repair |
+|---|---|---|
+| First | The projection reaches a share of the free tier - 80 % unless set otherwise. | **The Routing requests of the month run low** |
+| Second | The projection reaches the whole tier. | **The Routing quota will not last the month** |
+
+Both go away by themselves once the pace drops, and with the new month. The **Quota at risk** sensor on TomTom General is on through both, for an automation that sends it on, and the projection is on every per-API sensor as `projected_month`.
+
+### The day's limit on Incident Details
+
+A warning does not stop anything; the day's limit does. **Incident Details requests a day, at most** counts every entry together from midnight to midnight UTC. Once it is reached no Incident Details request is sent until the next day - with the effect [a used-up quota](#when-a-quota-is-used-up) has - and the repair **The day's Incident Details requests are used** names the count, the limit and the time it ends in your time zone. **Quota at risk** is on meanwhile.
+
+**80** unless set otherwise, which makes the 2,500 last the month; **0** is no limit. A single area polled every 15 minutes is 96 a day: lengthen its interval, or raise the number.
+
+### When a quota is used up
+
+TomTom counts per API, and answers the one that has no requests left with *insufficient funds* while the others go on answering. That is not a refused key: the integration raises the repair **TomTom has no Incident Details requests left**, with the API and the month's count, and every entry keeps running on what it still gets.
+
+| Entry | Without Incident Details |
+|---|---|
+| Area, tracker | No TomTom reports. The further sources' speed cameras and the traffic flow stay. |
+| Route | The route, its travel time and its reports stay. New reports come as the route itself names them - kind, place and delay - without the whole stretch, the road numbers, TomTom's wording and its times. |
+
+- The entry's **Reports** sensor reads `incident_details_ok: false` for as long, and the [card](#tomtom-card) says so above its list.
+- The API is asked again with the next request there is for it, no sooner than an hour after the refusal. The repair goes with the first answer, and reports that return with it are not announced as new.
+- Without Routing a route cannot be worked out: its poll fails, as [below](#when-a-request-fails).
+
+<img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-quota-reached.png" alt="The card on a route from Marietta to Downtown Atlanta with its travel time, its map and a roadworks report, and above the list the line: New reports come without details: the Incident Details requests are used up for now" width="40%">
+
+### Quota settings
+
+**TomTom Settings → Configure → Quota warning** has two sections, both folded until opened:
+
+| Section | Field | Default | What it does |
+|---|---|---|---|
+| **TomTom** | **Warn when the month's requests run low or will not last** | on | Both stages of [the month's warning](#the-warning-before-a-month-runs-out). |
+| **TomTom** | **Warn from this share of the month's requests** | 80 % | Where the first stage begins; at 100 % the two stages are one. An installation from before 1.1.0 keeps the 100 % it had. |
+| **TomTom** | **Incident Details requests a day, at most** | 80 | [The day's limit](#the-days-limit-on-incident-details); 0 is no limit. |
+| **Lufop** | **Warn when the day's requests run low or out** | on | The same for Lufop's day - see [Data sources](#data-sources). |
+| **Lufop** | **Warn from this share of the day's requests** | 80 % | Where Lufop's first stage begins; the second comes when the day's requests are all used. |
+
+The switches are for the warnings. A quota TomTom calls used up and a day's limit that is reached are reported whatever they say.
+
+### When a request fails
+
+A request that TomTom refuses fails the poll where the entry cannot do without it - a key that stopped working, or a route with no Routing requests left. Three failed polls in a row raise a repair under **Settings → System → Repairs** naming the reason.
+
+TomTom also caps a free key at five requests a second, over every API. The integration keeps every request of the installation behind one gate, four a second and four in flight at most, so a restart that starts every entry at once stays inside it.
 
 ## Created entities
 
@@ -244,7 +314,7 @@ Each entry produces the entities below. The sensors are named in your Home Assis
 
 | Entity | Example ID | Description |
 |---|---|---|
-| Count sensor: **Reports** | `sensor.<entry>_reports` | How many reports the entry delivers - the nearest, capped at **Number of reports**; `in_range` says how many there are in all. Its attributes break the count down per kind, carry `last_update` and `new` - counted over the same delivered reports, so they agree with the card's badge - and are the one place the entry's settings and a live route's figures can be read: `search_mode`, `new_minutes`, and on a live route `travel_time_minutes`, `traffic_delay_minutes`, `route_distance_km` and `route_changed`. |
+| Count sensor: **Reports** | `sensor.<entry>_reports` | How many reports the entry delivers - the nearest, capped at **Number of reports**; `in_range` says how many there are in all. Its attributes break the count down per kind, carry `last_update` and `new` - counted over the same delivered reports, so they agree with the card's badge - and are the one place the entry's settings and a live route's figures can be read: `search_mode`, `new_minutes`, and on a live route `travel_time_minutes`, `traffic_delay_minutes`, `route_distance_km` and `route_changed`. `incident_details_ok` is false while the entry goes without Incident Details - none left at TomTom, or the day's limit reached - see [when a quota is used up](#when-a-quota-is-used-up). |
 | One `geo_location` entity per report | `geo_location.<entry>_road_closed_a8` | Created and removed as reports appear and disappear. There is no fixed pool of entities. Named after the kind and the road, or the place the stretch starts. |
 | Number: **New for** | `number.<entry>_new_for` | How many minutes a report counts as new. The same setting as in the options form, put where the sensor it governs is listed. Changing it is the one change that does **not** rebuild the entry. |
 | Count sensors: **All speed cameras**, **New speed cameras** | `sensor.<entry>_all_speed_cameras`, `sensor.<entry>_new_speed_cameras` | How many of the delivered reports come from blitzer.de or Lufop, and how many of those were reported inside the entry's "new" window - the same reports **Reports** counts and the card shows, so the new count is the card's badge. The new count ages on its own, once a minute, between polls. The count per source (`blitzer`, `lufop`) and per kind as attributes, `in_range` for the number beyond the cap, and `sources_ok`: false while blitzer.de or Lufop does not answer, and after three such polls their reports are gone from the count until it does. A camera both sources report counts once, under both. |
@@ -258,7 +328,7 @@ One more entry, **⚙ TomTom Settings** - named in your Home Assistant's languag
 | Entity | Example ID | Description |
 |---|---|---|
 | **All requests this month** | `sensor.tomtom_general_all_requests_this_month` | Every request of the month, with the count per API as attributes. |
-| Binary sensor **Quota at risk** | `binary_sensor.tomtom_general_quota_at_risk` | On while an API's free tier is expected to run out this month - see [the key, and what a poll costs](#the-key-and-what-a-poll-costs). Which APIs, and every API's expected count by the month's end, as attributes. |
+| Binary sensor **Quota at risk** | `binary_sensor.tomtom_general_quota_at_risk` | On while an API's free tier is expected to run out this month, while TomTom says one is used up, and while the day's limit on Incident Details is reached - see [Quota](#quota). Which APIs are at risk, and every API's expected count by the month's end, as attributes; `used_up` lists the ones TomTom refuses, and `incident_details_day_limit` and `incident_details_day_limit_reached` carry the day's limit and whether today has reached it. |
 | **Incident Details this month**, **Routing this month**, **Geocoding this month**, **Reverse Geocoding this month**, **Search this month**, **Flow tiles this month**, and with a source on **blitzer.de this month** and **Lufop today** | `sensor.tomtom_general_incident_details_this_month`, ... | One per API - the six TomTom's own dashboard lists - each carrying its free tier as `free_per_month`, with `remaining` and `used_percent` beside it. |
 | Live route only: **Travel time**, **Traffic delay**, **Route length** | `sensor.<entry>_travel_time`, `..._traffic_delay`, `..._route_length` | How long the route takes right now, how much of that is delay, and how long it is - see [Route (start/destination)](#route-startdestination). |
 
@@ -435,7 +505,7 @@ The integration's own card. One list answering "what is on my way right now", pe
 
 It comes with the integration. There is nothing to download, nothing to copy into `www` and nothing to register as a dashboard resource - restart Home Assistant after installing and the card is there, under **TomTom** in the card picker. The entry that shows up under **Settings → Dashboards → Resources** is the integration's own.
 
-Everything it draws is already in the frontend's own state: the reports are `geo_location` entities, the entry names and their search mode come from the device registry, the "last updated" moment and the travel time from the entry's **Reports** sensor, and what still counts as new from the entry's own window. Distances come in the unit system of your Home Assistant, km or miles, and numbers, times and dates are written the way your profile says - its number, time and date format.
+Everything it draws is already in the frontend's own state: the reports are `geo_location` entities, the entry names and their search mode come from the device registry, the "last updated" moment and the travel time from the entry's **Reports** sensor, and what still counts as new from the entry's own window. Distances come in the unit system of your Home Assistant, km or miles, and numbers, times and dates are written the way your profile says - its number, time and date format, and its time zone.
 
 ### Adding it
 
@@ -472,6 +542,7 @@ Everything it draws is already in the frontend's own state: the reports are `geo
 - **Mark what is new**, by the entry's own windows, with a badge that narrows the card to the new reports.
 - **Say what the jams cost**: a red badge beside the NEW one adds up the delay of every report that carries one, and narrows the card to those reports when clicked.
 - **Fold a long list**, **refresh on demand** with a button that also says how long ago the entry was last fetched, and **a tap action in the minimal format**.
+- **Say when something is missing.** A line above the list, and above the pop-up's, while the entry's last update failed and what is shown is from before, while an area or a tracker goes without TomTom reports because no Incident Details requests are left, and while a route's new reports come without their details.
 
 <img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-new-route.png" alt="The planner's place picker: an entity's position, a zone, the map's centre or an address" width="35%"> <img src="https://raw.githubusercontent.com/somansch/tomtom/main/docs/tomtom-card-new-route-FL.png" alt="A planned route from Sweetwater to the Port of Miami, Florida, drawn with its traffic flow inside an orange edge, with its travel time, delay, length and two reports, a jam and roadworks, ready to be saved as a route entry" width="60%">
 
@@ -521,7 +592,7 @@ The options that decide what the card *is*, rather than how it is drawn:
 | `areas` | *(all)* | Device ids of the entries to show. Empty means every configured one. |
 | `title` | *(the translated default)* | The card's own title. |
 | `sort` | `distance` | `distance`, `newest` or `oldest`. |
-| `reference_mode` / `reference` | `area` / - | Where distances are measured from: `area`, `map` or `entity`, and the entity. On a route every distance is the way along the route from its start, whatever this says. |
+| `reference_mode` / `reference` | `area` / - | Where distances are measured from: `area`, `map` or `entity`, and the entity. On a route every distance is the way along the route from its start, whatever this says. `map` is the centre of the card's own map; the minimal format has none and measures from the entry. |
 | `only_new` | `false` | Show nothing but what is still new. |
 | `show_max` / `max` | `false` / `5` | Cap how many reports are listed. |
 | `collapse_list` / `collapse_after` | `false` / `3` | Fold the list after this many entries. Portrait only. |
@@ -540,20 +611,20 @@ The options that decide what the card *is*, rather than how it is drawn:
 | `show_kind_bar`, `kind_bar_count` | `false`, `true` | A bar between map and list - under the map, or beside it in the landscape format - with one symbol per kind of report the map holds, and how many. A click hides that kind on the map and in the list, a second brings it back. What is hidden is remembered in this browser for this card, and nothing is filtered while the bar is off. |
 | `kind_<kind>_icon`, `kind_<kind>_color` | empty | A symbol and a colour of the card's own for one kind - `kind_jam_color: "#8e24aa"`, `kind_road_works_icon: mdi:cone` - on the map's marker, the band along the road, the list and the bar. In the editor under **Layout → General → Kinds of report**, for every kind TomTom and the sources switched on can report. Empty keeps the integration's symbol and the card's colour. |
 | `map_open_link` | `false` | A click on a report's symbol opens its `url` in a new tab - blitzer.de's map for a report from blitzer.de, TomTom's route planner at the spot for one from TomTom. Lufop's reports have none, so a click on one does what it did. With this on and Lufop not switched on, every report has a page: the editor then shows **Map click highlights the entry** off and greyed out, and keeps what was saved for it. |
-| `show_area_picker` | `true` | The entry dropdown. |
-| `show_planner` | `true` | **+ New route** at the end of the dropdown, and the planner it opens. |
-| `follow_map` | `true` | The list follows the map: it lists the reports inside the part of the map in view, and the map keeps showing them all. |
-| `show_traffic_switch` | `true` | The **Traffic** button beside the refresh button, which shows or hides the flow for the moment. |
+| `show_area_picker` | `true` | The entry dropdown. Not in the minimal format, which has no head. |
+| `show_planner` | `true` | **+ New route** at the end of the dropdown, and the planner it opens. Not in the minimal format. |
+| `follow_map` | `true` | The list follows the map: it lists the reports inside the part of the map in view, and the map keeps showing them all. Not in the minimal format, where the map is the pop-up's. |
+| `show_traffic_switch` | `true` | The **Traffic** button beside the refresh button - in the minimal format, above the pop-up's map - which shows or hides the flow for the moment. |
 | `show_row_provider` | `false` | The logo of who reported it under an entry's symbol - TomTom, blitzer.de or Lufop. |
 | `show_travel_time` | `true` | A live route's travel time, large under the title - in the minimal format, in the pop-up. |
 | `mini_show_travel` | `true` | Minimal format: the line's fourth part, the live route's travel time. |
 | `delay_warn_minutes` / `delay_alert_minutes` | `5` / `15` | From how many minutes of delay the travel time turns yellow, and red. `delay_ok_color`, `delay_warn_color` and `delay_alert_color` replace the three colours. |
 | `show_title` / `show_new` / `show_delay` / `show_sub` | `true` | The parts of the head: the title, the two badges, the info line. |
-| `sub_show_delay` / `sub_show_area` / `sub_show_mode` | `true` | The info line's parts: the traffic's share (a live route), the entry's name, how it searches or the route's length. The moment of the last fetch is always there - in the refresh button, or as the line's last part without one. |
+| `sub_show_delay` / `sub_show_area` / `sub_show_mode` | `true` | The info line's parts: the traffic's share (a live route), the entry's name, how it searches or the route's length. The moment of the last fetch is always there - in the refresh button, or as the line's last part without one. In the minimal format the line stands under the pop-up's travel time, and the traffic's share is the one part of it with a switch. |
 | `show_row_picture` / `show_row_line1` / `show_row_line2` / `show_row_extra` | `true` | The parts of a list entry: the kind's symbol, distance and kind, the place, TomTom's wording. |
 | `show_row_reported` / `show_row_until` | `true` | The chips: when it was reported, and until when it lasts. |
 | `show_row_stars` | `true` | blitzer.de's confirmation stars beside the chips - how often the community confirmed a mobile camera or check, up to three. Each of the three chip switches hides its own part only; this one is offered in the editor only while blitzer.de is one of the sources. |
-| `show_refresh` | `true` | The refresh button, with how long ago the entry was last fetched - beside a live route's travel time, otherwise at the end of the info line - or on its own under the title while the line is off. |
+| `show_refresh` | `true` | The refresh button, with how long ago the entry was last fetched - beside a live route's travel time, otherwise at the end of the info line - or on its own under the title while the line is off. In the minimal format, beside the travel time in the pop-up. |
 | `mini_tap_action` | *(opens the pop-up)* | Minimal format: what a tap on any part of the line does. |
 
 The rest of the keys say how a given element is drawn. Those are what the **Layout** panel writes, and the same ground is covered by the custom properties below.
@@ -625,7 +696,7 @@ Home Assistant's own map draws each marker with the name's initials; the [TomTom
 
 ## Installation
 
-Needs Home Assistant **2024.7** or newer, and a free [TomTom API key](#the-key-and-what-a-poll-costs).
+Needs Home Assistant **2024.12** or newer, and a free [TomTom API key](#the-api-key).
 
 ### What you get
 

@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Every poll is one Incident Details request (one more per 10,000 km² of the search), and a free key has 2,500 of those a month: at the default hour an area spends about 720.",
-  "budgetRoute": "Inside its hours every poll is one Routing request, of 20,000 free a month; the reports on the route come with it, and Incident Details is asked once per new report for the rest of what there is to know.",
+  "budgetRoute": "Inside its hours every poll is one Routing request, of 20,000 free a month; the reports on the route come with it, and for the new ones Incident Details is asked for the rest of what there is to know - five reports to a request.",
   "entities": {
     "sensor": {
       "report_count": "Reports",
@@ -218,11 +218,15 @@
         "live_from": "From",
         "live_until": "Until",
         "live_back_from": "From (way back)",
-        "live_back_until": "Until (way back)"
+        "live_back_until": "Until (way back)",
+        "details": "Look up the reports' details",
+        "details_interval": "Minutes between detail lookups (empty = with every poll)"
       },
       "data_description": {
         "return_route": "A second entry, destination to start - on a motorway the way back is the other carriageway, and a jam on one is not one on the other. Named after this entry, with \"return\" added.",
-        "return_name": "Only used when the way back is created. Filled with this entry's name and \"return\" added; type another to call it something else - \"Home\" and \"Work\", say."
+        "return_name": "Only used when the way back is created. Filled with this entry's name and \"return\" added; type another to call it something else - \"Home\" and \"Work\", say.",
+        "details": "A route names what it runs through - kind, place and delay. With this on, Incident Details is asked for the rest of a new report: the whole stretch, where it starts and ends, the road numbers, TomTom's wording and its times - one request per five new reports, of 2,500 free a month. Only reports this entry shows are looked up. Off, the route costs no Incident Details request at all.",
+        "details_interval": "How often the details are asked for, apart from how often the route itself is polled. With 30, a new report shows at once as the route tells it, and its details follow within half an hour - several reports in one request, and none for a jam that has gone again meanwhile."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "From the eighth day of the month, the requests so far are projected to the month's end. Counted is what this integration asks for; a key used elsewhere too stands higher at TomTom.",
           "data": {
             "quota_warning": "Warn when the month's requests run low or will not last",
-            "quota_threshold": "Warn from this share of the month's requests"
+            "quota_threshold": "Warn from this share of the month's requests",
+            "incident_day_limit": "Incident Details requests a day, at most (0 = no limit)"
           },
           "data_description": {
-            "quota_threshold": "The first warning comes when the projection reaches this share; a second one when it reaches 100 %."
+            "quota_threshold": "The first warning comes when the projection reaches this share; a second one when it reaches 100 %.",
+            "incident_day_limit": "All entries together, counted from midnight to midnight UTC. Once the day's limit is reached no more are sent until the next day: areas and trackers show no TomTom reports meanwhile, and a route's new reports come without their details. 80 a day makes the 2,500 free requests last the month."
           }
         },
         "lufop": {
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "The {api} requests of the day are used up",
     "description": "All {tier} requests a day of the **{api}** plan are used - Lufop counts everything that uses the same key. It refuses further requests until midnight UTC - {reset} here.\n\nFewer polls help tomorrow: a longer update interval, tighter hours on a route, or Lufop switched off for the entries outside its country."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTom has no {api} requests left",
+    "description": "TomTom refuses further **{api}** requests: the key has none left - *insufficient funds* is its own word for it. The key itself is fine, and every other API goes on answering. TomTom counts everything that uses the key; this installation has made {used} of the {tier} free requests this month.\n\nWithout Incident Details an area or a tracker shows no TomTom reports, and a route's new reports come as the route itself tells them: kind, place and delay, without the whole stretch, its start and end, the road numbers, TomTom's wording and its times. Routes, travel times, the traffic flow and the further sources' speed cameras are not affected. Without Routing a route cannot be worked out, and its entry fails.\n\nIt is asked again with the next request there is for this API, no sooner than an hour after the last refusal, and this goes away with the first answer."
+  },
+  "incidentDayLimitIssue": {
+    "title": "The day's Incident Details requests are used",
+    "description": "{used} Incident Details requests have gone out today, and the limit set under TomTom Settings → Configure → Quota warning → TomTom is {limit}. No more are sent until midnight UTC - {reset} here.\n\nUntil then an area or a tracker shows no TomTom reports, and a route's new reports come as the route itself tells them: kind, place and delay, without their details. Routes, travel times, the traffic flow and the further sources' speed cameras are not affected.\n\nFewer requests help: a longer update interval, a route's details looked up less often or not at all, or a higher limit - 80 a day makes the 2,500 free requests last the month."
   },
   "device": {
     "general": "TomTom General",

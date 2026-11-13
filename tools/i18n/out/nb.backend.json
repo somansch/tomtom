@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Hver henting er én Incident Details-forespørsel (én til per 10 000 km² søkeflate), og en gratis nøkkel har 2 500 av dem i måneden: med standardtimen bruker et område omtrent 720.",
-  "budgetRoute": "Innenfor timene sine er hver henting én Routing-forespørsel, av 20 000 gratis i måneden; meldingene på ruten følger med, og Incident Details spørres én gang per ny melding om resten av det som er å vite.",
+  "budgetRoute": "Innenfor timene sine er hver henting én Routing-forespørsel, av 20 000 gratis i måneden; meldingene på ruten følger med, og for de nye spørres Incident Details om resten av det som er å vite - fem meldinger per forespørsel.",
   "entities": {
     "sensor": {
       "report_count": "Meldinger",
@@ -218,11 +218,15 @@
         "live_from": "Fra",
         "live_until": "Til",
         "live_back_from": "Fra (retur)",
-        "live_back_until": "Til (retur)"
+        "live_back_until": "Til (retur)",
+        "details": "Slå opp meldingenes detaljer",
+        "details_interval": "Minutter mellom detaljoppslag (tomt = ved hver henting)"
       },
       "data_description": {
         "return_route": "En ny oppføring, fra destinasjon til start - på en motorvei er returen den andre kjørebanen, og en kø på den ene er ikke en kø på den andre. Navngitt etter denne oppføringen, med \"retur\" lagt til.",
-        "return_name": "Brukes bare når returen opprettes. Fylt ut med denne oppføringens navn og \"retur\" lagt til; skriv et annet for å kalle den noe annet - \"Hjem\" og \"Jobb\", for eksempel."
+        "return_name": "Brukes bare når returen opprettes. Fylt ut med denne oppføringens navn og \"retur\" lagt til; skriv et annet for å kalle den noe annet - \"Hjem\" og \"Jobb\", for eksempel.",
+        "details": "En rute nevner det den går gjennom - type, sted og forsinkelse. Når dette er på, spørres Incident Details om resten av en ny melding: hele strekningen, hvor den begynner og slutter, veinumrene, TomToms ordlyd og tidspunktene - én forespørsel per fem nye meldinger, av 2 500 gratis i måneden. Bare meldinger som denne oppføringen viser, slås opp. Av koster ruten ikke en eneste Incident Details-forespørsel.",
+        "details_interval": "Hvor ofte det spørres om detaljene, uavhengig av hvor ofte selve ruten hentes. Med 30 vises en ny melding med en gang slik ruten nevner den, og detaljene følger innen en halv time - flere meldinger i én forespørsel, og ingen for en kø som har løst seg opp igjen i mellomtiden."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Fra den åttende dagen i måneden fremskrives forespørslene så langt til slutten av måneden. Det som telles, er det denne integrasjonen spør om; en nøkkel som også brukes andre steder, står høyere hos TomTom.",
           "data": {
             "quota_warning": "Varsle når månedens forespørsler blir få eller ikke rekker",
-            "quota_threshold": "Varsle fra denne andelen av månedens forespørsler"
+            "quota_threshold": "Varsle fra denne andelen av månedens forespørsler",
+            "incident_day_limit": "Incident Details-forespørsler per dag, høyst (0 = ingen grense)"
           },
           "data_description": {
-            "quota_threshold": "Det første varselet kommer når framskrivingen når denne andelen; et nytt når den når 100 %."
+            "quota_threshold": "Det første varselet kommer når framskrivingen når denne andelen; et nytt når den når 100 %.",
+            "incident_day_limit": "Alle oppføringer til sammen, talt fra midnatt til midnatt UTC. Når dagens grense er nådd, sendes ingen flere før neste dag: områder og sporere viser ingen TomTom-meldinger så lenge, og en rutes nye meldinger kommer uten detaljene sine. Med 80 om dagen rekker de 2 500 gratis forespørslene ut måneden."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Månedens {api}-forespørsler blir få",
-    "description": "{used} av {tier} gratis **{api}**-forespørsler etter {days} dager; i dette tempoet omtrent **{projected}** ved månedens slutt, {percent} % av kvoten eller mer.\n\nFærre hentinger hjelper: et lengre oppdateringsintervall, strammere timer på en rute, trafikkflyten på færre kort.\n\nDette forsvinner når tempoet synker under andelen som er satt under TomTom-innstillinger → Konfigurer → Kvotevarsel → TomTom, og med den nye måneden. Når tempoet hele kvoten, følger et nytt varsel."
+    "description": "{used} av {tier} gratis **{api}**-forespørsler etter {days} dager; i dette tempoet omtrent **{projected}** ved månedens slutt, {percent} % av kvoten eller mer.\n\nFærre hentinger hjelper: et lengre oppdateringsintervall, strammere timer på en rute, trafikkflyten på færre kort.\n\nDette forsvinner når tempoet synker under andelen som er satt under TomTom Innstillinger → Konfigurer → Kvotevarsel → TomTom, og med den nye måneden. Når tempoet hele kvoten, følger et nytt varsel."
   },
   "quotaOverIssue": {
     "title": "{api}-kvoten rekker ikke ut måneden",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Dagens {api}-forespørsler er brukt opp",
     "description": "Alle {tier} forespørsler om dagen i **{api}**-planen er brukt - Lufop teller alt som bruker samme nøkkel. Den avviser flere forespørsler til midnatt UTC - {reset} her.\n\nFærre hentinger hjelper i morgen: et lengre oppdateringsintervall, strammere timer på en rute, eller Lufop slått av for oppføringene utenfor landet dens."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTom har ingen {api}-forespørsler igjen",
+    "description": "TomTom avviser flere **{api}**-forespørsler: nøkkelen har ingen igjen - *insufficient funds* er TomToms eget ord for det. Selve nøkkelen er i orden, og alle andre API-er svarer som før. TomTom teller alt som bruker nøkkelen; denne installasjonen har sendt {used} av de {tier} gratis forespørslene denne måneden.\n\nUten Incident Details viser et område eller en sporer ingen TomTom-meldinger, og en rutes nye meldinger kommer slik ruten selv nevner dem: type, sted og forsinkelse, uten hele strekningen, start og slutt, veinumrene, TomToms ordlyd og tidspunktene. Ruter, reisetider, trafikkflyten og fotoboksene fra de øvrige kildene er ikke berørt. Uten Routing kan en rute ikke regnes ut, og oppføringen dens slutter å virke.\n\nDet spørres igjen med den neste forespørselen som finnes for dette API-et, tidligst en time etter forrige avvisning, og dette forsvinner med det første svaret."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Dagens Incident Details-forespørsler er brukt opp",
+    "description": "{used} Incident Details-forespørsler er sendt i dag, og grensen som er satt under TomTom Innstillinger → Konfigurer → Kvotevarsel → TomTom, er {limit}. Ingen flere sendes før midnatt UTC - {reset} her.\n\nInntil da viser et område eller en sporer ingen TomTom-meldinger, og en rutes nye meldinger kommer slik ruten selv nevner dem: type, sted og forsinkelse, uten detaljene sine. Ruter, reisetider, trafikkflyten og fotoboksene fra de øvrige kildene er ikke berørt.\n\nFærre forespørsler hjelper: et lengre oppdateringsintervall, en rutes detaljer slått opp sjeldnere eller ikke i det hele tatt, eller en høyere grense - med 80 om dagen rekker de 2 500 gratis forespørslene ut måneden."
   },
   "device": {
     "general": "TomTom Generelt",

@@ -171,10 +171,14 @@
                     "live_until": "Til",
                     "live_back_from": "Fra (vejen tilbage)",
                     "live_back_until": "Til (vejen tilbage)",
+                    "details": "Slå meldingernes detaljer op",
+                    "details_interval": "Minutter mellem detaljeopslag (tomt = ved hver forespørgsel)",
                     "categories": "Meldinger"
                 },
                 "data_description": {
-                    "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet."
+                    "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet.",
+                    "details": "En rute nævner, hvad den kører igennem - art, sted og forsinkelse. Er dette slået til, spørges Incident Details om resten af en ny melding: hele strækningen, hvor den begynder og slutter, vejnumrene, TomToms ordlyd og tidspunkterne - én anmodning pr. fem nye meldinger, af 2.500 gratis om måneden. Der slås kun meldinger op, som denne post viser. Slået fra koster ruten ikke en eneste Incident Details-anmodning.",
+                    "details_interval": "Hvor ofte der spørges om detaljerne, uafhængigt af hvor ofte selve ruten forespørges. Med 30 vises en ny melding straks, sådan som ruten nævner den, og dens detaljer følger inden for en halv time - flere meldinger i én anmodning, og ingen for en kø, der i mellemtiden er væk igen."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Din rute, lige nu",
-                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min lige nu, heraf {delay} min forsinkelse. Ruten beregnes igen ved hver forespørgsel; kortet viser den, trafikken gør hurtigst i dette øjeblik. Inden for sine timer er hver forespørgsel én Routing-anmodning, af 20.000 gratis om måneden; meldingerne på ruten følger med den, og Incident Details spørges én gang pr. ny melding om resten af det, der er at vide.",
+                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min lige nu, heraf {delay} min forsinkelse. Ruten beregnes igen ved hver forespørgsel; kortet viser den, trafikken gør hurtigst i dette øjeblik. Inden for sine timer er hver forespørgsel én Routing-anmodning, af 20.000 gratis om måneden; meldingerne på ruten følger med den, og for de nye spørges Incident Details om resten af det, der er at vide - fem meldinger pr. anmodning.",
                 "data": {
                     "return_route": "Opret også vejen tilbage",
                     "return_name": "Navn på vejen tilbage",
@@ -449,11 +453,15 @@
                     "live_until": "Til",
                     "live_back_from": "Fra (vejen tilbage)",
                     "live_back_until": "Til (vejen tilbage)",
+                    "details": "Slå meldingernes detaljer op",
+                    "details_interval": "Minutter mellem detaljeopslag (tomt = ved hver forespørgsel)",
                     "categories": "Meldinger"
                 },
                 "data_description": {
                     "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet.",
-                    "return_name": "Bruges kun, når vejen tilbage oprettes. Udfyldt med denne posts navn og \"retur\" tilføjet; skriv et andet for at kalde den noget andet - \"Hjem\" og \"Arbejde\", f.eks."
+                    "return_name": "Bruges kun, når vejen tilbage oprettes. Udfyldt med denne posts navn og \"retur\" tilføjet; skriv et andet for at kalde den noget andet - \"Hjem\" og \"Arbejde\", f.eks.",
+                    "details": "En rute nævner, hvad den kører igennem - art, sted og forsinkelse. Er dette slået til, spørges Incident Details om resten af en ny melding: hele strækningen, hvor den begynder og slutter, vejnumrene, TomToms ordlyd og tidspunkterne - én anmodning pr. fem nye meldinger, af 2.500 gratis om måneden. Der slås kun meldinger op, som denne post viser. Slået fra koster ruten ikke en eneste Incident Details-anmodning.",
+                    "details_interval": "Hvor ofte der spørges om detaljerne, uafhængigt af hvor ofte selve ruten forespørges. Med 30 vises en ny melding straks, sådan som ruten nævner den, og dens detaljer følger inden for en halv time - flere meldinger i én anmodning, og ingen for en kø, der i mellemtiden er væk igen."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Til",
                     "live_back_from": "Fra (vejen tilbage)",
                     "live_back_until": "Til (vejen tilbage)",
+                    "details": "Slå meldingernes detaljer op",
+                    "details_interval": "Minutter mellem detaljeopslag (tomt = ved hver forespørgsel)",
                     "categories": "Meldinger"
                 },
                 "data_description": {
-                    "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet."
+                    "return_route": "En anden post, destination til start - på en motorvej er vejen tilbage den anden kørebane, og en kø på den ene er ikke en kø på den anden. Navngivet efter denne post med \"retur\" tilføjet.",
+                    "details": "En rute nævner, hvad den kører igennem - art, sted og forsinkelse. Er dette slået til, spørges Incident Details om resten af en ny melding: hele strækningen, hvor den begynder og slutter, vejnumrene, TomToms ordlyd og tidspunkterne - én anmodning pr. fem nye meldinger, af 2.500 gratis om måneden. Der slås kun meldinger op, som denne post viser. Slået fra koster ruten ikke en eneste Incident Details-anmodning.",
+                    "details_interval": "Hvor ofte der spørges om detaljerne, uafhængigt af hvor ofte selve ruten forespørges. Med 30 vises en ny melding straks, sådan som ruten nævner den, og dens detaljer følger inden for en halv time - flere meldinger i én anmodning, og ingen for en kø, der i mellemtiden er væk igen."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "Fra månedens ottende dag fremskrives anmodningerne indtil nu til månedens slutning. Der tælles det, denne integration spørger om; en nøgle, der også bruges andre steder, står højere hos TomTom.",
                         "data": {
                             "quota_warning": "Advar, når månedens forespørgsler bliver knappe eller ikke rækker",
-                            "quota_threshold": "Advar fra denne andel af månedens forespørgsler"
+                            "quota_threshold": "Advar fra denne andel af månedens forespørgsler",
+                            "incident_day_limit": "Incident Details-anmodninger om dagen, højst (0 = ingen grænse)"
                         },
                         "data_description": {
-                            "quota_threshold": "Den første advarsel kommer, når fremskrivningen når denne andel; en anden, når den når 100 %."
+                            "quota_threshold": "Den første advarsel kommer, når fremskrivningen når denne andel; en anden, når den når 100 %.",
+                            "incident_day_limit": "Alle poster tilsammen, talt fra midnat til midnat UTC. Når dagens grænse er nået, sendes der ikke flere før næste dag: områder og trackere viser imens ingen TomTom-meldinger, og en rutes nye meldinger kommer uden deres detaljer. Med 80 om dagen rækker de 2.500 gratis anmodninger måneden ud."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Din rute, lige nu",
-                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min lige nu, heraf {delay} min forsinkelse. Ruten beregnes igen ved hver forespørgsel; kortet viser den, trafikken gør hurtigst i dette øjeblik. Inden for sine timer er hver forespørgsel én Routing-anmodning, af 20.000 gratis om måneden; meldingerne på ruten følger med den, og Incident Details spørges én gang pr. ny melding om resten af det, der er at vide.",
+                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min lige nu, heraf {delay} min forsinkelse. Ruten beregnes igen ved hver forespørgsel; kortet viser den, trafikken gør hurtigst i dette øjeblik. Inden for sine timer er hver forespørgsel én Routing-anmodning, af 20.000 gratis om måneden; meldingerne på ruten følger med den, og for de nye spørges Incident Details om resten af det, der er at vide - fem meldinger pr. anmodning.",
                 "data": {
                     "live_days": "Dage, ruten holdes opdateret",
                     "live_from": "Fra",
                     "live_until": "Til",
+                    "details": "Slå meldingernes detaljer op",
+                    "details_interval": "Minutter mellem detaljeopslag (tomt = ved hver forespørgsel)",
                     "categories": "Meldinger"
+                },
+                "data_description": {
+                    "details": "En rute nævner, hvad den kører igennem - art, sted og forsinkelse. Er dette slået til, spørges Incident Details om resten af en ny melding: hele strækningen, hvor den begynder og slutter, vejnumrene, TomToms ordlyd og tidspunkterne - én anmodning pr. fem nye meldinger, af 2.500 gratis om måneden. Der slås kun meldinger op, som denne post viser. Slået fra koster ruten ikke en eneste Incident Details-anmodning.",
+                    "details_interval": "Hvor ofte der spørges om detaljerne, uafhængigt af hvor ofte selve ruten forespørges. Med 30 vises en ny melding straks, sådan som ruten nævner den, og dens detaljer følger inden for en halv time - flere meldinger i én anmodning, og ingen for en kø, der i mellemtiden er væk igen."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -967,7 +987,7 @@
         },
         "quota_at_risk": {
             "title": "Månedens {api}-forespørgsler bliver knappe",
-            "description": "{used} af {tier} gratis **{api}**-forespørgsler efter {days} dage; i dette tempo omkring **{projected}** ved månedens udgang, {percent} % af kvoten eller mere.\n\nFærre forespørgsler hjælper: et længere opdateringsinterval, snævrere timer på en rute, trafikken på færre kort.\n\nDette forsvinder, når tempoet falder under den andel, der er sat under TomTom-indstillinger → Konfigurer → Kvoteadvarsel → TomTom, og med den nye måned. Når tempoet når hele kvoten, følger en anden advarsel."
+            "description": "{used} af {tier} gratis **{api}**-forespørgsler efter {days} dage; i dette tempo omkring **{projected}** ved månedens udgang, {percent} % af kvoten eller mere.\n\nFærre forespørgsler hjælper: et længere opdateringsinterval, snævrere timer på en rute, trafikken på færre kort.\n\nDette forsvinder, når tempoet falder under den andel, der er sat under TomTom Indstillinger → Konfigurér → Kvoteadvarsel → TomTom, og med den nye måned. Når tempoet når hele kvoten, følger en anden advarsel."
         },
         "quota_over": {
             "title": "{api}-kvoten rækker ikke måneden ud",
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "Dagens {api}-anmodninger er brugt op",
             "description": "Alle {tier} anmodninger om dagen i **{api}**-planen er brugt - Lufop tæller alt, der bruger den samme nøgle. Den afviser yderligere anmodninger indtil midnat UTC - {reset} her.\n\nFærre forespørgsler hjælper i morgen: et længere opdateringsinterval, snævrere timer på en rute, eller Lufop slået fra for posterne uden for dens land."
+        },
+        "quota_used_up": {
+            "title": "TomTom har ingen {api}-anmodninger tilbage",
+            "description": "TomTom afviser yderligere **{api}**-anmodninger: nøglen har ikke flere tilbage - *insufficient funds* er TomToms eget ord for det. Selve nøglen er i orden, og alle andre API'er svarer fortsat. TomTom tæller alt, der bruger nøglen; denne installation har sendt {used} af de {tier} gratis anmodninger i denne måned.\n\nUden Incident Details viser et område eller en tracker ingen TomTom-meldinger, og en rutes nye meldinger kommer, sådan som ruten selv nævner dem: art, sted og forsinkelse, uden hele strækningen, dens begyndelse og slutning, vejnumrene, TomToms ordlyd og tidspunkterne. Ruter, rejsetider, trafikflowet og de yderligere kilders fartkameraer er ikke berørt. Uden Routing kan en rute ikke beregnes, og dens post holder op med at virke.\n\nDer spørges igen med den næste anmodning, der er til dette API, tidligst en time efter den seneste afvisning, og dette forsvinder med det første svar."
+        },
+        "incident_day_limit": {
+            "title": "Dagens Incident Details-anmodninger er brugt op",
+            "description": "{used} Incident Details-anmodninger er sendt i dag, og grænsen, der er sat under TomTom Indstillinger → Konfigurér → Kvoteadvarsel → TomTom, er {limit}. Der sendes ikke flere før midnat UTC - {reset} her.\n\nIndtil da viser et område eller en tracker ingen TomTom-meldinger, og en rutes nye meldinger kommer, sådan som ruten selv nævner dem: art, sted og forsinkelse, uden deres detaljer. Ruter, rejsetider, trafikflowet og de yderligere kilders fartkameraer er ikke berørt.\n\nFærre anmodninger hjælper: et længere opdateringsinterval, en rutes detaljer slået op sjældnere eller slet ikke, eller en højere grænse - med 80 om dagen rækker de 2.500 gratis anmodninger måneden ud."
         }
     }
 }

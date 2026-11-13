@@ -56,8 +56,14 @@ function build(s) {
         live_until: reviewTexts.data.live_until,
         live_back_from: reviewTexts.data.live_back_from,
         live_back_until: reviewTexts.data.live_back_until,
+        details: reviewTexts.data.details,
+        details_interval: reviewTexts.data.details_interval,
       },
-      data_description: { return_route: reviewTexts.data_description.return_route },
+      data_description: {
+        return_route: reviewTexts.data_description.return_route,
+        details: reviewTexts.data_description.details,
+        details_interval: reviewTexts.data_description.details_interval,
+      },
     },
     ""
   );
@@ -98,7 +104,11 @@ function build(s) {
   delete review.data.return_name;
   delete review.data.live_back_from;
   delete review.data.live_back_until;
-  delete review.data_description;
+  // Of the descriptions only the one for a field this form still has.
+  review.data_description = {
+    details: s.steps.route_review.data_description.details,
+    details_interval: s.steps.route_review.data_description.details_interval,
+  };
   return {
     title: "TomTom",
     selector: {
@@ -121,7 +131,7 @@ function build(s) {
     config,
     services: { refresh: { name: s.service.name, description: s.service.description, fields: { config_entry_id: s.service.field } } },
     options,
-    issues: { entry_failing: s.issue, source_failing: s.sourceIssue, quota_at_risk: s.quotaIssue, quota_over: s.quotaOverIssue, quota_day_at_risk: s.quotaDayIssue, quota_day_used_up: s.quotaDayUsedUpIssue },
+    issues: { entry_failing: s.issue, source_failing: s.sourceIssue, quota_at_risk: s.quotaIssue, quota_over: s.quotaOverIssue, quota_day_at_risk: s.quotaDayIssue, quota_day_used_up: s.quotaDayUsedUpIssue, quota_used_up: s.quotaUsedUpIssue, incident_day_limit: s.incidentDayLimitIssue },
   };
 }
 

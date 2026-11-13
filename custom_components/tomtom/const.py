@@ -193,6 +193,19 @@ CONF_ONLY_CERTAIN = "only_certain"
 # A jam is reported from this many minutes of delay; 0 reports every jam.
 CONF_JAM_MIN_DELAY = "jam_min_delay"
 DEFAULT_JAM_MIN_DELAY = 0
+# A live route only: whether its new reports are looked up in Incident
+# Details. The route's sections already say kind, place and delay; Details
+# adds the whole stretch, its ends, the road numbers, the wording and the
+# times, at one request per five new reports. On until somebody says
+# otherwise, which is what a route did before the switch existed; off, and
+# the route costs no Incident Details request.
+CONF_DETAILS = "details"
+# And how often, in minutes, apart from how often the route itself is
+# polled: the reports show at once as the sections tell them, and their
+# details follow in rounds this far apart - several reports to a request,
+# and none for a jam that has gone again meanwhile. Empty or 0 is with
+# every poll.
+CONF_DETAILS_INTERVAL = "details_interval"
 
 # Fired once per report that is newly reported for an entry - never for one
 # already known from an earlier poll, and never during the very first sync
@@ -237,6 +250,26 @@ PLACE_KIND_ADDRESS = "address"
 # A place the card's planner takes off an entity's position - a person, a
 # tracker, a zone - read once, when the route is made.
 PLACE_KIND_ENTITY = "entity"
+# What is put behind a route's name to name its way back - "Work - return"
+# - in each language the forms are written in. The forms' own help text
+# names this word, so it is the one there: until now the name said "return"
+# in every language but German, under a text promising « retour ».
+RETURN_WORDS = {
+    "en": "return", "ar": "عودة", "ca": "tornada", "cs": "zpět", "da": "retur", "de": "Rückweg",
+    "el": "επιστροφή", "es": "vuelta", "et": "tagasi", "fi": "paluu", "fr": "retour", "he": "חזרה",
+    "hu": "vissza", "id": "pulang", "it": "ritorno", "ja": "帰路", "ko": "복귀", "lt": "atgal",
+    "lv": "atpakaļ", "nb": "retur", "nl": "terug", "pl": "powrót", "pt": "regresso", "ro": "retur",
+    "ru": "обратно", "sk": "späť", "sv": "retur", "th": "ขากลับ", "tr": "dönüş", "zh-Hant": "回程",
+}
+
+
+def return_word(language: str | None) -> str:
+    """The word for the way back in the instance's language, English where
+    the forms have none of their own."""
+    code = str(language or "")
+    return RETURN_WORDS.get(code) or RETURN_WORDS.get(code.split("-")[0]) or RETURN_WORDS["en"]
+
+
 # Under TomTom Settings: what a route made on the card starts from, by
 # default - an entity whose position is the start, or nothing.
 CONF_DEFAULT_START = "default_start"
@@ -246,9 +279,16 @@ CONF_QUOTA_WARNING = "quota_warning"
 CONF_QUOTA_THRESHOLD = "quota_threshold"
 # The first warning comes when the month's projection reaches this share of
 # a free tier, the second when it reaches all of it - as Lufop's day does.
-# 100 until 1.0.3; an installation from before keeps that (see the entry
+# 100 until 1.1.0; an installation from before keeps that (see the entry
 # migration in __init__.py), a new one starts here.
 DEFAULT_QUOTA_THRESHOLD = 80
+# The most Incident Details requests this installation sends in a day, all
+# entries together, the day being UTC's as the day counts are; 0 is no
+# limit. Not a warning but a brake: the 2,500 free requests of a month are
+# about 80 a day, and a month that spends them in two weeks has no TomTom
+# reports in its areas for the other two.
+CONF_INCIDENT_DAY_LIMIT = "incident_day_limit"
+DEFAULT_INCIDENT_DAY_LIMIT = 80
 # Lufop's day, on its own: whether to warn, and from what share of the
 # day's requests the first warning comes - the second, when all are used,
 # comes with the switch alone.

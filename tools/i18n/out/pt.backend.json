@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Cada consulta é um pedido ao Incident Details (mais um por cada 10.000 km² de área de pesquisa), e uma chave gratuita tem 2.500 por mês: com a hora predefinida, uma área gasta cerca de 720.",
-  "budgetRoute": "Dentro das suas horas, cada consulta é um pedido ao Routing, de 20.000 gratuitos por mês; as ocorrências na rota vêm com ele, e o Incident Details é consultado uma vez por ocorrência nova para o resto do que há a saber.",
+  "budgetRoute": "Dentro das suas horas, cada consulta é um pedido ao Routing, de 20.000 gratuitos por mês; as ocorrências na rota vêm com ele, e para as novas pede-se ao Incident Details o resto do que há a saber - cinco ocorrências por pedido.",
   "entities": {
     "sensor": {
       "report_count": "Ocorrências",
@@ -218,11 +218,15 @@
         "live_from": "Das",
         "live_until": "Até",
         "live_back_from": "Das (regresso)",
-        "live_back_until": "Até (regresso)"
+        "live_back_until": "Até (regresso)",
+        "details": "Obter os detalhes das ocorrências",
+        "details_interval": "Minutos entre pedidos de detalhes (vazio = em cada consulta)"
       },
       "data_description": {
         "return_route": "Uma segunda entrada, do destino à partida - numa autoestrada o regresso é a outra faixa de rodagem, e um engarrafamento numa não o é na outra. Com o nome desta entrada e \"regresso\" acrescentado.",
-        "return_name": "Só usado quando o regresso é criado. Preenchido com o nome desta entrada e \"regresso\" acrescentado; escreva outro para lhe dar um nome diferente - \"Casa\" e \"Trabalho\", por exemplo."
+        "return_name": "Só usado quando o regresso é criado. Preenchido com o nome desta entrada e \"regresso\" acrescentado; escreva outro para lhe dar um nome diferente - \"Casa\" e \"Trabalho\", por exemplo.",
+        "details": "Uma rota indica aquilo que atravessa - tipo, lugar e atraso. Ligado, pede-se ao Incident Details o resto de uma ocorrência nova: o troço inteiro, onde começa e onde acaba, os números de estrada, a redação da TomTom e os horários - um pedido por cada cinco ocorrências novas, de 2.500 gratuitos por mês. Só se pedem os detalhes das ocorrências que esta entrada mostra. Desligado, a rota não custa nenhum pedido ao Incident Details.",
+        "details_interval": "Com que frequência se pedem os detalhes, independentemente da frequência com que a própria rota é consultada. Com 30, uma ocorrência nova aparece logo tal como a rota a indica, e os seus detalhes seguem dentro de meia hora - várias ocorrências num só pedido, e nenhum para um engarrafamento que entretanto já desapareceu."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "A partir do oitavo dia do mês, os pedidos feitos até então são projetados até ao fim do mês. Conta-se o que esta integração pede; uma chave usada também noutro lado tem uma contagem mais alta na TomTom.",
           "data": {
             "quota_warning": "Avisar quando os pedidos do mês escasseiam ou não vão chegar",
-            "quota_threshold": "Avisar a partir desta parte dos pedidos do mês"
+            "quota_threshold": "Avisar a partir desta parte dos pedidos do mês",
+            "incident_day_limit": "Pedidos ao Incident Details por dia, no máximo (0 = sem limite)"
           },
           "data_description": {
-            "quota_threshold": "O primeiro aviso chega quando a projeção atinge esta parte; um segundo quando atinge 100 %."
+            "quota_threshold": "O primeiro aviso chega quando a projeção atinge esta parte; um segundo quando atinge 100 %.",
+            "incident_day_limit": "Todas as entradas em conjunto, contadas de meia-noite a meia-noite UTC. Atingido o limite do dia, não se enviam mais até ao dia seguinte: entretanto, as áreas e os rastreadores não mostram ocorrências da TomTom, e as ocorrências novas de uma rota chegam sem os seus detalhes. Com 80 por dia, os 2.500 pedidos gratuitos chegam para o mês."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Os pedidos {api} do mês escasseiam",
-    "description": "{used} de {tier} pedidos **{api}** gratuitos após {days} dias; a este ritmo, cerca de **{projected}** até ao fim do mês, {percent} % da quota ou mais.\n\nMenos consultas ajudam: um intervalo de atualização mais longo, horas mais apertadas numa rota, o trânsito em menos cartões.\n\nDesaparece quando o ritmo desce abaixo da parte definida em Definições TomTom → Configurar → Aviso de quota → TomTom, e com o novo mês. Se o ritmo atingir toda a quota, segue um segundo aviso."
+    "description": "{used} de {tier} pedidos **{api}** gratuitos após {days} dias; a este ritmo, cerca de **{projected}** até ao fim do mês, {percent} % da quota ou mais.\n\nMenos consultas ajudam: um intervalo de atualização mais longo, horas mais apertadas numa rota, o trânsito em menos cartões.\n\nDesaparece quando o ritmo desce abaixo da parte definida em TomTom Definições → Configurar → Aviso de quota → TomTom, e com o novo mês. Se o ritmo atingir toda a quota, segue um segundo aviso."
   },
   "quotaOverIssue": {
     "title": "A quota {api} não vai chegar para o mês",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Os pedidos {api} do dia estão esgotados",
     "description": "Todos os {tier} pedidos por dia do plano **{api}** estão usados - a Lufop conta tudo o que usa a mesma chave. Recusa mais pedidos até à meia-noite UTC - {reset} aqui.\n\nMenos consultas ajudam amanhã: um intervalo de atualização mais longo, horas mais apertadas numa rota, ou a Lufop desligada nas entradas fora do seu país."
+  },
+  "quotaUsedUpIssue": {
+    "title": "A TomTom já não tem pedidos {api} disponíveis",
+    "description": "A TomTom recusa mais pedidos **{api}**: a chave já não tem nenhum - *insufficient funds* é o termo da própria TomTom. A chave em si está bem, e todas as outras API continuam a responder. A TomTom conta tudo o que usa a chave; esta instalação fez {used} dos {tier} pedidos gratuitos este mês.\n\nSem o Incident Details, uma área ou um rastreador não mostra ocorrências da TomTom, e as ocorrências novas de uma rota chegam tal como a própria rota as indica: tipo, lugar e atraso, sem o troço inteiro, o seu início e o seu fim, os números de estrada, a redação da TomTom e os horários. As rotas, os tempos de viagem, o fluxo de trânsito e os radares das outras fontes não são afetados. Sem o Routing, uma rota não pode ser calculada, e a sua entrada deixa de funcionar.\n\nVolta a tentar-se com o próximo pedido que houver para esta API, nunca antes de uma hora após a última recusa, e isto desaparece com a primeira resposta."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Os pedidos ao Incident Details do dia estão esgotados",
+    "description": "Hoje saíram {used} pedidos ao Incident Details, e o limite definido em TomTom Definições → Configurar → Aviso de quota → TomTom é {limit}. Não se enviam mais até à meia-noite UTC - {reset} aqui.\n\nAté lá, uma área ou um rastreador não mostra ocorrências da TomTom, e as ocorrências novas de uma rota chegam tal como a própria rota as indica: tipo, lugar e atraso, sem os seus detalhes. As rotas, os tempos de viagem, o fluxo de trânsito e os radares das outras fontes não são afetados.\n\nMenos pedidos ajudam: um intervalo de atualização mais longo, obter os detalhes de uma rota com menos frequência ou não os obter de todo, ou um limite mais alto - com 80 por dia, os 2.500 pedidos gratuitos chegam para o mês."
   },
   "device": {
     "general": "TomTom Geral",

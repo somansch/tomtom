@@ -155,6 +155,11 @@ class SensorReportCount(CoordinatorEntity, SensorEntity):
             "search_mode": coordinator.search_mode,
             "new_minutes": coordinator.new_minutes,
             "in_range": len(coordinator.data.reports),
+            # False while this entry goes without Incident Details for want
+            # of requests - none left at TomTom, or the day's own limit
+            # reached: an area or a tracker then counts no TomTom reports,
+            # and a route's new ones come without their details.
+            "incident_details_ok": coordinator.incident_details_ok,
         }
         if coordinator.new_minutes:
             attrs["new"] = _count_new(items, coordinator.new_minutes, dt_util.now())

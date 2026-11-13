@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Her sorgu bir Incident Details isteğidir (aramanın her 10.000 km² için bir tane daha) ve ücretsiz bir anahtarın ayda 2.500 tanesi vardır: varsayılan saatlik aralıkta bir alan yaklaşık 720 harcar.",
-  "budgetRoute": "Saatleri içinde her sorgu, ayda 20.000 ücretsiz olan bir Routing isteğidir; rotadaki bildirimler onunla birlikte gelir ve bilinecek geri kalanlar için her yeni bildirimde Incident Details bir kez sorulur.",
+  "budgetRoute": "Saatleri içinde her sorgu, ayda 20.000 ücretsiz olan bir Routing isteğidir; rotadaki bildirimler onunla birlikte gelir ve yeni olanlar için bilinecek geri kalanlar Incident Details'e sorulur - istek başına beş bildirim.",
   "entities": {
     "sensor": {
       "report_count": "Bildirimler",
@@ -218,11 +218,15 @@
         "live_from": "Başlangıç saati",
         "live_until": "Bitiş saati",
         "live_back_from": "Başlangıç saati (dönüş)",
-        "live_back_until": "Bitiş saati (dönüş)"
+        "live_back_until": "Bitiş saati (dönüş)",
+        "details": "Bildirimlerin ayrıntılarını getir",
+        "details_interval": "Ayrıntıların getirilmesi arasındaki dakika (boş = her sorguda)"
       },
       "data_description": {
         "return_route": "Varıştan başlangıca ikinci bir girdi; otoyolda dönüş yolu karşı şerittir ve birindeki sıkışıklık diğerinde yoktur. Bu girdinin adını alır, sonuna \"dönüş\" eklenir.",
-        "return_name": "Yalnızca dönüş yolu oluşturulduğunda kullanılır. Bu girdinin adı ve eklenen \"dönüş\" ile doldurulur; başka bir ad vermek için başka bir şey yazın, örneğin \"Ev\" ve \"İş\"."
+        "return_name": "Yalnızca dönüş yolu oluşturulduğunda kullanılır. Bu girdinin adı ve eklenen \"dönüş\" ile doldurulur; başka bir ad vermek için başka bir şey yazın, örneğin \"Ev\" ve \"İş\".",
+        "details": "Bir rota, içinden geçtiklerini bildirir - tür, yer ve gecikme. Bu açıkken yeni bir bildirimin geri kalanı Incident Details'e sorulur: kesimin tamamı, nerede başlayıp nerede bittiği, yol numaraları, TomTom'un ifadesi ve saatleri - her beş yeni bildirim için bir istek, ayda 2.500 ücretsiz istekten. Yalnızca bu girdinin gösterdiği bildirimlerin ayrıntıları getirilir. Kapalıyken rota tek bir Incident Details isteğine bile mal olmaz.",
+        "details_interval": "Ayrıntıların ne sıklıkta istendiği; rotanın kendisinin ne sıklıkta sorgulandığından bağımsızdır. 30 ile yeni bir bildirim, rotanın bildirdiği haliyle hemen görünür ve ayrıntıları yarım saat içinde gelir - birkaç bildirim tek istekte, bu arada yeniden çözülmüş bir sıkışıklık için ise hiç istek yok."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Ayın sekizinci gününden itibaren şimdiye kadarki istekler ay sonuna yansıtılır. Sayılan, bu entegrasyonun istedikleridir; başka yerde de kullanılan bir anahtar TomTom'da daha yüksekte durur.",
           "data": {
             "quota_warning": "Ayın istekleri azalınca ya da yetmeyecekse uyar",
-            "quota_threshold": "Ayın isteklerinin şu payından itibaren uyar"
+            "quota_threshold": "Ayın isteklerinin şu payından itibaren uyar",
+            "incident_day_limit": "Günde en çok Incident Details isteği (0 = sınır yok)"
           },
           "data_description": {
-            "quota_threshold": "İlk uyarı, tahmin bu paya ulaşınca gelir; ikincisi %100'e ulaşınca."
+            "quota_threshold": "İlk uyarı, tahmin bu paya ulaşınca gelir; ikincisi %100'e ulaşınca.",
+            "incident_day_limit": "Tüm girdiler birlikte, UTC gece yarısından gece yarısına sayılır. Günün sınırına ulaşılınca ertesi güne kadar başka istek gönderilmez: bu sırada alanlar ve takipçiler TomTom bildirimi göstermez, bir rotanın yeni bildirimleri de ayrıntıları olmadan gelir. Günde 80 ile 2.500 ücretsiz istek ay boyunca yeter."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Ayın {api} istekleri azalıyor",
-    "description": "{days} gün sonra {tier} ücretsiz **{api}** isteğinden {used} tanesi kullanıldı; bu hızla ay sonuna kadar yaklaşık **{projected}**, kotanın %{percent}'i ya da daha fazlası.\n\nDaha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler, daha az kartta trafik akışı.\n\nHız, TomTom Ayarları → Yapılandır → Kota uyarısı → TomTom altında ayarlanan payın altına düşünce ve yeni ayla birlikte kaybolur. Hız tüm kotaya ulaşırsa ikinci bir uyarı gelir."
+    "description": "{days} gün sonra {tier} ücretsiz **{api}** isteğinden {used} tanesi kullanıldı; bu hızla ay sonuna kadar yaklaşık **{projected}**, kotanın %{percent}'i ya da daha fazlası.\n\nDaha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler, daha az kartta trafik akışı.\n\nHız, TomTom Ayarlar → Yapılandır → Kota uyarısı → TomTom altında ayarlanan payın altına düşünce ve yeni ayla birlikte kaybolur. Hız tüm kotaya ulaşırsa ikinci bir uyarı gelir."
   },
   "quotaOverIssue": {
     "title": "{api} kotası ayı çıkarmayacak",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Günün {api} istekleri tükendi",
     "description": "**{api}** planının günlük {tier} isteğinin tümü kullanıldı; Lufop aynı anahtarı kullanan her şeyi sayar. UTC gece yarısına kadar, burada saat {reset}, başka istekleri reddeder.\n\nYarın daha az sorgu yardımcı olur: daha uzun bir güncelleme aralığı, bir rotada daha dar saatler ya da ülkesinin dışındaki girdiler için Lufop'un kapatılması."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTom'da {api} isteği kalmadı",
+    "description": "TomTom başka **{api}** isteklerini reddediyor: anahtarın hiç isteği kalmadı - TomTom buna *insufficient funds* diyor. Anahtarın kendisinde sorun yok ve diğer tüm API'ler yanıt vermeyi sürdürüyor. TomTom anahtarı kullanan her şeyi sayar; bu kurulum bu ay {tier} ücretsiz istekten {used} tanesini kullandı.\n\nIncident Details olmadan bir alan ya da takipçi TomTom bildirimi göstermez, bir rotanın yeni bildirimleri de rotanın kendisinin bildirdiği haliyle gelir: tür, yer ve gecikme; kesimin tamamı, başlangıcı ve bitişi, yol numaraları, TomTom'un ifadesi ve saatleri olmadan. Rotalar, yolculuk süreleri, trafik akışı ve ek kaynakların hız kameraları etkilenmez. Routing olmadan bir rota hesaplanamaz ve girdisi devre dışı kalır.\n\nBu API için yapılacak bir sonraki istekle, son retten en erken bir saat sonra yeniden sorulur ve bu onarım ilk yanıtla kaybolur."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Günün Incident Details istekleri kullanıldı",
+    "description": "Bugün {used} Incident Details isteği gönderildi; TomTom Ayarlar → Yapılandır → Kota uyarısı → TomTom altında ayarlanan sınır ise {limit}. UTC gece yarısına kadar, burada saat {reset}, başka istek gönderilmez.\n\nO zamana kadar bir alan ya da takipçi TomTom bildirimi göstermez, bir rotanın yeni bildirimleri de rotanın kendisinin bildirdiği haliyle gelir: tür, yer ve gecikme, ayrıntıları olmadan. Rotalar, yolculuk süreleri, trafik akışı ve ek kaynakların hız kameraları etkilenmez.\n\nDaha az istek yardımcı olur: daha uzun bir güncelleme aralığı, bir rotanın ayrıntılarını daha seyrek getirmek ya da hiç getirmemek veya daha yüksek bir sınır - günde 80 ile 2.500 ücretsiz istek ay boyunca yeter."
   },
   "device": {
     "general": "TomTom Genel",

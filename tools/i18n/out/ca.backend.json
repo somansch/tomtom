@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Cada consulta és una petició a Incident Details (una més per cada 10.000 km² de cerca), i una clau gratuïta en té 2.500 al mes: amb l'hora per defecte una àrea en gasta unes 720.",
-  "budgetRoute": "Dins de les seves hores cada consulta és una petició a Routing, de 20.000 gratuïtes al mes; les incidències de la ruta hi venen incloses, i a Incident Details es demana un cop per cada incidència nova la resta del que cal saber.",
+  "budgetRoute": "Dins de les seves hores cada consulta és una petició a Routing, de 20.000 gratuïtes al mes; les incidències de la ruta hi venen incloses, i per a les noves es demana a Incident Details la resta del que cal saber - cinc incidències per petició.",
   "entities": {
     "sensor": {
       "report_count": "Incidències",
@@ -218,11 +218,15 @@
         "live_from": "Des de",
         "live_until": "Fins a",
         "live_back_from": "Des de (tornada)",
-        "live_back_until": "Fins a (tornada)"
+        "live_back_until": "Fins a (tornada)",
+        "details": "Obtén els detalls de les incidències",
+        "details_interval": "Minuts entre les peticions de detalls (buit = a cada consulta)"
       },
       "data_description": {
         "return_route": "Una segona entrada, de destinació a origen - en una autopista el camí de tornada és l'altra calçada, i un embús en una no ho és a l'altra. Amb el nom d'aquesta entrada i \"tornada\" afegit.",
-        "return_name": "Només s'usa quan es crea el camí de tornada. S'omple amb el nom d'aquesta entrada i \"tornada\" afegit; escriu-ne un altre per anomenar-lo diferent - \"Casa\" i \"Feina\", per exemple."
+        "return_name": "Només s'usa quan es crea el camí de tornada. S'omple amb el nom d'aquesta entrada i \"tornada\" afegit; escriu-ne un altre per anomenar-lo diferent - \"Casa\" i \"Feina\", per exemple.",
+        "details": "Una ruta anomena allò que travessa - tipus, lloc i retard. Activat, es demana a Incident Details la resta d'una incidència nova: tot el tram, on comença i on acaba, els números de carretera, el text de TomTom i els horaris - una petició per cada cinc incidències noves, de 2.500 gratuïtes al mes. Només es demanen els detalls de les incidències que aquesta entrada mostra. Desactivat, la ruta no costa cap petició a Incident Details.",
+        "details_interval": "Cada quant es demanen els detalls, independentment de cada quant es consulta la ruta mateixa. Amb 30, una incidència nova apareix de seguida tal com la dona la ruta, i els seus detalls arriben en mitja hora com a molt - diverses incidències en una sola petició, i cap per a un embús que mentrestant ja ha desaparegut."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "A partir del vuitè dia del mes, les peticions fetes fins aleshores es projecten fins a final de mes. Es compta el que demana aquesta integració; una clau que també s'usa en altres llocs té un recompte més alt a TomTom.",
           "data": {
             "quota_warning": "Avisa quan les sol·licituds del mes escassegin o no arribin",
-            "quota_threshold": "Avisa a partir d'aquesta part de les sol·licituds del mes"
+            "quota_threshold": "Avisa a partir d'aquesta part de les sol·licituds del mes",
+            "incident_day_limit": "Peticions a Incident Details al dia, com a màxim (0 = sense límit)"
           },
           "data_description": {
-            "quota_threshold": "El primer avís arriba quan la projecció assoleix aquesta part; el segon quan assoleix el 100 %."
+            "quota_threshold": "El primer avís arriba quan la projecció assoleix aquesta part; el segon quan assoleix el 100 %.",
+            "incident_day_limit": "Totes les entrades juntes, comptades de mitjanit a mitjanit UTC. Un cop assolit el límit del dia, no se n'envien més fins a l'endemà: mentrestant les àrees i els rastrejadors no mostren incidències de TomTom, i les incidències noves d'una ruta arriben sense els seus detalls. Amb 80 al dia, les 2.500 peticions gratuïtes arriben per a tot el mes."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Les sol·licituds {api} del mes escassegen",
-    "description": "{used} de {tier} sol·licituds **{api}** gratuïtes després de {days} dies; a aquest ritme, unes **{projected}** a final de mes, el {percent} % de la quota o més.\n\nAjuda consultar menys: un interval d'actualització més llarg, hores més ajustades en una ruta, el trànsit en menys targetes.\n\nDesapareix quan el ritme baixa de la part fixada a Configuració de TomTom → Configura → Avís de quota → TomTom, i amb el mes nou. Si el ritme assoleix tota la quota, segueix un segon avís."
+    "description": "{used} de {tier} sol·licituds **{api}** gratuïtes després de {days} dies; a aquest ritme, unes **{projected}** a final de mes, el {percent} % de la quota o més.\n\nAjuda consultar menys: un interval d'actualització més llarg, hores més ajustades en una ruta, el trànsit en menys targetes.\n\nDesapareix quan el ritme baixa de la part fixada a TomTom Configuració → Configura → Avís de quota → TomTom, i amb el mes nou. Si el ritme assoleix tota la quota, segueix un segon avís."
   },
   "quotaOverIssue": {
     "title": "La quota {api} no arribarà per al mes",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Les peticions del dia de {api} s'han esgotat",
     "description": "S'han usat totes les {tier} peticions al dia del pla de **{api}** - Lufop compta tot el que usa la mateixa clau. Rebutja més peticions fins a mitjanit UTC - aquí a les {reset}.\n\nMenys consultes ajudaran demà: un interval d'actualització més llarg, hores més ajustades en una ruta, o Lufop desactivat a les entrades fora del seu país."
+  },
+  "quotaUsedUpIssue": {
+    "title": "A TomTom no li queden peticions de {api}",
+    "description": "TomTom rebutja més peticions a **{api}**: a la clau no li'n queda cap - *insufficient funds* és com ho anomena TomTom. La clau mateixa està bé, i totes les altres API continuen responent. TomTom compta tot el que usa la clau; aquesta instal·lació ha fet {used} de les {tier} peticions gratuïtes aquest mes.\n\nSense Incident Details, una àrea o un rastrejador no mostra incidències de TomTom, i les incidències noves d'una ruta arriben tal com les dona la ruta mateixa: tipus, lloc i retard, sense tot el tram, on comença i on acaba, els números de carretera, el text de TomTom i els horaris. Les rutes, els temps de viatge, el flux de trànsit i els radars de les altres fonts no en queden afectats. Sense Routing, una ruta no es pot calcular, i la seva entrada deixa de funcionar.\n\nEs torna a provar amb la propera petició que hi hagi per a aquesta API, no abans d'una hora després del darrer rebuig, i això desapareix amb la primera resposta."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Les peticions a Incident Details del dia s'han esgotat",
+    "description": "Avui han sortit {used} peticions a Incident Details, i el límit definit a TomTom Configuració → Configura → Avís de quota → TomTom és de {limit}. No se n'envien més fins a mitjanit UTC - aquí a les {reset}.\n\nFins aleshores, una àrea o un rastrejador no mostra incidències de TomTom, i les incidències noves d'una ruta arriben tal com les dona la ruta mateixa: tipus, lloc i retard, sense els seus detalls. Les rutes, els temps de viatge, el flux de trànsit i els radars de les altres fonts no en queden afectats.\n\nMenys peticions ajuden: un interval d'actualització més llarg, obtenir els detalls d'una ruta menys sovint o no obtenir-los, o un límit més alt - amb 80 al dia, les 2.500 peticions gratuïtes arriben per a tot el mes."
   },
   "device": {
     "general": "TomTom General",

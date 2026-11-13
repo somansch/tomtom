@@ -86,7 +86,6 @@
         n <= 0 ? "0 min" : n < 60 ? `+${n} min` : n % 60 ? `+${Math.floor(n / 60)} h ${n % 60} min` : `+${Math.floor(n / 60)} h`,
       noNew: "Nothing new right now",
       noDelay: "Nothing is costing time right now",
-      newReports: "new reports",
       popClose: "Close",
       foldOpen: (n) => `Show ${n} more`,
       foldClose: "Show fewer",
@@ -192,7 +191,7 @@
       edDivider: "Show the rule between entries",
       edDividerHelp: "A line between one entry and the next.",
       edRowPicture: "Show the symbol",
-      edRowPictureHelp: "The symbol of the report's kind at the start of an entry.",
+      edRowPictureHelp: "The symbol of the report's kind at the start of an entry, in the colour its marker has on the map.",
       edRowProvider: "Provider's logo",
       edRowProviderHelp: "The logo of who reported it, under the symbol: TomTom or blitzer.de.",
       edRowLine1: "Distance and kind",
@@ -219,7 +218,7 @@
       edRowDistance: "Distance",
       edRowDistanceHelp: "The distance at the start of the line.",
       edElPicture: "Symbol",
-      edElPictureHelp: "The symbol of the report's kind.",
+      edElPictureHelp: "The symbol of the report's kind, in the colour its marker has on the map.",
       edPictureSize: "Size",
       edPictureSizeHelp: "E.g. 34px. Empty keeps the card's size.",
       edElLine1: "Distance and kind",
@@ -247,7 +246,7 @@
       edAreaPickerBg: "Background color",
       edAreaPickerBgHelp: "Its background colour.",
       edElSwitch: "Traffic button",
-      edElSwitchHelp: "The Traffic button beside the refresh button.",
+      edElSwitchHelp: "The Traffic button beside the refresh button. In the minimal format it stands in the pop-up, above the map.",
       edSwitchFontHelp: "Font of the button.",
       edSwitchIconHelp: "Any MDI icon. Empty draws none.",
       edSwitchColorHelp: "Empty takes the button's text colour.",
@@ -314,9 +313,10 @@
       edRefreshBgHelp: "Replaces that grey. Empty keeps the theme's.",
       edShowRefresh: "Show the refresh button",
       edShowRefreshHelp: "A button that fetches the entry again now, with how long ago it last did. Beside the live travel time, otherwise at the end of the info line - or on its own under the title while that line is off. Useful with an update interval of 0.",
+      edShowRefreshPopHelp: "A button beside the travel time that fetches the entry again now, with how long ago it last did. Useful with an update interval of 0.",
       refreshNow: "Fetch this area again",
       edElSub: "Info line",
-      edElSubHelp: "The line under the title: name, search mode, last update. On a live route it stands under the travel time and starts with the traffic's share.",
+      edElSubHelp: "The line under the title: name, search mode, last update. On a live route it stands under the travel time and starts with the traffic's share. In the minimal format it is the line under a live route's travel time in the pop-up.",
       edSubColorHelp: "Text colour of the line.",
       edSubFontHelp: "Font of the line.",
       edSubArea: "Name of the entry",
@@ -436,7 +436,6 @@
       edElKinds: "Kinds of report",
       edElKindsHelp: "A symbol and a colour for each kind a report can have here, on the map, in the list and in the bar. Empty keeps the integration's symbol and the card's colour.",
       edKindIconHelp: "Empty keeps the symbol the integration gives this kind.",
-      edKindColor: "Colour",
       edKindColorHelp: "On the map, the band along the road, in the list and in the bar. Empty keeps the card's colour.",
       edMapHighlightCovered: "Off while \"Map click opens the report\" is on: without Lufop every report has a page, and a click opens it instead. With the link off, or Lufop on, this switch applies again.",
       edMapHighlight: "Map click highlights the entry",
@@ -558,6 +557,9 @@
       planNameTaken: "An entry of that name exists already.",
       planFailed: (n) => `TomTom could not work this out: ${n}`,
       planSaved: "Saved. The new route appears in the dropdown as soon as its first poll is in.",
+      noticeNoReports: "TomTom reports are missing: the Incident Details requests are used up for now.",
+      noticeNoDetails: "New reports come without details: the Incident Details requests are used up for now.",
+      noticeFailed: "The last update failed - what is shown is from before.",
       edShowPlanner: "Offer \"New route\" in the dropdown",
       edShowPlannerHelp: "\"New route\" as the dropdown's last entry: a planner with start, stops and destination. Its route and its reports stand on the map and in the list until it is saved or discarded.",
       edFollowMap: "List follows the map",
@@ -650,6 +652,11 @@
     } catch (err) {
       return;
     }
+    // Asked again on a later draw, though not with every one: a draw comes
+    // with every state change, and a file that is not there stays away.
+    const again = () => {
+      window.setTimeout(() => delete LOADING[code], 30000);
+    };
     LOADING[code] = fetch(url.toString(), { credentials: "same-origin" })
       .then((response) => (response.ok ? response.json() : null))
       .then((flat) => {
@@ -657,12 +664,14 @@
           LOADED[code] = wrap(flat, code);
           // Every card and editor on the page redraws in the new words.
           window.dispatchEvent(new Event(LANGUAGE_EVENT));
+        } else {
+          // An answer that is no file - a 502 while Home Assistant restarts
+          // behind a proxy. It used to count as asked for good, and the
+          // card stayed English until the page was loaded anew.
+          again();
         }
       })
-      .catch(() => {
-        // Asked again on the next draw.
-        delete LOADING[code];
-      });
+      .catch(again);
   }
 
   function t(hass) {
@@ -2209,7 +2218,7 @@
     // the whole sort, so no two comparisons disagree.
     const now = new Date();
     const ages = new Map(
-      rows.map((row) => [row, minutesSince(row.state.attributes.created, now)])
+      rows.map((row) => [row, reportAge(row.state.attributes, now)])
     );
     return rows.sort((a, b) => {
       const x = ages.get(a);
@@ -2228,14 +2237,31 @@
 
   // The entry's own count sensor, which carries the entry's settings and
   // a live route's figures: the one with the search mode on it.
+  //
+  // Unavailable, it has lost its attributes, and with them the mark it used
+  // to be found by: the card then knew of no sensor at all - "not updated
+  // yet" on the refresh button, the window for NEW back at its fallback.
+  // It is found by its registry entry as well, and answers with what it
+  // last said about the things that outlast a failed poll: when it last
+  // fetched, and its window. The travel time is not among them.
+  const SENSOR_MEMORY = new Map();
   function totalSensor(hass, deviceId) {
-    for (const [entityId, state] of Object.entries(hass.states)) {
-      if (!entityId.startsWith("sensor.")) continue;
-      if (state.attributes.search_mode === undefined) continue;
-      const entry = hass.entities[entityId];
-      if (entry && entry.device_id === deviceId) return state;
+    let unavailable = null;
+    for (const [entityId, entry] of Object.entries(hass.entities || {})) {
+      if (!entry || entry.device_id !== deviceId || !entityId.startsWith("sensor.")) continue;
+      const state = hass.states[entityId];
+      if (!state) continue;
+      if (state.attributes.search_mode !== undefined) {
+        SENSOR_MEMORY.set(deviceId, {
+          last_update: state.attributes.last_update,
+          new_minutes: state.attributes.new_minutes,
+        });
+        return state;
+      }
+      if (entry.translation_key === "report_count") unavailable = state;
     }
-    return null;
+    if (!unavailable) return null;
+    return { ...unavailable, attributes: { ...unavailable.attributes, ...(SENSOR_MEMORY.get(deviceId) || {}) } };
   }
 
   // The window that decides what is still new, in minutes. It belongs to
@@ -2315,9 +2341,22 @@
     return null;
   }
 
+  // A report's age in minutes. By its stamp with the offset where there is
+  // one: `created` is Home Assistant's wall clock, and read as the
+  // browser's it is off by the hours between the two - in London a report
+  // from Berlin was an hour younger than it is, and stayed NEW for it.
+  function reportAge(attrs, now) {
+    const iso = attrs && attrs.created_at;
+    if (typeof iso === "string" && iso) {
+      const then = Date.parse(iso);
+      if (!Number.isNaN(then)) return Math.max(0, Math.round((now - then) / 60000));
+    }
+    return minutesSince(attrs && attrs.created, now);
+  }
+
   function isNewReport(row, minutes, now) {
     if (!(minutes > 0)) return false;
-    const age = minutesSince(row.state.attributes.created, now);
+    const age = reportAge(row.state.attributes, now);
     return age !== null && age < minutes;
   }
 
@@ -2340,6 +2379,7 @@
     if (locale.number_format === "comma_decimal") lang = "en-US";
     else if (locale.number_format === "decimal_comma") lang = "de";
     else if (locale.number_format === "space_comma") lang = "fr";
+    else if (locale.number_format === "quote_decimal") lang = "de-CH";
     else if (locale.number_format === "system") lang = navigator.language || lang;
     else if (locale.number_format === "none") return String(Math.round(n * 10 ** maxDigits) / 10 ** maxDigits);
     try {
@@ -2349,10 +2389,20 @@
     }
   }
 
+  // The zone times and dates are written in: Home Assistant's own where the
+  // profile says "use the server's time zone", else the browser's.
+  function displayZone() {
+    const hass = LOCALE_HASS;
+    const zone = hass && hass.config && hass.config.time_zone;
+    return hass && hass.locale && hass.locale.time_zone === "server" && zone ? zone : undefined;
+  }
+
   function fmtTime(date) {
     const locale = (LOCALE_HASS && LOCALE_HASS.locale) || {};
     let lang = localeLang();
     const options = { hour: "2-digit", minute: "2-digit" };
+    const zone = displayZone();
+    if (zone) options.timeZone = zone;
     if (locale.time_format === "am_pm") options.hour12 = true;
     else if (locale.time_format === "24_hour") options.hour12 = false;
     else if (locale.time_format === "system") lang = navigator.language || lang;
@@ -2372,7 +2422,13 @@
     else if (locale.date_format === "YMD") lang = "en-CA";
     else if (locale.date_format === "system") lang = navigator.language || lang;
     try {
-      return new Intl.DateTimeFormat(lang, { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+      const zone = displayZone();
+      return new Intl.DateTimeFormat(lang, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        ...(zone ? { timeZone: zone } : {}),
+      }).format(date);
     } catch (err) {
       return date.toLocaleDateString();
     }
@@ -2396,6 +2452,15 @@
 
   function isToday(date) {
     const now = new Date();
+    const zone = displayZone();
+    if (zone) {
+      try {
+        const day = new Intl.DateTimeFormat("en-CA", { timeZone: zone, year: "numeric", month: "2-digit", day: "2-digit" });
+        return day.format(date) === day.format(now);
+      } catch (err) {
+        // A zone this browser does not know: its own day, below.
+      }
+    }
     return (
       date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth() && date.getDate() === now.getDate()
     );
@@ -3072,8 +3137,9 @@
     // away its pan and zoom and refetch every tile each time a report moves.
     _skeleton() {
       if (this._root) return;
-      this.attachShadow({ mode: "open" });
-      this.shadowRoot.innerHTML = `
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      const made = document.createElement("template");
+      made.innerHTML = `
         <style>@layer tomtom-card { ${STYLE} }
                @layer tomtom-vars { ${variableCss()} }</style>
         <ha-card>
@@ -3103,6 +3169,18 @@
             </div>
           </dialog>
         </ha-card>`;
+      // Put in beside whatever else lives in this shadow root, and in place
+      // of what an earlier build of this card left there (see the live
+      // update at the end of the file). Not by writing the root's innerHTML:
+      // card-mod keeps its stylesheet in here, as a child of the root, and
+      // would have lost it with every update taken over.
+      for (const old of [...this.shadowRoot.children]) {
+        const own =
+          old.localName === "ha-card" ||
+          (old.localName === "style" && old.textContent.trimStart().startsWith("@layer tomtom-card"));
+        if (own) old.remove();
+      }
+      this.shadowRoot.prepend(made.content);
       this._root = this.shadowRoot.querySelector("ha-card");
       this._headEl = this._root.querySelector(".head");
       this._plannerEl = this._root.querySelector(".planner");
@@ -3645,7 +3723,8 @@
       const rows = this._popRowsCache || [];
       const list = this._popEl.querySelector(".pop-list");
       // Nothing changed, nothing redrawn.
-      const shown = rows.map((r) => r.entityId).join(",") + "|" + this._highlight;
+      const notice = this._noticeHtml(str);
+      const shown = rows.map((r) => r.entityId).join(",") + "|" + this._highlight + "|" + notice;
       if (shown === this._popListShown && list.children.length) return;
       this._popListShown = shown;
       // The card's own list switch answers for this one too - in the minimal
@@ -3671,6 +3750,7 @@
                   ? str.noDelay
                   : str.noNew)
           )}</div>`;
+      if (notice) list.insertAdjacentHTML("afterbegin", notice);
       this._fitIcons();
       // The same click as in the card: it aims the map at the report, and
       // opens Home Assistant's details dialog where there is no map to aim.
@@ -3745,6 +3825,15 @@
         }
         this._popObserver = undefined;
       }
+      // Nor does the new map inherit the old one's scale bar and traffic
+      // flow: both were remembered as being there, so neither was drawn on
+      // the map that replaced theirs.
+      this._clearTraffic("pop");
+      if (this._popScale) {
+        this._popScale.remove();
+        this._popScale = undefined;
+      }
+      this._popHandles = undefined;
       wrap.innerHTML = "";
       wrap.appendChild(card);
       this._popMap = card;
@@ -4374,6 +4463,9 @@
       this._fittedScope = "";
       this._attachMap();
       this._watchMarkers();
+      // The planner's crosshair lived in what was just emptied.
+      const plan = this._planner;
+      if (plan) this._crosshair(!plan.route && plan.rows.some((p) => p.kind === "map"));
     }
 
     // Reaches into the embedded map's markers to drop the ring or the disc
@@ -4830,7 +4922,15 @@
       const sensor = totalSensor(this._hass, areaId);
       // A live route is asked for again whenever it last became a different
       // one, which the sensor says - its count can stay the same meanwhile.
-      const sig = entryId + "|" + (sensor ? sensor.last_changed : "") + "|" + ((sensor && sensor.attributes.route_changed) || "");
+      // And with every poll: the stretches the traffic colours are the
+      // poll's, and they move while the count stays what it was - one jam
+      // gone and another come, or every jam under the delay the entry asks
+      // for and so no report at all.
+      const sig =
+        entryId +
+        "|" + (sensor ? sensor.last_changed : "") +
+        "|" + ((sensor && sensor.attributes.route_changed) || "") +
+        "|" + ((sensor && sensor.attributes.last_update) || "");
       if (this._routeAsked !== sig) {
         this._routeAsked = sig;
         this._routePromise = this._hass
@@ -5307,7 +5407,9 @@
       const role = i === 0 ? str.planStart : i === count - 1 ? str.planDestination : str.planStop(i);
       const kinds = [
         ["entity", str.planKindEntity], ["zone", str.planKindZone], ["map", str.planKindMap], ["address", str.planKindAddress],
-      ];
+        // A place taken off the map needs the map: without one, "Use the map
+        // centre" had nothing to read. A row already set to it keeps it.
+      ].filter(([kind]) => kind !== "map" || this._wantsMap || place.kind === "map");
       const kindSelect = `<select data-plan="kind" data-row="${i}">${kinds
         .map(([v, l]) => `<option value="${v}"${place.kind === v ? " selected" : ""}>${escapeHtml(l)}</option>`)
         .join("")}</select>`;
@@ -5377,9 +5479,28 @@
           place.lat = null;
           place.lon = null;
           place.label = "";
+          // The route on show was worked out for the place this field held.
+          // Left standing, Save would have sent a place without a position:
+          // it goes as it does when any other place changes, and the field
+          // being typed in gets its caret back in the planner drawn anew.
+          if (plan.route) {
+            const row = target.dataset.row;
+            const caret = target.selectionStart;
+            this._planChanged();
+            const again = this._plannerEl && this._plannerEl.querySelector(`[data-plan="address"][data-row="${row}"]`);
+            if (again) {
+              again.focus();
+              try {
+                again.setSelectionRange(caret, caret);
+              } catch (err) {
+                // A field that takes no selection keeps its caret where it is.
+              }
+            }
+          }
           this._planSuggest(place, Number(target.dataset.row));
         } else if (target.dataset.plan === "name") {
           plan.name = target.value;
+          plan.nameAuto = false;
         }
       });
       el.addEventListener("keydown", (ev) => {
@@ -5455,8 +5576,13 @@
           const answer = await this._hass.callWS({ type: `${DOMAIN}/search`, text });
           if (place.text.trim() !== text) return;
           place.suggestions = (answer && answer.results) || [];
+          place.searchError = "";
         } catch (err) {
+          // Said under the field. Swallowed, it left an address field that
+          // never offered anything and a planner that only ever answered
+          // "Pick a start and a destination first".
           place.suggestions = [];
+          place.searchError = t(this._hass).planFailed((err && err.message) || String(err));
         }
         this._planSuggestionsOnly(row);
       }, 400);
@@ -5470,6 +5596,13 @@
       if (!el || !place) return;
       const old = el.querySelector(".plan-sugg");
       if (old) old.remove();
+      if (!place.suggestions.length && place.searchError) {
+        const failed = document.createElement("div");
+        failed.className = "plan-sugg plan-sugg-error";
+        failed.textContent = place.searchError;
+        el.appendChild(failed);
+        return;
+      }
       if (!place.suggestions.length) return;
       const sugg = document.createElement("div");
       sugg.className = "plan-sugg";
@@ -5506,7 +5639,15 @@
         const route = await this._hass.callWS({ type: `${DOMAIN}/plan`, points: plan.rows.map((p) => this._placeForServer(p)) });
         if (this._planner !== plan) return;
         plan.route = route;
-        if (!plan.name) plan.name = `${plan.rows[0].label} → ${plan.rows[plan.rows.length - 1].label}`;
+        // The name follows the places until somebody writes one: a
+        // destination changed and worked out again used to keep the name
+        // of the route before, and that is what was saved.
+        if (!plan.name || plan.nameAuto) {
+          // The arrow the way the language reads, as the integration draws it.
+          const arrow = /^(ar|he)/.test(langCode(this._hass)) ? "←" : "→";
+          plan.name = `${plan.rows[0].label} ${arrow} ${plan.rows[plan.rows.length - 1].label}`;
+          plan.nameAuto = true;
+        }
       } catch (err) {
         if (this._planner !== plan) return;
         plan.error = str.planFailed((err && err.message) || String(err));
@@ -5541,10 +5682,22 @@
         // there - see _render, which watches for it.
         this._planWanted = answer && answer.entry_id;
         this._closePlanner();
+        // Said in Home Assistant's own toast: the planner is gone by now,
+        // and the new entry only shows once its first poll is in.
+        this.dispatchEvent(
+          new CustomEvent("hass-notification", { detail: { message: str.planSaved }, bubbles: true, composed: true })
+        );
       } catch (err) {
         if (this._planner !== plan) return;
         plan.busy = false;
-        plan.error = err && err.code === "name_taken" ? str.planNameTaken : str.planFailed((err && err.message) || String(err));
+        // The way back's name is one the server makes of this one; taken, it
+        // is named in the answer.
+        plan.error =
+          err && err.code === "name_taken"
+            ? str.planNameTaken
+            : err && err.code === "return_name_taken"
+              ? `${str.planNameTaken} (${err.message})`
+              : str.planFailed((err && err.message) || String(err));
         this._renderPlanner(str, tomtomAreas(this._hass, this._config.areas));
       }
     }
@@ -5837,6 +5990,8 @@
     }
 
     _detachMap() {
+      // What was fitted was fitted on the map that is let go of here.
+      this._routeFitted = undefined;
       const h = this._handles;
       if (h && this._onMove) {
         try {
@@ -5886,6 +6041,10 @@
     }
 
     disconnectedCallback() {
+      if (this._clock) {
+        window.clearInterval(this._clock);
+        this._clock = undefined;
+      }
       this._detachMap();
       this._unwatchMarkers();
       if (this._onLanguage) window.removeEventListener(LANGUAGE_EVENT, this._onLanguage);
@@ -5926,10 +6085,64 @@
         };
         document.addEventListener("visibilitychange", this._onVisibility);
       }
+      // What the card says about time is worked out when it is drawn, and it
+      // is drawn when an entity changes - an hour apart by default. Until
+      // then "just now" stayed just now, and a report stayed NEW past its
+      // window. Looked at twice a minute while the card is on the page.
+      if (!this._clock) this._clock = window.setInterval(() => this._tick(), 30000);
       // The very first insertion happens before there is a map to hook into.
       if (!this._map) return;
       this._attachMap();
       this._watchMarkers();
+    }
+
+    // The words that age, brought up to date without drawing the card anew:
+    // the refresh buttons' "N min ago" in place, and a whole draw only when
+    // the set of NEW reports has changed, or the info line itself says when.
+    _tick() {
+      if (!this._built || !this._hass || !this._config || document.visibilityState !== "visible") return;
+      const areaId = this._areaId();
+      const sensor = totalSensor(this._hass, areaId);
+      const stamp = sensor && sensor.attributes.last_update;
+      const str = t(this._hass);
+      const now = new Date();
+      const window_ = this._config.show_new === false ? 0 : newWindow(this._hass, areaId);
+      const fresh = (this._allRows || []).filter((row) => isNewReport(row, window_, now)).length;
+      const inWords = this._config.show_refresh === false ? updatedText(str, stamp) : "";
+      const sig = `${fresh}|${inWords}`;
+      const before = this._clockSig;
+      this._clockSig = sig;
+      if (before !== undefined && before !== sig) {
+        this._render();
+        return;
+      }
+      const ago = agoText(str, stamp);
+      for (const el of this.shadowRoot.querySelectorAll(".ago")) {
+        if (el.textContent !== ago) el.textContent = ago;
+      }
+    }
+
+    // One line over the list when the entry is not giving what it usually
+    // gives: its last poll failed, or it is going without Incident Details
+    // for want of requests (see incident_details_ok on the Reports sensor).
+    // Nothing on the card said so - an area read "Nothing reported right
+    // now", which is what it reads on a quiet day.
+    _noticeText(str) {
+      if (this._planner && this._planner.route) return "";
+      const areaId = this._areaId();
+      const sensor = totalSensor(this._hass, areaId);
+      if (!sensor) return "";
+      if (sensor.state === "unavailable") return str.noticeFailed;
+      if (sensor.attributes.incident_details_ok !== false) return "";
+      const area = tomtomAreas(this._hass, this._config.areas).find((a) => a.id === areaId);
+      return isRouteArea(area) ? str.noticeNoDetails : str.noticeNoReports;
+    }
+
+    _noticeHtml(str) {
+      const text = this._noticeText(str);
+      return text
+        ? `<div class="notice"><ha-icon icon="mdi:alert-circle-outline"></ha-icon><span>${escapeHtml(text)}</span></div>`
+        : "";
     }
 
     _renderList(str) {
@@ -5963,6 +6176,9 @@
                <ha-icon icon="mdi:chevron-${folded ? "down" : "up"}"></ha-icon>
              </button>`
           : "");
+
+      const notice = this._noticeHtml(str);
+      if (notice) this._listEl.insertAdjacentHTML("afterbegin", notice);
 
       const fold = this._listEl.querySelector(".fold");
       if (fold) {
@@ -6296,8 +6512,12 @@
         help: "edRefreshBgHelp",
         fallback: "var(--secondary-background-color)",
       },
-      // Gone once the area's button is switched off.
-      hidden: (config) => config.show_refresh === false,
+      // Gone once the area's button is switched off. The minimal format
+      // draws it in one place, beside a live route's travel time in its
+      // pop-up, so there it goes with that switch as well.
+      hidden: (config) =>
+        config.show_refresh === false ||
+        (config.layout === "minimal" && config.show_travel_time === false),
     },
     sub: {
       label: "edElSub",
@@ -6319,9 +6539,17 @@
           fallback: "var(--secondary-text-color)",
         },
         size: { key: "sub_icon_size", label: "edSubIconSize", help: "edSubIconSizeHelp" },
+        // No symbol under a travel time - and under one is the only place
+        // the minimal format draws this line.
+        hidden: (config) => config.layout === "minimal",
       },
-      // Gone with the line it describes - and the minimal format draws none.
-      hidden: (config) => config.show_sub === false || config.layout === "minimal",
+      // Gone with the line it describes. The minimal format draws it in one
+      // place, under a live route's travel time in its pop-up, and there it
+      // is the travel time's switch that draws it.
+      hidden: (config) =>
+        config.layout === "minimal"
+          ? config.show_travel_time === false
+          : config.show_sub === false,
     },
     area_select: {
       label: "edElAreaPicker",
@@ -6372,10 +6600,10 @@
         help: "edSwitchTrackHelp",
         fallback: "var(--primary-color)",
       },
+      // Kept in the minimal format: its pop-up draws the same button above
+      // its map, with these settings.
       hidden: (config) =>
-        config.layout === "minimal" ||
-        config.map_traffic === false ||
-        config.show_traffic_switch === false,
+        config.map_traffic === false || config.show_traffic_switch === false,
     },
     // The planner, in the order it is drawn: the panel, its heading, the
     // labels, the buttons, the planned route's time and the facts beside it.
@@ -6792,7 +7020,11 @@
       if (step) input.step = step;
       input.addEventListener("input", () => {
         const value = step ? Number.parseFloat(input.value) : Number.parseInt(input.value, 10);
-        this._set(key, Number.isFinite(value) ? value : min);
+        // Emptied, the field means "as it comes" - the default, which is not
+        // written to the YAML. It used to store the field's minimum: a
+        // cleared opacity made the card's background invisible, a cleared
+        // "yellow from" made every delay yellow.
+        this._set(key, Number.isFinite(value) ? value : key in DEFAULTS ? DEFAULTS[key] : min);
       });
       return input;
     }
@@ -7411,16 +7643,18 @@
         );
       }
       if (el.icon) {
-        block.appendChild(
-          this._fieldRow(str[el.icon.label], str[el.icon.help], this._picker(el.icon.key, { icon: {} }), true)
-        );
+        // Named for their element, so that an icon one format does not draw
+        // can go without the rest of the block going with it.
+        const iconRows = [
+          this._fieldRow(str[el.icon.label], str[el.icon.help], this._picker(el.icon.key, { icon: {} }), true),
+        ];
         if (el.icon.color) {
-          block.appendChild(
+          iconRows.push(
             this._colorRow(el.icon.color.key, str[el.icon.color.label], str[el.icon.color.help], str)
           );
         }
         if (el.icon.size) {
-          block.appendChild(
+          iconRows.push(
             this._fieldRow(
               str[el.icon.size.label],
               str[el.icon.size.help],
@@ -7428,6 +7662,10 @@
               true
             )
           );
+        }
+        for (const row of iconRows) {
+          row.dataset.iconOf = prefix;
+          block.appendChild(row);
         }
       }
       for (const part of el.parts || []) {
@@ -7680,6 +7918,19 @@
         );
         travelPop.dataset.withMinimal = "";
         body.appendChild(travelPop);
+        // Under it, the two parts of that block with a switch of their own:
+        // the button beside the time and the traffic's share beneath it. The
+        // keys are the ones the head answers to in the other formats - the
+        // pop-up has always obeyed them, and now says so.
+        for (const [key, label, help] of [
+          ["show_refresh", str.edShowRefresh, str.edShowRefreshPopHelp],
+          ["sub_show_delay", str.edSubDelay, str.edSubDelayHelp],
+        ]) {
+          const row = this._toggleRow(key, label, help);
+          row.classList.add("sub-field-row", "sub-toggle-row");
+          row.dataset.withPopTravel = "";
+          body.appendChild(row);
+        }
       }
 
       if (groupKey === "content") {
@@ -7688,10 +7939,16 @@
         // what it is, whether the card offers the choice, and the choice.
         const pair = document.createElement("div");
         pair.className = "content-pair";
+        // Both switches are the head's dropdown, and the minimal format
+        // draws no head.
+        const areaPicker = this._toggleRow("show_area_picker", str.edAreaPicker, str.edAreaPickerHelp);
+        areaPicker.dataset.withoutMinimal = "";
+        const plannerRow = this._toggleRow("show_planner", str.edShowPlanner, str.edShowPlannerHelp);
+        plannerRow.dataset.withoutMinimal = "";
         pair.appendChild(
           this._contentBlock(str.edAreas, str.edAreasHelp, [
-            this._toggleRow("show_area_picker", str.edAreaPicker, str.edAreaPickerHelp),
-            this._toggleRow("show_planner", str.edShowPlanner, str.edShowPlannerHelp),
+            areaPicker,
+            plannerRow,
             this._bareRow(
               this._picker("areas", { device: { multiple: true, filter: { integration: DOMAIN } } })
             ),
@@ -7760,9 +8017,10 @@
         // Nothing to aim without a map.
         centre.dataset.withMap = "";
         body.appendChild(centre);
-        // Nothing to follow without a map either.
+        // Nothing to follow without a map either - and it has to be the
+        // card's own: the pop-up's list never follows the pop-up's map.
         const follow = this._toggleRow("follow_map", str.edFollowMap, str.edFollowMapHelp);
-        follow.dataset.withMap = "";
+        follow.dataset.withCardMap = "";
         body.appendChild(follow);
         body.appendChild(this._toggleRow("show_divider", str.edDivider, str.edDividerHelp));
         // Then how much of the list stands before it folds. Only the portrait
@@ -8190,9 +8448,25 @@
         const value = this._config[el.dataset.key];
         if (value !== el.value) el.value = value;
       });
+      // "Centre of the map view" needs a map on the card itself, and the
+      // minimal format has none: the choice is taken out there. A card saved
+      // with it shows what it then measures from - the entry's own figure -
+      // and keeps what is saved, so the other formats find it chosen again.
+      const noCardMap = this._config.layout === "minimal";
+      const refSelect = this.shadowRoot.querySelector('select[data-field="reference_mode"]');
+      if (refSelect) {
+        const mapOption = [...refSelect.options].find((o) => o.value === "map");
+        if (noCardMap && mapOption) {
+          this._refMapOption = mapOption;
+          mapOption.remove();
+        } else if (!noCardMap && !mapOption && this._refMapOption) {
+          refSelect.insertBefore(this._refMapOption, refSelect.options[1] || null);
+        }
+      }
       this.shadowRoot.querySelectorAll("input[data-field], select[data-field]").forEach((el) => {
         const value = this._config[el.dataset.field];
-        const next = value === undefined || value === null ? "" : String(value);
+        let next = value === undefined || value === null ? "" : String(value);
+        if (el === refSelect && noCardMap && next === "map") next = "area";
         // A value the dropdown has no entry for - one written by hand in the
         // YAML - is given one, rather than the field falling blank and the
         // next change quietly overwriting what somebody chose.
@@ -8275,8 +8549,11 @@
       this.shadowRoot.querySelectorAll("[data-with-map]").forEach((row) => {
         row.hidden = !this._wantsMapHere() || inOffTab(row);
       });
-      // Following needs a map whose viewport the list is tied to: the
-      // card's, or in the minimal format the pop-up's.
+      // Following needs a map on the card itself, which the minimal format
+      // has none of. One rule, because the sweep below assigns as well.
+      this.shadowRoot.querySelectorAll("[data-with-card-map]").forEach((row) => {
+        row.hidden = minimal || !this._wantsMapHere() || inOffTab(row);
+      });
       // The settings only the minimal format has, and the ones it has no
       // use for.
       this.shadowRoot.querySelectorAll("[data-with-minimal]").forEach((row) => {
@@ -8284,6 +8561,10 @@
       });
       this.shadowRoot.querySelectorAll("[data-without-minimal]").forEach((row) => {
         row.hidden = minimal;
+      });
+      // What stands with the pop-up's travel time goes with it.
+      this.shadowRoot.querySelectorAll("[data-with-pop-travel]").forEach((row) => {
+        row.hidden = !minimal || this._config.show_travel_time === false;
       });
       // Only one of the three ways of measuring names an entity.
       this.shadowRoot.querySelectorAll("[data-with-ref-entity]").forEach((row) => {
@@ -8417,6 +8698,12 @@
             el.icon.color.fallback,
             str
           );
+        }
+        if (el.icon && el.icon.hidden) {
+          const off = el.icon.hidden(this._config);
+          this.shadowRoot.querySelectorAll(`[data-icon-of="${prefix}"]`).forEach((row) => {
+            row.hidden = off;
+          });
         }
         // A background colour only means anything while there is a
         // background. The row is hidden rather than removed, so its wiring
@@ -8979,7 +9266,14 @@
 
   // One report. The summary is split the way the Markdown card splits it:
   // everything after the em dash is TomTom's own free text and gets a
-  // line of its own, and the last "·" segment is the address.
+  // line of its own, and what stands last before it is the place - the
+  // road and the stretch, which the report also carries on its own as
+  // `place`. That attribute is what the place line shows. Taking the
+  // summary's last "·" segment for it instead was right only while there
+  // was a place: a report without one - a route's jam before its details
+  // have come, a camera without an address - had its delay or its speed
+  // limit written beside the pin, and a road number with a stretch behind
+  // it stayed up on the first line.
   // `newPrefix` is which element the NEW tag takes its look from: the card's
   // own list uses the head's NEW marker, so that a card marks one thing one
   // way; the minimal format's pop-up has no head to match and answers to an
@@ -8989,8 +9283,15 @@
     const summary = a.summary || a.friendly_name || "";
     const head = summary.split(" — ")[0];
     const extra = summary.split(" — ").slice(1).join(" — ");
-    const parts = head.split(" · ");
-    const place = parts.length > 1 ? parts[parts.length - 1] : "";
+    let parts = head.split(" · ");
+    let place = parts.length > 1 ? parts[parts.length - 1] : "";
+    if (typeof a.place === "string") {
+      place = a.place;
+      const rest = place && head.endsWith(` · ${place}`) ? head.slice(0, head.length - place.length - 3) : head;
+      // The place last, empty or not: the line below leaves the last part
+      // out, and every part before it is one piece of what the report is.
+      parts = [...rest.split(" · "), place];
+    }
     // The stretch's length comes worded by the integration, in the
     // installation's language - "1,2 km" for German. The distance in front
     // of it is the reader's own number format, so the length is written
@@ -9694,6 +9995,7 @@
     .map-google img { height: 22px; width: auto; display: block; }
     .map-google:hover { filter: brightness(1.08); }
     .map-google:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+    .plan-sugg-error { padding: 6px 8px; font-size: 12px; color: var(--error-color); }
     .plan-cross { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; transform: translate(-50%, -50%);
                   pointer-events: none; z-index: 950; border: 2px solid #ffa726; border-radius: 50%;
                   box-shadow: 0 0 0 2px rgba(0,0,0,.45); }
@@ -9751,6 +10053,9 @@
                           border-radius: 8px; }
     .fold ha-icon { --mdc-icon-size: 24px; width: 24px; height: 24px; }
     .empty { padding: 16px 0; text-align: center; color: var(--secondary-text-color); }
+    .notice { display: flex; align-items: flex-start; gap: 6px; padding: 6px 0; font-size: 12px; line-height: 1.35;
+      color: var(--secondary-text-color); }
+    .notice ha-icon { --mdc-icon-size: 16px; flex: none; color: var(--warning-color, #ffa600); }
   `;
 
   // Defining the two elements - and defining them again if Home Assistant
@@ -9833,6 +10138,29 @@
             if (panel) el._activeTabs[panel.dataset.super] = tab.dataset.key;
           }
           el.shadowRoot.innerHTML = "";
+        }
+        // A card is built anew as well. Its methods are the new version's
+        // from here on, and they must not meet the old version's markup and
+        // stylesheet: an element they look for may not be there.
+        if (el.localName === CARD_TAG && el.shadowRoot && el._root) {
+          for (const step of ["_closePopMap", "_detachMap", "_unwatchMarkers"]) {
+            try {
+              if (typeof el[step] === "function") el[step]();
+            } catch (err) {
+              // Whatever it held on to goes with the markup below.
+            }
+          }
+          try {
+            if (el._popEl && el._popEl.open) el._popEl.close();
+          } catch (err) {
+            // Not a dialog any more.
+          }
+          el._root = undefined;
+          el._map = undefined;
+          el._popMap = undefined;
+          el._popMapKey = undefined;
+          // The markup itself is replaced by _skeleton, which leaves what
+          // is not the card's own where it is.
         }
         el.setConfig(el._config);
         if (el._hass) el.hass = el._hass;

@@ -37,6 +37,11 @@ from .const import (
     CONF_BLACKLIST,
     CONF_CATEGORIES,
     CONF_DEFAULT_START,
+    CONF_DETAILS,
+    CONF_DETAILS_INTERVAL,
+    CONF_JAM_MIN_DELAY,
+    DEFAULT_JAM_MIN_DELAY,
+    return_word,
     CONF_LIVE_BACK_FROM,
     CONF_LIVE_BACK_UNTIL,
     CONF_LIVE_DAYS,
@@ -64,6 +69,9 @@ _LOGGER = logging.getLogger(__name__)
 # forms ask for, here read from the defaults.
 COMMON_KEYS = (
     CONF_CATEGORIES,
+    CONF_JAM_MIN_DELAY,
+    CONF_DETAILS,
+    CONF_DETAILS_INTERVAL,
     CONF_ONLY_CERTAIN,
     CONF_COUNT,
     CONF_UPDATE_INTERVAL,
@@ -115,7 +123,12 @@ def route_defaults(hass: HomeAssistant) -> dict:
         CONF_LIVE_BACK_FROM: options.get(CONF_LIVE_BACK_FROM) or "00:00:00",
         CONF_LIVE_BACK_UNTIL: options.get(CONF_LIVE_BACK_UNTIL) or "00:00:00",
         CONF_CATEGORIES: dict(options.get(CONF_CATEGORIES) or CATEGORY_DEFAULTS),
+        CONF_DETAILS: bool(options.get(CONF_DETAILS, True)),
+        CONF_DETAILS_INTERVAL: options.get(CONF_DETAILS_INTERVAL) or 0,
         CONF_ONLY_CERTAIN: options.get(CONF_ONLY_CERTAIN, True),
+        # Missing here until now: the delay was saved with the defaults and
+        # never read back - the form showed 0 again, and no new route got it.
+        CONF_JAM_MIN_DELAY: options.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY),
         CONF_COUNT: options.get(CONF_COUNT, DEFAULT_COUNT),
         CONF_UPDATE_INTERVAL: options.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL),
         CONF_NEW_MINUTES: options.get(CONF_NEW_MINUTES, DEFAULT_NEW_MINUTES),
@@ -125,8 +138,7 @@ def route_defaults(hass: HomeAssistant) -> dict:
 
 
 def return_name(hass: HomeAssistant, name: str) -> str:
-    suffix = "Rückweg" if str(hass.config.language).startswith("de") else "return"
-    return f"{name} - {suffix}"
+    return f"{name} - {return_word(hass.config.language)}"
 
 
 def name_taken(hass: HomeAssistant, name: str) -> bool:
@@ -246,7 +258,15 @@ async def _plan_reports(hass: HomeAssistant, client: TomTomClient, route: dict) 
     items.sort(key=along)
     language = hass.config.language
     lang = incident_language(language)
-    wanted = [i for i in items if cache.needs_lookup(i["short_id"], lang, today)][:PLAN_DETAILS]
+    # Not where new routes are set to do without their details: the preview
+    # would spend requests the route it is about never will, and show what
+    # that route will not.
+    wanted = (
+        [i for i in items if cache.needs_lookup(i["short_id"], lang, today)][:PLAN_DETAILS]
+        if route_defaults(hass)[CONF_DETAILS]
+        else []
+    )
+    left_open = False
     for start in range(0, len(wanted), 5):
         pending = wanted[start : start + 5]
         for prefix in cache.candidates(None):
@@ -255,7 +275,12 @@ async def _plan_reports(hass: HomeAssistant, client: TomTomClient, route: dict) 
             try:
                 answers = await client.async_incident_details([prefix + i["short_id"] for i in pending], language)
             except TomTomError as err:
+                # Left open, not noted as asked: the cache is every route's,
+                # and a preview that could not ask - no requests left, the
+                # day's limit, no answer - would otherwise keep the routes
+                # from asking for the rest of the day.
                 _LOGGER.debug("plan: details lookup failed: %s", err)
+                left_open = True
                 break
             by_tail = {}
             for answer in answers:
@@ -268,6 +293,8 @@ async def _plan_reports(hass: HomeAssistant, client: TomTomClient, route: dict) 
                 if item["short_id"] in by_tail:
                     cache.put(item["short_id"], by_tail[item["short_id"]], now_iso, lang)
             pending = [i for i in pending if i["short_id"] not in by_tail]
+        if left_open:
+            break
         for item in pending:
             cache.put(item["short_id"], None, now_iso, lang)
     out: list[dict] = []

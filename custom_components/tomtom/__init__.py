@@ -29,6 +29,10 @@ from .bundle import (
 )
 from .const import (
     CONF_DEFAULT_START,
+    CONF_LUFOP_API_KEY,
+    CONF_LUFOP_COUNTRY,
+    CONF_SOURCE_BLITZER,
+    CONF_SOURCE_LUFOP,
     ATTR_CONFIG_ENTRY_ID,
     CONF_ROUTE_DESTINATION,
     CONF_ROUTE_DISTANCE,
@@ -273,6 +277,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
         domain[config_entry.entry_id] = RuntimeData(None, config_entry.add_update_listener(_async_update_listener))
         watch = domain[QUOTA_DATA_KEY] = QuotaWatch(hass, config_entry, await async_get_usage(hass))
         watch.start()
+        domain.setdefault(_SOURCES_SIGNATURE, _sources_signature(config_entry))
         await hass.config_entries.async_forward_entry_setups(config_entry, SETTINGS_PLATFORMS)
         return True
 
@@ -309,6 +314,12 @@ def _coordinator_for(call: ServiceCall) -> TomTomCoordinator:
     entry = hass.config_entries.async_get_entry(entry_id)
     if entry is None or entry.domain != DOMAIN:
         raise ServiceValidationError(f"'{entry_id}' is not a TomTom config entry")
+    if is_settings_entry(entry):
+        # The action's picker offers every entry of the integration, this
+        # one among them - and it has nothing to fetch.
+        raise ServiceValidationError(
+            f"'{entry.title}' holds the settings and has no reports to refresh - pick an area, a tracker or a route"
+        )
     runtime = hass.data.get(DOMAIN, {}).get(entry.entry_id)
     if not isinstance(runtime, RuntimeData) or runtime.coordinator is None:
         raise ServiceValidationError(
@@ -346,6 +357,20 @@ async def _async_handle_refresh(call: ServiceCall) -> ServiceResponse:
     return {"reports": _items_response(call.hass, coordinator, data.reports)}
 
 
+# Where the settings entry's source settings are remembered between two
+# saves of its options - see _async_update_listener.
+_SOURCES_SIGNATURE = "sources_signature"
+
+
+def _sources_signature(config_entry) -> tuple:
+    """What of the settings entry decides which further sources are asked,
+    and how."""
+    options = config_entry.options
+    return tuple(
+        options.get(key) for key in (CONF_SOURCE_BLITZER, CONF_SOURCE_LUFOP, CONF_LUFOP_API_KEY, CONF_LUFOP_COUNTRY)
+    )
+
+
 async def _async_update_listener(hass: HomeAssistant, config_entry):
     runtime = hass.data.get(DOMAIN, {}).get(config_entry.entry_id)
     if isinstance(runtime, RuntimeData) and runtime.coordinator and runtime.coordinator.absorb_window(config_entry):
@@ -354,8 +379,16 @@ async def _async_update_listener(hass: HomeAssistant, config_entry):
     if is_settings_entry(config_entry):
         # A source switched on or off is every entry's business: each
         # polls again, so its reports follow at once rather than at its
-        # next interval.
-        for other in hass.data.get(DOMAIN, {}).values():
+        # next interval. Only that, though. The same entry holds the quota
+        # warning and the defaults for new routes, and saving those polled
+        # every entry as well - a Routing request per route and an Incident
+        # Details request per area, for a changed percentage.
+        domain = hass.data.get(DOMAIN, {})
+        signature = _sources_signature(config_entry)
+        if domain.get(_SOURCES_SIGNATURE) == signature:
+            return
+        domain[_SOURCES_SIGNATURE] = signature
+        for other in domain.values():
             if isinstance(other, RuntimeData) and other.coordinator is not None:
                 hass.async_create_task(other.coordinator.async_refresh_all())
 

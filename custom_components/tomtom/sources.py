@@ -659,6 +659,18 @@ def active_kinds(hass: HomeAssistant) -> list[dict]:
     return [{"key": key, "icon": CATEGORY_ICONS.get(key, "mdi:alert")} for key in CATEGORIES if key in wanted]
 
 
+def enabled_source_keys(hass: HomeAssistant) -> set[str]:
+    """Which further sources are switched on under TomTom Settings - the
+    same rule as enabled_sources below, without making them."""
+    options = _settings_options(hass)
+    keys: set[str] = set()
+    if options.get(CONF_SOURCE_BLITZER):
+        keys.add(SOURCE_BLITZER)
+    if options.get(CONF_SOURCE_LUFOP) and str(options.get(CONF_LUFOP_API_KEY) or "").strip():
+        keys.add(SOURCE_LUFOP)
+    return keys
+
+
 def enabled_sources(hass: HomeAssistant, usage: TomTomUsage) -> list:
     """The further sources switched on under TomTom Settings, ready to ask."""
     options = _settings_options(hass)

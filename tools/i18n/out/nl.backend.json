@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Elke opvraging is één Incident Details-aanvraag (één extra per 10.000 km² zoekgebied), en een gratis sleutel heeft er 2.500 per maand: op het standaarduur verbruikt een gebied er ongeveer 720.",
-  "budgetRoute": "Binnen zijn uren is elke opvraging één Routing-aanvraag, van 20.000 gratis per maand; de meldingen op de route komen daarmee mee, en Incident Details wordt eenmaal per nieuwe melding gevraagd naar de rest van wat er te weten valt.",
+  "budgetRoute": "Binnen zijn uren is elke opvraging één Routing-aanvraag, van 20.000 gratis per maand; de meldingen op de route komen daarmee mee, en voor de nieuwe wordt Incident Details gevraagd naar de rest van wat er te weten valt - vijf meldingen per aanvraag.",
   "entities": {
     "sensor": {
       "report_count": "Meldingen",
@@ -218,11 +218,15 @@
         "live_from": "Van",
         "live_until": "Tot",
         "live_back_from": "Van (terugweg)",
-        "live_back_until": "Tot (terugweg)"
+        "live_back_until": "Tot (terugweg)",
+        "details": "De details van de meldingen ophalen",
+        "details_interval": "Minuten tussen het ophalen van details (leeg = bij elke opvraging)"
       },
       "data_description": {
         "return_route": "Een tweede item, van bestemming naar start - op een snelweg is de terugweg de andere rijbaan, en een file op de ene is er geen op de andere. Genoemd naar dit item, met \"terug\" erachter.",
-        "return_name": "Alleen gebruikt als de terugweg wordt aangemaakt. Vooraf ingevuld met de naam van dit item en \"terug\" erachter; typ een andere om hem anders te noemen - \"Thuis\" en \"Werk\", bijvoorbeeld."
+        "return_name": "Alleen gebruikt als de terugweg wordt aangemaakt. Vooraf ingevuld met de naam van dit item en \"terug\" erachter; typ een andere om hem anders te noemen - \"Thuis\" en \"Werk\", bijvoorbeeld.",
+        "details": "Een route noemt waar ze doorheen loopt - soort, plaats en vertraging. Staat dit aan, dan wordt Incident Details bij een nieuwe melding naar de rest gevraagd: het hele wegvak, begin en einde, de wegnummers, TomToms bewoording en de tijden - één aanvraag per vijf nieuwe meldingen, van 2.500 gratis per maand. Alleen van meldingen die dit item toont, worden de details opgehaald. Staat het uit, dan kost de route geen enkele Incident Details-aanvraag.",
+        "details_interval": "Hoe vaak de details worden opgehaald, los van hoe vaak de route zelf wordt opgevraagd. Met 30 verschijnt een nieuwe melding meteen zoals de route die geeft, en volgen de details binnen een halfuur - meerdere meldingen in één aanvraag, en geen voor een file die intussen alweer weg is."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Vanaf de achtste dag van de maand worden de aanvragen tot nu toe doorgerekend tot het einde van de maand. Geteld wordt wat deze integratie aanvraagt; een sleutel die ook elders wordt gebruikt, staat bij TomTom hoger.",
           "data": {
             "quota_warning": "Waarschuwen als de aanvragen van de maand opraken of niet toereikend zijn",
-            "quota_threshold": "Waarschuwen vanaf dit aandeel van de aanvragen van de maand"
+            "quota_threshold": "Waarschuwen vanaf dit aandeel van de aanvragen van de maand",
+            "incident_day_limit": "Incident Details-aanvragen per dag, hoogstens (0 = geen limiet)"
           },
           "data_description": {
-            "quota_threshold": "De eerste waarschuwing komt als de prognose dit aandeel bereikt; een tweede als ze 100 % bereikt."
+            "quota_threshold": "De eerste waarschuwing komt als de prognose dit aandeel bereikt; een tweede als ze 100 % bereikt.",
+            "incident_day_limit": "Alle items samen, geteld van middernacht tot middernacht UTC. Is de limiet van de dag bereikt, dan worden er tot de volgende dag geen meer verstuurd: gebieden en trackers tonen zolang geen TomTom-meldingen, en de nieuwe meldingen van een route komen zonder hun details. Met 80 per dag gaan de 2.500 gratis aanvragen de hele maand mee."
           }
         },
         "lufop": {
@@ -291,7 +297,7 @@
     },
     "first": {
       "title": "TomTom is ingesteld",
-      "description": "De sleutel is opgeslagen, en de standaardwaarden voor nieuwe routes staan onder het item **TomTom Instellingen** - via Configureren daarvan wijzig je later beide. Rond nu af en voeg het eerste gebied, de eerste tracker of route toe wanneer je wilt via **Item toevoegen** op de eigen tegel van TomTom, of maak het meteen aan.",
+      "description": "De sleutel is opgeslagen, en de standaardwaarden voor nieuwe routes staan onder het item **TomTom Instellingen** - via Configureer daarvan wijzig je later beide. Rond nu af en voeg het eerste gebied, de eerste tracker of route toe wanneer je wilt via **Item toevoegen** op de eigen tegel van TomTom, of maak het meteen aan.",
       "menu": {
         "finish": "Instellen voltooien",
         "add_entry": "Nu het eerste gebied, de eerste tracker of route toevoegen"
@@ -332,7 +338,7 @@
   },
   "issue": {
     "title": "{name} levert niet",
-    "description": "Het TomTom-item **{name}** is bij {count} opvragingen op rij mislukt, dus zijn entiteiten zijn niet beschikbaar. De laatste reden:\n\n`{reason}`\n\nEen tracker zonder positie, of een tracker-entiteit die niet meer bestaat, los je op onder **Configureren** van het item; een geweigerde sleutel onder **Configureren** op het item TomTom Instellingen; als TomTom zelf niet bereikbaar is, verdwijnt dit vanzelf zodra het weer kan. Deze reparatie verdwijnt bij de volgende opvraging die slaagt."
+    "description": "Het TomTom-item **{name}** is bij {count} opvragingen op rij mislukt, dus zijn entiteiten zijn niet beschikbaar. De laatste reden:\n\n`{reason}`\n\nEen tracker zonder positie, of een tracker-entiteit die niet meer bestaat, los je op onder **Configureer** van het item; een geweigerde sleutel onder **Configureer** op het item TomTom Instellingen; als TomTom zelf niet bereikbaar is, verdwijnt dit vanzelf zodra het weer kan. Deze reparatie verdwijnt bij de volgende opvraging die slaagt."
   },
   "sourceIssue": {
     "title": "{source} antwoordt niet",
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "De {api}-aanvragen van de maand raken op",
-    "description": "{used} van {tier} gratis **{api}**-aanvragen na {days} dagen; in dit tempo ongeveer **{projected}** tegen het eind van de maand, {percent} % van het quotum of meer.\n\nMinder ophalen helpt: een langer update-interval, krappere uren op een route, de verkeersstroom op minder kaarten.\n\nDit verdwijnt zodra het tempo onder het aandeel zakt dat onder TomTom-instellingen → Configureren → Quotumwaarschuwing → TomTom is ingesteld, en met de nieuwe maand. Bereikt het tempo het hele quotum, dan volgt een tweede waarschuwing."
+    "description": "{used} van {tier} gratis **{api}**-aanvragen na {days} dagen; in dit tempo ongeveer **{projected}** tegen het eind van de maand, {percent} % van het quotum of meer.\n\nMinder ophalen helpt: een langer update-interval, krappere uren op een route, de verkeersstroom op minder kaarten.\n\nDit verdwijnt zodra het tempo onder het aandeel zakt dat onder TomTom Instellingen → Configureer → Quotumwaarschuwing → TomTom is ingesteld, en met de nieuwe maand. Bereikt het tempo het hele quotum, dan volgt een tweede waarschuwing."
   },
   "quotaOverIssue": {
     "title": "Het {api}-quotum is niet toereikend voor de maand",
@@ -348,11 +354,19 @@
   },
   "quotaDayIssue": {
     "title": "De {api}-aanvragen van de dag zijn bijna op",
-    "description": "{used} van de {tier} aanvragen per dag die het **{api}**-abonnement toestaat, zijn gebruikt.\n\nDe aanvragen van de dag worden gedeeld door elk item van deze installatie - en door al het andere dat dezelfde sleutel gebruikt. Minder opvragingen helpen: een langer update-interval, kortere uren voor een route, of Lufop uitgeschakeld voor de items die buiten zijn land liggen.\n\nDit verdwijnt om middernacht UTC, als de dag van Lufop omslaat, of als het deel dat is ingesteld onder TomTom Instellingen → Configureren → Quotumwaarschuwing → Lufop wordt verhoogd."
+    "description": "{used} van de {tier} aanvragen per dag die het **{api}**-abonnement toestaat, zijn gebruikt.\n\nDe aanvragen van de dag worden gedeeld door elk item van deze installatie - en door al het andere dat dezelfde sleutel gebruikt. Minder opvragingen helpen: een langer update-interval, kortere uren voor een route, of Lufop uitgeschakeld voor de items die buiten zijn land liggen.\n\nDit verdwijnt om middernacht UTC, als de dag van Lufop omslaat, of als het deel dat is ingesteld onder TomTom Instellingen → Configureer → Quotumwaarschuwing → Lufop wordt verhoogd."
   },
   "quotaDayUsedUpIssue": {
     "title": "De {api}-aanvragen van de dag zijn op",
     "description": "Alle {tier} aanvragen per dag van het **{api}**-abonnement zijn gebruikt - Lufop telt alles wat dezelfde sleutel gebruikt. Het weigert verdere aanvragen tot middernacht UTC - hier {reset}.\n\nMinder opvragingen helpen morgen: een langer update-interval, kortere uren voor een route, of Lufop uitgeschakeld voor de items buiten zijn land."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTom heeft geen {api}-aanvragen meer over",
+    "description": "TomTom weigert verdere **{api}**-aanvragen: de sleutel heeft er geen meer over - *insufficient funds* noemt TomTom dat. De sleutel zelf is in orde, en elke andere API blijft antwoorden. TomTom telt alles wat de sleutel gebruikt; deze installatie heeft deze maand {used} van de {tier} gratis aanvragen gedaan.\n\nZonder Incident Details toont een gebied of een tracker geen TomTom-meldingen, en komen de nieuwe meldingen van een route zoals de route zelf ze geeft: soort, plaats en vertraging, zonder het hele wegvak, het begin en einde ervan, de wegnummers, TomToms bewoording en de tijden. Routes, reistijden, de verkeersstroom en de flitsers van de extra bronnen worden niet geraakt. Zonder Routing kan een route niet worden berekend, en valt het item van die route uit.\n\nBij de volgende aanvraag die er voor deze API is, wordt het opnieuw geprobeerd, op zijn vroegst een uur na de laatste weigering, en dit verdwijnt bij het eerste antwoord."
+  },
+  "incidentDayLimitIssue": {
+    "title": "De Incident Details-aanvragen van de dag zijn op",
+    "description": "Vandaag zijn er {used} Incident Details-aanvragen verstuurd, en de limiet die onder TomTom Instellingen → Configureer → Quotumwaarschuwing → TomTom is ingesteld, is {limit}. Tot middernacht UTC - hier {reset} - worden er geen meer verstuurd.\n\nTot dan toont een gebied of een tracker geen TomTom-meldingen, en komen de nieuwe meldingen van een route zoals de route zelf ze geeft: soort, plaats en vertraging, zonder hun details. Routes, reistijden, de verkeersstroom en de flitsers van de extra bronnen worden niet geraakt.\n\nMinder aanvragen helpen: een langer update-interval, de details van een route minder vaak of helemaal niet ophalen, of een hogere limiet - met 80 per dag gaan de 2.500 gratis aanvragen de hele maand mee."
   },
   "device": {
     "general": "TomTom Algemeen",

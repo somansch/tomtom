@@ -171,10 +171,14 @@
                     "live_until": "Kuni",
                     "live_back_from": "Alates (tagasitee)",
                     "live_back_until": "Kuni (tagasitee)",
+                    "details": "Too teadete üksikasjad",
+                    "details_interval": "Minuteid üksikasjade päringute vahel (tühi = iga uuendusega)",
                     "categories": "Teated"
                 },
                 "data_description": {
-                    "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“."
+                    "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“.",
+                    "details": "Marsruut nimetab, millest see läbi kulgeb – liik, koht ja viivitus. Kui see on sees, küsitakse Incident Detailsilt uue teate kohta ülejäänut: kogu lõik, selle algus ja lõpp, teenumbrid, TomTomi sõnastus ja ajad – üks päring viie uue teate kohta, 2 500 tasuta päringust kuus. Küsitakse ainult nende teadete kohta, mida see kirje ka näitab. Kui see on väljas, ei kulu marsruudile ühtegi Incident Detailsi päringut.",
+                    "details_interval": "Kui tihti üksikasju küsitakse, sõltumata sellest, kui tihti marsruuti ennast uuendatakse. 30 puhul ilmub uus teade kohe nii, nagu marsruut seda nimetab, ja selle üksikasjad järgnevad poole tunni jooksul – mitu teadet ühes päringus ja mitte ühtegi ummiku kohta, mis on vahepeal jälle kadunud."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Sinu marsruut praegu",
-                "description": "{start} → {destination}, {vias} vahepunkti: {distance}, praegu umbes {duration} min, sellest {delay} min viivitust. Marsruut arvutatakse igal uuendusel uuesti; maakaart näitab seda, mille liiklus hetkel kiireimaks teeb. Oma tundide sees on iga uuendus üks Routingu päring, 20 000 tasuta päringust kuus; marsruudil olevad teated tulevad sellega kaasa ja Incident Detailsilt küsitakse iga uue teate kohta korra ülejäänut, mis on teada.",
+                "description": "{start} → {destination}, {vias} vahepunkti: {distance}, praegu umbes {duration} min, sellest {delay} min viivitust. Marsruut arvutatakse igal uuendusel uuesti; maakaart näitab seda, mille liiklus hetkel kiireimaks teeb. Oma tundide sees on iga uuendus üks Routingu päring, 20 000 tasuta päringust kuus; marsruudil olevad teated tulevad sellega kaasa ja uute kohta küsitakse Incident Detailsilt ülejäänut, mis on teada – viis teadet päringu kohta.",
                 "data": {
                     "return_route": "Loo ka tagasitee",
                     "return_name": "Tagasitee nimi",
@@ -449,11 +453,15 @@
                     "live_until": "Kuni",
                     "live_back_from": "Alates (tagasitee)",
                     "live_back_until": "Kuni (tagasitee)",
+                    "details": "Too teadete üksikasjad",
+                    "details_interval": "Minuteid üksikasjade päringute vahel (tühi = iga uuendusega)",
                     "categories": "Teated"
                 },
                 "data_description": {
                     "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“.",
-                    "return_name": "Kasutatakse ainult siis, kui tagasitee luuakse. Täidetud selle kirje nimega ja lisatud „tagasi“; kirjuta teine, et seda teisiti nimetada – näiteks „Kodu“ ja „Töö“."
+                    "return_name": "Kasutatakse ainult siis, kui tagasitee luuakse. Täidetud selle kirje nimega ja lisatud „tagasi“; kirjuta teine, et seda teisiti nimetada – näiteks „Kodu“ ja „Töö“.",
+                    "details": "Marsruut nimetab, millest see läbi kulgeb – liik, koht ja viivitus. Kui see on sees, küsitakse Incident Detailsilt uue teate kohta ülejäänut: kogu lõik, selle algus ja lõpp, teenumbrid, TomTomi sõnastus ja ajad – üks päring viie uue teate kohta, 2 500 tasuta päringust kuus. Küsitakse ainult nende teadete kohta, mida see kirje ka näitab. Kui see on väljas, ei kulu marsruudile ühtegi Incident Detailsi päringut.",
+                    "details_interval": "Kui tihti üksikasju küsitakse, sõltumata sellest, kui tihti marsruuti ennast uuendatakse. 30 puhul ilmub uus teade kohe nii, nagu marsruut seda nimetab, ja selle üksikasjad järgnevad poole tunni jooksul – mitu teadet ühes päringus ja mitte ühtegi ummiku kohta, mis on vahepeal jälle kadunud."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Kuni",
                     "live_back_from": "Alates (tagasitee)",
                     "live_back_until": "Kuni (tagasitee)",
+                    "details": "Too teadete üksikasjad",
+                    "details_interval": "Minuteid üksikasjade päringute vahel (tühi = iga uuendusega)",
                     "categories": "Teated"
                 },
                 "data_description": {
-                    "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“."
+                    "return_route": "Teine kirje, sihtkohast starti – kiirteel on tagasitee teine sõidutee ja ummik ühel pole ummik teisel. Nimetatud selle kirje järgi, lisatud „tagasi“.",
+                    "details": "Marsruut nimetab, millest see läbi kulgeb – liik, koht ja viivitus. Kui see on sees, küsitakse Incident Detailsilt uue teate kohta ülejäänut: kogu lõik, selle algus ja lõpp, teenumbrid, TomTomi sõnastus ja ajad – üks päring viie uue teate kohta, 2 500 tasuta päringust kuus. Küsitakse ainult nende teadete kohta, mida see kirje ka näitab. Kui see on väljas, ei kulu marsruudile ühtegi Incident Detailsi päringut.",
+                    "details_interval": "Kui tihti üksikasju küsitakse, sõltumata sellest, kui tihti marsruuti ennast uuendatakse. 30 puhul ilmub uus teade kohe nii, nagu marsruut seda nimetab, ja selle üksikasjad järgnevad poole tunni jooksul – mitu teadet ühes päringus ja mitte ühtegi ummiku kohta, mis on vahepeal jälle kadunud."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "Alates kuu kaheksandast päevast arvestatakse senised päringud kuu lõpuni ette. Loetakse seda, mida see sidumine küsib; mujal ka kasutatava võtme näit on TomTomis suurem.",
                         "data": {
                             "quota_warning": "Hoiata, kui kuu päringud hakkavad otsa saama või ei jätku",
-                            "quota_threshold": "Hoiata alates sellest osast kuu päringutest"
+                            "quota_threshold": "Hoiata alates sellest osast kuu päringutest",
+                            "incident_day_limit": "Incident Detailsi päringuid päevas kõige rohkem (0 = piiranguta)"
                         },
                         "data_description": {
-                            "quota_threshold": "Esimene hoiatus tuleb, kui prognoos jõuab selle osani; teine, kui see jõuab 100 %-ni."
+                            "quota_threshold": "Esimene hoiatus tuleb, kui prognoos jõuab selle osani; teine, kui see jõuab 100 %-ni.",
+                            "incident_day_limit": "Kõik kirjed kokku, loetuna keskööst keskööni UTC. Kui päeva piir on täis, ei saadeta järgmise päevani rohkem päringuid: alad ja jälgijad ei näita seni TomTomi teateid ning marsruudi uued teated tulevad ilma üksikasjadeta. 80 päringuga päevas jätkub 2 500 tasuta päringust terveks kuuks."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Sinu marsruut praegu",
-                "description": "{start} → {destination}, {vias} vahepunkti: {distance}, praegu umbes {duration} min, sellest {delay} min viivitust. Marsruut arvutatakse igal uuendusel uuesti; maakaart näitab seda, mille liiklus hetkel kiireimaks teeb. Oma tundide sees on iga uuendus üks Routingu päring, 20 000 tasuta päringust kuus; marsruudil olevad teated tulevad sellega kaasa ja Incident Detailsilt küsitakse iga uue teate kohta korra ülejäänut, mis on teada.",
+                "description": "{start} → {destination}, {vias} vahepunkti: {distance}, praegu umbes {duration} min, sellest {delay} min viivitust. Marsruut arvutatakse igal uuendusel uuesti; maakaart näitab seda, mille liiklus hetkel kiireimaks teeb. Oma tundide sees on iga uuendus üks Routingu päring, 20 000 tasuta päringust kuus; marsruudil olevad teated tulevad sellega kaasa ja uute kohta küsitakse Incident Detailsilt ülejäänut, mis on teada – viis teadet päringu kohta.",
                 "data": {
                     "live_days": "Päevad, mil marsruuti ajakohasena hoitakse",
                     "live_from": "Alates",
                     "live_until": "Kuni",
+                    "details": "Too teadete üksikasjad",
+                    "details_interval": "Minuteid üksikasjade päringute vahel (tühi = iga uuendusega)",
                     "categories": "Teated"
+                },
+                "data_description": {
+                    "details": "Marsruut nimetab, millest see läbi kulgeb – liik, koht ja viivitus. Kui see on sees, küsitakse Incident Detailsilt uue teate kohta ülejäänut: kogu lõik, selle algus ja lõpp, teenumbrid, TomTomi sõnastus ja ajad – üks päring viie uue teate kohta, 2 500 tasuta päringust kuus. Küsitakse ainult nende teadete kohta, mida see kirje ka näitab. Kui see on väljas, ei kulu marsruudile ühtegi Incident Detailsi päringut.",
+                    "details_interval": "Kui tihti üksikasju küsitakse, sõltumata sellest, kui tihti marsruuti ennast uuendatakse. 30 puhul ilmub uus teade kohe nii, nagu marsruut seda nimetab, ja selle üksikasjad järgnevad poole tunni jooksul – mitu teadet ühes päringus ja mitte ühtegi ummiku kohta, mis on vahepeal jälle kadunud."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -967,7 +987,7 @@
         },
         "quota_at_risk": {
             "title": "Kuu {api} päringud hakkavad otsa saama",
-            "description": "{used} / {tier} tasuta **{api}** päringut {days} päeva järel; sellise tempoga umbes **{projected}** kuu lõpuks, {percent} % kvoodist või rohkem.\n\nVähem päringuid aitab: pikem uuendusintervall, kitsamad tunnid marsruudil, liiklusvoog vähematel kaartidel.\n\nSee kaob, kui tempo langeb alla osa, mis on seatud jaotises TomTomi seaded → Seadista → Kvoodihoiatus → TomTom, ja uue kuuga. Kui tempo jõuab kogu kvoodini, järgneb teine hoiatus."
+            "description": "{used} / {tier} tasuta **{api}** päringut {days} päeva järel; sellise tempoga umbes **{projected}** kuu lõpuks, {percent} % kvoodist või rohkem.\n\nVähem päringuid aitab: pikem uuendusintervall, kitsamad tunnid marsruudil, liiklusvoog vähematel kaartidel.\n\nSee kaob, kui tempo langeb alla osa, mis on seatud jaotises TomTom Seaded → Seadista → Kvoodihoiatus → TomTom, ja uue kuuga. Kui tempo jõuab kogu kvoodini, järgneb teine hoiatus."
         },
         "quota_over": {
             "title": "{api} kvoodist kuu lõpuni ei jätku",
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "{api} päeva päringud on otsas",
             "description": "Kõik **{api}** paketi {tier} päevast päringut on kasutatud – Lufop loeb kõike, mis sama võtit kasutab. See lükkab edasised päringud tagasi kuni keskööni UTC – siin kell {reset}.\n\nVähem uuendusi aitab homme: pikem uuendusintervall, kitsamad tunnid marsruudil või Lufop välja lülitatud kirjetel väljaspool selle riiki."
+        },
+        "quota_used_up": {
+            "title": "TomTomil pole enam ühtegi vaba {api} päringut",
+            "description": "TomTom keeldub edasistest **{api}** päringutest: võtmel pole neid enam – TomTom ise nimetab seda *insufficient funds*. Võti ise on korras ja kõik teised API-d vastavad edasi. TomTom loeb kõike, mis võtit kasutab; see paigaldus on sel kuul teinud {used} päringut {tier} tasuta päringust.\n\nIlma Incident Detailsita ei näita ala ega jälgija TomTomi teateid ning marsruudi uued teated tulevad nii, nagu marsruut ise neid nimetab: liik, koht ja viivitus, ilma kogu lõigu, selle alguse ja lõpu, teenumbrite, TomTomi sõnastuse ja aegadeta. Marsruute, sõiduaegu, liiklusvoogu ja teiste allikate kiiruskaameraid see ei mõjuta. Ilma Routinguta ei saa marsruuti arvutada ja selle kirje lakkab töötamast.\n\nUuesti küsitakse järgmise päringuga, mis sellele API-le tehakse, kõige varem tund pärast viimast keeldumist, ja see parandus kaob esimese vastusega."
+        },
+        "incident_day_limit": {
+            "title": "Päeva Incident Detailsi päringud on otsas",
+            "description": "Täna on välja läinud {used} Incident Detailsi päringut ja jaotises TomTom Seaded → Seadista → Kvoodihoiatus → TomTom määratud piir on {limit}. Kuni keskööni UTC – siin kell {reset} – rohkem ei saadeta.\n\nSeni ei näita ala ega jälgija TomTomi teateid ning marsruudi uued teated tulevad nii, nagu marsruut ise neid nimetab: liik, koht ja viivitus, ilma üksikasjadeta. Marsruute, sõiduaegu, liiklusvoogu ja teiste allikate kiiruskaameraid see ei mõjuta.\n\nVähem päringuid aitab: pikem uuendusintervall, marsruudi üksikasjade küsimine harvem või üldse mitte, või kõrgem piir – 80 päringuga päevas jätkub 2 500 tasuta päringust terveks kuuks."
         }
     }
 }

@@ -171,10 +171,14 @@
                     "live_until": "Till",
                     "live_back_from": "Från (vägen tillbaka)",
                     "live_back_until": "Till (vägen tillbaka)",
+                    "details": "Slå upp rapporternas detaljer",
+                    "details_interval": "Minuter mellan detaljuppslagningar (tomt = vid varje hämtning)",
                     "categories": "Rapporter"
                 },
                 "data_description": {
-                    "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt."
+                    "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt.",
+                    "details": "En rutt anger vad den går igenom - typ, plats och fördröjning. När det här är på frågas Incident Details om resten av en ny rapport: hela sträckan, var den börjar och slutar, vägnumren, TomToms formulering och tiderna - en förfrågan per fem nya rapporter, av 2 500 gratis i månaden. Bara rapporter som den här posten visar slås upp. Av kostar rutten inte en enda Incident Details-förfrågan.",
+                    "details_interval": "Hur ofta detaljerna efterfrågas, oberoende av hur ofta själva rutten hämtas. Med 30 visas en ny rapport genast så som rutten anger den, och dess detaljer följer inom en halvtimme - flera rapporter i en förfrågan, och ingen för en kö som hunnit försvinna igen under tiden."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Din rutt, just nu",
-                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min just nu, varav {delay} min fördröjning. Rutten räknas ut igen vid varje hämtning; kartan visar den som trafiken gör snabbast i det här ögonblicket. Inom sina timmar är varje hämtning en Routing-förfrågan, av 20 000 gratis i månaden; rapporterna på rutten följer med den, och Incident Details frågas en gång per ny rapport om resten av det som finns att veta.",
+                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min just nu, varav {delay} min fördröjning. Rutten räknas ut igen vid varje hämtning; kartan visar den som trafiken gör snabbast i det här ögonblicket. Inom sina timmar är varje hämtning en Routing-förfrågan, av 20 000 gratis i månaden; rapporterna på rutten följer med den, och för de nya frågas Incident Details om resten av det som finns att veta - fem rapporter per förfrågan.",
                 "data": {
                     "return_route": "Skapa också vägen tillbaka",
                     "return_name": "Namn på vägen tillbaka",
@@ -449,11 +453,15 @@
                     "live_until": "Till",
                     "live_back_from": "Från (vägen tillbaka)",
                     "live_back_until": "Till (vägen tillbaka)",
+                    "details": "Slå upp rapporternas detaljer",
+                    "details_interval": "Minuter mellan detaljuppslagningar (tomt = vid varje hämtning)",
                     "categories": "Rapporter"
                 },
                 "data_description": {
                     "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt.",
-                    "return_name": "Används bara när vägen tillbaka skapas. Fylls i med den här postens namn och \"retur\" tillagt; skriv ett annat för att kalla den något annat - \"Hem\" och \"Jobbet\", till exempel."
+                    "return_name": "Används bara när vägen tillbaka skapas. Fylls i med den här postens namn och \"retur\" tillagt; skriv ett annat för att kalla den något annat - \"Hem\" och \"Jobbet\", till exempel.",
+                    "details": "En rutt anger vad den går igenom - typ, plats och fördröjning. När det här är på frågas Incident Details om resten av en ny rapport: hela sträckan, var den börjar och slutar, vägnumren, TomToms formulering och tiderna - en förfrågan per fem nya rapporter, av 2 500 gratis i månaden. Bara rapporter som den här posten visar slås upp. Av kostar rutten inte en enda Incident Details-förfrågan.",
+                    "details_interval": "Hur ofta detaljerna efterfrågas, oberoende av hur ofta själva rutten hämtas. Med 30 visas en ny rapport genast så som rutten anger den, och dess detaljer följer inom en halvtimme - flera rapporter i en förfrågan, och ingen för en kö som hunnit försvinna igen under tiden."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Till",
                     "live_back_from": "Från (vägen tillbaka)",
                     "live_back_until": "Till (vägen tillbaka)",
+                    "details": "Slå upp rapporternas detaljer",
+                    "details_interval": "Minuter mellan detaljuppslagningar (tomt = vid varje hämtning)",
                     "categories": "Rapporter"
                 },
                 "data_description": {
-                    "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt."
+                    "return_route": "En andra post, mål till start - på en motorväg är vägen tillbaka den andra körbanan, och en kö på den ena är ingen kö på den andra. Namngiven efter den här posten, med \"retur\" tillagt.",
+                    "details": "En rutt anger vad den går igenom - typ, plats och fördröjning. När det här är på frågas Incident Details om resten av en ny rapport: hela sträckan, var den börjar och slutar, vägnumren, TomToms formulering och tiderna - en förfrågan per fem nya rapporter, av 2 500 gratis i månaden. Bara rapporter som den här posten visar slås upp. Av kostar rutten inte en enda Incident Details-förfrågan.",
+                    "details_interval": "Hur ofta detaljerna efterfrågas, oberoende av hur ofta själva rutten hämtas. Med 30 visas en ny rapport genast så som rutten anger den, och dess detaljer följer inom en halvtimme - flera rapporter i en förfrågan, och ingen för en kö som hunnit försvinna igen under tiden."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "Från månadens åttonde dag räknas förfrågningarna hittills fram till månadens slut. Det som räknas är vad den här integrationen frågar efter; en nyckel som också används på annat håll står högre hos TomTom.",
                         "data": {
                             "quota_warning": "Varna när månadens anrop börjar ta slut eller inte räcker",
-                            "quota_threshold": "Varna från den här andelen av månadens anrop"
+                            "quota_threshold": "Varna från den här andelen av månadens anrop",
+                            "incident_day_limit": "Incident Details-förfrågningar per dag, högst (0 = ingen gräns)"
                         },
                         "data_description": {
-                            "quota_threshold": "Den första varningen kommer när prognosen når den här andelen; en andra när den når 100 %."
+                            "quota_threshold": "Den första varningen kommer när prognosen når den här andelen; en andra när den når 100 %.",
+                            "incident_day_limit": "Alla poster tillsammans, räknat från midnatt till midnatt UTC. När dagens gräns är nådd skickas inga fler förrän nästa dag: områden och spårare visar under tiden inga TomTom-rapporter, och en rutts nya rapporter kommer utan sina detaljer. Med 80 per dag räcker de 2 500 gratis förfrågningarna månaden ut."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Din rutt, just nu",
-                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min just nu, varav {delay} min fördröjning. Rutten räknas ut igen vid varje hämtning; kartan visar den som trafiken gör snabbast i det här ögonblicket. Inom sina timmar är varje hämtning en Routing-förfrågan, av 20 000 gratis i månaden; rapporterna på rutten följer med den, och Incident Details frågas en gång per ny rapport om resten av det som finns att veta.",
+                "description": "{start} → {destination}, {vias} viapunkter: {distance}, omkring {duration} min just nu, varav {delay} min fördröjning. Rutten räknas ut igen vid varje hämtning; kartan visar den som trafiken gör snabbast i det här ögonblicket. Inom sina timmar är varje hämtning en Routing-förfrågan, av 20 000 gratis i månaden; rapporterna på rutten följer med den, och för de nya frågas Incident Details om resten av det som finns att veta - fem rapporter per förfrågan.",
                 "data": {
                     "live_days": "Dagar rutten hålls uppdaterad",
                     "live_from": "Från",
                     "live_until": "Till",
+                    "details": "Slå upp rapporternas detaljer",
+                    "details_interval": "Minuter mellan detaljuppslagningar (tomt = vid varje hämtning)",
                     "categories": "Rapporter"
+                },
+                "data_description": {
+                    "details": "En rutt anger vad den går igenom - typ, plats och fördröjning. När det här är på frågas Incident Details om resten av en ny rapport: hela sträckan, var den börjar och slutar, vägnumren, TomToms formulering och tiderna - en förfrågan per fem nya rapporter, av 2 500 gratis i månaden. Bara rapporter som den här posten visar slås upp. Av kostar rutten inte en enda Incident Details-förfrågan.",
+                    "details_interval": "Hur ofta detaljerna efterfrågas, oberoende av hur ofta själva rutten hämtas. Med 30 visas en ny rapport genast så som rutten anger den, och dess detaljer följer inom en halvtimme - flera rapporter i en förfrågan, och ingen för en kö som hunnit försvinna igen under tiden."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -967,7 +987,7 @@
         },
         "quota_at_risk": {
             "title": "Månadens {api}-anrop börjar ta slut",
-            "description": "{used} av {tier} kostnadsfria **{api}**-anrop efter {days} dagar; i den här takten ungefär **{projected}** vid månadens slut, {percent} % av kvoten eller mer.\n\nFärre hämtningar hjälper: ett längre uppdateringsintervall, snävare timmar på en rutt, trafikflödet på färre kort.\n\nDet här försvinner när takten sjunker under andelen som är inställd under TomTom-inställningar → Konfigurera → Kvotvarning → TomTom, och med den nya månaden. Når takten hela kvoten följer en andra varning."
+            "description": "{used} av {tier} kostnadsfria **{api}**-anrop efter {days} dagar; i den här takten ungefär **{projected}** vid månadens slut, {percent} % av kvoten eller mer.\n\nFärre hämtningar hjälper: ett längre uppdateringsintervall, snävare timmar på en rutt, trafikflödet på färre kort.\n\nDet här försvinner när takten sjunker under andelen som är inställd under TomTom Inställningar → Konfigurera → Kvotvarning → TomTom, och med den nya månaden. Når takten hela kvoten följer en andra varning."
         },
         "quota_over": {
             "title": "{api}-kvoten räcker inte månaden ut",
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "Dagens {api}-förfrågningar är förbrukade",
             "description": "Alla {tier} förfrågningar per dag i **{api}**-planen är använda - Lufop räknar allt som använder samma nyckel. Den avvisar fler förfrågningar fram till midnatt UTC - {reset} här.\n\nFärre hämtningar hjälper i morgon: ett längre uppdateringsintervall, snävare timmar för en rutt, eller Lufop avstängt för posterna utanför dess land."
+        },
+        "quota_used_up": {
+            "title": "TomTom har inga {api}-förfrågningar kvar",
+            "description": "TomTom avvisar fler **{api}**-förfrågningar: nyckeln har inga kvar - *insufficient funds* är TomToms eget ord för det. Själva nyckeln är i sin ordning, och alla andra API:er fortsätter att svara. TomTom räknar allt som använder nyckeln; den här installationen har gjort {used} av de {tier} gratis förfrågningarna den här månaden.\n\nUtan Incident Details visar ett område eller en spårare inga TomTom-rapporter, och en rutts nya rapporter kommer så som rutten själv anger dem: typ, plats och fördröjning, utan hela sträckan, dess början och slut, vägnumren, TomToms formulering och tiderna. Rutter, restider, trafikflödet och fartkamerorna från de övriga källorna påverkas inte. Utan Routing kan en rutt inte räknas ut, och dess post slutar fungera.\n\nFrågan ställs igen med nästa förfrågan som finns för det här API:et, tidigast en timme efter den senaste avvisningen, och det här försvinner med det första svaret."
+        },
+        "incident_day_limit": {
+            "title": "Dagens Incident Details-förfrågningar är förbrukade",
+            "description": "{used} Incident Details-förfrågningar har skickats i dag, och gränsen som är inställd under TomTom Inställningar → Konfigurera → Kvotvarning → TomTom är {limit}. Inga fler skickas förrän midnatt UTC - {reset} här.\n\nFram till dess visar ett område eller en spårare inga TomTom-rapporter, och en rutts nya rapporter kommer så som rutten själv anger dem: typ, plats och fördröjning, utan sina detaljer. Rutter, restider, trafikflödet och fartkamerorna från de övriga källorna påverkas inte.\n\nFärre förfrågningar hjälper: ett längre uppdateringsintervall, att en rutts detaljer slås upp mer sällan eller inte alls, eller en högre gräns - med 80 per dag räcker de 2 500 gratis förfrågningarna månaden ut."
         }
     }
 }

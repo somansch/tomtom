@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Setiap pengambilan data adalah satu permintaan Incident Details (satu lagi per 10.000 km² area pencarian), dan kunci gratis punya 2.500 per bulan: dengan jam bawaan satu area memakai sekitar 720.",
-  "budgetRoute": "Dalam jam-jamnya setiap pengambilan data adalah satu permintaan Routing, dari 20.000 gratis per bulan; laporan di rute ikut bersamanya, dan Incident Details ditanya sekali per laporan baru untuk sisa informasinya.",
+  "budgetRoute": "Dalam jam-jamnya setiap pengambilan data adalah satu permintaan Routing, dari 20.000 gratis per bulan; laporan di rute ikut bersamanya, dan untuk yang baru Incident Details ditanya untuk sisa informasinya - lima laporan per permintaan.",
   "entities": {
     "sensor": {
       "report_count": "Laporan",
@@ -218,11 +218,15 @@
         "live_from": "Dari",
         "live_until": "Sampai",
         "live_back_from": "Dari (rute pulang)",
-        "live_back_until": "Sampai (rute pulang)"
+        "live_back_until": "Sampai (rute pulang)",
+        "details": "Ambil detail laporan",
+        "details_interval": "Menit antara pengambilan detail (kosong = pada setiap pengambilan data)"
       },
       "data_description": {
         "return_route": "Entri kedua, dari tujuan ke awal - di jalan tol rute pulang adalah jalur lawan arah, dan kemacetan di satu sisi bukan kemacetan di sisi lain. Dinamai seperti entri ini, dengan tambahan \"pulang\".",
-        "return_name": "Hanya dipakai bila rute pulang dibuat. Diisi dengan nama entri ini dan tambahan \"pulang\"; ketik nama lain untuk menyebutnya berbeda - misalnya \"Rumah\" dan \"Kantor\"."
+        "return_name": "Hanya dipakai bila rute pulang dibuat. Diisi dengan nama entri ini dan tambahan \"pulang\"; ketik nama lain untuk menyebutnya berbeda - misalnya \"Rumah\" dan \"Kantor\".",
+        "details": "Rute menyebutkan apa yang dilaluinya - jenis, tempat dan penundaan. Bila ini aktif, Incident Details ditanya untuk sisa informasi laporan baru: seluruh ruasnya, di mana mulai dan berakhirnya, nomor jalan, kata-kata TomTom dan waktunya - satu permintaan per lima laporan baru, dari 2.500 gratis per bulan. Hanya laporan yang ditampilkan entri ini yang diambil detailnya. Bila mati, rute tidak memakan satu pun permintaan Incident Details.",
+        "details_interval": "Seberapa sering detail diminta, terlepas dari seberapa sering rutenya sendiri diambil. Dengan 30, laporan baru langsung tampil seperti yang disebutkan rute, dan detailnya menyusul dalam setengah jam - beberapa laporan dalam satu permintaan, dan tidak ada permintaan untuk kemacetan yang sementara itu sudah hilang lagi."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Mulai hari kedelapan setiap bulan, permintaan sejauh ini diproyeksikan ke akhir bulan. Yang dihitung adalah permintaan integrasi ini; kunci yang juga dipakai di tempat lain tercatat lebih tinggi di TomTom.",
           "data": {
             "quota_warning": "Peringatkan saat permintaan bulan ini menipis atau tidak akan cukup",
-            "quota_threshold": "Peringatkan mulai dari bagian permintaan bulan ini"
+            "quota_threshold": "Peringatkan mulai dari bagian permintaan bulan ini",
+            "incident_day_limit": "Permintaan Incident Details per hari, paling banyak (0 = tanpa batas)"
           },
           "data_description": {
-            "quota_threshold": "Peringatan pertama datang saat proyeksi mencapai bagian ini; yang kedua saat mencapai 100 %."
+            "quota_threshold": "Peringatan pertama datang saat proyeksi mencapai bagian ini; yang kedua saat mencapai 100 %.",
+            "incident_day_limit": "Semua entri bersama-sama, dihitung dari tengah malam sampai tengah malam UTC. Begitu batas hari itu tercapai, tidak ada lagi yang dikirim sampai hari berikutnya: sementara itu area dan pelacak tidak menampilkan laporan TomTom, dan laporan baru sebuah rute datang tanpa detailnya. Dengan 80 per hari, 2.500 permintaan gratis cukup untuk sebulan."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Permintaan {api} bulan ini menipis",
-    "description": "{used} dari {tier} permintaan **{api}** gratis setelah {days} hari; dengan laju ini sekitar **{projected}** pada akhir bulan, {percent} % dari kuota atau lebih.\n\nLebih sedikit pengambilan membantu: interval pembaruan lebih panjang, jam lebih sempit pada rute, arus lalu lintas pada lebih sedikit kartu.\n\nIni hilang saat laju turun di bawah bagian yang diatur di Pengaturan TomTom → Konfigurasi → Peringatan kuota → TomTom, dan dengan bulan baru. Jika laju mencapai seluruh kuota, peringatan kedua menyusul."
+    "description": "{used} dari {tier} permintaan **{api}** gratis setelah {days} hari; dengan laju ini sekitar **{projected}** pada akhir bulan, {percent} % dari kuota atau lebih.\n\nLebih sedikit pengambilan membantu: interval pembaruan lebih panjang, jam lebih sempit pada rute, arus lalu lintas pada lebih sedikit kartu.\n\nIni hilang saat laju turun di bawah bagian yang diatur di TomTom Pengaturan → Konfigurasikan → Peringatan kuota → TomTom, dan dengan bulan baru. Jika laju mencapai seluruh kuota, peringatan kedua menyusul."
   },
   "quotaOverIssue": {
     "title": "Kuota {api} tidak akan cukup untuk bulan ini",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Permintaan {api} hari ini sudah habis",
     "description": "Semua {tier} permintaan per hari dari paket **{api}** sudah terpakai - Lufop menghitung semua yang memakai kunci yang sama. Ia menolak permintaan berikutnya sampai tengah malam UTC - pukul {reset} di sini.\n\nPengambilan data yang lebih sedikit membantu besok: interval pembaruan lebih panjang, jam yang lebih sempit pada rute, atau Lufop dimatikan untuk entri di luar negaranya."
+  },
+  "quotaUsedUpIssue": {
+    "title": "Permintaan {api} di TomTom sudah habis",
+    "description": "TomTom menolak permintaan **{api}** berikutnya: kunci itu tidak punya sisa lagi - *insufficient funds*, begitu TomTom sendiri menyebutnya. Kuncinya sendiri baik-baik saja, dan setiap API lain tetap menjawab. TomTom menghitung semua yang memakai kunci itu; instalasi ini sudah membuat {used} dari {tier} permintaan gratis bulan ini.\n\nTanpa Incident Details, area atau pelacak tidak menampilkan laporan TomTom, dan laporan baru sebuah rute datang seperti yang disebutkan rute itu sendiri: jenis, tempat dan penundaan, tanpa seluruh ruasnya, awal dan akhirnya, nomor jalan, kata-kata TomTom dan waktunya. Rute, waktu tempuh, arus lalu lintas dan kamera kecepatan dari sumber lain tidak terpengaruh. Tanpa Routing sebuah rute tidak dapat dihitung, dan entrinya gagal.\n\nPertanyaan diulang pada permintaan berikutnya untuk API ini, paling cepat satu jam setelah penolakan terakhir, dan perbaikan ini hilang pada jawaban pertama."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Permintaan Incident Details hari ini sudah terpakai",
+    "description": "{used} permintaan Incident Details sudah dikirim hari ini, dan batas yang diatur di TomTom Pengaturan → Konfigurasikan → Peringatan kuota → TomTom adalah {limit}. Tidak ada lagi yang dikirim sampai tengah malam UTC - pukul {reset} di sini.\n\nSampai saat itu area atau pelacak tidak menampilkan laporan TomTom, dan laporan baru sebuah rute datang seperti yang disebutkan rute itu sendiri: jenis, tempat dan penundaan, tanpa detailnya. Rute, waktu tempuh, arus lalu lintas dan kamera kecepatan dari sumber lain tidak terpengaruh.\n\nPermintaan yang lebih sedikit membantu: interval pembaruan lebih panjang, detail rute diambil lebih jarang atau tidak sama sekali, atau batas yang lebih tinggi - dengan 80 per hari, 2.500 permintaan gratis cukup untuk sebulan."
   },
   "device": {
     "general": "TomTom Umum",

@@ -107,15 +107,15 @@ blueprint:
                   value: flooding
                 - label: Unknown
                   value: unknown
-                - label: Fixed speed camera (blitzer.de)
+                - label: Fixed speed camera (blitzer.de, Lufop)
                   value: camera_fixed
-                - label: Mobile speed camera (blitzer.de)
+                - label: Mobile speed camera (blitzer.de, Lufop)
                   value: camera_mobile
                 - label: Speed camera trailer (blitzer.de)
                   value: camera_trailer
-                - label: Red-light camera (blitzer.de)
+                - label: Red-light camera (blitzer.de, Lufop)
                   value: camera_redlight
-                - label: Section control (blitzer.de)
+                - label: Section control (blitzer.de, Lufop)
                   value: camera_section
                 - label: Distance check (blitzer.de)
                   value: check_distance

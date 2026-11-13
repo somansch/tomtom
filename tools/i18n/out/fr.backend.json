@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Chaque interrogation est une requête Incident Details (une de plus par 10 000 km² de recherche), et une clé gratuite en a 2 500 par mois : à l'heure par défaut, un secteur en dépense environ 720.",
-  "budgetRoute": "Dans ses heures, chaque interrogation est une requête Routing, sur 20 000 gratuites par mois ; les signalements sur l'itinéraire viennent avec, et Incident Details est interrogé une fois par nouveau signalement pour le reste de ce qu'il y a à savoir.",
+  "budgetRoute": "Dans ses heures, chaque interrogation est une requête Routing, sur 20 000 gratuites par mois ; les signalements sur l'itinéraire viennent avec, et pour les nouveaux, Incident Details est interrogé pour le reste de ce qu'il y a à savoir - cinq signalements par requête.",
   "entities": {
     "sensor": {
       "report_count": "Signalements",
@@ -218,11 +218,15 @@
         "live_from": "De",
         "live_until": "À",
         "live_back_from": "De (retour)",
-        "live_back_until": "À (retour)"
+        "live_back_until": "À (retour)",
+        "details": "Récupérer les détails des signalements",
+        "details_interval": "Minutes entre les demandes de détails (vide = à chaque interrogation)"
       },
       "data_description": {
         "return_route": "Une seconde entrée, de la destination au départ - sur autoroute, le retour est l'autre chaussée, et un bouchon sur l'une n'en est pas un sur l'autre. Nommée comme cette entrée, avec « retour » ajouté.",
-        "return_name": "Utilisé seulement si le retour est créé. Prérempli avec le nom de cette entrée et « retour » ajouté ; tapez-en un autre pour l'appeler autrement - « Maison » et « Travail », par exemple."
+        "return_name": "Utilisé seulement si le retour est créé. Prérempli avec le nom de cette entrée et « retour » ajouté ; tapez-en un autre pour l'appeler autrement - « Maison » et « Travail », par exemple.",
+        "details": "Un itinéraire nomme ce qu'il traverse - type, lieu et retard. Activé, Incident Details est interrogé pour le reste d'un nouveau signalement : le tronçon entier, son début et sa fin, les numéros de route, la formulation de TomTom et les horaires - une requête pour cinq nouveaux signalements, sur 2 500 gratuites par mois. Seuls les signalements que cette entrée affiche sont recherchés. Désactivé, l'itinéraire ne coûte aucune requête Incident Details.",
+        "details_interval": "La fréquence à laquelle les détails sont demandés, indépendamment de celle à laquelle l'itinéraire lui-même est interrogé. Avec 30, un nouveau signalement apparaît tout de suite tel que l'itinéraire le donne, et ses détails suivent dans la demi-heure - plusieurs signalements en une seule requête, et aucune pour un bouchon qui a disparu entre-temps."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "À partir du huitième jour du mois, les requêtes faites jusque-là sont extrapolées à la fin du mois. Seul ce que cette intégration demande est compté ; une clé utilisée aussi ailleurs affiche davantage chez TomTom.",
           "data": {
             "quota_warning": "Avertir quand les requêtes du mois se raréfient ou ne tiendront pas",
-            "quota_threshold": "Avertir à partir de cette part des requêtes du mois"
+            "quota_threshold": "Avertir à partir de cette part des requêtes du mois",
+            "incident_day_limit": "Requêtes Incident Details par jour, au maximum (0 = aucune limite)"
           },
           "data_description": {
-            "quota_threshold": "Le premier avertissement vient quand la projection atteint cette part ; un second quand elle atteint 100 %."
+            "quota_threshold": "Le premier avertissement vient quand la projection atteint cette part ; un second quand elle atteint 100 %.",
+            "incident_day_limit": "Toutes les entrées réunies, comptées de minuit à minuit UTC. Une fois la limite du jour atteinte, plus aucune n'est envoyée jusqu'au lendemain : entre-temps, les secteurs et les traqueurs n'affichent aucun signalement TomTom, et les nouveaux signalements d'un itinéraire arrivent sans leurs détails. Avec 80 par jour, les 2 500 requêtes gratuites tiennent le mois."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Les requêtes {api} du mois se raréfient",
-    "description": "{used} des {tier} requêtes **{api}** gratuites après {days} jours ; à ce rythme, environ **{projected}** d'ici la fin du mois, {percent} % du quota ou plus.\n\nMoins d'interrogations aident : un intervalle d'actualisation plus long, des heures plus serrées sur un itinéraire, le trafic sur moins de cartes.\n\nCeci disparaît quand le rythme repasse sous la part réglée dans Paramètres TomTom → Configurer → Avertissement de quota → TomTom, et avec le nouveau mois. Si le rythme atteint tout le quota, un second avertissement suit."
+    "description": "{used} des {tier} requêtes **{api}** gratuites après {days} jours ; à ce rythme, environ **{projected}** d'ici la fin du mois, {percent} % du quota ou plus.\n\nMoins d'interrogations aident : un intervalle d'actualisation plus long, des heures plus serrées sur un itinéraire, le trafic sur moins de cartes.\n\nCeci disparaît quand le rythme repasse sous la part réglée dans TomTom Paramètres → Configurer → Alerte de quota → TomTom, et avec le nouveau mois. Si le rythme atteint tout le quota, un second avertissement suit."
   },
   "quotaOverIssue": {
     "title": "Le quota {api} ne tiendra pas le mois",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Les requêtes {api} du jour sont épuisées",
     "description": "Les {tier} requêtes par jour de l'offre **{api}** sont toutes utilisées - Lufop compte tout ce qui utilise la même clé. Il refuse d'autres requêtes jusqu'à minuit UTC, soit {reset} ici.\n\nMoins d'interrogations aideront demain : un intervalle d'actualisation plus long, des heures plus resserrées sur un itinéraire, ou Lufop désactivé pour les entrées hors de son pays."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTom n'a plus de requêtes {api} disponibles",
+    "description": "TomTom refuse d'autres requêtes **{api}** : la clé n'en a plus - *insufficient funds*, c'est son propre terme. La clé elle-même est en règle, et toutes les autres API continuent de répondre. TomTom compte tout ce qui utilise la clé ; cette installation a fait {used} des {tier} requêtes gratuites ce mois-ci.\n\nSans Incident Details, un secteur ou un traqueur n'affiche aucun signalement TomTom, et les nouveaux signalements d'un itinéraire arrivent tels que l'itinéraire lui-même les donne : type, lieu et retard, sans le tronçon entier, son début et sa fin, les numéros de route, la formulation de TomTom et les horaires. Les itinéraires, les temps de trajet, le flux de trafic et les radars des autres sources ne sont pas concernés. Sans Routing, un itinéraire ne peut pas être calculé, et son entrée cesse de fonctionner.\n\nUne nouvelle tentative est faite avec la prochaine requête destinée à cette API, au plus tôt une heure après le dernier refus, et ceci disparaît dès la première réponse."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Les requêtes Incident Details du jour sont épuisées",
+    "description": "{used} requêtes Incident Details sont parties aujourd'hui, et la limite définie sous TomTom Paramètres → Configurer → Alerte de quota → TomTom est de {limit}. Plus aucune n'est envoyée jusqu'à minuit UTC, soit {reset} ici.\n\nD'ici là, un secteur ou un traqueur n'affiche aucun signalement TomTom, et les nouveaux signalements d'un itinéraire arrivent tels que l'itinéraire lui-même les donne : type, lieu et retard, sans leurs détails. Les itinéraires, les temps de trajet, le flux de trafic et les radars des autres sources ne sont pas concernés.\n\nMoins de requêtes aident : un intervalle d'actualisation plus long, les détails d'un itinéraire récupérés moins souvent ou pas du tout, ou une limite plus élevée - avec 80 par jour, les 2 500 requêtes gratuites tiennent le mois."
   },
   "device": {
     "general": "TomTom Général",

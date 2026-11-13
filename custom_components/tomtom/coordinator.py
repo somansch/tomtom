@@ -13,7 +13,7 @@ from time import monotonic
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_COUNT, CONF_LOCATION, CONF_NAME
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -24,6 +24,9 @@ from .api import (
     async_get_usage,
     DETAILS_PER_POLL,
     TomTomAuthError,
+    TomTomBudgetError,
+    TomTomParameterError,
+    TomTomQuotaError,
     TomTomClient,
     TomTomError,
     async_get_details_cache,
@@ -54,6 +57,8 @@ from .const import (
     CONF_LIVE_UNTIL,
     CONF_NEW_MINUTES,
     CONF_ONLY_CERTAIN,
+    CONF_DETAILS,
+    CONF_DETAILS_INTERVAL,
     CONF_JAM_MIN_DELAY,
     DEFAULT_JAM_MIN_DELAY,
     CONF_ROADS,
@@ -81,7 +86,7 @@ from .const import (
     tracker_position,
 )
 from .route_match import RouteLine
-from .sources import SourceError, enabled_sources, merge_sources
+from .sources import SourceError, enabled_source_keys, enabled_sources, merge_sources
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -205,6 +210,20 @@ class TomTomCoordinator(DataUpdateCoordinator):
         # on purpose, which setup must not take for a server not answering.
         self.attempted_fetch = False
         self.connected = False
+        # Whether this entry is going without Incident Details for want of
+        # requests - see incident_details_ok.
+        self._details_used_up = False
+        # Whether the further sources have had their say since this
+        # coordinator was made: answered, failed, or not asked at all. They
+        # are asked in a task after the first poll, so until then the data
+        # holds TomTom's reports alone - and the markers must not be
+        # tidied, or announced as new, against half a list (see
+        # geo_location._sync).
+        self.sources_settled = False
+        # Set for the poll in which an area's TomTom reports come back after
+        # Incident Details had none to give: everything in it is back, not
+        # new, and is not announced (see take_quiet_sync).
+        self._quiet_sync = False
         if self.is_live:
             self.waypoints = list(data.get(CONF_WAYPOINTS) or [])
             if self.waypoints:
@@ -232,6 +251,16 @@ class TomTomCoordinator(DataUpdateCoordinator):
         # Minutes of delay a jam has to cost before it is reported; 0 is
         # every jam. Minutes here, seconds in TomTom's figure.
         self.jam_min_delay = int(data.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY) or 0)
+        # Whether a live route looks its reports up in Incident Details (see
+        # CONF_DETAILS), and how many minutes lie between two rounds of it -
+        # 0 for a round with every poll.
+        self.details = bool(data.get(CONF_DETAILS, True))
+        try:
+            self.details_minutes = max(0, int(data.get(CONF_DETAILS_INTERVAL) or 0))
+        except (TypeError, ValueError):
+            self.details_minutes = 0
+        # When the last round of lookups went out - see _details_due.
+        self._last_details: float | None = None
         self.update_minutes = int(data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL))
         self.new_minutes = int(data.get(CONF_NEW_MINUTES, DEFAULT_NEW_MINUTES))
 
@@ -367,6 +396,7 @@ class TomTomCoordinator(DataUpdateCoordinator):
         if not self._is_due() and not forced:
             return previous or TomTomData()
         if not self.categories and not self.is_live and not self._source_on():
+            self.sources_settled = True
             return previous or TomTomData()
         # A live route: outside the hours set for it nothing polls at all -
         # the refresh action excepted - and inside them the route of the
@@ -378,12 +408,17 @@ class TomTomCoordinator(DataUpdateCoordinator):
         try:
             if self.is_live:
                 await self._refresh_live_route()
-                items = await self._route_reports()
+                items = await self._route_reports(forced)
             else:
                 self._resolve_centre()
                 items = await self._fetch_box()
         except TomTomAuthError as err:
             raise UpdateFailed(f"TomTom refused the key: {err}") from err
+        except TomTomQuotaError as err:
+            # An API this poll cannot do without - the route itself. What an
+            # entry can do without is caught where it is asked: see
+            # _fetch_box and _route_reports.
+            raise UpdateFailed(f"TomTom's quota is used up: {err}") from err
         except TomTomError as err:
             raise UpdateFailed(f"Error communicating with TomTom: {err}") from err
         self.connected = True
@@ -396,7 +431,85 @@ class TomTomCoordinator(DataUpdateCoordinator):
                 self._sources_task = self.hass.async_create_task(self._refresh_sources())
         else:
             self._source_reports = []
+            self.sources_settled = True
+            self._forget_sources(set())
         return TomTomData(reports=self._with_sources(items))
+
+    @property
+    def incident_details_ok(self) -> bool:
+        """False while this entry goes without Incident Details for want of
+        requests - TomTom has none left for the key, or the day's own limit
+        is reached (see TomTomQuotaError and TomTomBudgetError). An area or
+        a tracker has no TomTom reports meanwhile; a route's new reports
+        come as its sections say. A route with nothing left to look up is
+        missing nothing and reads True."""
+        return not self._details_used_up
+
+    def _details_refused(self, err: TomTomQuotaError) -> None:
+        """No Incident Details for now: said once per entry, in the name of
+        whoever said no, and the entry goes on with what it still gets."""
+        if not self._details_used_up:
+            self._details_used_up = True
+            until = (
+                "until the day turns at midnight UTC"
+                if isinstance(err, TomTomBudgetError)
+                else "until TomTom answers again"
+            )
+            _LOGGER.warning(
+                "%s: %s - %s %s",
+                self.displayname,
+                err,
+                "its new reports come without their details" if self.is_live else "no TomTom reports",
+                until,
+            )
+
+    def _details_answered(self) -> None:
+        if self._details_used_up:
+            self._details_used_up = False
+            _LOGGER.info("%s: Incident Details requests go out again", self.displayname)
+            if not self.is_live:
+                # An area's reports were gone meanwhile and are all back in
+                # this poll - known ones, not new ones.
+                self._quiet_sync = True
+
+    @callback
+    def take_quiet_sync(self) -> bool:
+        """Whether the reports of this poll are to be taken in without
+        announcing any as new - asked once per sync, and then forgotten."""
+        quiet, self._quiet_sync = self._quiet_sync, False
+        return quiet
+
+    def _wants_details(self, item: dict) -> bool:
+        """Whether a route's report is worth an Incident Details request:
+        the lookups are on (see CONF_DETAILS), and the report is one this
+        entry shows at all. A kind switched off, a jam under the delay set,
+        an id on the blacklist never reach a card - looking them up spent
+        requests on reports nobody saw. What only Details itself can say -
+        the road numbers, how sure TomTom is - cannot be asked beforehand."""
+        key = category_key(item)
+        if not self.details:
+            return False
+        # A section that names no kind of its own is "unknown" only until
+        # Details has said what it is - and Details' word is what the filter
+        # afterwards goes by. Judged by the placeholder, with "Unknown"
+        # switched off, it was never asked about and never shown.
+        if key != "unknown" and not self.kinds.get(key, True):
+            return False
+        if self.jam_min_delay and key == "jam" and _seconds(item.get("delay")) < self.jam_min_delay * 60:
+            return False
+        if self.blacklist and (item["id"] in self.blacklist or item["short_id"] in self.blacklist):
+            return False
+        return True
+
+    def _details_due(self, forced: bool) -> bool:
+        """Whether this poll may look details up: always without an
+        interval of their own (see CONF_DETAILS_INTERVAL) and on a refresh
+        somebody asked for, otherwise once that interval has passed since
+        the last round TomTom answered - a round that was refused, here or
+        there, or never arrived, is no round."""
+        if forced or not self.details_minutes or self._last_details is None:
+            return True
+        return monotonic() - self._last_details >= self.details_minutes * 60 - DUE_TOLERANCE_SECONDS
 
     def _with_sources(self, items: list[dict]) -> list[dict]:
         """TomTom's reports and the sources' together, nearest first - each
@@ -419,26 +532,36 @@ class TomTomCoordinator(DataUpdateCoordinator):
                 reports = await self.hass.async_add_executor_job(self._within_circle, reports)
         except Exception as err:  # noqa: BLE001 - a source must never take the entry down
             _LOGGER.warning("%s: the further sources failed: %s", self.displayname, err)
+            if not self.sources_settled:
+                # Said all the same: the markers wait for this before they
+                # are tidied (see sources_settled).
+                self.sources_settled = True
+                self.async_update_listeners()
             return
         self._source_reports = reports
+        self.sources_settled = True
         self.async_set_updated_data(TomTomData(reports=self._with_sources(self._tomtom_items)))
 
     def _in_live_window(self, now: datetime) -> bool:
         data = self.entry.data
         days = data.get(CONF_LIVE_DAYS) or []
-        if days and LIVE_DAYS[now.weekday()] not in days:
-            return False
+        on_day = lambda when: not days or LIVE_DAYS[when.weekday()] in days  # noqa: E731
         start, end = data.get(CONF_LIVE_FROM) or "", data.get(CONF_LIVE_UNTIL) or ""
         if not start or not end or start == end:
-            return True
+            return on_day(now)
         try:
             minutes = lambda text: int(text[:2]) * 60 + int(text[3:5])  # noqa: E731
             begin, finish, current = minutes(start), minutes(end), now.hour * 60 + now.minute
         except (TypeError, ValueError):
-            return True
+            return on_day(now)
         if begin < finish:
-            return begin <= current < finish
-        return current >= begin or current < finish
+            return on_day(now) and begin <= current < finish
+        # Over midnight. The hours after it belong to the day the window
+        # began on: Monday to Friday from 22:00 to 06:00 runs into Saturday
+        # morning, and does not start on Monday at midnight.
+        if current >= begin:
+            return on_day(now)
+        return current < finish and on_day(now - timedelta(days=1))
 
     def _live_points(self) -> list[tuple[float, float]]:
         data = self.entry.data
@@ -486,7 +609,7 @@ class TomTomCoordinator(DataUpdateCoordinator):
             },
         )
 
-    async def _route_reports(self) -> list[dict]:
+    async def _route_reports(self, forced: bool = False) -> list[dict]:
         """A live route's reports: its traffic sections, each the report of
         what the route runs through there, with what Incident Details knows
         about it - looked up once per report, a few per poll, and kept.
@@ -515,11 +638,17 @@ class TomTomCoordinator(DataUpdateCoordinator):
         items.sort(key=lambda i: self._route_line.nearest((i["lat"], i["lng"]))[1] if self._route_line else 0)
         language = self.hass.config.language
         lang = incident_language(language)
-        wanted = [i for i in items if cache.needs_lookup(i["short_id"], lang, today)]
+        wanted = (
+            [i for i in items if self._wants_details(i) and cache.needs_lookup(i["short_id"], lang, today)]
+            if self._details_due(forced)
+            else []
+        )
         client = await self.client()
         requests = 0
+        left_open = False
         for start in range(0, min(len(wanted), DETAILS_PER_POLL * 5), 5):
             pending = wanted[start : start + 5]
+            asked = False
             # Under the entry's own prefix first; what that finds nothing
             # for is asked again under the other prefixes seen - a route
             # near another source than the last answer came from.
@@ -527,7 +656,38 @@ class TomTomCoordinator(DataUpdateCoordinator):
                 if not pending or requests >= DETAILS_PER_POLL * 2:
                     break
                 requests += 1
-                answers = await client.async_incident_details([prefix + i["short_id"] for i in pending], language)
+                asked = True
+                try:
+                    answers = await client.async_incident_details([prefix + i["short_id"] for i in pending], language)
+                except TomTomAuthError:
+                    # A key that may not use this API at all is the user's
+                    # to know about, as it always was.
+                    raise
+                except TomTomQuotaError as err:
+                    # No requests left for Details. The route and its
+                    # sections are Routing's and are here already: the
+                    # reports stand as the sections tell them, and the
+                    # lookups are left open - not marked as asked - for the
+                    # poll that finds Details answering again.
+                    self._details_refused(err)
+                    left_open = True
+                    break
+                except TomTomParameterError as err:
+                    # TomTom will not take these ids as they are. Asking the
+                    # same again with every poll changes nothing: noted as
+                    # asked, like an id it does not know.
+                    _LOGGER.debug("%s: Incident Details rejected a lookup: %s", self.displayname, err)
+                    answers = []
+                except TomTomError as err:
+                    # Not reached, or answered with an error of its own. The
+                    # route is here and paid for - it used to be thrown away
+                    # with the poll, travel time and all. The details wait
+                    # for the next one.
+                    _LOGGER.debug("%s: Incident Details did not answer, asked again later: %s", self.displayname, err)
+                    left_open = True
+                    break
+                self._last_details = monotonic()
+                self._details_answered()
                 # Matched by the id TomTom names, not by position: an id it
                 # does not know may be left out rather than answered with
                 # null.
@@ -542,8 +702,23 @@ class TomTomCoordinator(DataUpdateCoordinator):
                     if item["short_id"] in by_tail:
                         cache.put(item["short_id"], by_tail[item["short_id"]], now_iso, lang)
                 pending = [i for i in pending if i["short_id"] not in by_tail]
+            if left_open:
+                break
+            if not asked:
+                # The poll's requests were spent before this batch had one.
+                # It waits for the next poll - noted as asked, it would have
+                # waited until tomorrow for a question nobody put.
+                break
             for item in pending:
                 cache.put(item["short_id"], None, now_iso, lang)
+        if self._details_used_up and not left_open:
+            # Refused in an earlier poll, and nothing refused in this one:
+            # the flag stands only while a report still waits for its
+            # details. One that has left the route waits for nothing.
+            if not any(
+                self._wants_details(i) and cache.needs_lookup(i["short_id"], lang, today) for i in items
+            ):
+                self._details_answered()
         merged = []
         for item in items:
             details = cache.details(item["short_id"])
@@ -565,6 +740,19 @@ class TomTomCoordinator(DataUpdateCoordinator):
             kind: bool(self.kinds.get(kind)) and self.kinds.get(source_flag(kind, source), True)
             for kind in CATEGORIES
         }
+
+    def _forget_sources(self, asked: set[str]) -> None:
+        """What is remembered of a source's failures goes with the source:
+        one switched off under TomTom Settings is not failing, it is off -
+        its repair used to stay, and sources_ok to read false, until every
+        entry had been reloaded."""
+        for key in (SOURCE_BLITZER, SOURCE_LUFOP):
+            if key in asked:
+                continue
+            self._source_failed.discard(key)
+            self._source_failures.pop(key, None)
+            if not bool(enabled_source_keys(self.hass) & {key}):
+                ir.async_delete_issue(self.hass, DOMAIN, source_issue_id(key))
 
     def _wants_source(self) -> bool:
         """Whether a kind is on that a further source answers - one of the
@@ -593,6 +781,7 @@ class TomTomCoordinator(DataUpdateCoordinator):
         sources = enabled_sources(self.hass, await async_get_usage(self.hass))
         for gone in set(self._source_items) - {source.key for source in sources}:
             self._source_items.pop(gone, None)
+        self._forget_sources({source.key for source in sources})
         language = self.hass.config.language
         found: list[dict] = []
         for source in sources:
@@ -640,8 +829,12 @@ class TomTomCoordinator(DataUpdateCoordinator):
             if source.key in self._source_failed:
                 _LOGGER.info("%s: %s answers again", self.displayname, source.key)
                 self._source_failed.discard(source.key)
-            if self._source_failures.pop(source.key, 0) >= SOURCE_FAILURES_FOR_REPAIR:
-                ir.async_delete_issue(self.hass, DOMAIN, source_issue_id(source.key))
+            self._source_failures.pop(source.key, None)
+            # Taken down whoever put it up: the repair is the source's, not
+            # this entry's, and the entry that raised it may have been
+            # reloaded since - its count gone, and with it the one hand that
+            # used to take the repair down.
+            ir.async_delete_issue(self.hass, DOMAIN, source_issue_id(source.key))
             self.item_count += len(items)
             self._source_items[source.key] = items
             found.extend(items)
@@ -687,14 +880,27 @@ class TomTomCoordinator(DataUpdateCoordinator):
         language = self.hass.config.language
         found: list[dict] = []
         seen: set[str] = set()
-        for box in self._boxes() if self.categories else []:
-            for raw in await client.async_incidents(box, self.categories, language):
-                item = incident_item(raw)
-                if item is None or item["id"] in seen:
-                    continue
-                cache.learn_prefix(item["id"], self.entry_id)
-                seen.add(item["id"])
-                found.append(item)
+        try:
+            for box in self._boxes() if self.categories else []:
+                for raw in await client.async_incidents(box, self.categories, language):
+                    item = incident_item(raw)
+                    if item is None or item["id"] in seen:
+                        continue
+                    cache.learn_prefix(item["id"], self.entry_id)
+                    seen.add(item["id"])
+                    found.append(item)
+        except TomTomQuotaError as err:
+            # No requests left for Incident Details, which is where an
+            # area's TomTom reports come from. The entry stays up without
+            # them rather than failing as a whole: the further sources, the
+            # traffic flow and everything set on the entry go on. Nothing
+            # of an earlier poll is kept - a jam of an hour ago shown as
+            # current would be worse than none. What this poll's own boxes
+            # brought before the refusal stays: it is current, and paid for.
+            self._details_refused(err)
+        else:
+            if self.categories:
+                self._details_answered()
         self.item_count += len(found)
         items = self._filter(found)
         return await self.hass.async_add_executor_job(self._within_circle, items)

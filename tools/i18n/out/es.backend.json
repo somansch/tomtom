@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Cada consulta es una petición de Incident Details (una más por cada 10.000 km² de búsqueda), y una clave gratuita tiene 2.500 al mes: con la hora predeterminada, un área gasta unas 720.",
-  "budgetRoute": "Dentro de sus horas, cada consulta es una petición de Routing, de las 20.000 gratuitas al mes; las incidencias de la ruta vienen con ella, e Incident Details se consulta una vez por incidencia nueva para el resto de lo que hay que saber.",
+  "budgetRoute": "Dentro de sus horas, cada consulta es una petición de Routing, de las 20.000 gratuitas al mes; las incidencias de la ruta vienen con ella, y para las nuevas se pide a Incident Details el resto de lo que hay que saber: cinco incidencias por petición.",
   "entities": {
     "sensor": {
       "report_count": "Incidencias",
@@ -218,11 +218,15 @@
         "live_from": "Desde",
         "live_until": "Hasta",
         "live_back_from": "Desde (camino de vuelta)",
-        "live_back_until": "Hasta (camino de vuelta)"
+        "live_back_until": "Hasta (camino de vuelta)",
+        "details": "Obtener los detalles de las incidencias",
+        "details_interval": "Minutos entre las peticiones de detalles (vacío = en cada consulta)"
       },
       "data_description": {
         "return_route": "Una segunda entrada, de destino a inicio: en una autopista el camino de vuelta es la otra calzada, y un atasco en una no lo es en la otra. Se llama como esta entrada, con \"vuelta\" añadido.",
-        "return_name": "Solo se usa cuando se crea el camino de vuelta. Se rellena con el nombre de esta entrada y \"vuelta\" añadido; escribe otro para llamarlo de otra forma, \"Casa\" y \"Trabajo\", por ejemplo."
+        "return_name": "Solo se usa cuando se crea el camino de vuelta. Se rellena con el nombre de esta entrada y \"vuelta\" añadido; escribe otro para llamarlo de otra forma, \"Casa\" y \"Trabajo\", por ejemplo.",
+        "details": "Una ruta nombra lo que atraviesa: tipo, lugar y retraso. Activado, se pide a Incident Details el resto de una incidencia nueva: el tramo completo, dónde empieza y dónde acaba, los números de carretera, la descripción de TomTom y los horarios; una petición por cada cinco incidencias nuevas, de las 2.500 gratuitas al mes. Solo se piden los detalles de las incidencias que esta entrada muestra. Desactivado, la ruta no cuesta ninguna petición de Incident Details.",
+        "details_interval": "Cada cuánto se piden los detalles, con independencia de cada cuánto se consulta la propia ruta. Con 30, una incidencia nueva aparece enseguida tal como la da la ruta, y sus detalles llegan en media hora como mucho: varias incidencias en una sola petición, y ninguna para un atasco que entretanto ya ha desaparecido."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Desde el octavo día del mes, las peticiones hechas hasta entonces se proyectan al final del mes. Se cuenta lo que pide esta integración; una clave que también se usa en otro sitio marca más en TomTom.",
           "data": {
             "quota_warning": "Avisar cuando las solicitudes del mes escaseen o no vayan a alcanzar",
-            "quota_threshold": "Avisar a partir de esta parte de las solicitudes del mes"
+            "quota_threshold": "Avisar a partir de esta parte de las solicitudes del mes",
+            "incident_day_limit": "Peticiones de Incident Details al día, como máximo (0 = sin límite)"
           },
           "data_description": {
-            "quota_threshold": "El primer aviso llega cuando la proyección alcanza esta parte; el segundo cuando alcanza el 100 %."
+            "quota_threshold": "El primer aviso llega cuando la proyección alcanza esta parte; el segundo cuando alcanza el 100 %.",
+            "incident_day_limit": "Todas las entradas juntas, contadas de medianoche a medianoche UTC. Alcanzado el límite del día, no se envían más hasta el día siguiente: mientras tanto, las áreas y los rastreadores no muestran incidencias de TomTom, y las incidencias nuevas de una ruta llegan sin sus detalles. Con 80 al día, las 2.500 peticiones gratuitas alcanzan para el mes."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Las solicitudes {api} del mes escasean",
-    "description": "{used} de {tier} solicitudes **{api}** gratuitas tras {days} días; a este ritmo, unas **{projected}** a fin de mes, el {percent} % del cupo o más.\n\nAyuda consultar menos: un intervalo de actualización más largo, horas más ajustadas en una ruta, el tráfico en menos tarjetas.\n\nDesaparece cuando el ritmo baja de la parte fijada en Ajustes de TomTom → Configurar → Aviso de cupo → TomTom, y con el mes nuevo. Si el ritmo alcanza todo el cupo, sigue un segundo aviso."
+    "description": "{used} de {tier} solicitudes **{api}** gratuitas tras {days} días; a este ritmo, unas **{projected}** a fin de mes, el {percent} % del cupo o más.\n\nAyuda consultar menos: un intervalo de actualización más largo, horas más ajustadas en una ruta, el tráfico en menos tarjetas.\n\nDesaparece cuando el ritmo baja de la parte fijada en TomTom Ajustes → Configurar → Aviso de cuota → TomTom, y con el mes nuevo. Si el ritmo alcanza todo el cupo, sigue un segundo aviso."
   },
   "quotaOverIssue": {
     "title": "El cupo {api} no alcanzará para el mes",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Las peticiones de {api} del día se han agotado",
     "description": "Se han usado las {tier} peticiones al día del plan de **{api}**; Lufop cuenta todo lo que usa la misma clave. Rechaza más peticiones hasta la medianoche UTC, las {reset} aquí.\n\nMenos consultas ayudan mañana: un intervalo de actualización más largo, horas más ajustadas en una ruta, o Lufop desactivado en las entradas fuera de su país."
+  },
+  "quotaUsedUpIssue": {
+    "title": "A TomTom no le quedan peticiones de {api}",
+    "description": "TomTom rechaza más peticiones de **{api}**: a la clave no le queda ninguna; *insufficient funds* es como lo llama TomTom. La clave en sí está bien, y todas las demás API siguen respondiendo. TomTom cuenta todo lo que usa la clave; esta instalación ha hecho {used} de las {tier} peticiones gratuitas este mes.\n\nSin Incident Details, un área o un rastreador no muestra incidencias de TomTom, y las incidencias nuevas de una ruta llegan tal como las da la propia ruta: tipo, lugar y retraso, sin el tramo completo, su inicio y su final, los números de carretera, la descripción de TomTom y los horarios. Las rutas, los tiempos de viaje, el flujo de tráfico y los radares de las otras fuentes no se ven afectados. Sin Routing, una ruta no se puede calcular, y su entrada deja de funcionar.\n\nSe vuelve a intentar con la siguiente petición que haya para esta API, no antes de una hora tras el último rechazo, y esto desaparece con la primera respuesta."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Las peticiones de Incident Details del día se han agotado",
+    "description": "Hoy han salido {used} peticiones de Incident Details, y el límite fijado en TomTom Ajustes → Configurar → Aviso de cuota → TomTom es de {limit}. No se envían más hasta la medianoche UTC, las {reset} aquí.\n\nHasta entonces, un área o un rastreador no muestra incidencias de TomTom, y las incidencias nuevas de una ruta llegan tal como las da la propia ruta: tipo, lugar y retraso, sin sus detalles. Las rutas, los tiempos de viaje, el flujo de tráfico y los radares de las otras fuentes no se ven afectados.\n\nMenos peticiones ayudan: un intervalo de actualización más largo, obtener los detalles de una ruta con menos frecuencia o no obtenerlos, o un límite más alto; con 80 al día, las 2.500 peticiones gratuitas alcanzan para el mes."
   },
   "device": {
     "general": "TomTom General",

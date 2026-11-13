@@ -171,10 +171,14 @@
                     "live_until": "Do",
                     "live_back_from": "Od (droga powrotna)",
                     "live_back_until": "Do (droga powrotna)",
+                    "details": "Pobieraj szczegóły zgłoszeń",
+                    "details_interval": "Minuty między pobraniami szczegółów (puste = przy każdym pobraniu)",
                     "categories": "Zgłoszenia"
                 },
                 "data_description": {
-                    "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”."
+                    "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”.",
+                    "details": "Trasa podaje, przez co przebiega - rodzaj, miejsce i opóźnienie. Gdy opcja jest włączona, o resztę nowego zgłoszenia pytane jest Incident Details: cały odcinek, jego początek i koniec, numery dróg, treść od TomTom i czasy - jedno zapytanie na pięć nowych zgłoszeń, z 2 500 darmowych miesięcznie. Sprawdzane są tylko zgłoszenia, które ten wpis pokazuje. Gdy jest wyłączona, trasa nie kosztuje ani jednego zapytania Incident Details.",
+                    "details_interval": "Jak często pobierane są szczegóły, niezależnie od tego, jak często pobierana jest sama trasa. Przy 30 nowe zgłoszenie pojawia się od razu tak, jak podaje je trasa, a jego szczegóły docierają w ciągu pół godziny - kilka zgłoszeń w jednym zapytaniu i żadnego dla korka, który w międzyczasie zniknął."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Twoja trasa, teraz",
-                "description": "{start} → {destination}, {vias} punktów pośrednich: {distance}, obecnie około {duration} min, z czego {delay} min opóźnienia. Trasa jest wyliczana na nowo przy każdym pobraniu; mapa pokazuje tę, którą ruch czyni w tej chwili najszybszą. W swoich godzinach każde pobranie to jedno zapytanie Routing, z 20 000 darmowych miesięcznie; zgłoszenia na trasie przychodzą razem z nim, a Incident Details jest pytane raz na każde nowe zgłoszenie o resztę tego, co jest do poznania.",
+                "description": "{start} → {destination}, {vias} punktów pośrednich: {distance}, obecnie około {duration} min, z czego {delay} min opóźnienia. Trasa jest wyliczana na nowo przy każdym pobraniu; mapa pokazuje tę, którą ruch czyni w tej chwili najszybszą. W swoich godzinach każde pobranie to jedno zapytanie Routing, z 20 000 darmowych miesięcznie; zgłoszenia na trasie przychodzą razem z nim, a dla nowych Incident Details jest pytane o resztę tego, co jest do poznania - pięć zgłoszeń na jedno zapytanie.",
                 "data": {
                     "return_route": "Utwórz też drogę powrotną",
                     "return_name": "Nazwa drogi powrotnej",
@@ -449,11 +453,15 @@
                     "live_until": "Do",
                     "live_back_from": "Od (droga powrotna)",
                     "live_back_until": "Do (droga powrotna)",
+                    "details": "Pobieraj szczegóły zgłoszeń",
+                    "details_interval": "Minuty między pobraniami szczegółów (puste = przy każdym pobraniu)",
                     "categories": "Zgłoszenia"
                 },
                 "data_description": {
                     "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”.",
-                    "return_name": "Używana tylko, gdy tworzona jest droga powrotna. Wypełniona nazwą tego wpisu z dodanym „powrót”; wpisz inną, aby nazwać ją inaczej - na przykład „Dom” i „Praca”."
+                    "return_name": "Używana tylko, gdy tworzona jest droga powrotna. Wypełniona nazwą tego wpisu z dodanym „powrót”; wpisz inną, aby nazwać ją inaczej - na przykład „Dom” i „Praca”.",
+                    "details": "Trasa podaje, przez co przebiega - rodzaj, miejsce i opóźnienie. Gdy opcja jest włączona, o resztę nowego zgłoszenia pytane jest Incident Details: cały odcinek, jego początek i koniec, numery dróg, treść od TomTom i czasy - jedno zapytanie na pięć nowych zgłoszeń, z 2 500 darmowych miesięcznie. Sprawdzane są tylko zgłoszenia, które ten wpis pokazuje. Gdy jest wyłączona, trasa nie kosztuje ani jednego zapytania Incident Details.",
+                    "details_interval": "Jak często pobierane są szczegóły, niezależnie od tego, jak często pobierana jest sama trasa. Przy 30 nowe zgłoszenie pojawia się od razu tak, jak podaje je trasa, a jego szczegóły docierają w ciągu pół godziny - kilka zgłoszeń w jednym zapytaniu i żadnego dla korka, który w międzyczasie zniknął."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Do",
                     "live_back_from": "Od (droga powrotna)",
                     "live_back_until": "Do (droga powrotna)",
+                    "details": "Pobieraj szczegóły zgłoszeń",
+                    "details_interval": "Minuty między pobraniami szczegółów (puste = przy każdym pobraniu)",
                     "categories": "Zgłoszenia"
                 },
                 "data_description": {
-                    "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”."
+                    "return_route": "Drugi wpis, od celu do startu - na autostradzie droga powrotna to druga jezdnia, a korek na jednej nie jest korkiem na drugiej. Nazwany jak ten wpis, z dodanym „powrót”.",
+                    "details": "Trasa podaje, przez co przebiega - rodzaj, miejsce i opóźnienie. Gdy opcja jest włączona, o resztę nowego zgłoszenia pytane jest Incident Details: cały odcinek, jego początek i koniec, numery dróg, treść od TomTom i czasy - jedno zapytanie na pięć nowych zgłoszeń, z 2 500 darmowych miesięcznie. Sprawdzane są tylko zgłoszenia, które ten wpis pokazuje. Gdy jest wyłączona, trasa nie kosztuje ani jednego zapytania Incident Details.",
+                    "details_interval": "Jak często pobierane są szczegóły, niezależnie od tego, jak często pobierana jest sama trasa. Przy 30 nowe zgłoszenie pojawia się od razu tak, jak podaje je trasa, a jego szczegóły docierają w ciągu pół godziny - kilka zgłoszeń w jednym zapytaniu i żadnego dla korka, który w międzyczasie zniknął."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "Od ósmego dnia miesiąca dotychczasowe zapytania są przeliczane na koniec miesiąca. Liczone jest to, o co pyta ta integracja; klucz używany także gdzie indziej ma w TomTom więcej.",
                         "data": {
                             "quota_warning": "Ostrzegaj, gdy zapytania miesiąca się kończą lub nie wystarczą",
-                            "quota_threshold": "Ostrzegaj od tego udziału zapytań miesiąca"
+                            "quota_threshold": "Ostrzegaj od tego udziału zapytań miesiąca",
+                            "incident_day_limit": "Maksymalna liczba zapytań Incident Details dziennie (0 = bez limitu)"
                         },
                         "data_description": {
-                            "quota_threshold": "Pierwsze ostrzeżenie przychodzi, gdy prognoza osiągnie ten udział; drugie, gdy osiągnie 100 %."
+                            "quota_threshold": "Pierwsze ostrzeżenie przychodzi, gdy prognoza osiągnie ten udział; drugie, gdy osiągnie 100 %.",
+                            "incident_day_limit": "Wszystkie wpisy razem, liczone od północy do północy UTC. Po osiągnięciu dziennego limitu do następnego dnia kolejne zapytania nie są wysyłane: obszary i lokalizatory nie pokazują w tym czasie zgłoszeń TomTom, a nowe zgłoszenia trasy przychodzą bez szczegółów. Przy 80 dziennie 2 500 darmowych zapytań wystarcza na cały miesiąc."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Twoja trasa, teraz",
-                "description": "{start} → {destination}, {vias} punktów pośrednich: {distance}, obecnie około {duration} min, z czego {delay} min opóźnienia. Trasa jest wyliczana na nowo przy każdym pobraniu; mapa pokazuje tę, którą ruch czyni w tej chwili najszybszą. W swoich godzinach każde pobranie to jedno zapytanie Routing, z 20 000 darmowych miesięcznie; zgłoszenia na trasie przychodzą razem z nim, a Incident Details jest pytane raz na każde nowe zgłoszenie o resztę tego, co jest do poznania.",
+                "description": "{start} → {destination}, {vias} punktów pośrednich: {distance}, obecnie około {duration} min, z czego {delay} min opóźnienia. Trasa jest wyliczana na nowo przy każdym pobraniu; mapa pokazuje tę, którą ruch czyni w tej chwili najszybszą. W swoich godzinach każde pobranie to jedno zapytanie Routing, z 20 000 darmowych miesięcznie; zgłoszenia na trasie przychodzą razem z nim, a dla nowych Incident Details jest pytane o resztę tego, co jest do poznania - pięć zgłoszeń na jedno zapytanie.",
                 "data": {
                     "live_days": "Dni, w które trasa jest aktualizowana",
                     "live_from": "Od",
                     "live_until": "Do",
+                    "details": "Pobieraj szczegóły zgłoszeń",
+                    "details_interval": "Minuty między pobraniami szczegółów (puste = przy każdym pobraniu)",
                     "categories": "Zgłoszenia"
+                },
+                "data_description": {
+                    "details": "Trasa podaje, przez co przebiega - rodzaj, miejsce i opóźnienie. Gdy opcja jest włączona, o resztę nowego zgłoszenia pytane jest Incident Details: cały odcinek, jego początek i koniec, numery dróg, treść od TomTom i czasy - jedno zapytanie na pięć nowych zgłoszeń, z 2 500 darmowych miesięcznie. Sprawdzane są tylko zgłoszenia, które ten wpis pokazuje. Gdy jest wyłączona, trasa nie kosztuje ani jednego zapytania Incident Details.",
+                    "details_interval": "Jak często pobierane są szczegóły, niezależnie od tego, jak często pobierana jest sama trasa. Przy 30 nowe zgłoszenie pojawia się od razu tak, jak podaje je trasa, a jego szczegóły docierają w ciągu pół godziny - kilka zgłoszeń w jednym zapytaniu i żadnego dla korka, który w międzyczasie zniknął."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -967,7 +987,7 @@
         },
         "quota_at_risk": {
             "title": "Zapytania {api} w tym miesiącu się kończą",
-            "description": "{used} z {tier} bezpłatnych zapytań **{api}** po {days} dniach; w tym tempie około **{projected}** do końca miesiąca, {percent} % limitu lub więcej.\n\nPomaga mniej odpytywań: dłuższy interwał aktualizacji, węższe godziny na trasie, ruch drogowy na mniejszej liczbie kart.\n\nZnika, gdy tempo spadnie poniżej udziału ustawionego w Ustawienia TomTom → Konfiguruj → Ostrzeżenie o limicie → TomTom, i z nowym miesiącem. Jeśli tempo osiągnie cały limit, następuje drugie ostrzeżenie."
+            "description": "{used} z {tier} bezpłatnych zapytań **{api}** po {days} dniach; w tym tempie około **{projected}** do końca miesiąca, {percent} % limitu lub więcej.\n\nPomaga mniej odpytywań: dłuższy interwał aktualizacji, węższe godziny na trasie, ruch drogowy na mniejszej liczbie kart.\n\nZnika, gdy tempo spadnie poniżej udziału ustawionego w TomTom Ustawienia → Konfiguruj → Ostrzeżenie o limicie → TomTom, i z nowym miesiącem. Jeśli tempo osiągnie cały limit, następuje drugie ostrzeżenie."
         },
         "quota_over": {
             "title": "Limit {api} nie wystarczy na miesiąc",
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "Dzienne zapytania {api} są wyczerpane",
             "description": "Zużyto wszystkie {tier} dziennych zapytań planu **{api}** - Lufop liczy wszystko, co używa tego samego klucza. Kolejne zapytania odrzuca do północy UTC - tutaj {reset}.\n\nJutro pomoże mniej pobrań: dłuższy interwał aktualizacji, węższe godziny trasy lub Lufop wyłączony dla wpisów poza jego krajem."
+        },
+        "quota_used_up": {
+            "title": "TomTom nie ma już wolnych zapytań {api}",
+            "description": "TomTom odrzuca kolejne zapytania **{api}**: klucz nie ma już żadnych - TomTom nazywa to *insufficient funds*. Sam klucz jest w porządku, a każde inne API odpowiada dalej. TomTom liczy wszystko, co używa klucza; ta instalacja wysłała w tym miesiącu {used} z {tier} darmowych zapytań.\n\nBez Incident Details obszar ani lokalizator nie pokazuje zgłoszeń TomTom, a nowe zgłoszenia trasy przychodzą tak, jak podaje je sama trasa: rodzaj, miejsce i opóźnienie, bez całego odcinka, jego początku i końca, numerów dróg, treści od TomTom i czasów. Nie dotyczy to tras, czasów przejazdu, natężenia ruchu ani fotoradarów z dalszych źródeł. Bez Routing trasy nie da się wyliczyć, a jej wpis przestaje działać.\n\nPonowna próba następuje z kolejnym zapytaniem do tego API, nie wcześniej niż godzinę po ostatniej odmowie, a ta naprawa znika z pierwszą odpowiedzią."
+        },
+        "incident_day_limit": {
+            "title": "Dzienne zapytania Incident Details są wyczerpane",
+            "description": "Dzisiaj wysłano {used} zapytań Incident Details, a limit ustawiony w TomTom Ustawienia → Konfiguruj → Ostrzeżenie o limicie → TomTom wynosi {limit}. Do północy UTC - tutaj {reset} - kolejne nie są wysyłane.\n\nDo tego czasu obszar ani lokalizator nie pokazuje zgłoszeń TomTom, a nowe zgłoszenia trasy przychodzą tak, jak podaje je sama trasa: rodzaj, miejsce i opóźnienie, bez szczegółów. Nie dotyczy to tras, czasów przejazdu, natężenia ruchu ani fotoradarów z dalszych źródeł.\n\nPomaga mniej zapytań: dłuższy interwał aktualizacji, rzadsze pobieranie szczegółów trasy lub rezygnacja z niego, albo wyższy limit - przy 80 dziennie 2 500 darmowych zapytań wystarcza na cały miesiąc."
         }
     }
 }

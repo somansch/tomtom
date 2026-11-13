@@ -171,10 +171,14 @@
                     "live_until": "Do",
                     "live_back_from": "Od (cesta späť)",
                     "live_back_until": "Do (cesta späť)",
+                    "details": "Načítať podrobnosti hlásení",
+                    "details_interval": "Minúty medzi načítaniami podrobností (prázdne = pri každom dopyte)",
                     "categories": "Hlásenia"
                 },
                 "data_description": {
-                    "return_route": "Druhý záznam, z cieľa na štart - na diaľnici je cesta späť druhá vozovka a zápcha na jednej nie je zápchou na druhej. Pomenovaný podľa tohto záznamu s pridaným „späť“."
+                    "return_route": "Druhý záznam, z cieľa na štart - na diaľnici je cesta späť druhá vozovka a zápcha na jednej nie je zápchou na druhej. Pomenovaný podľa tohto záznamu s pridaným „späť“.",
+                    "details": "Trasa uvádza, cez čo vedie - druh, miesto a zdržanie. Keď je voľba zapnutá, zvyšok nového hlásenia sa načíta z Incident Details: celý úsek, kde sa začína a končí, čísla ciest, znenie od TomTom a časy - jedna požiadavka na päť nových hlásení, z 2 500 bezplatných mesačne. Načítavajú sa len hlásenia, ktoré tento záznam aj zobrazuje. Keď je vypnutá, trasa nestojí ani jednu požiadavku Incident Details.",
+                    "details_interval": "Ako často sa načítavajú podrobnosti, nezávisle od toho, ako často prebieha dopyt na samotnú trasu. Pri 30 sa nové hlásenie zobrazí hneď tak, ako ho uvádza trasa, a jeho podrobnosti nasledujú do pol hodiny - viacero hlásení v jednej požiadavke a žiadna pre kolónu, ktorá medzitým zase zmizla."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Vaša trasa práve teraz",
-                "description": "{start} → {destination}, {vias} prejazdových bodov: {distance}, práve teraz približne {duration} min, z toho {delay} min zdržanie. Trasa sa prepočíta pri každom dopyte; mapa zobrazuje tú, ktorú premávka práve robí najrýchlejšou. Vo svojich hodinách je každý dopyt jedna požiadavka Routing, z 20 000 bezplatných mesačne; hlásenia na trase prichádzajú s ňou a Incident Details sa pýta raz na každé nové hlásenie na zvyšok toho, čo sa dá zistiť.",
+                "description": "{start} → {destination}, {vias} prejazdových bodov: {distance}, práve teraz približne {duration} min, z toho {delay} min zdržanie. Trasa sa prepočíta pri každom dopyte; mapa zobrazuje tú, ktorú premávka práve robí najrýchlejšou. Vo svojich hodinách je každý dopyt jedna požiadavka Routing, z 20 000 bezplatných mesačne; hlásenia na trase prichádzajú s ňou a pri nových sa zvyšok toho, čo sa dá zistiť, načíta z Incident Details - päť hlásení na jednu požiadavku.",
                 "data": {
                     "return_route": "Vytvoriť aj cestu späť",
                     "return_name": "Názov cesty späť",
@@ -449,11 +453,15 @@
                     "live_until": "Do",
                     "live_back_from": "Od (cesta späť)",
                     "live_back_until": "Do (cesta späť)",
+                    "details": "Načítať podrobnosti hlásení",
+                    "details_interval": "Minúty medzi načítaniami podrobností (prázdne = pri každom dopyte)",
                     "categories": "Hlásenia"
                 },
                 "data_description": {
                     "return_route": "Druhý záznam, z cieľa na štart - na diaľnici je cesta späť druhá vozovka a zápcha na jednej nie je zápchou na druhej. Pomenovaný podľa tohto záznamu s pridaným „späť“.",
-                    "return_name": "Použije sa len pri vytvorení cesty späť. Predvyplnené názvom tohto záznamu s pridaným „späť“; napíšte iný, ak ho chcete nazvať inak - napríklad „Domov“ a „Práca“."
+                    "return_name": "Použije sa len pri vytvorení cesty späť. Predvyplnené názvom tohto záznamu s pridaným „späť“; napíšte iný, ak ho chcete nazvať inak - napríklad „Domov“ a „Práca“.",
+                    "details": "Trasa uvádza, cez čo vedie - druh, miesto a zdržanie. Keď je voľba zapnutá, zvyšok nového hlásenia sa načíta z Incident Details: celý úsek, kde sa začína a končí, čísla ciest, znenie od TomTom a časy - jedna požiadavka na päť nových hlásení, z 2 500 bezplatných mesačne. Načítavajú sa len hlásenia, ktoré tento záznam aj zobrazuje. Keď je vypnutá, trasa nestojí ani jednu požiadavku Incident Details.",
+                    "details_interval": "Ako často sa načítavajú podrobnosti, nezávisle od toho, ako často prebieha dopyt na samotnú trasu. Pri 30 sa nové hlásenie zobrazí hneď tak, ako ho uvádza trasa, a jeho podrobnosti nasledujú do pol hodiny - viacero hlásení v jednej požiadavke a žiadna pre kolónu, ktorá medzitým zase zmizla."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Do",
                     "live_back_from": "Od (cesta späť)",
                     "live_back_until": "Do (cesta späť)",
+                    "details": "Načítať podrobnosti hlásení",
+                    "details_interval": "Minúty medzi načítaniami podrobností (prázdne = pri každom dopyte)",
                     "categories": "Hlásenia"
                 },
                 "data_description": {
-                    "return_route": "Druhý záznam, z cieľa na štart - na diaľnici je cesta späť druhá vozovka a zápcha na jednej nie je zápchou na druhej. Pomenovaný podľa tohto záznamu s pridaným „späť“."
+                    "return_route": "Druhý záznam, z cieľa na štart - na diaľnici je cesta späť druhá vozovka a zápcha na jednej nie je zápchou na druhej. Pomenovaný podľa tohto záznamu s pridaným „späť“.",
+                    "details": "Trasa uvádza, cez čo vedie - druh, miesto a zdržanie. Keď je voľba zapnutá, zvyšok nového hlásenia sa načíta z Incident Details: celý úsek, kde sa začína a končí, čísla ciest, znenie od TomTom a časy - jedna požiadavka na päť nových hlásení, z 2 500 bezplatných mesačne. Načítavajú sa len hlásenia, ktoré tento záznam aj zobrazuje. Keď je vypnutá, trasa nestojí ani jednu požiadavku Incident Details.",
+                    "details_interval": "Ako často sa načítavajú podrobnosti, nezávisle od toho, ako často prebieha dopyt na samotnú trasu. Pri 30 sa nové hlásenie zobrazí hneď tak, ako ho uvádza trasa, a jeho podrobnosti nasledujú do pol hodiny - viacero hlásení v jednej požiadavke a žiadna pre kolónu, ktorá medzitým zase zmizla."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "Od ôsmeho dňa mesiaca sa doterajšie požiadavky premietnu na koniec mesiaca. Počíta sa to, na čo sa pýta táto integrácia; kľúč používaný aj inde je u TomTom vyššie.",
                         "data": {
                             "quota_warning": "Varovať, keď mesačné požiadavky dochádzajú alebo nevystačia",
-                            "quota_threshold": "Varovať od tohto podielu mesačných požiadaviek"
+                            "quota_threshold": "Varovať od tohto podielu mesačných požiadaviek",
+                            "incident_day_limit": "Najvyšší počet požiadaviek Incident Details za deň (0 = bez limitu)"
                         },
                         "data_description": {
-                            "quota_threshold": "Prvé varovanie príde, keď odhad dosiahne tento podiel; druhé, keď dosiahne 100 %."
+                            "quota_threshold": "Prvé varovanie príde, keď odhad dosiahne tento podiel; druhé, keď dosiahne 100 %.",
+                            "incident_day_limit": "Všetky záznamy spolu, počítané od polnoci do polnoci UTC. Len čo sa dosiahne denný limit, do ďalšieho dňa sa už žiadne neposielajú: oblasti a sledovače zatiaľ neukazujú žiadne hlásenia TomTom a nové hlásenia trasy prichádzajú bez podrobností. Pri 80 denne vystačí 2 500 bezplatných požiadaviek na celý mesiac."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Vaša trasa práve teraz",
-                "description": "{start} → {destination}, {vias} prejazdových bodov: {distance}, práve teraz približne {duration} min, z toho {delay} min zdržanie. Trasa sa prepočíta pri každom dopyte; mapa zobrazuje tú, ktorú premávka práve robí najrýchlejšou. Vo svojich hodinách je každý dopyt jedna požiadavka Routing, z 20 000 bezplatných mesačne; hlásenia na trase prichádzajú s ňou a Incident Details sa pýta raz na každé nové hlásenie na zvyšok toho, čo sa dá zistiť.",
+                "description": "{start} → {destination}, {vias} prejazdových bodov: {distance}, práve teraz približne {duration} min, z toho {delay} min zdržanie. Trasa sa prepočíta pri každom dopyte; mapa zobrazuje tú, ktorú premávka práve robí najrýchlejšou. Vo svojich hodinách je každý dopyt jedna požiadavka Routing, z 20 000 bezplatných mesačne; hlásenia na trase prichádzajú s ňou a pri nových sa zvyšok toho, čo sa dá zistiť, načíta z Incident Details - päť hlásení na jednu požiadavku.",
                 "data": {
                     "live_days": "Dni, v ktorých sa trasa udržiava aktuálna",
                     "live_from": "Od",
                     "live_until": "Do",
+                    "details": "Načítať podrobnosti hlásení",
+                    "details_interval": "Minúty medzi načítaniami podrobností (prázdne = pri každom dopyte)",
                     "categories": "Hlásenia"
+                },
+                "data_description": {
+                    "details": "Trasa uvádza, cez čo vedie - druh, miesto a zdržanie. Keď je voľba zapnutá, zvyšok nového hlásenia sa načíta z Incident Details: celý úsek, kde sa začína a končí, čísla ciest, znenie od TomTom a časy - jedna požiadavka na päť nových hlásení, z 2 500 bezplatných mesačne. Načítavajú sa len hlásenia, ktoré tento záznam aj zobrazuje. Keď je vypnutá, trasa nestojí ani jednu požiadavku Incident Details.",
+                    "details_interval": "Ako často sa načítavajú podrobnosti, nezávisle od toho, ako často prebieha dopyt na samotnú trasu. Pri 30 sa nové hlásenie zobrazí hneď tak, ako ho uvádza trasa, a jeho podrobnosti nasledujú do pol hodiny - viacero hlásení v jednej požiadavke a žiadna pre kolónu, ktorá medzitým zase zmizla."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -967,7 +987,7 @@
         },
         "quota_at_risk": {
             "title": "Mesačné požiadavky {api} dochádzajú",
-            "description": "{used} z {tier} bezplatných požiadaviek **{api}** po {days} dňoch; týmto tempom asi **{projected}** do konca mesiaca, {percent} % kvóty alebo viac.\n\nPomôže menej dopytov: dlhší interval aktualizácie, užšie hodiny na trase, premávka na menej kartách.\n\nZmizne, len čo tempo klesne pod podiel nastavený v Nastavenia TomTom → Konfigurovať → Varovanie o kvóte → TomTom, a s novým mesiacom. Ak tempo dosiahne celú kvótu, nasleduje druhé varovanie."
+            "description": "{used} z {tier} bezplatných požiadaviek **{api}** po {days} dňoch; týmto tempom asi **{projected}** do konca mesiaca, {percent} % kvóty alebo viac.\n\nPomôže menej dopytov: dlhší interval aktualizácie, užšie hodiny na trase, premávka na menej kartách.\n\nZmizne, len čo tempo klesne pod podiel nastavený v TomTom Nastavenia → Konfigurovať → Upozornenie na kvótu → TomTom, a s novým mesiacom. Ak tempo dosiahne celú kvótu, nasleduje druhé varovanie."
         },
         "quota_over": {
             "title": "Kvóta {api} na mesiac nevystačí",
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "Denné požiadavky {api} sú vyčerpané",
             "description": "Všetkých {tier} denných požiadaviek plánu **{api}** je spotrebovaných - Lufop počíta všetko, čo používa ten istý kľúč. Ďalšie požiadavky odmieta do polnoci UTC - tu {reset}.\n\nZajtra pomôže menej dopytov: dlhší interval aktualizácie, užšie hodiny pri trase alebo Lufop vypnutý pre záznamy mimo jeho krajiny."
+        },
+        "quota_used_up": {
+            "title": "TomTom už nemá voľné žiadne požiadavky {api}",
+            "description": "TomTom odmieta ďalšie požiadavky **{api}**: kľúču už žiadne nezostávajú - TomTom to nazýva *insufficient funds*. Samotný kľúč je v poriadku a každé iné API odpovedá ďalej. TomTom počíta všetko, čo kľúč používa; táto inštalácia tento mesiac odoslala {used} z {tier} bezplatných požiadaviek.\n\nBez Incident Details neukazuje oblasť ani sledovač žiadne hlásenia TomTom a nové hlásenia trasy prichádzajú tak, ako ich uvádza samotná trasa: druh, miesto a zdržanie, bez celého úseku, jeho začiatku a konca, čísel ciest, znenia od TomTom a časov. Trasy, časy jazdy, plynulosť premávky a radary z ďalších zdrojov tým nie sú dotknuté. Bez Routing sa trasa nedá vypočítať a jej záznam zlyhá.\n\nZnova sa to skúsi s ďalšou požiadavkou na toto API, najskôr hodinu po poslednom odmietnutí, a táto oprava zmizne s prvou odpoveďou."
+        },
+        "incident_day_limit": {
+            "title": "Denné požiadavky Incident Details sú vyčerpané",
+            "description": "Dnes odišlo {used} požiadaviek Incident Details a limit nastavený v TomTom Nastavenia → Konfigurovať → Upozornenie na kvótu → TomTom je {limit}. Do polnoci UTC - tu {reset} - sa už žiadne neposielajú.\n\nDovtedy neukazuje oblasť ani sledovač žiadne hlásenia TomTom a nové hlásenia trasy prichádzajú tak, ako ich uvádza samotná trasa: druh, miesto a zdržanie, bez podrobností. Trasy, časy jazdy, plynulosť premávky a radary z ďalších zdrojov tým nie sú dotknuté.\n\nPomôže menej požiadaviek: dlhší interval aktualizácie, podrobnosti trasy načítavané menej často alebo vôbec, alebo vyšší limit - pri 80 denne vystačí 2 500 bezplatných požiadaviek na celý mesiac."
         }
     }
 }

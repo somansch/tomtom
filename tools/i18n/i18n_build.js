@@ -37,6 +37,14 @@ for (const file of fs.readdirSync(path.join(i18n, "out")).sort()) {
     labels: JSON.parse(fs.readFileSync(path.join(i18n, "out", `${code}.labels.json`), "utf8")),
   };
 }
+// All or nothing. What follows deletes every card language file and writes
+// the label tables anew for the languages in hand - a language left out for
+// failing its check would lose its card file and its labels while keeping a
+// stale translations/<code>.json. Nothing is written until every one passes.
+if (skipped.length) {
+  console.error(`NOT BUILT - these languages fail i18n_check.js: ${skipped.join(", ")}`);
+  process.exit(1);
+}
 const codes = Object.keys(tables);
 
 // --- translations/<code>.json ------------------------------------------------

@@ -188,7 +188,15 @@ class TomTomRateError(TomTomError):
 
 
 class TomTomQuotaError(TomTomError):
-    """The key's quota is used up for now."""
+    """The key has no requests left for one API - TomTom's "insufficient
+    funds". Nothing is wrong with the key, and its other APIs go on
+    answering: the free requests are counted per API."""
+
+
+class TomTomBudgetError(TomTomQuotaError):
+    """This installation's own limit for the day is reached (see
+    CONF_INCIDENT_DAY_LIMIT) - nothing was sent. Handled as a used-up quota
+    is: an entry goes on with what it still gets."""
 
 
 class TomTomAddressNotFound(TomTomError):
@@ -247,6 +255,12 @@ async def async_load_key(hass: HomeAssistant) -> str | None:
 
 async def async_save_key(hass: HomeAssistant, api_key: str) -> None:
     await _key_store(hass).async_save({"api_key": api_key})
+    # Another key is another account's requests: what TomTom said about the
+    # old one's says nothing about this one, and holding its APIs back for
+    # the rest of the hour would keep a fresh key from being tried at all.
+    usage = hass.data.get(_USAGE_DATA_KEY)
+    if usage is not None:
+        usage.forget_used_up()
 
 
 async def async_forget_key(hass: HomeAssistant) -> None:
@@ -291,6 +305,14 @@ class TomTomUsage:
         self.day = ""
         self.day_entries: dict[str, dict[str, int]] = {}
         self.previous_day: dict = {"day": "", "entries": {}}
+        # API -> when TomTom itself last said the key has no requests left
+        # for it (see QUOTA_ERROR_CODE). TomTom's word, not this count's: a
+        # key used elsewhere runs out while the count here is still short of
+        # the tier. Not kept across a restart - the first request finds out.
+        self.used_up: dict[str, object] = {}
+        # API -> the most requests a day this installation sends it, set by
+        # the quota watch from TomTom Settings (see CONF_INCIDENT_DAY_LIMIT).
+        self.day_limits: dict[str, int] = {}
 
     async def async_load(self) -> None:
         async with self._lock:
@@ -336,6 +358,8 @@ class TomTomUsage:
                 self.previous = {"month": self.month, "entries": self.entries}
             self.month = month
             self.entries = {}
+            # A new month, new free requests: ask again at once.
+            self.used_up = {}
             changed = True
         day = dt_util.utcnow().strftime("%Y-%m-%d")
         if day != self.day:
@@ -370,6 +394,55 @@ class TomTomUsage:
         today[product] = today.get(product, 0) + 1
         self._save()
         async_dispatcher_send(self._hass, SIGNAL_USAGE)
+
+    @callback
+    def mark_used_up(self, product: str) -> None:
+        """TomTom said the key has no requests left for this API."""
+        news = product not in self.used_up
+        self.used_up[product] = dt_util.utcnow()
+        if news:
+            _LOGGER.warning("%s - asked again in an hour", _quota_message(product))
+            async_dispatcher_send(self._hass, SIGNAL_USAGE)
+
+    @callback
+    def mark_answering(self, product: str) -> None:
+        """TomTom answered a request to this API."""
+        if self.used_up.pop(product, None) is not None:
+            _LOGGER.info("TomTom answers %s requests again", PRODUCT_LABELS.get(product, product))
+            async_dispatcher_send(self._hass, SIGNAL_USAGE)
+
+    def over_day_limit(self, product: str) -> int:
+        """The day's limit for this API if it is reached, else 0."""
+        limit = int(self.day_limits.get(product) or 0)
+        if limit <= 0:
+            return 0
+        self._roll()
+        return limit if self._sum(self.day_entries, None).get(product, 0) >= limit else 0
+
+    @callback
+    def forget_used_up(self) -> None:
+        """Start over: nothing is known about what the key has left."""
+        if self.used_up:
+            self.used_up = {}
+            async_dispatcher_send(self._hass, SIGNAL_USAGE)
+
+    def paused(self, product: str) -> bool:
+        """Whether this API is being left alone for now (see QUOTA_RETRY) -
+        a little short of the hour, so that an entry polling hourly does
+        not miss it by the seconds its last answer took and wait for two."""
+        since = self.used_up.get(product)
+        return since is not None and dt_util.utcnow() - since < QUOTA_RETRY - QUOTA_RETRY_TOLERANCE
+
+    def claim_probe(self, product: str) -> bool:
+        """Whether the request about to go out is the probe after a pause.
+
+        It is the only one: the pause starts anew with it, so whatever else
+        sets off beside it - every entry at once, a map's tiles - still
+        finds the API paused, until the probe's answer says otherwise."""
+        if product not in self.used_up or self.paused(product):
+            return False
+        self.used_up[product] = dt_util.utcnow()
+        return True
 
     @staticmethod
     def _sum(entries: dict[str, dict[str, int]], entry_id: str | None) -> dict[str, int]:
@@ -461,6 +534,24 @@ async def async_get_usage(hass: HomeAssistant) -> TomTomUsage:
 
 # ------------------------------------------------------------------ client
 
+# What TomTom answers, with a 403, when the key has no requests left for the
+# API asked: {"detailedError": {"code": "InsufficientFunds", ...}}. The same
+# status as a key it does not accept, and nothing like it - the key is fine,
+# and every other API still answers.
+QUOTA_ERROR_CODE = "InsufficientFunds"
+
+# How long an API TomTom said is used up is left alone before it is asked
+# again. Every entry shares the answer, so this is one request an hour for
+# all of them together - enough to notice the day it answers again, without
+# knocking on a closed door with every poll.
+QUOTA_RETRY = timedelta(hours=1)
+QUOTA_RETRY_TOLERANCE = timedelta(seconds=90)
+
+
+def _quota_message(product: str) -> str:
+    return f"TomTom has no free {PRODUCT_LABELS.get(product, product)} requests left for this key"
+
+
 def _error_code(body) -> str:
     """The service's error code, whichever shape the answer came in:
     {"detailedError": {"code": ...}} from routing, {"error": ...} elsewhere."""
@@ -500,18 +591,26 @@ class _RateGate:
 
     async def __aenter__(self) -> None:
         await self._in_flight.acquire()
-        # One at a time through the clock, so two waiters cannot both see
-        # the same free slot.
-        async with self._turn:
-            now = monotonic()
-            while self._starts and now - self._starts[0] >= 1.0:
-                self._starts.popleft()
-            if len(self._starts) >= RATE_LIMIT_PER_SECOND:
-                await asyncio.sleep(1.0 - (now - self._starts[0]) + 0.02)
+        try:
+            # One at a time through the clock, so two waiters cannot both
+            # see the same free slot.
+            async with self._turn:
                 now = monotonic()
                 while self._starts and now - self._starts[0] >= 1.0:
                     self._starts.popleft()
-            self._starts.append(now)
+                if len(self._starts) >= RATE_LIMIT_PER_SECOND:
+                    await asyncio.sleep(1.0 - (now - self._starts[0]) + 0.02)
+                    now = monotonic()
+                    while self._starts and now - self._starts[0] >= 1.0:
+                        self._starts.popleft()
+                self._starts.append(now)
+        except BaseException:
+            # Cancelled while waiting for its turn - an entry reloaded in
+            # mid-poll. Nothing was entered, so nothing will leave: the slot
+            # goes back here, or it is gone for as long as Home Assistant
+            # runs, and after four of them no request gets through at all.
+            self._in_flight.release()
+            raise
 
     async def __aexit__(self, *exc) -> None:
         self._in_flight.release()
@@ -549,12 +648,26 @@ class TomTomClient:
         if not self._key:
             raise TomTomAuthError("no TomTom API key")
         usage = await async_get_usage(self._hass)
+        # An API TomTom said is used up is not asked again for a while.
+        if usage.paused(product):
+            raise TomTomQuotaError(_quota_message(product))
+        # Nor one that has had its share of the day.
+        if limit := usage.over_day_limit(product):
+            raise TomTomBudgetError(
+                f"the day's limit of {limit} {PRODUCT_LABELS.get(product, product)} requests is reached"
+            )
+        probe = usage.claim_probe(product)
         gate = _rate_gate(self._hass)
         # A 429 is TomTom's "not so fast": one more try after the pause it
         # asks for, since the gate above makes a second one unlikely.
         for attempt in (1, 2):
             try:
                 async with gate:
+                    # Asked again here: at a start every entry sets off at
+                    # once, and the ones waiting at the gate passed the check
+                    # above before the first of them had its answer.
+                    if not probe and usage.paused(product):
+                        raise TomTomQuotaError(_quota_message(product))
                     async with self._session.get(
                         url, params={"key": self._key, **params}, timeout=30
                     ) as response:
@@ -562,6 +675,7 @@ class TomTomClient:
                         usage.count(entry_id or self._entry_id, product)
                         status = response.status
                         if binary and status < 400:
+                            usage.mark_answering(product)
                             return await response.read()
                         retry_after = response.headers.get("Retry-After")
                         try:
@@ -578,12 +692,17 @@ class TomTomClient:
                 await asyncio.sleep(pause)
 
         if status < 400:
+            usage.mark_answering(product)
             return body
+        code = _error_code(body)
+        if status == 403 and code == QUOTA_ERROR_CODE:
+            # Not the key: the requests it has for this one API.
+            usage.mark_used_up(product)
+            raise TomTomQuotaError(_quota_message(product))
         if status in (401, 403):
-            raise TomTomAuthError("TomTom refused the API key")
+            raise TomTomAuthError("TomTom refused the API key" + (f" ({code})" if code else ""))
         if status == 429:
             raise TomTomRateError("TomTom refuses more requests right now: over its limit of requests a second")
-        code = _error_code(body)
         if code in _ROUTING_ERRORS:
             raise _ERROR_CLASSES[_ROUTING_ERRORS[code]](f"TomTom: {code}")
         if status == 400:
@@ -1139,6 +1258,13 @@ class DetailsCache:
         item = self.items.setdefault(tail, {})
         if not item.get("first_seen"):
             item["first_seen"] = now_iso
+            # Kept at once. It used to ride along with the lookup every
+            # report got on its first poll; a report that is not looked up -
+            # the details switched off, or refused for want of requests -
+            # has no such ride, and after a restart it was "first seen" at
+            # that restart: new again, however old.
+            self._prune(now_iso)
+            self._save()
         item["seen"] = now_iso
         return item["first_seen"]
 

@@ -26,7 +26,14 @@ from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant
 
-from .api import FlowTileCache, TomTomAuthError, TomTomClient, TomTomError, async_load_key
+from .api import (
+    FlowTileCache,
+    TomTomAuthError,
+    TomTomClient,
+    TomTomError,
+    TomTomQuotaError,
+    async_load_key,
+)
 from .const import DOMAIN, FLOW_STYLES, FLOW_TILE_URL_BASE
 
 _LOGGER = logging.getLogger(__name__)
@@ -85,6 +92,8 @@ class FlowTileView(HomeAssistantView):
             data = await cache.async_get(client, style, zoom, col, row, entry_id)
         except TomTomAuthError:
             return web.Response(status=502, text="TomTom refused the key")
+        except TomTomQuotaError:
+            return web.Response(status=502, text="TomTom's quota for the traffic flow is used up")
         except TomTomError as err:
             _LOGGER.debug("flow tile %s/%s/%s: %s", zoom, col, row, err)
             return web.Response(status=502, text="TomTom did not answer")

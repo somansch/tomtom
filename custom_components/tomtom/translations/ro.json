@@ -171,10 +171,14 @@
                     "live_until": "Până la",
                     "live_back_from": "De la (întoarcere)",
                     "live_back_until": "Până la (întoarcere)",
+                    "details": "Preia detaliile rapoartelor",
+                    "details_interval": "Minute între cererile de detalii (gol = la fiecare interogare)",
                     "categories": "Rapoarte"
                 },
                 "data_description": {
-                    "return_route": "O a doua intrare, de la destinație la start - pe autostradă drumul de întoarcere este celălalt sens, iar un ambuteiaj pe unul nu este unul pe celălalt. Numită după această intrare, cu „retur” adăugat."
+                    "return_route": "O a doua intrare, de la destinație la start - pe autostradă drumul de întoarcere este celălalt sens, iar un ambuteiaj pe unul nu este unul pe celălalt. Numită după această intrare, cu „retur” adăugat.",
+                    "details": "O rută numește ce traversează - tip, loc și întârziere. Pornit, Incident Details este întrebat despre restul unui raport nou: toată porțiunea, unde începe și unde se termină, numerele de drum, formularea TomTom și orele - o cerere la cinci rapoarte noi, din 2.500 gratuite pe lună. Sunt cerute doar detaliile rapoartelor pe care le afișează această intrare. Oprit, ruta nu costă nicio cerere Incident Details.",
+                    "details_interval": "Cât de des sunt cerute detaliile, independent de cât de des este interogată ruta însăși. Cu 30, un raport nou apare imediat așa cum îl dă ruta, iar detaliile lui urmează în cel mult o jumătate de oră - mai multe rapoarte într-o singură cerere, și niciuna pentru un ambuteiaj care între timp a dispărut."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Ruta ta, în acest moment",
-                "description": "{start} → {destination}, {vias} puncte intermediare: {distance}, aproximativ {duration} min în acest moment, din care {delay} min întârziere. Ruta este calculată din nou la fiecare interogare; harta arată varianta pe care traficul o face cea mai rapidă în acest moment. În orele ei, fiecare interogare este o cerere Routing, din 20.000 gratuite pe lună; rapoartele de pe rută vin odată cu ea, iar Incident Details este întrebat o dată pentru fiecare raport nou pentru restul a ce este de aflat.",
+                "description": "{start} → {destination}, {vias} puncte intermediare: {distance}, aproximativ {duration} min în acest moment, din care {delay} min întârziere. Ruta este calculată din nou la fiecare interogare; harta arată varianta pe care traficul o face cea mai rapidă în acest moment. În orele ei, fiecare interogare este o cerere Routing, din 20.000 gratuite pe lună; rapoartele de pe rută vin odată cu ea, iar pentru cele noi Incident Details este întrebat despre restul a ce este de aflat - cinci rapoarte la o cerere.",
                 "data": {
                     "return_route": "Creează și drumul de întoarcere",
                     "return_name": "Numele drumului de întoarcere",
@@ -449,11 +453,15 @@
                     "live_until": "Până la",
                     "live_back_from": "De la (întoarcere)",
                     "live_back_until": "Până la (întoarcere)",
+                    "details": "Preia detaliile rapoartelor",
+                    "details_interval": "Minute între cererile de detalii (gol = la fiecare interogare)",
                     "categories": "Rapoarte"
                 },
                 "data_description": {
                     "return_route": "O a doua intrare, de la destinație la start - pe autostradă drumul de întoarcere este celălalt sens, iar un ambuteiaj pe unul nu este unul pe celălalt. Numită după această intrare, cu „retur” adăugat.",
-                    "return_name": "Folosit doar când este creat drumul de întoarcere. Completat cu numele acestei intrări și „retur” adăugat; scrie altceva pentru a-i da alt nume - „Acasă” și „Serviciu”, de exemplu."
+                    "return_name": "Folosit doar când este creat drumul de întoarcere. Completat cu numele acestei intrări și „retur” adăugat; scrie altceva pentru a-i da alt nume - „Acasă” și „Serviciu”, de exemplu.",
+                    "details": "O rută numește ce traversează - tip, loc și întârziere. Pornit, Incident Details este întrebat despre restul unui raport nou: toată porțiunea, unde începe și unde se termină, numerele de drum, formularea TomTom și orele - o cerere la cinci rapoarte noi, din 2.500 gratuite pe lună. Sunt cerute doar detaliile rapoartelor pe care le afișează această intrare. Oprit, ruta nu costă nicio cerere Incident Details.",
+                    "details_interval": "Cât de des sunt cerute detaliile, independent de cât de des este interogată ruta însăși. Cu 30, un raport nou apare imediat așa cum îl dă ruta, iar detaliile lui urmează în cel mult o jumătate de oră - mai multe rapoarte într-o singură cerere, și niciuna pentru un ambuteiaj care între timp a dispărut."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Până la",
                     "live_back_from": "De la (întoarcere)",
                     "live_back_until": "Până la (întoarcere)",
+                    "details": "Preia detaliile rapoartelor",
+                    "details_interval": "Minute între cererile de detalii (gol = la fiecare interogare)",
                     "categories": "Rapoarte"
                 },
                 "data_description": {
-                    "return_route": "O a doua intrare, de la destinație la start - pe autostradă drumul de întoarcere este celălalt sens, iar un ambuteiaj pe unul nu este unul pe celălalt. Numită după această intrare, cu „retur” adăugat."
+                    "return_route": "O a doua intrare, de la destinație la start - pe autostradă drumul de întoarcere este celălalt sens, iar un ambuteiaj pe unul nu este unul pe celălalt. Numită după această intrare, cu „retur” adăugat.",
+                    "details": "O rută numește ce traversează - tip, loc și întârziere. Pornit, Incident Details este întrebat despre restul unui raport nou: toată porțiunea, unde începe și unde se termină, numerele de drum, formularea TomTom și orele - o cerere la cinci rapoarte noi, din 2.500 gratuite pe lună. Sunt cerute doar detaliile rapoartelor pe care le afișează această intrare. Oprit, ruta nu costă nicio cerere Incident Details.",
+                    "details_interval": "Cât de des sunt cerute detaliile, independent de cât de des este interogată ruta însăși. Cu 30, un raport nou apare imediat așa cum îl dă ruta, iar detaliile lui urmează în cel mult o jumătate de oră - mai multe rapoarte într-o singură cerere, și niciuna pentru un ambuteiaj care între timp a dispărut."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "Din a opta zi a lunii, cererile de până atunci sunt proiectate până la sfârșitul lunii. Se numără ce cere această integrare; o cheie folosită și în altă parte are un număr mai mare la TomTom.",
                         "data": {
                             "quota_warning": "Avertizează când cererile lunii se împuținează sau nu vor ajunge",
-                            "quota_threshold": "Avertizează de la această parte a cererilor lunii"
+                            "quota_threshold": "Avertizează de la această parte a cererilor lunii",
+                            "incident_day_limit": "Cereri Incident Details pe zi, cel mult (0 = fără limită)"
                         },
                         "data_description": {
-                            "quota_threshold": "Prima avertizare vine când proiecția atinge această parte; a doua când atinge 100 %."
+                            "quota_threshold": "Prima avertizare vine când proiecția atinge această parte; a doua când atinge 100 %.",
+                            "incident_day_limit": "Toate intrările la un loc, numărate de la miezul nopții la miezul nopții UTC. Odată atinsă limita zilei, nu se mai trimite niciuna până a doua zi: între timp zonele și trackerele nu afișează rapoarte TomTom, iar rapoartele noi ale unei rute vin fără detaliile lor. Cu 80 pe zi, cele 2.500 de cereri gratuite ajung pentru toată luna."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Ruta ta, în acest moment",
-                "description": "{start} → {destination}, {vias} puncte intermediare: {distance}, aproximativ {duration} min în acest moment, din care {delay} min întârziere. Ruta este calculată din nou la fiecare interogare; harta arată varianta pe care traficul o face cea mai rapidă în acest moment. În orele ei, fiecare interogare este o cerere Routing, din 20.000 gratuite pe lună; rapoartele de pe rută vin odată cu ea, iar Incident Details este întrebat o dată pentru fiecare raport nou pentru restul a ce este de aflat.",
+                "description": "{start} → {destination}, {vias} puncte intermediare: {distance}, aproximativ {duration} min în acest moment, din care {delay} min întârziere. Ruta este calculată din nou la fiecare interogare; harta arată varianta pe care traficul o face cea mai rapidă în acest moment. În orele ei, fiecare interogare este o cerere Routing, din 20.000 gratuite pe lună; rapoartele de pe rută vin odată cu ea, iar pentru cele noi Incident Details este întrebat despre restul a ce este de aflat - cinci rapoarte la o cerere.",
                 "data": {
                     "live_days": "Zilele în care ruta este ținută la zi",
                     "live_from": "De la",
                     "live_until": "Până la",
+                    "details": "Preia detaliile rapoartelor",
+                    "details_interval": "Minute între cererile de detalii (gol = la fiecare interogare)",
                     "categories": "Rapoarte"
+                },
+                "data_description": {
+                    "details": "O rută numește ce traversează - tip, loc și întârziere. Pornit, Incident Details este întrebat despre restul unui raport nou: toată porțiunea, unde începe și unde se termină, numerele de drum, formularea TomTom și orele - o cerere la cinci rapoarte noi, din 2.500 gratuite pe lună. Sunt cerute doar detaliile rapoartelor pe care le afișează această intrare. Oprit, ruta nu costă nicio cerere Incident Details.",
+                    "details_interval": "Cât de des sunt cerute detaliile, independent de cât de des este interogată ruta însăși. Cu 30, un raport nou apare imediat așa cum îl dă ruta, iar detaliile lui urmează în cel mult o jumătate de oră - mai multe rapoarte într-o singură cerere, și niciuna pentru un ambuteiaj care între timp a dispărut."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -967,7 +987,7 @@
         },
         "quota_at_risk": {
             "title": "Cererile {api} ale lunii se împuținează",
-            "description": "{used} din {tier} cereri **{api}** gratuite după {days} zile; în acest ritm, circa **{projected}** până la sfârșitul lunii, {percent} % din cotă sau mai mult.\n\nMai puține interogări ajută: un interval de actualizare mai lung, ore mai strânse pe o rută, traficul pe mai puține carduri.\n\nDispare când ritmul scade sub partea setată în Setări TomTom → Configurare → Avertizare cotă → TomTom, și odată cu luna nouă. Dacă ritmul atinge toată cota, urmează a doua avertizare."
+            "description": "{used} din {tier} cereri **{api}** gratuite după {days} zile; în acest ritm, circa **{projected}** până la sfârșitul lunii, {percent} % din cotă sau mai mult.\n\nMai puține interogări ajută: un interval de actualizare mai lung, ore mai strânse pe o rută, traficul pe mai puține carduri.\n\nDispare când ritmul scade sub partea setată în TomTom Setări → Configurare → Avertizare de cotă → TomTom, și odată cu luna nouă. Dacă ritmul atinge toată cota, urmează a doua avertizare."
         },
         "quota_over": {
             "title": "Cota {api} nu va ajunge pentru lună",
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "Cererile {api} ale zilei sunt epuizate",
             "description": "Toate cele {tier} cereri pe zi ale planului **{api}** sunt folosite - Lufop numără tot ce folosește aceeași cheie. Refuză alte cereri până la miezul nopții UTC - aici la {reset}.\n\nMai puține interogări ajută mâine: un interval de actualizare mai lung, ore mai restrânse pe o rută sau Lufop oprit pentru intrările din afara țării sale."
+        },
+        "quota_used_up": {
+            "title": "TomTom nu mai are cereri {api} disponibile",
+            "description": "TomTom refuză alte cereri **{api}**: cheia nu mai are niciuna - *insufficient funds* este termenul folosit de TomTom. Cheia în sine este în regulă, iar toate celelalte API-uri răspund în continuare. TomTom numără tot ce folosește cheia; această instalare a făcut {used} din cele {tier} de cereri gratuite luna aceasta.\n\nFără Incident Details, o zonă sau un tracker nu afișează rapoarte TomTom, iar rapoartele noi ale unei rute vin așa cum le dă ruta însăși: tip, loc și întârziere, fără toată porțiunea, începutul și sfârșitul ei, numerele de drum, formularea TomTom și orele. Rutele, timpii de călătorie, fluxul de trafic și radarele din celelalte surse nu sunt afectate. Fără Routing, o rută nu poate fi calculată, iar intrarea ei nu mai funcționează.\n\nSe încearcă din nou la următoarea cerere care apare pentru această API, nu mai devreme de o oră de la ultimul refuz, iar aceasta dispare la primul răspuns."
+        },
+        "incident_day_limit": {
+            "title": "Cererile Incident Details ale zilei sunt epuizate",
+            "description": "Numărul cererilor Incident Details trimise astăzi a ajuns la {used}, iar limita setată în TomTom Setări → Configurare → Avertizare de cotă → TomTom este {limit}. Nu se mai trimite niciuna până la miezul nopții UTC - aici la {reset}.\n\nPână atunci, o zonă sau un tracker nu afișează rapoarte TomTom, iar rapoartele noi ale unei rute vin așa cum le dă ruta însăși: tip, loc și întârziere, fără detaliile lor. Rutele, timpii de călătorie, fluxul de trafic și radarele din celelalte surse nu sunt afectate.\n\nMai puține cereri ajută: un interval de actualizare mai lung, detaliile unei rute preluate mai rar sau deloc, sau o limită mai mare - cu 80 pe zi, cele 2.500 de cereri gratuite ajung pentru toată luna."
         }
     }
 }

@@ -2,6 +2,46 @@
 
 All notable changes to this integration are documented here.
 
+## v1.3.0
+
+### Added
+- **A route's detail lookups have a switch and a pace of their own.** **Look up the reports' details**, on a route's form and under **TomTom Settings → Configure → Defaults for new routes**, decides whether Incident Details is asked for the rest of a new report at all - the whole stretch, where it starts and ends, the road numbers, TomTom's wording and its times. Off, a route costs no Incident Details request, and its reports show what the route itself names: kind, place and delay. **Minutes between detail lookups** under it spaces the lookups apart from the route's own polls: with 30, a new report shows at once and its details follow within half an hour - several reports to a request, and none for a jam that has gone again meanwhile. On, and with every poll, by default - what a route did before.
+- **A limit on the day's Incident Details requests.** **Incident Details requests a day, at most**, under **TomTom Settings → Configure → Quota warning → TomTom**, counts every entry together from midnight to midnight UTC. Once it is reached nothing more is sent until the next day, and a repair **The day's Incident Details requests are used** says so, with the time it ends in your time zone; it goes away by itself. **80** by default, which makes the 2,500 free requests last the month, and **0** for no limit. The default applies to an installation from before as well: one that sends more a day - a single area polled every 15 minutes is 96 - reaches the limit until the number is raised.
+- **The card says when something is missing.** A line above the list, and above the pop-up's: while the entry's last update failed and what is shown is from before, while an area or a tracker goes without TomTom reports because no Incident Details requests are left, and while a route's new reports come without their details for the same reason.
+- **`incident_details_ok` on Reports, `used_up` on Quota at risk.** The first is false while an entry goes without Incident Details - none left at TomTom, or the day's limit reached. **Quota at risk** is on through both, lists the APIs TomTom calls used up as `used_up`, and carries `incident_details_day_limit` and `incident_details_day_limit_reached`.
+
+### Changed
+- **A used-up quota is named for what it is, and the entries keep running.** TomTom counts its free tier per API, and answers the one that has no requests left with *insufficient funds*. That used to read "TomTom refused the API key" and took every entry down with it, routes and travel times included. Now a repair **TomTom has no Incident Details requests left** names the API and the month's count, and only what needs that API is missing: an area or a tracker shows no TomTom reports - the further sources' speed cameras and the traffic flow stay - and a route's new reports come as the route itself names them. The API is asked again with the next request there is for it, no sooner than an hour after the refusal; the first answer, the turn of the month or a new key clears it. Reports that return with it are not announced as new. Without Routing a route cannot be worked out: its poll still fails, with that reason.
+- **A route looks up only the reports it shows.** A kind switched off, a jam below **Jam from this delay** and a blacklisted report cost a detail lookup each, to be left out afterwards. They are now left out before it.
+- **The minimal format's editor offers what its pop-up draws.** **Layout → Traffic button** and **Layout → Info line** are there in the minimal format too, since the pop-up draws both with those settings - the info line without its symbol, which stands under no travel time. Under the pop-up's **Show the travel time** there are switches for **Show the refresh button** and **Traffic's share (live route)**, and **Layout → Refresh button** goes with the travel time, the one place that format draws the button. What the format has no use for is hidden while it is chosen and kept as saved: **Offer the area dropdown**, **Offer "New route" in the dropdown**, **List follows the map**, and **Centre of the map view** under **Measure distance from**.
+- **Saving the quota warning or the defaults for new routes no longer polls every entry.** Both live on the TomTom Settings entry, and any save there fetched every area and route again - a request each, for a changed percentage. Only a change to the data sources still does.
+- **Home Assistant 2024.12 or newer.** The options dialogs have needed it all along; the README and HACS said 2024.7.
+- **The way back is named in your language.** Its suggested name ended in "return" in every language but one; it now ends in the word the form's own help text uses.
+- **The blueprint names both sources.** Fixed, mobile and red-light cameras and section controls read "(blitzer.de, Lufop)" in the Report Alerts blueprint's list of kinds.
+
+### Fixed
+- **Speed cameras are no longer reported as new after a restart.** blitzer.de and Lufop are asked a moment after TomTom, and an entry's first list - TomTom's alone - was taken for the whole: every camera's entity was removed and made again at each restart and each reload, announced with a `tomtom_new_report` event of its own, and under a new entity id - `_2`, `_3` - wherever the old one was still held by a leftover state. The entities now wait for the sources to answer, keep their ids, and nothing is announced that was there before.
+- **A report without details no longer shows its delay as its place.** A route's report whose lookup had not come round printed "+2 min" on the place line, behind the pin.
+- **A route's hours past midnight belong to the day they began on.** Monday to Friday from 22:00 to 06:00 started on Monday at midnight and stopped on Friday at midnight; it now starts on Monday at 22:00 and runs into Saturday morning.
+- **A failed detail lookup no longer fails the route.** A lookup TomTom did not answer took the whole poll down, travel time included. The route now goes on and asks again later; only a refused key still fails it.
+- **Jam from this delay is kept among the defaults for new routes.** The number was saved and never read back: the form showed 0 again, and no new route got it.
+- **A report seen without details keeps the moment it was first seen.** A restart set it to now, and the report counted as new again.
+- **A form shown again after an error keeps what was typed** - the area, the route's last step, the data sources, an address and a zone.
+- **A source's repair clears when the source is switched off**, and with its first answer after a reload.
+- **An area searched in several boxes keeps the boxes already answered** when TomTom refuses a later one.
+- **A reload in the middle of a poll no longer costs the request gate a place.** Each cancelled request left one fewer of the four in flight.
+- **`tomtom.refresh` on the TomTom Settings entry says what is wrong**: the entry holds the settings and has nothing to refresh.
+- **The card reads a report's time in Home Assistant's time zone.** A browser in another zone took the stamp for its own and got the age wrong - for NEW, for the chips and for sorting by newest or oldest. With **Time zone** in the profile on the server's, the times are also written in it.
+- **"Just now" and NEW age between polls.** The card redraws them on a clock; they used to stand still until the next poll or click.
+- **A live route's colours follow every poll.** The stretches traffic is slowing were fetched again only when the number of reports or the route itself changed.
+- **The pop-up's map keeps its scale bar and its traffic flow** when it is rebuilt while open.
+- **The route is fitted into view again** when the card comes back to the page - after a change of view, say.
+- **Numbers in the `1'234.56` format.** The profile's number format with the apostrophe was written in the language's own.
+- **An emptied number field in the editor is the default again**, not the field's minimum.
+- **A language that failed to load is fetched again** after half a minute; the card stayed in English until the page was reloaded.
+- **The planner**: a preview is dropped once a place is changed, so **Save as route** no longer saves the route from before; a failed address search says so under its field; the suggested name follows the places; a saved route is confirmed; a name the way back cannot have is reported; the crosshair for the map's centre comes back; a card without a map does not offer the map's centre; and the arrow between the places points the right way in Arabic and Hebrew.
+- **A card updated in an open page keeps what other extensions added to it** - card-mod's styles, for one.
+
 ## v1.2.1
 
 ### Fixed

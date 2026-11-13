@@ -334,10 +334,18 @@ async def async_setup_entry(
     registry = er.async_get(hass)
     prefix = f"{DOMAIN}-report-{coordinator.entry_id}-"
     known: dict[str, TomTomReportEvent] = {}
-    # Set False after the first sync below - everything reported there is
-    # simply "already there" from the entry's very first data fetch, not
-    # a new detection, so the "new" event only starts firing from the
-    # next poll onwards.
+    # Set False once the first whole list has been taken in - everything
+    # reported until then is simply "already there" from the entry's very
+    # first data fetch, not a new detection, so the "new" event only starts
+    # firing after it.
+    #
+    # The first whole list is not the first sync. The further sources are
+    # asked in a task after the first poll (see coordinator.sources_settled),
+    # so the sync below sees TomTom's reports alone and a second one, a
+    # moment later, the cameras as well. Taken for whole, the first one
+    # removed every camera's entity from the registry and the second made
+    # them all again: announced as new after every restart, under another
+    # entity id wherever the old one was still held by its leftover state.
     first_sync = True
 
     @callback
@@ -365,7 +373,8 @@ async def async_setup_entry(
         # session and leftovers from a previous session. Removing the
         # registry entry directly is what makes this immediate: no
         # "restored" ghost in the meantime.
-        for entry in list(er.async_entries_for_config_entry(registry, config_entry.entry_id)):
+        settled = coordinator.sources_settled
+        for entry in list(er.async_entries_for_config_entry(registry, config_entry.entry_id)) if settled else []:
             if entry.domain != "geo_location" or not entry.unique_id.startswith(prefix):
                 continue
             marker_id = entry.unique_id[len(prefix):]
@@ -377,10 +386,14 @@ async def async_setup_entry(
         if new_entities:
             async_add_entities(new_entities)
 
-        if not first_sync:
+        # Nor announced: an area's reports coming back after Incident
+        # Details had none to give (see coordinator.take_quiet_sync).
+        quiet = coordinator.take_quiet_sync()
+        if not first_sync and not quiet:
             for item in new_items:
                 hass.bus.async_fire(EVENT_NEW_REPORT, event_payload(hass, coordinator, item))
-        first_sync = False
+        if settled:
+            first_sync = False
 
     coordinator.async_add_listener(_sync)
     # A changed unit system or language - Settings -> System -> General -
@@ -454,10 +467,15 @@ class TomTomReportEvent(GeolocationEvent):
         if self.hass is not None:
             self.async_write_ha_state()
 
-    async def async_will_remove_from_hass(self) -> None:
-        registry = er.async_get(self.hass)
-        if self.entity_id in registry.entities:
-            registry.async_remove(self.entity_id)
+    # No async_will_remove_from_hass taking the registry entry along. There
+    # was one, and it ran on every removal - also when the entry is merely
+    # unloaded to be loaded again. The entity then left its "unavailable,
+    # restored" state behind for a registry entry that was already gone,
+    # which nothing clears before the next restart, and the same report came
+    # back as a new entity under another id, the old one being taken:
+    # camera_x, camera_x_2, camera_x_3 with every reload. A report that is
+    # gone has its entry removed by _sync above, and Home Assistant removes
+    # the entries of a deleted config entry itself.
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:

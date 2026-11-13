@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Ogni interrogazione è una richiesta Incident Details (una in più ogni 10.000 km² di ricerca), e una chiave gratuita ne ha 2.500 al mese: all'ora predefinita un'area ne spende circa 720.",
-  "budgetRoute": "Nelle sue ore ogni interrogazione è una richiesta Routing, di 20.000 gratuite al mese; le segnalazioni sul percorso arrivano con essa, e Incident Details viene chiesto una volta per ogni nuova segnalazione per il resto di ciò che c'è da sapere.",
+  "budgetRoute": "Nelle sue ore ogni interrogazione è una richiesta Routing, di 20.000 gratuite al mese; le segnalazioni sul percorso arrivano con essa, e per quelle nuove viene chiesto a Incident Details il resto di ciò che c'è da sapere - cinque segnalazioni per richiesta.",
   "entities": {
     "sensor": {
       "report_count": "Segnalazioni",
@@ -218,11 +218,15 @@
         "live_from": "Da",
         "live_until": "A",
         "live_back_from": "Da (ritorno)",
-        "live_back_until": "A (ritorno)"
+        "live_back_until": "A (ritorno)",
+        "details": "Recupera i dettagli delle segnalazioni",
+        "details_interval": "Minuti tra le richieste dei dettagli (vuoto = a ogni interrogazione)"
       },
       "data_description": {
         "return_route": "Una seconda voce, da destinazione a partenza - in autostrada il ritorno è l'altra carreggiata, e una coda su una non lo è sull'altra. Chiamata come questa voce, con \"ritorno\" aggiunto.",
-        "return_name": "Usato solo quando viene creato il ritorno. Precompilato con il nome di questa voce e \"ritorno\" aggiunto; scrivine un altro per chiamarlo diversamente - \"Casa\" e \"Lavoro\", per esempio."
+        "return_name": "Usato solo quando viene creato il ritorno. Precompilato con il nome di questa voce e \"ritorno\" aggiunto; scrivine un altro per chiamarlo diversamente - \"Casa\" e \"Lavoro\", per esempio.",
+        "details": "Un percorso indica ciò che attraversa - tipo, luogo e ritardo. Acceso, per una nuova segnalazione viene chiesto il resto a Incident Details: l'intero tratto, dove inizia e dove finisce, i numeri di strada, la descrizione di TomTom e gli orari - una richiesta ogni cinque nuove segnalazioni, di 2.500 gratuite al mese. Vengono cercati solo i dettagli delle segnalazioni che questa voce mostra. Spento, il percorso non costa nemmeno una richiesta Incident Details.",
+        "details_interval": "Ogni quanto vengono chiesti i dettagli, indipendentemente da quanto spesso viene interrogato il percorso stesso. Con 30, una nuova segnalazione compare subito così come la riporta il percorso, e i suoi dettagli seguono entro mezz'ora - più segnalazioni in una sola richiesta, e nessuna per una coda che nel frattempo è già sparita."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Dall'ottavo giorno del mese, le richieste fatte finora vengono proiettate a fine mese. Si conta ciò che chiede questa integrazione; una chiave usata anche altrove risulta più alta presso TomTom.",
           "data": {
             "quota_warning": "Avvisa quando le richieste del mese scarseggiano o non basteranno",
-            "quota_threshold": "Avvisa da questa quota delle richieste del mese"
+            "quota_threshold": "Avvisa da questa quota delle richieste del mese",
+            "incident_day_limit": "Richieste Incident Details al giorno, al massimo (0 = nessun limite)"
           },
           "data_description": {
-            "quota_threshold": "Il primo avviso arriva quando la proiezione raggiunge questa quota; un secondo quando raggiunge il 100 %."
+            "quota_threshold": "Il primo avviso arriva quando la proiezione raggiunge questa quota; un secondo quando raggiunge il 100 %.",
+            "incident_day_limit": "Tutte le voci insieme, contate da mezzanotte a mezzanotte UTC. Raggiunto il limite del giorno, non ne vengono inviate altre fino al giorno dopo: nel frattempo aree e tracciatori non mostrano segnalazioni TomTom, e le nuove segnalazioni di un percorso arrivano senza i loro dettagli. Con 80 al giorno le 2.500 richieste gratuite bastano per il mese."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Le richieste {api} del mese scarseggiano",
-    "description": "{used} di {tier} richieste **{api}** gratuite dopo {days} giorni; a questo ritmo circa **{projected}** entro fine mese, il {percent} % del contingente o più.\n\nMeno interrogazioni aiutano: un intervallo di aggiornamento più lungo, orari più stretti su un percorso, il traffico su meno schede.\n\nSparisce quando il ritmo scende sotto la quota impostata in Impostazioni TomTom → Configura → Avviso contingente → TomTom, e con il nuovo mese. Se il ritmo raggiunge tutto il contingente, segue un secondo avviso."
+    "description": "{used} di {tier} richieste **{api}** gratuite dopo {days} giorni; a questo ritmo circa **{projected}** entro fine mese, il {percent} % del contingente o più.\n\nMeno interrogazioni aiutano: un intervallo di aggiornamento più lungo, orari più stretti su un percorso, il traffico su meno schede.\n\nSparisce quando il ritmo scende sotto la quota impostata in TomTom Impostazioni → Configura → Avviso di quota → TomTom, e con il nuovo mese. Se il ritmo raggiunge tutto il contingente, segue un secondo avviso."
   },
   "quotaOverIssue": {
     "title": "Il contingente {api} non basterà per il mese",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Le richieste {api} del giorno sono esaurite",
     "description": "Tutte le {tier} richieste al giorno del piano **{api}** sono state usate - Lufop conta tutto ciò che usa la stessa chiave. Rifiuta altre richieste fino a mezzanotte UTC - qui alle {reset}.\n\nMeno interrogazioni aiutano domani: un intervallo di aggiornamento più lungo, ore più ristrette su un percorso, o Lufop disattivato per le voci fuori dal suo paese."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTom non ha più richieste {api} disponibili",
+    "description": "TomTom rifiuta altre richieste **{api}**: la chiave non ne ha più - *insufficient funds* è il termine che usa TomTom. La chiave in sé è a posto, e tutte le altre API continuano a rispondere. TomTom conta tutto ciò che usa la chiave; questa installazione ha fatto {used} delle {tier} richieste gratuite questo mese.\n\nSenza Incident Details un'area o un tracciatore non mostra segnalazioni TomTom, e le nuove segnalazioni di un percorso arrivano così come le riporta il percorso stesso: tipo, luogo e ritardo, senza l'intero tratto, il suo inizio e la sua fine, i numeri di strada, la descrizione di TomTom e gli orari. Percorsi, tempi di percorrenza, flusso del traffico e autovelox delle altre fonti non sono interessati. Senza Routing un percorso non può essere calcolato, e la sua voce smette di funzionare.\n\nSi riprova con la prossima richiesta prevista per questa API, non prima di un'ora dall'ultimo rifiuto, e questo sparisce con la prima risposta."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Le richieste Incident Details del giorno sono esaurite",
+    "description": "Oggi sono partite {used} richieste Incident Details, e il limite impostato in TomTom Impostazioni → Configura → Avviso di quota → TomTom è {limit}. Non ne vengono inviate altre fino a mezzanotte UTC - qui alle {reset}.\n\nFino ad allora un'area o un tracciatore non mostra segnalazioni TomTom, e le nuove segnalazioni di un percorso arrivano così come le riporta il percorso stesso: tipo, luogo e ritardo, senza i loro dettagli. Percorsi, tempi di percorrenza, flusso del traffico e autovelox delle altre fonti non sono interessati.\n\nMeno richieste aiutano: un intervallo di aggiornamento più lungo, i dettagli di un percorso recuperati meno spesso o per niente, o un limite più alto - con 80 al giorno le 2.500 richieste gratuite bastano per il mese."
   },
   "device": {
     "general": "TomTom Generale",

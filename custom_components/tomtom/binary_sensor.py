@@ -52,7 +52,9 @@ class BinarySensorQuotaAtRisk(BinarySensorEntity):
 
     @property
     def is_on(self) -> bool:
-        return bool(self._watch.at_risk or self._watch.day_at_risk)
+        return bool(
+            self._watch.at_risk or self._watch.day_at_risk or self._watch.used_up or self._watch.day_limit_reached
+        )
 
     @property
     def extra_state_attributes(self):
@@ -63,6 +65,12 @@ class BinarySensorQuotaAtRisk(BinarySensorEntity):
             "lufop_warning": self._watch.day_enabled,
             "lufop_threshold_percent": self._watch.day_threshold,
             "at_risk": [PRODUCT_LABELS.get(product, product) for product in (*self._watch.at_risk, *self._watch.day_at_risk)],
+            # The APIs TomTom itself says the key has no requests left for.
+            "used_up": [PRODUCT_LABELS.get(product, product) for product in self._watch.used_up],
+            # The day's own limit on Incident Details (0 = none), and
+            # whether today has reached it.
+            "incident_details_day_limit": self._watch.incident_day_limit,
+            "incident_details_day_limit_reached": bool(self._watch.day_limit_reached),
             **{f"today_{product}": facts["used"] for product, facts in self._watch.day_at_risk.items()},
             **self._lufop_attributes(),
             **{f"projected_{product}": projected for product, projected in projections.items()},

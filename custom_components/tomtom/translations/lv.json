@@ -171,10 +171,14 @@
                     "live_until": "Līdz",
                     "live_back_from": "No (atpakaļceļš)",
                     "live_back_until": "Līdz (atpakaļceļš)",
+                    "details": "Ielādēt ziņojumu detaļas",
+                    "details_interval": "Minūtes starp detaļu ielādēm (tukšs = katrā vaicājumā)",
                     "categories": "Ziņojumi"
                 },
                 "data_description": {
-                    "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\"."
+                    "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\".",
+                    "details": "Maršruts nosauc, caur ko tas ved - veidu, vietu un aizkavi. Ja šis ir ieslēgts, Incident Details tiek vaicāts pārējais par jaunu ziņojumu: viss posms, kur tas sākas un beidzas, ceļu numuri, TomTom formulējums un laiki - viens pieprasījums uz pieciem jauniem ziņojumiem, no 2 500 bezmaksas mēnesī. Tiek ielādētas tikai to ziņojumu detaļas, kurus šis ieraksts rāda. Ja izslēgts, maršruts nemaksā nevienu Incident Details pieprasījumu.",
+                    "details_interval": "Cik bieži tiek ielādētas detaļas, neatkarīgi no tā, cik bieži tiek vaicāts pats maršruts. Ar 30 jauns ziņojums uzreiz parādās tāds, kādu to nosauc maršruts, un tā detaļas seko pusstundas laikā - vairāki ziņojumi vienā pieprasījumā, un neviena par sastrēgumu, kas pa to laiku jau izzudis."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Tavs maršruts pašlaik",
-                "description": "{start} → {destination}, {vias} starppunkti: {distance}, pašlaik aptuveni {duration} min, no tām {delay} min aizkave. Maršruts tiek aprēķināts no jauna katrā vaicājumā; karte rāda to, kuru satiksme šobrīd padara ātrāko. Savās stundās katrs vaicājums ir viens Routing pieprasījums no 20 000 bezmaksas mēnesī; ziņojumi uz maršruta nāk līdzi, un Incident Details tiek vaicāts reizi par katru jaunu ziņojumu, lai uzzinātu pārējo.",
+                "description": "{start} → {destination}, {vias} starppunkti: {distance}, pašlaik aptuveni {duration} min, no tām {delay} min aizkave. Maršruts tiek aprēķināts no jauna katrā vaicājumā; karte rāda to, kuru satiksme šobrīd padara ātrāko. Savās stundās katrs vaicājums ir viens Routing pieprasījums no 20 000 bezmaksas mēnesī; ziņojumi uz maršruta nāk līdzi, un par jaunajiem tiek vaicāts Incident Details, lai uzzinātu pārējo - pieci ziņojumi vienā pieprasījumā.",
                 "data": {
                     "return_route": "Izveidot arī atpakaļceļu",
                     "return_name": "Atpakaļceļa nosaukums",
@@ -449,11 +453,15 @@
                     "live_until": "Līdz",
                     "live_back_from": "No (atpakaļceļš)",
                     "live_back_until": "Līdz (atpakaļceļš)",
+                    "details": "Ielādēt ziņojumu detaļas",
+                    "details_interval": "Minūtes starp detaļu ielādēm (tukšs = katrā vaicājumā)",
                     "categories": "Ziņojumi"
                 },
                 "data_description": {
                     "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\".",
-                    "return_name": "Izmantots tikai tad, ja tiek izveidots atpakaļceļš. Aizpildīts ar šī ieraksta nosaukumu un pievienotu \"atpakaļ\"; ieraksti citu, lai to nosauktu citādi - piemēram, \"Mājas\" un \"Darbs\"."
+                    "return_name": "Izmantots tikai tad, ja tiek izveidots atpakaļceļš. Aizpildīts ar šī ieraksta nosaukumu un pievienotu \"atpakaļ\"; ieraksti citu, lai to nosauktu citādi - piemēram, \"Mājas\" un \"Darbs\".",
+                    "details": "Maršruts nosauc, caur ko tas ved - veidu, vietu un aizkavi. Ja šis ir ieslēgts, Incident Details tiek vaicāts pārējais par jaunu ziņojumu: viss posms, kur tas sākas un beidzas, ceļu numuri, TomTom formulējums un laiki - viens pieprasījums uz pieciem jauniem ziņojumiem, no 2 500 bezmaksas mēnesī. Tiek ielādētas tikai to ziņojumu detaļas, kurus šis ieraksts rāda. Ja izslēgts, maršruts nemaksā nevienu Incident Details pieprasījumu.",
+                    "details_interval": "Cik bieži tiek ielādētas detaļas, neatkarīgi no tā, cik bieži tiek vaicāts pats maršruts. Ar 30 jauns ziņojums uzreiz parādās tāds, kādu to nosauc maršruts, un tā detaļas seko pusstundas laikā - vairāki ziņojumi vienā pieprasījumā, un neviena par sastrēgumu, kas pa to laiku jau izzudis."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Līdz",
                     "live_back_from": "No (atpakaļceļš)",
                     "live_back_until": "Līdz (atpakaļceļš)",
+                    "details": "Ielādēt ziņojumu detaļas",
+                    "details_interval": "Minūtes starp detaļu ielādēm (tukšs = katrā vaicājumā)",
                     "categories": "Ziņojumi"
                 },
                 "data_description": {
-                    "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\"."
+                    "return_route": "Otrs ieraksts, no galamērķa uz sākumu - uz šosejas atpakaļceļš ir otra brauktuve, un sastrēgums uz vienas nav sastrēgums uz otras. Nosaukts kā šis ieraksts ar pievienotu \"atpakaļ\".",
+                    "details": "Maršruts nosauc, caur ko tas ved - veidu, vietu un aizkavi. Ja šis ir ieslēgts, Incident Details tiek vaicāts pārējais par jaunu ziņojumu: viss posms, kur tas sākas un beidzas, ceļu numuri, TomTom formulējums un laiki - viens pieprasījums uz pieciem jauniem ziņojumiem, no 2 500 bezmaksas mēnesī. Tiek ielādētas tikai to ziņojumu detaļas, kurus šis ieraksts rāda. Ja izslēgts, maršruts nemaksā nevienu Incident Details pieprasījumu.",
+                    "details_interval": "Cik bieži tiek ielādētas detaļas, neatkarīgi no tā, cik bieži tiek vaicāts pats maršruts. Ar 30 jauns ziņojums uzreiz parādās tāds, kādu to nosauc maršruts, un tā detaļas seko pusstundas laikā - vairāki ziņojumi vienā pieprasījumā, un neviena par sastrēgumu, kas pa to laiku jau izzudis."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "No mēneša astotās dienas līdzšinējie pieprasījumi tiek prognozēti līdz mēneša beigām. Skaitīts tiek tas, ko pieprasa šī integrācija; ja atslēgu izmanto arī citur, pie TomTom skaitlis ir lielāks.",
                         "data": {
                             "quota_warning": "Brīdināt, kad mēneša pieprasījumi iet uz beigām vai nepietiks",
-                            "quota_threshold": "Brīdināt no šīs mēneša pieprasījumu daļas"
+                            "quota_threshold": "Brīdināt no šīs mēneša pieprasījumu daļas",
+                            "incident_day_limit": "Maksimālais Incident Details pieprasījumu skaits dienā (0 = bez limita)"
                         },
                         "data_description": {
-                            "quota_threshold": "Pirmais brīdinājums nāk, kad prognoze sasniedz šo daļu; otrs, kad tā sasniedz 100 %."
+                            "quota_threshold": "Pirmais brīdinājums nāk, kad prognoze sasniedz šo daļu; otrs, kad tā sasniedz 100 %.",
+                            "incident_day_limit": "Visi ieraksti kopā, skaitot no pusnakts līdz pusnaktij UTC. Kad dienas limits ir sasniegts, līdz nākamajai dienai vairs nekas netiek sūtīts: apgabali un izsekotāji pa to laiku nerāda TomTom ziņojumus, un maršruta jaunie ziņojumi nāk bez detaļām. Ar 80 dienā 2 500 bezmaksas pieprasījumu pietiek visam mēnesim."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Tavs maršruts pašlaik",
-                "description": "{start} → {destination}, {vias} starppunkti: {distance}, pašlaik aptuveni {duration} min, no tām {delay} min aizkave. Maršruts tiek aprēķināts no jauna katrā vaicājumā; karte rāda to, kuru satiksme šobrīd padara ātrāko. Savās stundās katrs vaicājums ir viens Routing pieprasījums no 20 000 bezmaksas mēnesī; ziņojumi uz maršruta nāk līdzi, un Incident Details tiek vaicāts reizi par katru jaunu ziņojumu, lai uzzinātu pārējo.",
+                "description": "{start} → {destination}, {vias} starppunkti: {distance}, pašlaik aptuveni {duration} min, no tām {delay} min aizkave. Maršruts tiek aprēķināts no jauna katrā vaicājumā; karte rāda to, kuru satiksme šobrīd padara ātrāko. Savās stundās katrs vaicājums ir viens Routing pieprasījums no 20 000 bezmaksas mēnesī; ziņojumi uz maršruta nāk līdzi, un par jaunajiem tiek vaicāts Incident Details, lai uzzinātu pārējo - pieci ziņojumi vienā pieprasījumā.",
                 "data": {
                     "live_days": "Dienas, kurās maršruts tiek uzturēts aktuāls",
                     "live_from": "No",
                     "live_until": "Līdz",
+                    "details": "Ielādēt ziņojumu detaļas",
+                    "details_interval": "Minūtes starp detaļu ielādēm (tukšs = katrā vaicājumā)",
                     "categories": "Ziņojumi"
+                },
+                "data_description": {
+                    "details": "Maršruts nosauc, caur ko tas ved - veidu, vietu un aizkavi. Ja šis ir ieslēgts, Incident Details tiek vaicāts pārējais par jaunu ziņojumu: viss posms, kur tas sākas un beidzas, ceļu numuri, TomTom formulējums un laiki - viens pieprasījums uz pieciem jauniem ziņojumiem, no 2 500 bezmaksas mēnesī. Tiek ielādētas tikai to ziņojumu detaļas, kurus šis ieraksts rāda. Ja izslēgts, maršruts nemaksā nevienu Incident Details pieprasījumu.",
+                    "details_interval": "Cik bieži tiek ielādētas detaļas, neatkarīgi no tā, cik bieži tiek vaicāts pats maršruts. Ar 30 jauns ziņojums uzreiz parādās tāds, kādu to nosauc maršruts, un tā detaļas seko pusstundas laikā - vairāki ziņojumi vienā pieprasījumā, un neviena par sastrēgumu, kas pa to laiku jau izzudis."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -967,7 +987,7 @@
         },
         "quota_at_risk": {
             "title": "Mēneša {api} pieprasījumi iet uz beigām",
-            "description": "{used} no {tier} bezmaksas **{api}** pieprasījumiem pēc {days} dienām; šādā tempā ap **{projected}** līdz mēneša beigām, {percent} % no kvotas vai vairāk.\n\nPalīdz retākas aptaujas: garāks atjaunināšanas intervāls, šaurākas stundas maršrutā, satiksmes plūsma mazāk kartītēs.\n\nTas pazūd, kad temps nokrīt zem daļas, kas iestatīta sadaļā TomTom iestatījumi → Konfigurēt → Kvotas brīdinājums → TomTom, un ar jauno mēnesi. Ja temps sasniedz visu kvotu, seko otrs brīdinājums."
+            "description": "{used} no {tier} bezmaksas **{api}** pieprasījumiem pēc {days} dienām; šādā tempā ap **{projected}** līdz mēneša beigām, {percent} % no kvotas vai vairāk.\n\nPalīdz retākas aptaujas: garāks atjaunināšanas intervāls, šaurākas stundas maršrutā, satiksmes plūsma mazāk kartītēs.\n\nTas pazūd, kad temps nokrīt zem daļas, kas iestatīta sadaļā TomTom Iestatījumi → Konfigurēt → Kvotas brīdinājums → TomTom, un ar jauno mēnesi. Ja temps sasniedz visu kvotu, seko otrs brīdinājums."
         },
         "quota_over": {
             "title": "{api} kvotas mēnesim nepietiks",
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "{api} dienas pieprasījumi ir izlietoti",
             "description": "Visi {tier} **{api}** plāna dienas pieprasījumi ir izlietoti - Lufop skaita visu, kas izmanto to pašu atslēgu. Turpmākos pieprasījumus tas noraida līdz pusnaktij UTC - šeit {reset}.\n\nRīt palīdzēs mazāk vaicājumu: garāks atjaunināšanas intervāls, šaurākas stundas maršrutam vai Lufop izslēgšana ierakstiem ārpus tā valsts."
+        },
+        "quota_used_up": {
+            "title": "TomTom vairs nav brīvu {api} pieprasījumu",
+            "description": "TomTom noraida turpmākus **{api}** pieprasījumus: atslēgai to vairs nav - TomTom to sauc par *insufficient funds*. Pati atslēga ir kārtībā, un visi pārējie API turpina atbildēt. TomTom skaita visu, kas izmanto atslēgu; šī instalācija šomēnes ir nosūtījusi {used} no {tier} bezmaksas pieprasījumiem.\n\nBez Incident Details apgabals vai izsekotājs nerāda TomTom ziņojumus, un maršruta jaunie ziņojumi nāk tādi, kādus tos nosauc pats maršruts: veids, vieta un aizkave, bez visa posma, tā sākuma un beigām, ceļu numuriem, TomTom formulējuma un laikiem. Maršrutus, brauciena laikus, satiksmes plūsmu un papildu avotu ātruma radarus tas neskar. Bez Routing maršrutu nevar aprēķināt, un tā ieraksts pārstāj darboties.\n\nNo jauna tiek vaicāts ar nākamo šim API paredzēto pieprasījumu, ne ātrāk kā stundu pēc pēdējā atteikuma, un šis labojums pazūd ar pirmo atbildi."
+        },
+        "incident_day_limit": {
+            "title": "Dienas Incident Details pieprasījumi ir izlietoti",
+            "description": "Šodien nosūtīto Incident Details pieprasījumu skaits ir {used}, un limits, kas iestatīts sadaļā TomTom Iestatījumi → Konfigurēt → Kvotas brīdinājums → TomTom, ir {limit}. Līdz pusnaktij UTC - šeit {reset} - vairs nekas netiek sūtīts.\n\nLīdz tam apgabals vai izsekotājs nerāda TomTom ziņojumus, un maršruta jaunie ziņojumi nāk tādi, kādus tos nosauc pats maršruts: veids, vieta un aizkave, bez detaļām. Maršrutus, brauciena laikus, satiksmes plūsmu un papildu avotu ātruma radarus tas neskar.\n\nPalīdz mazāk pieprasījumu: garāks atjaunināšanas intervāls, maršruta detaļu ielāde retāk vai nemaz, vai augstāks limits - ar 80 dienā 2 500 bezmaksas pieprasījumu pietiek visam mēnesim."
         }
     }
 }

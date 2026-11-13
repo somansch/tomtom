@@ -171,10 +171,14 @@
                     "live_until": "Bis",
                     "live_back_from": "Von (Rückweg)",
                     "live_back_until": "Bis (Rückweg)",
+                    "details": "Details der Meldungen nachladen",
+                    "details_interval": "Minuten zwischen den Detail-Abfragen (leer = bei jeder Abfrage)",
                     "categories": "Meldungen"
                 },
                 "data_description": {
-                    "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter."
+                    "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter.",
+                    "details": "Eine Route nennt, wodurch sie führt - Art, Ort und Verzögerung. Ist das an, wird Incident Details bei einer neuen Meldung nach dem Rest gefragt: die ganze Strecke, Anfang und Ende, die Straßennummern, TomToms Wortlaut und die Zeiten - eine Anfrage je fünf neue Meldungen, von 2.500 freien im Monat. Nachgeschlagen wird nur, was dieser Eintrag auch zeigt. Ist es aus, kostet die Route keine einzige Incident-Details-Anfrage.",
+                    "details_interval": "Wie oft nach den Details gefragt wird, unabhängig davon, wie oft die Route selbst abgefragt wird. Mit 30 erscheint eine neue Meldung sofort so, wie die Route sie nennt, und ihre Details folgen innerhalb einer halben Stunde - mehrere Meldungen in einer Anfrage, und keine für einen Stau, der inzwischen wieder weg ist."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -440,7 +444,7 @@
             },
             "route_review": {
                 "title": "Deine Route, jetzt gerade",
-                "description": "{start} → {destination}, {vias} Zwischenpunkte: {distance}, aktuell etwa {duration} min, davon {delay} min Verzögerung. Die Route wird bei jeder Abfrage neu berechnet; die Karte zeigt die, die der Verkehr gerade am schnellsten macht. Innerhalb ihrer Stunden ist jede Abfrage eine Routing-Anfrage, von 20.000 freien im Monat; die Meldungen auf der Route kommen damit mit, und Incident Details wird je neuer Meldung einmal nach dem Rest gefragt.",
+                "description": "{start} → {destination}, {vias} Zwischenpunkte: {distance}, aktuell etwa {duration} min, davon {delay} min Verzögerung. Die Route wird bei jeder Abfrage neu berechnet; die Karte zeigt die, die der Verkehr gerade am schnellsten macht. Innerhalb ihrer Stunden ist jede Abfrage eine Routing-Anfrage, von 20.000 freien im Monat; die Meldungen auf der Route kommen damit mit, und für die neuen wird Incident Details nach dem Rest gefragt - fünf Meldungen je Anfrage.",
                 "data": {
                     "return_route": "Auch den Rückweg anlegen",
                     "return_name": "Name des Rückwegs",
@@ -449,11 +453,15 @@
                     "live_until": "Bis",
                     "live_back_from": "Von (Rückweg)",
                     "live_back_until": "Bis (Rückweg)",
+                    "details": "Details der Meldungen nachladen",
+                    "details_interval": "Minuten zwischen den Detail-Abfragen (leer = bei jeder Abfrage)",
                     "categories": "Meldungen"
                 },
                 "data_description": {
                     "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter.",
-                    "return_name": "Nur wenn der Rückweg angelegt wird. Vorbelegt mit dem Namen dieses Eintrags und „Rückweg“; tippe einen anderen, um ihn anders zu nennen - „Heim“ und „Arbeit“ etwa."
+                    "return_name": "Nur wenn der Rückweg angelegt wird. Vorbelegt mit dem Namen dieses Eintrags und „Rückweg“; tippe einen anderen, um ihn anders zu nennen - „Heim“ und „Arbeit“ etwa.",
+                    "details": "Eine Route nennt, wodurch sie führt - Art, Ort und Verzögerung. Ist das an, wird Incident Details bei einer neuen Meldung nach dem Rest gefragt: die ganze Strecke, Anfang und Ende, die Straßennummern, TomToms Wortlaut und die Zeiten - eine Anfrage je fünf neue Meldungen, von 2.500 freien im Monat. Nachgeschlagen wird nur, was dieser Eintrag auch zeigt. Ist es aus, kostet die Route keine einzige Incident-Details-Anfrage.",
+                    "details_interval": "Wie oft nach den Details gefragt wird, unabhängig davon, wie oft die Route selbst abgefragt wird. Mit 30 erscheint eine neue Meldung sofort so, wie die Route sie nennt, und ihre Details folgen innerhalb einer halben Stunde - mehrere Meldungen in einer Anfrage, und keine für einen Stau, der inzwischen wieder weg ist."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -566,10 +574,14 @@
                     "live_until": "Bis",
                     "live_back_from": "Von (Rückweg)",
                     "live_back_until": "Bis (Rückweg)",
+                    "details": "Details der Meldungen nachladen",
+                    "details_interval": "Minuten zwischen den Detail-Abfragen (leer = bei jeder Abfrage)",
                     "categories": "Meldungen"
                 },
                 "data_description": {
-                    "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter."
+                    "return_route": "Ein zweiter Eintrag, vom Ziel zum Start - auf der Autobahn ist der Rückweg die andere Fahrbahn, und ein Stau auf der einen ist keiner auf der anderen. Benannt wie dieser Eintrag, mit „Rückweg“ dahinter.",
+                    "details": "Eine Route nennt, wodurch sie führt - Art, Ort und Verzögerung. Ist das an, wird Incident Details bei einer neuen Meldung nach dem Rest gefragt: die ganze Strecke, Anfang und Ende, die Straßennummern, TomToms Wortlaut und die Zeiten - eine Anfrage je fünf neue Meldungen, von 2.500 freien im Monat. Nachgeschlagen wird nur, was dieser Eintrag auch zeigt. Ist es aus, kostet die Route keine einzige Incident-Details-Anfrage.",
+                    "details_interval": "Wie oft nach den Details gefragt wird, unabhängig davon, wie oft die Route selbst abgefragt wird. Mit 30 erscheint eine neue Meldung sofort so, wie die Route sie nennt, und ihre Details folgen innerhalb einer halben Stunde - mehrere Meldungen in einer Anfrage, und keine für einen Stau, der inzwischen wieder weg ist."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -629,10 +641,12 @@
                         "description": "Ab dem achten Tag des Monats werden die bisherigen Anfragen auf das Monatsende hochgerechnet. Gezählt wird, was diese Integration anfragt; ein auch anderswo genutzter Key steht bei TomTom höher.",
                         "data": {
                             "quota_warning": "Warnen, wenn die Anfragen des Monats knapp werden oder nicht reichen",
-                            "quota_threshold": "Warnen ab diesem Anteil der Anfragen des Monats"
+                            "quota_threshold": "Warnen ab diesem Anteil der Anfragen des Monats",
+                            "incident_day_limit": "Incident-Details-Anfragen am Tag, höchstens (0 = keine Grenze)"
                         },
                         "data_description": {
-                            "quota_threshold": "Die erste Warnung kommt, wenn die Hochrechnung diesen Anteil erreicht, eine zweite, wenn sie 100 % erreicht."
+                            "quota_threshold": "Die erste Warnung kommt, wenn die Hochrechnung diesen Anteil erreicht, eine zweite, wenn sie 100 % erreicht.",
+                            "incident_day_limit": "Alle Einträge zusammen, gezählt von Mitternacht bis Mitternacht UTC. Ist die Grenze des Tages erreicht, wird bis zum nächsten Tag nichts mehr angefragt: Gebiete und Tracker zeigen so lange keine TomTom-Meldungen, und die neuen Meldungen einer Route kommen ohne ihre Details. Mit 80 am Tag reichen die 2.500 freien Anfragen für den Monat."
                         }
                     },
                     "lufop": {
@@ -876,12 +890,18 @@
             },
             "route_review": {
                 "title": "Deine Route, jetzt gerade",
-                "description": "{start} → {destination}, {vias} Zwischenpunkte: {distance}, aktuell etwa {duration} min, davon {delay} min Verzögerung. Die Route wird bei jeder Abfrage neu berechnet; die Karte zeigt die, die der Verkehr gerade am schnellsten macht. Innerhalb ihrer Stunden ist jede Abfrage eine Routing-Anfrage, von 20.000 freien im Monat; die Meldungen auf der Route kommen damit mit, und Incident Details wird je neuer Meldung einmal nach dem Rest gefragt.",
+                "description": "{start} → {destination}, {vias} Zwischenpunkte: {distance}, aktuell etwa {duration} min, davon {delay} min Verzögerung. Die Route wird bei jeder Abfrage neu berechnet; die Karte zeigt die, die der Verkehr gerade am schnellsten macht. Innerhalb ihrer Stunden ist jede Abfrage eine Routing-Anfrage, von 20.000 freien im Monat; die Meldungen auf der Route kommen damit mit, und für die neuen wird Incident Details nach dem Rest gefragt - fünf Meldungen je Anfrage.",
                 "data": {
                     "live_days": "Tage, an denen die Route aktuell gehalten wird",
                     "live_from": "Von",
                     "live_until": "Bis",
+                    "details": "Details der Meldungen nachladen",
+                    "details_interval": "Minuten zwischen den Detail-Abfragen (leer = bei jeder Abfrage)",
                     "categories": "Meldungen"
+                },
+                "data_description": {
+                    "details": "Eine Route nennt, wodurch sie führt - Art, Ort und Verzögerung. Ist das an, wird Incident Details bei einer neuen Meldung nach dem Rest gefragt: die ganze Strecke, Anfang und Ende, die Straßennummern, TomToms Wortlaut und die Zeiten - eine Anfrage je fünf neue Meldungen, von 2.500 freien im Monat. Nachgeschlagen wird nur, was dieser Eintrag auch zeigt. Ist es aus, kostet die Route keine einzige Incident-Details-Anfrage.",
+                    "details_interval": "Wie oft nach den Details gefragt wird, unabhängig davon, wie oft die Route selbst abgefragt wird. Mit 30 erscheint eine neue Meldung sofort so, wie die Route sie nennt, und ihre Details folgen innerhalb einer halben Stunde - mehrere Meldungen in einer Anfrage, und keine für einen Stau, der inzwischen wieder weg ist."
                 },
                 "sections": {
                     "kind_camera_fixed": {
@@ -980,6 +1000,14 @@
         "quota_day_used_up": {
             "title": "Die {api}-Anfragen des Tages sind aufgebraucht",
             "description": "Alle {tier} Anfragen am Tag des **{api}**-Tarifs sind verbraucht - Lufop zählt alles, was denselben Key nutzt. Weitere Anfragen weist es bis Mitternacht UTC ab - hier um {reset} Uhr.\n\nWeniger Abfragen helfen morgen: ein längeres Aktualisierungsintervall, engere Stunden einer Route, oder Lufop abgeschaltet für Einträge außerhalb seines Landes."
+        },
+        "quota_used_up": {
+            "title": "TomTom hat keine {api}-Anfragen mehr frei",
+            "description": "TomTom weist weitere **{api}**-Anfragen ab: Für den Key sind keine mehr übrig - TomTom nennt das *insufficient funds*. Der Key selbst ist in Ordnung, und jede andere Schnittstelle antwortet weiter. TomTom zählt alles, was den Key nutzt; diese Installation hat in diesem Monat {used} der {tier} freien Anfragen gestellt.\n\nOhne Incident Details zeigt ein Gebiet oder ein Tracker keine TomTom-Meldungen, und die neuen Meldungen einer Route kommen so, wie die Route selbst sie nennt: Art, Ort und Verzögerung, ohne die ganze Strecke, ihren Anfang und ihr Ende, die Straßennummern, TomToms Wortlaut und die Zeiten. Routen, Fahrzeiten, der Verkehrsfluss und die Blitzer der weiteren Quellen sind nicht betroffen. Ohne Routing lässt sich eine Route nicht berechnen, und ihr Eintrag fällt aus.\n\nGefragt wird wieder mit der nächsten Anfrage, die es für diese Schnittstelle gibt, frühestens eine Stunde nach der letzten Ablehnung, und das hier verschwindet mit der ersten Antwort."
+        },
+        "incident_day_limit": {
+            "title": "Die Incident-Details-Anfragen des Tages sind verbraucht",
+            "description": "Heute sind {used} Incident-Details-Anfragen hinausgegangen, und die Grenze unter TomTom Einstellungen → Konfigurieren → Kontingent-Warnung → TomTom liegt bei {limit}. Bis Mitternacht UTC - hier um {reset} Uhr - wird nichts mehr angefragt.\n\nSo lange zeigt ein Gebiet oder ein Tracker keine TomTom-Meldungen, und die neuen Meldungen einer Route kommen so, wie die Route selbst sie nennt: Art, Ort und Verzögerung, ohne ihre Details. Routen, Fahrzeiten, der Verkehrsfluss und die Blitzer der weiteren Quellen sind nicht betroffen.\n\nWeniger Anfragen helfen: ein längeres Aktualisierungsintervall, die Details einer Route seltener oder gar nicht nachladen, oder eine höhere Grenze - mit 80 am Tag reichen die 2.500 freien Anfragen für den Monat."
         }
     }
 }

@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Kiekviena užklausa – viena Incident Details užklausa (po vieną papildomą kas 10 000 km² paieškos ploto), o nemokamas raktas jų turi 2 500 per mėnesį: su numatytąja valanda sritis išleidžia apie 720.",
-  "budgetRoute": "Savo valandomis kiekviena užklausa – viena Routing užklausa iš 20 000 nemokamų per mėnesį; pranešimai maršrute ateina kartu su ja, o Incident Details klausiama po kartą kiekvienam naujam pranešimui dėl viso kito, ką galima sužinoti.",
+  "budgetRoute": "Savo valandomis kiekviena užklausa – viena Routing užklausa iš 20 000 nemokamų per mėnesį; pranešimai maršrute ateina kartu su ja, o dėl naujųjų Incident Details klausiama viso kito, ką galima sužinoti – penki pranešimai vienai užklausai.",
   "entities": {
     "sensor": {
       "report_count": "Pranešimai",
@@ -218,11 +218,15 @@
         "live_from": "Nuo",
         "live_until": "Iki",
         "live_back_from": "Nuo (kelias atgal)",
-        "live_back_until": "Iki (kelias atgal)"
+        "live_back_until": "Iki (kelias atgal)",
+        "details": "Gauti išsamią pranešimų informaciją",
+        "details_interval": "Minutės tarp išsamios informacijos užklausų (tuščia = per kiekvieną užklausą)"
       },
       "data_description": {
         "return_route": "Antras įrašas, nuo tikslo iki pradžios – automagistralėje kelias atgal yra kita važiuojamoji dalis, o spūstis vienoje nėra spūstis kitoje. Pavadintas kaip šis įrašas, pridėjus „atgal“.",
-        "return_name": "Naudojamas tik tada, kai kuriamas kelias atgal. Užpildytas šio įrašo pavadinimu ir pridėtu „atgal“; įveskite kitą, kad pavadintumėte kitaip – pavyzdžiui, „Namo“ ir „Į darbą“."
+        "return_name": "Naudojamas tik tada, kai kuriamas kelias atgal. Užpildytas šio įrašo pavadinimu ir pridėtu „atgal“; įveskite kitą, kad pavadintumėte kitaip – pavyzdžiui, „Namo“ ir „Į darbą“.",
+        "details": "Maršrutas nurodo, per ką jis eina – rūšį, vietą ir vėlavimą. Įjungus, Incident Details klausiama viso kito apie naują pranešimą: visos atkarpos, kur ji prasideda ir baigiasi, kelių numerių, TomTom formuluotės ir laikų – viena užklausa penkiems naujiems pranešimams iš 2 500 nemokamų per mėnesį. Klausiama tik apie tuos pranešimus, kuriuos šis įrašas rodo. Išjungus, maršrutas nekainuoja nė vienos Incident Details užklausos.",
+        "details_interval": "Kaip dažnai klausiama išsamios informacijos, nepriklausomai nuo to, kaip dažnai užklausiamas pats maršrutas. Nustačius 30, naujas pranešimas iš karto rodomas toks, kokį jį nurodo maršrutas, o jo išsami informacija atkeliauja per pusvalandį – keli pranešimai vienoje užklausoje ir nė vienos dėl spūsties, kuri per tą laiką jau išnyko."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Nuo aštuntos mėnesio dienos iki šiol pateiktos užklausos projektuojamos iki mėnesio pabaigos. Skaičiuojama tai, ko prašo ši integracija; kitur irgi naudojamo rakto skaičius TomTom yra didesnis.",
           "data": {
             "quota_warning": "Įspėti, kai mėnesio užklausos senka arba jų nepakaks",
-            "quota_threshold": "Įspėti nuo šios mėnesio užklausų dalies"
+            "quota_threshold": "Įspėti nuo šios mėnesio užklausų dalies",
+            "incident_day_limit": "Daugiausia Incident Details užklausų per dieną (0 = be ribos)"
           },
           "data_description": {
-            "quota_threshold": "Pirmas įspėjimas ateina, kai prognozė pasiekia šią dalį; antras - kai pasiekia 100 %."
+            "quota_threshold": "Pirmas įspėjimas ateina, kai prognozė pasiekia šią dalį; antras - kai pasiekia 100 %.",
+            "incident_day_limit": "Visi įrašai kartu, skaičiuojama nuo vidurnakčio iki vidurnakčio UTC. Pasiekus dienos ribą, iki kitos dienos užklausos nebesiunčiamos: sritys ir sekliai tuo metu nerodo TomTom pranešimų, o nauji maršruto pranešimai ateina be išsamios informacijos. Su 80 per dieną 2 500 nemokamų užklausų užtenka visam mėnesiui."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Mėnesio {api} užklausos senka",
-    "description": "{used} iš {tier} nemokamų **{api}** užklausų po {days} dienų; tokiu tempu apie **{projected}** iki mėnesio pabaigos, {percent} % kvotos ar daugiau.\n\nPadeda rečiau klausti: ilgesnis atnaujinimo intervalas, siauresnės valandos maršrute, eismo srautas mažiau kortelių.\n\nTai išnyksta, kai tempas nukrenta žemiau dalies, nustatytos TomTom nustatymai → Konfigūruoti → Kvotos įspėjimas → TomTom, ir su nauju mėnesiu. Jei tempas pasiekia visą kvotą, seka antras įspėjimas."
+    "description": "{used} iš {tier} nemokamų **{api}** užklausų po {days} dienų; tokiu tempu apie **{projected}** iki mėnesio pabaigos, {percent} % kvotos ar daugiau.\n\nPadeda rečiau klausti: ilgesnis atnaujinimo intervalas, siauresnės valandos maršrute, eismo srautas mažiau kortelių.\n\nTai išnyksta, kai tempas nukrenta žemiau dalies, nustatytos TomTom Nustatymai → Konfigūruoti → Kvotos įspėjimas → TomTom, ir su nauju mėnesiu. Jei tempas pasiekia visą kvotą, seka antras įspėjimas."
   },
   "quotaOverIssue": {
     "title": "{api} kvotos mėnesiui nepakaks",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "{api} dienos užklausos išnaudotos",
     "description": "Visos {tier} **{api}** plano dienos užklausos išnaudotos – Lufop skaičiuoja viską, kas naudoja tą patį raktą. Kitas užklausas jis atmeta iki vidurnakčio UTC – čia {reset}.\n\nRytoj padės mažiau užklausų: ilgesnis atnaujinimo intervalas, siauresnės maršruto valandos arba Lufop išjungimas įrašams už jo šalies ribų."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTom nebeturi laisvų {api} užklausų",
+    "description": "TomTom atmeta tolesnes **{api}** užklausas: raktui jų nebeliko – TomTom tai vadina *insufficient funds*. Pats raktas tvarkingas, o visos kitos API toliau atsako. TomTom skaičiuoja viską, kas naudoja raktą; ši įdiegtis šį mėnesį išsiuntė {used} iš {tier} nemokamų užklausų.\n\nBe Incident Details sritis ar seklys nerodo TomTom pranešimų, o nauji maršruto pranešimai ateina tokie, kokius juos nurodo pats maršrutas: rūšis, vieta ir vėlavimas, be visos atkarpos, jos pradžios ir pabaigos, kelių numerių, TomTom formuluotės ir laikų. Maršrutams, kelionės laikams, eismo srautui ir papildomų šaltinių greičio matuokliams tai įtakos neturi. Be Routing maršruto apskaičiuoti neįmanoma, ir jo įrašas nustoja veikti.\n\nVėl klausiama su kita šiai API skirta užklausa, ne anksčiau kaip po valandos nuo paskutinio atmetimo, o šis taisymas dingsta su pirmu atsakymu."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Dienos Incident Details užklausos išnaudotos",
+    "description": "Šiandien išsiųsta {used} Incident Details užklausų, o riba, nustatyta skiltyje TomTom Nustatymai → Konfigūruoti → Kvotos įspėjimas → TomTom, yra {limit}. Iki vidurnakčio UTC – čia {reset} – daugiau nebesiunčiama.\n\nIki tol sritis ar seklys nerodo TomTom pranešimų, o nauji maršruto pranešimai ateina tokie, kokius juos nurodo pats maršrutas: rūšis, vieta ir vėlavimas, be išsamios informacijos. Maršrutams, kelionės laikams, eismo srautui ir papildomų šaltinių greičio matuokliams tai įtakos neturi.\n\nPadeda mažiau užklausų: ilgesnis atnaujinimo intervalas, rečiau arba visai neužklausiama maršruto išsami informacija, arba didesnė riba – su 80 per dieną 2 500 nemokamų užklausų užtenka visam mėnesiui."
   },
   "device": {
     "general": "TomTom Bendra",

@@ -62,7 +62,7 @@
     }
   },
   "budgetArea": "Jokainen haku on yksi Incident Details -pyyntö (yksi lisää kutakin haun 10 000 km²:ä kohti), ja ilmaisella avaimella niitä on 2 500 kuukaudessa: oletustunnilla alue kuluttaa noin 720.",
-  "budgetRoute": "Tunteinaan jokainen haku on yksi Routing-pyyntö, joita on 20 000 ilmaista kuukaudessa; reitin ilmoitukset tulevat sen mukana, ja Incident Details -pyyntö tehdään kerran jokaista uutta ilmoitusta kohti lopuista tiedoista.",
+  "budgetRoute": "Tunteinaan jokainen haku on yksi Routing-pyyntö, joita on 20 000 ilmaista kuukaudessa; reitin ilmoitukset tulevat sen mukana, ja uusien ilmoitusten loput tiedot haetaan Incident Details -pyynnöillä - viisi ilmoitusta yhdellä pyynnöllä.",
   "entities": {
     "sensor": {
       "report_count": "Ilmoitukset",
@@ -218,11 +218,15 @@
         "live_from": "Alkaen",
         "live_until": "Asti",
         "live_back_from": "Alkaen (paluumatka)",
-        "live_back_until": "Asti (paluumatka)"
+        "live_back_until": "Asti (paluumatka)",
+        "details": "Hae ilmoitusten lisätiedot",
+        "details_interval": "Lisätietojen hakuväli minuutteina (tyhjä = jokaisella haulla)"
       },
       "data_description": {
         "return_route": "Toinen merkintä, määränpäästä lähtöön - moottoritiellä paluumatka on toinen ajorata, eikä ruuhka toisella ole ruuhka toisella. Nimetään tämän merkinnän mukaan lisäyksellä ”paluu”.",
-        "return_name": "Käytetään vain, kun paluumatka luodaan. Esitäytetty tämän merkinnän nimellä ja lisäyksellä ”paluu”; kirjoita toinen antaaksesi sille muun nimen - vaikkapa ”Koti” ja ”Työ”."
+        "return_name": "Käytetään vain, kun paluumatka luodaan. Esitäytetty tämän merkinnän nimellä ja lisäyksellä ”paluu”; kirjoita toinen antaaksesi sille muun nimen - vaikkapa ”Koti” ja ”Työ”.",
+        "details": "Reitti kertoo, minkä läpi se kulkee - lajin, paikan ja viiveen. Kun tämä on päällä, uuden ilmoituksen loput tiedot haetaan Incident Details -pyynnöllä: koko osuus, sen alku ja loppu, tienumerot, TomTomin sanamuoto ja ajat - yksi pyyntö viittä uutta ilmoitusta kohti, ja ilmaisia pyyntöjä on 2 500 kuukaudessa. Lisätiedot haetaan vain ilmoituksille, jotka tämä merkintä näyttää. Pois päältä reitti ei kuluta yhtään Incident Details -pyyntöä.",
+        "details_interval": "Kuinka usein lisätietoja kysytään, riippumatta siitä, kuinka usein itse reitti haetaan. Arvolla 30 uusi ilmoitus näkyy heti sellaisena kuin reitti sen kertoo, ja sen lisätiedot seuraavat puolen tunnin kuluessa - useita ilmoituksia yhdellä pyynnöllä, eikä yhtään ruuhkasta, joka on sillä välin jo purkautunut."
       }
     },
     "route_failed": {
@@ -256,10 +260,12 @@
           "description": "Kuukauden kahdeksannesta päivästä alkaen tähänastiset pyynnöt ennustetaan kuukauden loppuun. Lasketaan se, mitä tämä integraatio pyytää; muuallakin käytetyn avaimen lukema on TomTomilla suurempi.",
           "data": {
             "quota_warning": "Varoita, kun kuukauden pyynnöt käyvät vähiin tai eivät riitä",
-            "quota_threshold": "Varoita tästä osuudesta kuukauden pyynnöistä alkaen"
+            "quota_threshold": "Varoita tästä osuudesta kuukauden pyynnöistä alkaen",
+            "incident_day_limit": "Incident Details -pyyntöjä päivässä enintään (0 = ei rajaa)"
           },
           "data_description": {
-            "quota_threshold": "Ensimmäinen varoitus tulee, kun ennuste saavuttaa tämän osuuden; toinen, kun se saavuttaa 100 %."
+            "quota_threshold": "Ensimmäinen varoitus tulee, kun ennuste saavuttaa tämän osuuden; toinen, kun se saavuttaa 100 %.",
+            "incident_day_limit": "Kaikki merkinnät yhteensä, laskettuna keskiyöstä keskiyöhön UTC. Kun päivän raja on saavutettu, pyyntöjä ei lähetetä ennen seuraavaa päivää: alueet ja seuraimet eivät sillä välin näytä TomTom-ilmoituksia, ja reitin uudet ilmoitukset tulevat ilman lisätietoja. Kun raja on 80 päivässä, 2 500 ilmaista pyyntöä riittää koko kuukaudeksi."
           }
         },
         "lufop": {
@@ -340,7 +346,7 @@
   },
   "quotaIssue": {
     "title": "Kuukauden {api}-pyynnöt käyvät vähiin",
-    "description": "{used} / {tier} ilmaista **{api}**-pyyntöä {days} päivän jälkeen; tällä tahdilla noin **{projected}** kuun loppuun mennessä, {percent} % kiintiöstä tai enemmän.\n\nHarvemmat haut auttavat: pidempi päivitysväli, tiukemmat tunnit reitillä, liikennevirta harvemmilla korteilla.\n\nTämä poistuu, kun tahti laskee alle osuuden, joka on asetettu kohdassa TomTom-asetukset → Määritä → Kiintiövaroitus → TomTom, ja uuden kuun myötä. Jos tahti saavuttaa koko kiintiön, seuraa toinen varoitus."
+    "description": "{used} / {tier} ilmaista **{api}**-pyyntöä {days} päivän jälkeen; tällä tahdilla noin **{projected}** kuun loppuun mennessä, {percent} % kiintiöstä tai enemmän.\n\nHarvemmat haut auttavat: pidempi päivitysväli, tiukemmat tunnit reitillä, liikennevirta harvemmilla korteilla.\n\nTämä poistuu, kun tahti laskee alle osuuden, joka on asetettu kohdassa TomTom Asetukset → Määrittele → Kiintiövaroitus → TomTom, ja uuden kuun myötä. Jos tahti saavuttaa koko kiintiön, seuraa toinen varoitus."
   },
   "quotaOverIssue": {
     "title": "{api}-kiintiö ei riitä kuukaudeksi",
@@ -353,6 +359,14 @@
   "quotaDayUsedUpIssue": {
     "title": "Päivän {api}-pyynnöt on käytetty",
     "description": "Kaikki **{api}**-paketin {tier} päivittäistä pyyntöä on käytetty - Lufop laskee kaiken, mikä käyttää samaa avainta. Se hylkää uudet pyynnöt keskiyöhön UTC asti - täällä klo {reset}.\n\nHarvemmat haut auttavat huomenna: pidempi päivitysväli, tiukemmat tunnit reitillä tai Lufop pois päältä merkinnöiltä, jotka ovat sen maan ulkopuolella."
+  },
+  "quotaUsedUpIssue": {
+    "title": "TomTomilla ei ole {api}-pyyntöjä jäljellä",
+    "description": "TomTom hylkää uudet **{api}**-pyynnöt: avaimella ei ole niitä enää jäljellä - TomTom itse kutsuu tätä nimellä *insufficient funds*. Avain itse on kunnossa, ja kaikki muut API:t vastaavat edelleen. TomTom laskee kaiken, mikä käyttää avainta; tämä asennus on tehnyt tässä kuussa {used} pyyntöä {tier} ilmaisesta.\n\nIlman Incident Details -pyyntöjä alue tai seurain ei näytä TomTom-ilmoituksia, ja reitin uudet ilmoitukset tulevat sellaisina kuin reitti itse ne kertoo: laji, paikka ja viive, ilman koko osuutta, sen alkua ja loppua, tienumeroita, TomTomin sanamuotoa ja aikoja. Tämä ei vaikuta reitteihin, matka-aikoihin, liikennevirtaan eikä muiden lähteiden nopeuskameroihin. Ilman Routing-pyyntöjä reittiä ei voi laskea, ja sen merkintä lakkaa toimimasta.\n\nUudelleen kysytään seuraavalla tälle API:lle tulevalla pyynnöllä, aikaisintaan tunnin kuluttua viimeisimmästä hylkäyksestä, ja tämä poistuu ensimmäisen vastauksen myötä."
+  },
+  "incidentDayLimitIssue": {
+    "title": "Päivän Incident Details -pyynnöt on käytetty",
+    "description": "Tänään on lähetetty {used} Incident Details -pyyntöä, ja kohdassa TomTom Asetukset → Määrittele → Kiintiövaroitus → TomTom asetettu raja on {limit}. Uusia ei lähetetä ennen keskiyötä UTC - täällä klo {reset}.\n\nSiihen asti alue tai seurain ei näytä TomTom-ilmoituksia, ja reitin uudet ilmoitukset tulevat sellaisina kuin reitti itse ne kertoo: laji, paikka ja viive, ilman lisätietoja. Tämä ei vaikuta reitteihin, matka-aikoihin, liikennevirtaan eikä muiden lähteiden nopeuskameroihin.\n\nHarvemmat pyynnöt auttavat: pidempi päivitysväli, reitin lisätietojen hakeminen harvemmin tai ei lainkaan, tai korkeampi raja - kun raja on 80 päivässä, 2 500 ilmaista pyyntöä riittää koko kuukaudeksi."
   },
   "device": {
     "general": "TomTom Yleiset",

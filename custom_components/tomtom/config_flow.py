@@ -55,6 +55,11 @@ from .const import (
     CONF_NEW_MINUTES,
     CONF_ONLY_CERTAIN,
     CONF_JAM_MIN_DELAY,
+    CONF_DETAILS,
+    CONF_DETAILS_INTERVAL,
+    return_word,
+    CONF_INCIDENT_DAY_LIMIT,
+    DEFAULT_INCIDENT_DAY_LIMIT,
     DEFAULT_JAM_MIN_DELAY,
     CONF_RETURN_NAME,
     CONF_RETURN_ROUTE,
@@ -211,12 +216,33 @@ def _kind_section(kind: str, flags: dict) -> section:
     )
 
 
-def _type_fields(data: dict | None) -> dict:
+def _type_fields(data: dict | None, details: bool = False) -> dict:
+    """The fields every mode shares. `details` adds a live route's own
+    two: whether it looks its reports up in Incident Details, and how often
+    (see CONF_DETAILS and CONF_DETAILS_INTERVAL)."""
     data = data or {}
     flags = data.get(CONF_CATEGORIES) or {}
     return {
         **_flags_field(CONF_CATEGORIES, flags, LIST_KIND_DEFAULTS, "category"),
         **{vol.Required(f"kind_{kind}"): _kind_section(kind, flags) for kind in SHARED_SOURCE_KINDS},
+        **(
+            {
+                # A boolean selector rather than a plain bool: the frontend
+                # draws a plain one as a checkbox with its description at
+                # 10px, which under the field below - a number, described at
+                # 12px - read as fine print. The selector's is 12.25px.
+                vol.Required(CONF_DETAILS, default=bool(data.get(CONF_DETAILS, True))): selector({"boolean": {}}),
+                # Optional, with a suggested value rather than a default: a
+                # default would come back every time the field is emptied,
+                # and empty is an answer here - with every poll.
+                vol.Optional(
+                    CONF_DETAILS_INTERVAL,
+                    description={"suggested_value": data.get(CONF_DETAILS_INTERVAL) or None},
+                ): selector({"number": {"min": 1, "max": 1440, "step": 1, "mode": "box", "unit_of_measurement": "min"}}),
+            }
+            if details
+            else {}
+        ),
         vol.Required("optional"): _optional_section(_optional_defaults(data)),
     }
 
@@ -247,6 +273,16 @@ def _common_data(user_input: dict) -> dict:
         flags[kind] = blitzer or lufop
     return {
         CONF_CATEGORIES: flags,
+        # Only where the form asked - a live route's, and the defaults for
+        # new ones.
+        **(
+            {
+                CONF_DETAILS: bool(user_input.get(CONF_DETAILS)),
+                CONF_DETAILS_INTERVAL: int(user_input.get(CONF_DETAILS_INTERVAL) or 0),
+            }
+            if CONF_DETAILS in user_input
+            else {}
+        ),
         CONF_ONLY_CERTAIN: optional.get(CONF_ONLY_CERTAIN, True),
         CONF_JAM_MIN_DELAY: optional.get(CONF_JAM_MIN_DELAY, DEFAULT_JAM_MIN_DELAY),
         CONF_COUNT: optional.get(CONF_COUNT, DEFAULT_COUNT),
@@ -255,6 +291,31 @@ def _common_data(user_input: dict) -> dict:
         CONF_ROADS: optional.get(CONF_ROADS, ""),
         CONF_BLACKLIST: optional.get(CONF_BLACKLIST, ""),
     }
+
+
+def _echo(user_input: dict | None, saved: dict | None = None) -> dict:
+    """What a form shown again after an error is filled from: what was
+    saved, under what was just submitted. The frontend builds the form anew
+    from the schema's defaults each time, so a schema built from the saved
+    values alone gave the form back as it had first come up - every kind
+    unticked, every hour set, every word typed was gone, beside the one
+    error they were to be corrected for."""
+    shown = dict(saved or {})
+    if not user_input:
+        return shown
+    shown.update(_common_data(user_input))
+    for key in (
+        CONF_LOCATION,
+        CONF_LIVE_DAYS,
+        CONF_LIVE_FROM,
+        CONF_LIVE_UNTIL,
+        CONF_LIVE_BACK_FROM,
+        CONF_LIVE_BACK_UNTIL,
+        CONF_RETURN_ROUTE,
+    ):
+        if key in user_input:
+            shown[key] = user_input[key]
+    return shown
 
 
 def _area_schema(hass, data: dict | None):
@@ -338,7 +399,7 @@ def _route_review_schema(data: dict | None, offer_return: bool, return_name_defa
                 else {}
             ),
             **_live_fields(data, back=offer_return),
-            **_type_fields(data),
+            **_type_fields(data, details=True),
         }
     )
 
@@ -376,7 +437,7 @@ def _route_defaults_schema(options: dict):
             ),
             vol.Required(CONF_RETURN_ROUTE, default=bool(options.get(CONF_RETURN_ROUTE, False))): bool,
             **_live_fields(options, back=True),
-            **_type_fields(options),
+            **_type_fields(options, details=True),
         }
     )
 
@@ -567,9 +628,13 @@ class _LiveRouteSteps:
             if place:
                 return await self._accept_end(end, place)
 
+        typed = user_input or {}
         if kind == PLACE_KIND_ZONE:
             field = {
-                vol.Required("zone", description={"suggested_value": current.get("zone") if same_kind else None}): selector(
+                vol.Required(
+                    "zone",
+                    description={"suggested_value": typed.get("zone") or (current.get("zone") if same_kind else None)},
+                ): selector(
                     {"entity": {"domain": "zone"}}
                 )
             }
@@ -583,7 +648,12 @@ class _LiveRouteSteps:
             field = {vol.Required(CONF_LOCATION, default=default): selector({"location": {}})}
         else:
             field = {
-                vol.Required("address", description={"suggested_value": current.get("address") if same_kind else None}): str
+                vol.Required(
+                    "address",
+                    # What was typed, where the search found nothing for it:
+                    # the one thing to do next is to correct it.
+                    description={"suggested_value": typed.get("address") or (current.get("address") if same_kind else None)},
+                ): str
             }
         return self.async_show_form(step_id=step_id, data_schema=vol.Schema(field), errors=errors, last_step=False)
 
@@ -735,7 +805,11 @@ class _LiveRouteSteps:
         delay = route.get("delay")
         return self.async_show_form(
             step_id="route_review",
-            data_schema=_route_review_schema(saved, self._offers_return, self._return_name()),
+            data_schema=_route_review_schema(
+                _echo(user_input, saved),
+                self._offers_return,
+                ((user_input or {}).get(CONF_RETURN_NAME) or "").strip() or self._return_name(),
+            ),
             errors=errors,
             description_placeholders={
                 "start": self._route_start.get("label", ""),
@@ -899,7 +973,7 @@ class TomTomConfigFlow(_KeyStep, _LiveRouteSteps, ConfigFlow, domain=DOMAIN):
                 )
         return self.async_show_form(
             step_id="area",
-            data_schema=_area_schema(self.hass, {CONF_LOCATION: (user_input or {}).get(CONF_LOCATION)} if user_input else None),
+            data_schema=_area_schema(self.hass, _echo(user_input) if user_input else None),
             errors=errors,
             last_step=True,
         )
@@ -925,8 +999,7 @@ class TomTomConfigFlow(_KeyStep, _LiveRouteSteps, ConfigFlow, domain=DOMAIN):
         return self.async_create_entry(title=_title(self._name), data={CONF_NAME: self._name, **data})
 
     def _return_name(self) -> str:
-        suffix = "Rückweg" if self.hass.config.language.startswith("de") else "return"
-        return f"{self._name} - {suffix}"
+        return f"{self._name} - {return_word(self.hass.config.language)}"
 
     def _create_return(self, data: dict, name: str) -> None:
         """The way back as an entry of its own, through a flow of its own -
@@ -1041,10 +1114,18 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
         country = options.get(CONF_LUFOP_COUNTRY) or (
             str(self.hass.config.country or "").lower() if str(self.hass.config.country or "").lower() in LUFOP_COUNTRIES else "fr"
         )
+        # Shown again after an error with what was just chosen - see _echo.
+        # The key is not echoed: it is never shown, saved or not.
+        chosen = user_input or {}
+        country = chosen.get(CONF_LUFOP_COUNTRY) or country
         schema = vol.Schema(
             {
-                vol.Required(CONF_SOURCE_BLITZER, default=bool(options.get(CONF_SOURCE_BLITZER))): bool,
-                vol.Required(CONF_SOURCE_LUFOP, default=bool(options.get(CONF_SOURCE_LUFOP))): bool,
+                vol.Required(
+                    CONF_SOURCE_BLITZER, default=bool(chosen.get(CONF_SOURCE_BLITZER, options.get(CONF_SOURCE_BLITZER)))
+                ): bool,
+                vol.Required(
+                    CONF_SOURCE_LUFOP, default=bool(chosen.get(CONF_SOURCE_LUFOP, options.get(CONF_SOURCE_LUFOP)))
+                ): bool,
                 vol.Optional(CONF_LUFOP_API_KEY): selector({"text": {"type": "password"}}),
                 vol.Required(CONF_LUFOP_COUNTRY, default=country): selector(
                     {"select": {"options": LUFOP_COUNTRIES, "translation_key": "lufop_country", "mode": "dropdown"}}
@@ -1070,6 +1151,9 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
             lufop = user_input.get("lufop") or {}
             options[CONF_QUOTA_WARNING] = bool(tomtom.get(CONF_QUOTA_WARNING))
             options[CONF_QUOTA_THRESHOLD] = int(tomtom.get(CONF_QUOTA_THRESHOLD) or DEFAULT_QUOTA_THRESHOLD)
+            # 0 is a value here - no limit - so not "or the default".
+            limit = tomtom.get(CONF_INCIDENT_DAY_LIMIT)
+            options[CONF_INCIDENT_DAY_LIMIT] = DEFAULT_INCIDENT_DAY_LIMIT if limit is None else max(0, int(limit))
             options[CONF_LUFOP_QUOTA_WARNING] = bool(lufop.get(CONF_LUFOP_QUOTA_WARNING))
             options[CONF_LUFOP_QUOTA_THRESHOLD] = int(
                 lufop.get(CONF_LUFOP_QUOTA_THRESHOLD) or DEFAULT_LUFOP_QUOTA_THRESHOLD
@@ -1091,6 +1175,12 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
                                 CONF_QUOTA_THRESHOLD,
                                 default=int(options.get(CONF_QUOTA_THRESHOLD, DEFAULT_QUOTA_THRESHOLD)),
                             ): share,
+                            # Not a warning but a brake - see
+                            # CONF_INCIDENT_DAY_LIMIT. 0 takes it off.
+                            vol.Optional(
+                                CONF_INCIDENT_DAY_LIMIT,
+                                default=int(options.get(CONF_INCIDENT_DAY_LIMIT, DEFAULT_INCIDENT_DAY_LIMIT)),
+                            ): selector({"number": {"min": 0, "max": 2500, "step": 1, "mode": "box"}}),
                         }
                     ),
                     {"collapsed": True},
@@ -1146,7 +1236,7 @@ class TomTomOptionsFlow(_KeyStep, _LiveRouteSteps, OptionsFlow):
                 )
         return self.async_show_form(
             step_id="area",
-            data_schema=_area_schema(self.hass, dict(self.config_entry.data)),
+            data_schema=_area_schema(self.hass, _echo(user_input, dict(self.config_entry.data))),
             errors=errors,
             last_step=True,
         )
