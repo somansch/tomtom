@@ -2,6 +2,11 @@
 
 All notable changes to this integration are documented here.
 
+## v1.3.1
+
+### Fixed
+- **A card update that failed to load is tried again properly.** After Home Assistant restarts, an open page fetches the new version of the card by itself. When that fetch failed - the connection dropping at just that moment, say - the next tries asked for the same address again, and a browser does not fetch a failed module a second time under the address it failed at: the page stayed on the old card until it was reloaded. Each further try has an address of its own now.
+
 ## v1.3.0
 
 ### Added
